@@ -122,7 +122,7 @@ Use `shouldShowRequestPermissionRationale` para diferenciar "negado uma vez" de 
 
 ## 7. Seed de demonstração
 
-`SeedData` popula no primeiro uso (via `RoomDatabase.Callback.onCreate`, em background e numa transação):
+`SeedData` popula no primeiro uso (em background, numa transação, disparado pelo `LeiaApp`; login e cadastro esperam ele terminar):
 
 - 1 Moderador e 4 alunos de cursos diferentes. Senha de demonstração só no README; o hash BCrypt é gerado no seed.
 - 15 obras reais, 3 disciplinas com nomes genéricos (sem códigos UFMS inventados) e recomendações.

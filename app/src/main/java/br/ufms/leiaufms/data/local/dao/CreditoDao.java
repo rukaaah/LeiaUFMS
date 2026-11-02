@@ -23,6 +23,12 @@ public interface CreditoDao {
     @Query("SELECT COALESCE(SUM(valor), 0) FROM movimento_credito WHERE usuarioId = :usuarioId")
     LiveData<Integer> observeAvailable(long usuarioId);
 
+    /** Créditos presos em pedidos ainda ativos (reserva menos liberação). */
+    @Query("SELECT COALESCE(-SUM(m.valor), 0) FROM movimento_credito m JOIN pedido p ON p.id = m.pedidoId "
+            + "WHERE m.usuarioId = :usuarioId AND m.tipo IN ('RESERVA', 'LIBERACAO') "
+            + "AND p.estado IN ('PENDENTE', 'ACEITO', 'EM_DISPUTA')")
+    int reserved(long usuarioId);
+
     @Query("SELECT * FROM movimento_credito WHERE pedidoId = :pedidoId")
     List<MovimentoCredito> byPedido(long pedidoId);
 

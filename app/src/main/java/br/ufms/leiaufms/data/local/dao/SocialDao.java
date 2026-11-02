@@ -3,6 +3,7 @@ package br.ufms.leiaufms.data.local.dao;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 
 import br.ufms.leiaufms.data.local.entity.Avaliacao;
 import br.ufms.leiaufms.data.local.entity.Desejo;
@@ -32,4 +33,10 @@ public interface SocialDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long upsertAvaliacao(Avaliacao avaliacao);
+
+    @Query("SELECT AVG(nota) FROM avaliacao WHERE avaliadoId = :usuarioId")
+    Double averageRating(long usuarioId);
+
+    @Query("SELECT COUNT(*) FROM avaliacao WHERE avaliadoId = :usuarioId")
+    int ratingCount(long usuarioId);
 }

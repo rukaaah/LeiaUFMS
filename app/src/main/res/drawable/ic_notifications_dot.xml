@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sino com ponto neutro (azul), nunca contador vermelho (princípio "sem ruído social"). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_notifications" />
+    <item
+        android:width="8dp"
+        android:height="8dp"
+        android:drawable="@drawable/dot_unread"
+        android:gravity="top|end" />
+</layer-list>

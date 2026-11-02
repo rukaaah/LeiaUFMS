@@ -18,4 +18,10 @@ public interface PedidoDao {
 
     @Query("SELECT * FROM pedido WHERE id = :id")
     Pedido findById(long id);
+
+    @Query("SELECT COUNT(*) FROM pedido WHERE estado = 'CONCLUIDO' AND (solicitanteId = :usuarioId OR donoId = :usuarioId)")
+    int countConcluded(long usuarioId);
+
+    @Query("SELECT COUNT(*) FROM pedido WHERE estado = 'CONCLUIDO' AND donoId = :usuarioId AND tipo = 'RESGATE'")
+    int countDonations(long usuarioId);
 }

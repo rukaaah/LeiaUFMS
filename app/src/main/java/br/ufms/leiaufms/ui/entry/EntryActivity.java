@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
+import br.ufms.leiaufms.core.notification.Notifier;
 import br.ufms.leiaufms.core.security.SessionManager;
 import br.ufms.leiaufms.core.util.AppExecutors;
 import br.ufms.leiaufms.ui.auth.AuthActivity;
@@ -30,6 +31,9 @@ public class EntryActivity extends AppCompatActivity {
             SessionManager.Status status;
             try {
                 status = session.validate();
+                if (status == SessionManager.Status.VALID) {
+                    Notifier.deliverPending(this, session.currentUserId());
+                }
             } catch (RuntimeException e) {
                 status = SessionManager.Status.NONE;
             }
@@ -42,6 +46,7 @@ public class EntryActivity extends AppCompatActivity {
         Intent next;
         if (status == SessionManager.Status.VALID) {
             next = new Intent(this, MainActivity.class);
+            next.putExtra(Notifier.EXTRA_OPEN_INBOX, getIntent().getBooleanExtra(Notifier.EXTRA_OPEN_INBOX, false));
         } else {
             next = new Intent(this, AuthActivity.class);
             next.putExtra(AuthActivity.EXTRA_SESSION_EXPIRED, status == SessionManager.Status.EXPIRED);

@@ -23,4 +23,29 @@
         android:id="@+id/profileFragment"
         android:name="br.ufms.leiaufms.ui.profile.ProfileFragment"
         android:label="@string/tab_profile" />
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="br.ufms.leiaufms.ui.profile.ProfileFragment"
+        android:label="@string/title_user_profile">
+        <argument
+            android:name="userId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="br.ufms.leiaufms.ui.profile.EditProfileFragment"
+        android:label="@string/title_edit_profile" />
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="br.ufms.leiaufms.ui.profile.ChangePasswordFragment"
+        android:label="@string/title_change_password" />
+
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="br.ufms.leiaufms.ui.inbox.InboxFragment"
+        android:label="@string/title_inbox" />
 </navigation>

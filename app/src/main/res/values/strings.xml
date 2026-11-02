@@ -73,4 +73,90 @@
     <string name="discard_register_message">Os dados que você preencheu serão perdidos.</string>
     <string name="action_discard">Descartar</string>
     <string name="action_keep_editing">Continuar preenchendo</string>
+
+    <!-- Parte 2: perfil (RF-06 a RF-10) -->
+    <string name="title_edit_profile">Editar perfil</string>
+    <string name="title_change_password">Alterar senha</string>
+    <string name="title_inbox">Caixa de avisos</string>
+    <string name="title_user_profile">Perfil</string>
+    <string name="action_edit_profile">Editar perfil</string>
+    <string name="action_change_password">Alterar senha</string>
+    <string name="action_open_inbox">Caixa de avisos</string>
+    <string name="action_change_photo">Alterar foto</string>
+    <string name="action_save">Salvar</string>
+    <string name="action_saving">Salvando…</string>
+    <string name="action_changing">Alterando…</string>
+    <string name="label_status">Status</string>
+    <string name="helper_status">Opcional. Até 80 caracteres.</string>
+    <string name="label_current_password">Senha atual</string>
+    <string name="label_new_password">Nova senha</string>
+    <string name="label_new_password_confirm">Confirme a nova senha</string>
+    <string name="error_current_password">A senha atual não confere.</string>
+    <string name="profile_updated">Perfil atualizado</string>
+    <string name="password_changed">Senha alterada</string>
+    <string name="discard_changes_title">Descartar as alterações?</string>
+    <string name="discard_changes_message">O que você mudou nesta tela não será salvo.</string>
+    <string name="photo_of">Foto de %1$s</string>
+    <string name="initials_of">Sem foto. Iniciais de %1$s</string>
+    <string name="photo_sheet_title">Foto do perfil</string>
+    <string name="action_take_photo">Tirar foto</string>
+    <string name="action_pick_gallery">Escolher da galeria</string>
+    <string name="photo_updated">Foto atualizada</string>
+    <string name="photo_error">Não deu para salvar a foto. Tente de novo.</string>
+    <string name="camera_denied">Para tirar uma foto, permita o uso da câmera nas configurações.</string>
+    <string name="camera_rationale">Sem a câmera não dá para tirar a foto agora. Você ainda pode escolher uma imagem da galeria.</string>
+    <string name="camera_unavailable">Este aparelho não tem câmera disponível. Escolha uma imagem da galeria.</string>
+    <string name="action_open_settings">Abrir configurações</string>
+    <plurals name="credits_available">
+        <item quantity="one">%d crédito disponível</item>
+        <item quantity="other">%d créditos disponíveis</item>
+    </plurals>
+    <plurals name="credits_reserved">
+        <item quantity="one">%d reservado em um pedido</item>
+        <item quantity="other">%d reservados em pedidos</item>
+    </plurals>
+    <string name="credits_hint">Você ganha 1 crédito a cada livro que passa adiante.</string>
+    <string name="metric_trades">Trocas concluídas</string>
+    <string name="metric_rating">Nota média</string>
+    <string name="metric_rating_value">%1$.1f de 5 (%2$d)</string>
+    <string name="metric_none">—</string>
+    <string name="metric_rating_none">Sem avaliações</string>
+    <string name="profile_no_trades">Ainda não concluiu trocas.</string>
+    <string name="section_account">Conta</string>
+    <string name="credits_balance_description">Saldo de créditos</string>
+
+    <!-- Notificações (RF-31 a RF-34) -->
+    <string name="channel_trades">Trocas</string>
+    <string name="channel_trades_desc">Pedidos novos, aceites, recusas, cancelamentos e conclusões</string>
+    <string name="channel_wishes">Desejos</string>
+    <string name="channel_wishes_desc">Um livro da sua lista de desejos foi anunciado</string>
+    <string name="channel_pending">Pendências</string>
+    <string name="channel_pending_desc">Pedidos sem resposta, encontros e prazos</string>
+    <string name="notif_pending_title">Você tem avisos novos</string>
+    <plurals name="notif_pending_text">
+        <item quantity="one">%d aviso chegou enquanto você estava fora.</item>
+        <item quantity="other">%d avisos chegaram enquanto você estava fora.</item>
+    </plurals>
+    <string name="notifications_denied">Os avisos ficam na sua Caixa de avisos. Para recebê-los no celular, ative as notificações.</string>
+    <string name="action_enable">Ativar</string>
+    <string name="inbox_empty_title">Nenhum aviso por enquanto</string>
+    <string name="inbox_empty_message">Quando alguém pedir um livro seu, você fica sabendo aqui.</string>
+    <string name="action_mark_all_read">Marcar todos como lidos</string>
+    <string name="inbox_unread">Não lido</string>
+    <string name="inbox_new">Há avisos novos</string>
+
+    <!-- Tempo relativo -->
+    <string name="time_now">agora</string>
+    <plurals name="time_minutes">
+        <item quantity="one">há %d minuto</item>
+        <item quantity="other">há %d minutos</item>
+    </plurals>
+    <plurals name="time_hours">
+        <item quantity="one">há %d hora</item>
+        <item quantity="other">há %d horas</item>
+    </plurals>
+    <plurals name="time_days">
+        <item quantity="one">há %d dia</item>
+        <item quantity="other">há %d dias</item>
+    </plurals>
 </resources>

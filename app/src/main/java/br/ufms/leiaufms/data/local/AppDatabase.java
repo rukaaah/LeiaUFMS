@@ -2,11 +2,13 @@ package br.ufms.leiaufms.data.local;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.WorkerThread;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import br.ufms.leiaufms.core.util.AppExecutors;
 import br.ufms.leiaufms.data.local.dao.AnuncioDao;
@@ -71,20 +73,35 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract NotificacaoDao notificacaoDao();
 
+    private static final CountDownLatch SEED_READY = new CountDownLatch(1);
+
+    /** Abre o banco e cria os dados de demonstração na primeira execução (em background). */
+    public static void prepare(Context context) {
+        AppExecutors.io().execute(() -> {
+            try {
+                SeedData.populate(get(context));
+            } finally {
+                SEED_READY.countDown();
+            }
+        });
+    }
+
+    /** Login e cadastro esperam o seed terminar para não consultar um banco ainda vazio. */
+    @WorkerThread
+    public static void awaitReady() {
+        try {
+            SEED_READY.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public static AppDatabase get(Context context) {
         if (instance == null) {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
                     Context app = context.getApplicationContext();
-                    instance = Room.databaseBuilder(app, AppDatabase.class, NAME)
-                            .addCallback(new RoomDatabase.Callback() {
-                                @Override
-                                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                                    // O seed usa os DAOs, então roda depois que o banco termina de abrir.
-                                    AppExecutors.io().execute(() -> SeedData.populate(get(app)));
-                                }
-                            })
-                            .build();
+                    instance = Room.databaseBuilder(app, AppDatabase.class, NAME).build();
                 }
             }
         }

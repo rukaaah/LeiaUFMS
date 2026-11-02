@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foto do aluno ou, sem foto, as iniciais sobre primary_container. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/avatar"
+    android:layout_width="@dimen/avatar_large"
+    android:layout_height="@dimen/avatar_large">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatar_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/leia_primary_container"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Leia.Circle" />
+
+    <TextView
+        android:id="@+id/avatar_initials"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:importantForAccessibility="no"
+        android:textAppearance="@style/TextAppearance.Leia.Display"
+        android:textColor="@color/leia_on_primary_container" />
+</FrameLayout>

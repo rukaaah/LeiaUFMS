@@ -20,6 +20,7 @@
     <color name="leia_on_error">#FFFFFF</color>
     <color name="leia_error_container">#F9DEDC</color>
     <color name="leia_on_error_container">#410E0B</color>
+    <color name="leia_inverse_primary">#A8C8F5</color>
     <color name="leia_scrim">#000000</color>
 
     <!-- Ícone do app: fixo nos dois temas -->

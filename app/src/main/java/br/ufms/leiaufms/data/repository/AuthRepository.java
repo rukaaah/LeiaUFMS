@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.WorkerThread;
 
+import br.ufms.leiaufms.core.notification.Notifier;
 import br.ufms.leiaufms.core.security.PasswordHasher;
 import br.ufms.leiaufms.core.security.SessionManager;
 import br.ufms.leiaufms.core.util.Validators;
@@ -15,16 +16,19 @@ public class AuthRepository {
 
     public enum RegisterResult { OK, EMAIL_TAKEN }
 
+    private final Context context;
     private final AppDatabase db;
     private final SessionManager session;
 
     public AuthRepository(Context context) {
+        this.context = context.getApplicationContext();
         db = AppDatabase.get(context);
         session = SessionManager.get(context);
     }
 
     @WorkerThread
     public RegisterResult register(String nome, String email, String curso, int semestre, char[] senha) {
+        AppDatabase.awaitReady();
         String normalized = Validators.normalizeEmail(email);
         if (db.usuarioDao().findByEmail(normalized) != null) {
             PasswordHasher.wipe(senha);
@@ -51,6 +55,7 @@ public class AuthRepository {
     /** Devolve true se as credenciais conferem. Mensagem única para e-mail ou senha errados. */
     @WorkerThread
     public boolean login(String email, char[] senha) {
+        AppDatabase.awaitReady();
         Usuario u = db.usuarioDao().findByEmail(Validators.normalizeEmail(email));
         if (u == null) {
             // Gasta o mesmo tempo de um BCrypt para não revelar se o e-mail existe
@@ -59,6 +64,7 @@ public class AuthRepository {
         }
         if (!PasswordHasher.verify(senha, u.senhaHash)) return false;
         session.start(u.id);
+        Notifier.deliverPending(context, u.id);
         return true;
     }
 

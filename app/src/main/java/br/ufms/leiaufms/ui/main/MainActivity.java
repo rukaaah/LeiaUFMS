@@ -2,16 +2,20 @@ package br.ufms.leiaufms.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import br.ufms.leiaufms.R;
+import br.ufms.leiaufms.core.notification.Notifier;
 import br.ufms.leiaufms.core.security.SessionManager;
+import br.ufms.leiaufms.data.local.AppDatabase;
 import br.ufms.leiaufms.core.util.AppExecutors;
 import br.ufms.leiaufms.databinding.ActivityMainBinding;
 import br.ufms.leiaufms.ui.auth.AuthActivity;
@@ -47,6 +51,29 @@ public class MainActivity extends AppCompatActivity {
                 R.id.exploreFragment, R.id.feedFragment, R.id.tradesFragment, R.id.profileFragment).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, config);
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
+
+        binding.toolbar.inflateMenu(R.menu.main_toolbar);
+        MenuItem inbox = binding.toolbar.getMenu().findItem(R.id.action_inbox);
+        binding.toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_inbox) {
+                navController.navigate(R.id.inboxFragment);
+                return true;
+            }
+            return false;
+        });
+        navController.addOnDestinationChangedListener((controller, destination, args) ->
+                inbox.setVisible(destination.getId() != R.id.inboxFragment));
+        long userId = SessionManager.get(this).currentUserId();
+        AppDatabase.get(this).notificacaoDao().observeUnread(userId).observe(this, count -> {
+            boolean unread = count != null && count > 0;
+            inbox.setIcon(unread ? R.drawable.ic_notifications_dot : R.drawable.ic_notifications);
+            MenuItemCompat.setContentDescription(inbox, unread
+                    ? getString(R.string.title_inbox) + ". " + getString(R.string.inbox_new)
+                    : getString(R.string.title_inbox));
+        });
+        if (savedInstanceState == null && getIntent().getBooleanExtra(Notifier.EXTRA_OPEN_INBOX, false)) {
+            navController.navigate(R.id.inboxFragment);
+        }
     }
 
     @Override

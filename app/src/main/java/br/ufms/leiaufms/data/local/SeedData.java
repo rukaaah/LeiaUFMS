@@ -8,6 +8,7 @@ import br.ufms.leiaufms.data.local.entity.Exemplar;
 import br.ufms.leiaufms.data.local.entity.ItemEstante;
 import br.ufms.leiaufms.data.local.entity.Mensagem;
 import br.ufms.leiaufms.data.local.entity.MovimentoCredito;
+import br.ufms.leiaufms.data.local.entity.Notificacao;
 import br.ufms.leiaufms.data.local.entity.Obra;
 import br.ufms.leiaufms.data.local.entity.ObraDisciplina;
 import br.ufms.leiaufms.data.local.entity.Pedido;
@@ -117,8 +118,12 @@ public final class SeedData {
             // Saldos depois do histórico: Ana 2, Bruno 0, Carla 0, Diego 0
 
             // Um pedido em cada estado (aba Trocas)
-            pedido(aVidasSecas, bruno, ana, Pedido.TIPO_RESGATE, null, PedidoEstado.PENDENTE, true, 5 * HOUR);
+            long pendente = pedido(aVidasSecas, bruno, ana, Pedido.TIPO_RESGATE, null, PedidoEstado.PENDENTE, true, 5 * HOUR);
+            aviso(ana, "Novo pedido de Vidas Secas",
+                    "Bruno Lima quer resgatar seu livro. Ele está sem créditos; você decide se aceita.", pendente, 5 * HOUR);
             long aceito = pedido(aFisica, carla, diego, Pedido.TIPO_TROCA_DIRETA, exCodigo, PedidoEstado.ACEITO, false, 2 * DAY);
+            aviso(carla, "Pedido aceito", "Diego Rocha aceitou trocar Fundamentos de Física. Combine o encontro.",
+                    aceito, 2 * DAY - HOUR);
             mensagem(aceito, diego, "Posso no RU às 12h?", true, DAY);
             mensagem(aceito, carla, "Combinado, levo o Código Limpo.", false, DAY - HOUR);
             pedido(aDom, diego, ana, Pedido.TIPO_TROCA_DIRETA, null, PedidoEstado.RECUSADO, false, 6 * DAY);
@@ -278,6 +283,19 @@ public final class SeedData {
             m.pronta = pronta;
             m.enviadaEm = now - ago;
             db.socialDao().insertMensagem(m);
+        }
+
+        /** Aviso ainda não entregue: aparece como notificação no próximo login da pessoa. */
+        private void aviso(long usuarioId, String titulo, String texto, long pedidoId, long ago) {
+            Notificacao n = new Notificacao();
+            n.usuarioId = usuarioId;
+            n.canal = "trocas";
+            n.titulo = titulo;
+            n.texto = texto;
+            n.destinoTipo = Notificacao.DESTINO_PEDIDO;
+            n.destinoId = pedidoId;
+            n.criadaEm = now - ago;
+            db.notificacaoDao().insert(n);
         }
 
         private void estante(long usuarioId, long obraId, String status) {

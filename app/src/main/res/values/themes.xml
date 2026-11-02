@@ -30,6 +30,7 @@
         <item name="colorSurfaceContainerHigh">@color/leia_surface_container</item>
         <item name="colorSurfaceContainerHighest">@color/leia_surface_container</item>
         <item name="colorOutline">@color/leia_outline</item>
+        <item name="colorPrimaryInverse">@color/leia_inverse_primary</item>
         <item name="colorOutlineVariant">@color/leia_outline_variant</item>
 
         <item name="android:statusBarColor">@color/leia_background</item>

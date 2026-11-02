@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Linha de opção em lista (perfil, folhas): botão de texto alinhado à esquerda, 48 dp. -->
+    <style name="Widget.Leia.ListAction" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leia.Body</item>
+        <item name="android:textColor">@color/leia_on_background</item>
+        <item name="iconTint">@color/leia_on_surface_variant</item>
+        <item name="iconPadding">@dimen/space_m</item>
+        <item name="android:paddingStart">@dimen/space_xs</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <style name="Widget.Leia.SectionTitle" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_l</item>
+        <item name="android:layout_marginBottom">@dimen/space_xs</item>
+        <item name="android:accessibilityHeading">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leia.Title</item>
+        <item name="android:textColor">@color/leia_on_background</item>
+    </style>
+
+    <style name="ShapeAppearance.Leia.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>
