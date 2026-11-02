@@ -15,7 +15,7 @@
 | Hash | `at.favre.lib:bcrypt` | Custo 12 |
 | Splash | `androidx.core:core-splashscreen` | Sem atraso artificial |
 | Localização | `com.google.android.gms:play-services-location` | `getCurrentLocation` sob demanda |
-| Mapa | MapLibre Native Android + estilo OpenFreeMap | Sem chave de API |
+| Mapa | MapLibre Native Android + estilo OpenFreeMap (`tiles.openfreemap.org/styles/liberty`) | Sem chave de API. Câmera inicial no centro de Campo Grande (coordenada pública da cidade, não é ponto de encontro) |
 | Tarefas | WorkManager | Expiração de pedidos e lembretes |
 | Imagens | `ActivityResultContracts.TakePicture` / `PickVisualMedia` + `FileProvider` | — |
 
@@ -77,7 +77,7 @@ App abre
 | `exemplar` | id, obraId, donoAtualId, edicao, conservacao, fotoPath | Objeto físico |
 | `posse_exemplar` | id, exemplarId, usuarioId, desde, ate, pedidoId | Trajetória (RF-17) |
 | `anuncio` | id, exemplarId, donoId, modalidade (`TROCA`/`DOACAO`/`AMBAS`), lat, lng, pontoPreferidoId, ativo, criadoEm | — |
-| `pedido` | id, anuncioId, solicitanteId, donoId, tipo (`TROCA_DIRETA`/`RESGATE`), exemplarOferecidoId (nulo), estado, pontoEncontroId, encontroEm, confirmadoSolicitante, confirmadoDono, semCredito, criadoEm, atualizadoEm | Estados em §5 |
+| `pedido` | id, anuncioId, solicitanteId, donoId, tipo (`TROCA_DIRETA`/`RESGATE`), exemplarOferecidoId (nulo), estado, pontoEncontroId, encontroEm, confirmadoSolicitante, confirmadoDono, semCredito, motivo, criadoEm, atualizadoEm, aceitoEm, lembreteEnviado, lembreteEncontroEnviado | Estados em §5. Banco v2 (migração 1 → 2 adiciona `lembreteEncontroEnviado`) |
 | `mensagem` | id, pedidoId, autorId, texto, pronta (bool), enviadaEm | Só com pedido aceito |
 | `movimento_credito` | id, usuarioId, valor (+1/−1), tipo (`DOACAO`/`RESGATE`/`RESERVA`/`LIBERACAO`), pedidoId, criadoEm | Livro-razão |
 | `avaliacao` | id, pedidoId, avaliadorId, avaliadoId, nota, criadaEm | Única por (pedido, avaliador) |
