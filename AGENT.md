@@ -66,23 +66,19 @@ Para tarefas pequenas (ex.: corrigir um layout), basta ler este arquivo + o docu
 
 ## 6. Design e uso de skills
 
-O briefing do grupo pede três skills: `/design-md-library` (estilo visual), `/design-taste-frontend` (briefing de usabilidade) e `/web-design-guidelines` (auditoria). **Elas não estavam instaladas quando a documentação foi escrita (02/11/2026).** As decisões foram registradas diretamente em `docs/03-design-system.md`.
+O design é definido **exclusivamente** por três skills, nesta ordem:
 
-Procedimento para o agente:
-
-1. Verifique se as skills existem no seu ambiente (lista de skills disponíveis).
-2. Se existirem, use-as **para revisar ou estender** o design system, nunca para substituí-lo sem atualizar `03-design-system.md`.
-3. Se não existirem, use os equivalentes abaixo, se disponíveis, ou siga o design system manualmente:
-
-| Skill pedida | Papel | Equivalente possível | Fallback manual |
+| Ordem | Skill | Quando | Resultado |
 |---|---|---|---|
-| `/design-md-library` | Estilo visual | `design-tokens` | `03-design-system.md` §2 a §5 |
-| `/design-taste-frontend` | Briefing de usabilidade | `design-brief` | `02-especificacao.md` §6 + `03-design-system.md` §1 e §7 |
-| `/web-design-guidelines` | Auditoria | `design-review` | `03-design-system.md` §9 (checklist) |
+| D1 | `/design-md-library` | Uma vez, antes de qualquer tela | Princípios, paleta (claro e escuro, contraste ≥ 4,5:1), tipografia, espaçamento e ícone, que reescrevem `03-design-system.md` §1 a §5 |
+| D2 | `/design-taste-frontend` | Antes de codar cada tela | Briefing da tela: objetivo, ações, hierarquia, estados e microcopy, registrado no §6 |
+| D3 | `/web-design-guidelines` | Fim de cada parte | Auditoria das telas + checklist §9; correções commitadas |
 
-Essas skills equivalentes são orientadas a web. Traduza a saída para Android (XML, `dp`/`sp`, Material Components) antes de aplicar.
+- **Proibido** usar outras skills de design como substitutas. Se alguma das três não estiver disponível, pare e peça ao Pedro para instalá-la.
+- Os valores visuais escritos em `03-design-system.md` antes da D1 são **provisórios**.
+- O passo a passo detalhado, com exemplos, está em `docs/referencias/prompt-implementacao.md`, na seção "Design, usabilidade e uso de skills".
 
-**Regras de design invioláveis:** só tokens do design system; contraste ≥ 4,5:1 (recalcular se mudar cor); alvo de toque ≥ 48 dp; uma ação principal por tela; erro por campo com `TextInputLayout.setError`, nunca só Toast; tema claro e escuro.
+**Regras de design invioláveis:** só tokens do design system; contraste ≥ 4,5:1; alvo de toque ≥ 48 dp; uma ação principal por tela; erro por campo com `TextInputLayout.setError`, nunca só Toast; tema claro e escuro.
 
 ## 7. Como manter a documentação
 

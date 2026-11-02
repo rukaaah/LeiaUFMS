@@ -1,5 +1,7 @@
 # LeiaUFMS: Design System e Usabilidade
 
+> **Status: provisório.** As seções 1 a 5 (princípios, cores, tipografia, espaçamento e componentes) serão redefinidas pela skill `/design-md-library` (Etapa D1) antes da primeira tela, e o §6 receberá os briefings da `/design-taste-frontend`. As seções 7 a 9 (microcopy, acessibilidade e checklist) continuam valendo.
+>
 > Fonte única das decisões visuais e de usabilidade. Todo layout XML deve usar os tokens daqui (via `colors.xml`, `themes.xml`, `dimens.xml`), nunca valores soltos.
 
 ## 1. Conceito

@@ -112,7 +112,7 @@ Detalhamento completo em [`03-design-system.md`](03-design-system.md).
 - **Base:** Material Components for Android, tema `Theme.Material3.DayNight.NoActionBar`, com tema claro e escuro.
 - **Contraste:** todos os pares texto/fundo da paleta passam WCAG AA (≥ 4,5:1), calculados na seção 2 do design system.
 - **Tipografia:** serifada (Literata) só em títulos de livros e cabeçalhos; Roboto (padrão do sistema) no corpo.
-- **Sobre as skills citadas:** `/design-md-library`, `/design-taste-frontend` e `/web-design-guidelines` **não estão instaladas** no ambiente onde esta documentação foi escrita. As decisões foram registradas diretamente aqui e no design system. As skills disponíveis que cobrem o mesmo papel estão mapeadas no `AGENT.md`.
+- **Skills de design:** a direção visual definitiva será gerada **somente** por `/design-md-library` (estilo), `/design-taste-frontend` (briefing por tela) e `/web-design-guidelines` (auditoria), nesta ordem. Os valores acima são provisórios. Procedimento em `AGENT.md` §6.
 
 ---
 
