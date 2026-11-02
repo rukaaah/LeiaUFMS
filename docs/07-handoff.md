@@ -1,8 +1,8 @@
 # Handoff
-- Atualizado em: 02/11/2026 20:10 (horário de Campo Grande)
-- Parte atual: 2 (Perfil, mídia, permissões e notificações), ainda não iniciada
-- Último commit verde: ver `git log --oneline -1` (fim da Parte 1: `docs: log da parte 1`)
-- Feito na Parte 1: design system (D1, paleta UFMS azul/branco), briefings D2 de Splash, Login, Cadastro e abas, RF-01 a RF-05, RN-AUTH-01 a 05, Room com as 19 entidades, seed sem coordenadas, testes JUnit de Validators, PasswordHasher e máquina de estados
+- Atualizado em: 02/11/2026 20:25 (horário de Campo Grande)
+- Parte atual: 3 (Anúncios, trocas, créditos e geolocalização), ainda não iniciada
+- Último commit verde: commit `docs: log da parte 2`
+- Feito na Parte 2: RF-06 a RF-10, RF-31 a RF-34 (infraestrutura: canais, Caixa de avisos, entrega no login, banner de permissão), PermissionHelper, ImageStore, FileProvider
 - Em andamento: nada
-- Próximo passo exato: Etapa D2 (`/design-taste-frontend`) para Perfil, Editar perfil, Alterar senha e Caixa de avisos; depois criar `ui/profile/EditProfileFragment` e `PermissionHelper`
-- Problemas conhecidos: APK debug com ~60 MB por causa das bibliotecas nativas do MapLibre (todas as ABIs); avaliar `abiFilters` só se o tamanho atrapalhar a entrega
+- Próximo passo exato: briefings D2 de Explorar, Detalhe do anúncio, Novo anúncio, Trocas, Pedido e Marcar encontro; depois `ListingRepository` e `TradeRepository` com a máquina de estados em transação Room
+- Problemas conhecidos: APK debug de ~60 MB (MapLibre com todas as ABIs). Destinos de aviso do tipo PEDIDO/ANUNCIO ainda não abrem tela (entram na Parte 3)

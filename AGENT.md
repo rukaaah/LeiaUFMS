@@ -111,11 +111,12 @@ O design é definido **exclusivamente** por três skills, nesta ordem:
 | Documentação | Completa; design system definido (D1) com as cores da UFMS |
 | Projeto Android | Criado (Java, Views, `br.ufms.leiaufms`, minSdk 26, target 37, AGP 9.4.1, Gradle 9.6.0). Versões em `gradle/libs.versions.toml` |
 | Parte 1 | **Concluída**: splash, login, cadastro, sessão, logout, Room com todas as entidades, seed |
+| Parte 2 | **Concluída**: perfil, editar, senha, foto câmera/galeria, permissões, Caixa de avisos e notificações |
 | Integrantes | Pedro Lucas de Souza Cremonini, Gabriel Mattos de Aquino, Angelo Antonio Correia de Souza |
 | Repositório | https://github.com/rukaaah/LeiaUFMS (branch `main`) |
 | Pendências abertas | P-07, P-09, PC-01 a PC-12 (com padrão adotado) |
 | Testes caixa-preta executados | 0 de 59 (executados pelo grupo) |
-| Próximo passo | Parte 2 (perfil, foto, permissões, notificações). Ver `docs/07-handoff.md` |
+| Próximo passo | Parte 3 (anúncios, trocas, créditos, geolocalização, mapa). Ver `docs/07-handoff.md` |
 | Build pela linha de comando | `export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"` e `./gradlew assembleDebug` |
 
 ## 10. Antes de entregar (09/11)
