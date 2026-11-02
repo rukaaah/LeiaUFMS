@@ -1,4 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LeiaUFMS</string>
+
+    <!-- Login (RF-03) -->
+    <string name="login_tagline">Troque livros com quem estuda com você.</string>
+    <string name="label_email">E-mail da UFMS</string>
+    <string name="label_password">Senha</string>
+    <string name="action_login">Entrar</string>
+    <string name="action_login_loading">Entrando…</string>
+    <string name="login_no_account">Ainda não tem conta?</string>
+    <string name="action_go_register">Criar conta</string>
+
+    <!-- Cadastro (RF-02) -->
+    <string name="register_title">Criar conta</string>
+    <string name="register_subtitle">Só para quem tem e-mail da UFMS.</string>
+    <string name="label_name">Nome</string>
+    <string name="label_email_institutional">E-mail institucional</string>
+    <string name="helper_email">Termina em @ufms.br</string>
+    <string name="label_course">Curso</string>
+    <string name="label_semester">Semestre</string>
+    <string name="helper_semester">De 1 a 12</string>
+    <string name="helper_password">8 caracteres ou mais, com pelo menos 1 letra e 1 número.</string>
+    <string name="label_password_confirm">Confirme a senha</string>
+    <string name="action_register">Criar conta</string>
+    <string name="action_register_loading">Criando conta…</string>
+    <string name="register_have_account">Já tem conta?</string>
+    <string name="action_go_login">Entrar</string>
+    <string name="action_back">Voltar</string>
+
+    <!-- Erros de campo (docs/03-design-system.md §7) -->
+    <string name="error_empty_name">Preencha o seu nome.</string>
+    <string name="error_empty_email">Preencha o seu e-mail.</string>
+    <string name="error_empty_course">Preencha o seu curso.</string>
+    <string name="error_empty_semester">Preencha o seu semestre.</string>
+    <string name="error_empty_password">Preencha a sua senha.</string>
+    <string name="error_empty_confirmation">Repita a senha para confirmar.</string>
+    <string name="error_name_short">O nome precisa de pelo menos 2 letras.</string>
+    <string name="error_too_long">Texto muito longo. Use no máximo %1$d caracteres.</string>
+    <string name="error_email_invalid">Confira o e-mail. Ele deve ser como nome@ufms.br.</string>
+    <string name="error_email_domain">Use seu e-mail institucional da UFMS.</string>
+    <string name="error_email_taken">Já existe uma conta com este e-mail. Quer entrar?</string>
+    <string name="error_password_weak">A senha precisa de 8 caracteres, com pelo menos 1 letra e 1 número.</string>
+    <string name="error_password_long">A senha pode ter no máximo 64 caracteres.</string>
+    <string name="error_password_mismatch">As senhas não são iguais.</string>
+    <string name="error_semester_range">Use um semestre de 1 a 12.</string>
+    <string name="error_login_failed">E-mail ou senha incorretos.</string>
+    <string name="error_generic">Algo deu errado. Tente de novo.</string>
+    <string name="session_expired">Sua sessão expirou. Entre de novo.</string>
+
+    <!-- Abas -->
+    <string name="tab_explore">Explorar</string>
+    <string name="tab_feed">Mural</string>
+    <string name="tab_trades">Trocas</string>
+    <string name="tab_profile">Perfil</string>
+
+    <!-- Estados vazios das abas (Parte 1: estrutura) -->
+    <string name="empty_explore_title">Ainda não há livros por aqui</string>
+    <string name="empty_explore_message">Os anúncios da comunidade aparecem nesta aba. Que tal anunciar o seu?</string>
+    <string name="empty_feed_title">O mural está quieto</string>
+    <string name="empty_feed_message">Compartilhe uma dica sobre um livro que você leu.</string>
+    <string name="empty_trades_title">Nenhuma troca por aqui</string>
+    <string name="empty_trades_message">Peça um livro em Explorar e acompanhe o pedido nesta aba.</string>
+    <string name="coming_soon">Em breve neste app.</string>
+
+    <!-- Perfil / logout (RF-05) -->
+    <string name="profile_course_semester">%1$s · %2$dº semestre</string>
+    <string name="action_logout">Sair</string>
+    <string name="logout_title">Sair do LeiaUFMS?</string>
+    <string name="logout_message">Você vai precisar entrar de novo com seu e-mail e senha.</string>
+    <string name="action_cancel">Cancelar</string>
 </resources>

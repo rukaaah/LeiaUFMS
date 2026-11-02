@@ -34,6 +34,8 @@
 
         <item name="android:statusBarColor">@color/leia_background</item>
         <item name="android:navigationBarColor">@color/leia_background</item>
+        <item name="android:windowLightStatusBar">@bool/leia_light_bars</item>
+        <item name="android:windowLightNavigationBar">@bool/leia_light_bars</item>
 
         <item name="fontFamily">@font/inter</item>
         <item name="android:fontFamily">@font/inter</item>
