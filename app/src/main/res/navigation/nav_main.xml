@@ -48,4 +48,46 @@
         android:id="@+id/inboxFragment"
         android:name="br.ufms.leiaufms.ui.inbox.InboxFragment"
         android:label="@string/title_inbox" />
+
+    <fragment
+        android:id="@+id/listingDetailFragment"
+        android:name="br.ufms.leiaufms.ui.listing.ListingDetailFragment"
+        android:label="@string/title_listing">
+        <argument
+            android:name="anuncioId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newListingFragment"
+        android:name="br.ufms.leiaufms.ui.listing.NewListingFragment"
+        android:label="@string/title_new_listing">
+        <argument
+            android:name="anuncioId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tradeDetailFragment"
+        android:name="br.ufms.leiaufms.ui.trade.TradeDetailFragment"
+        android:label="@string/title_trade">
+        <argument
+            android:name="pedidoId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/meetingFragment"
+        android:name="br.ufms.leiaufms.ui.meeting.MeetingFragment"
+        android:label="@string/title_meeting">
+        <argument
+            android:name="pedidoId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <argument
+            android:name="gerenciar"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
 </navigation>

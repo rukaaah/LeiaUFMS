@@ -41,6 +41,13 @@ public final class AppConfig {
     public static final float WALKING_METERS_PER_MINUTE = 80f;
     public static final int[] RADIUS_OPTIONS_METERS = {500, 1000, 2000, 5000};
 
+    // ADR-03: só a câmera inicial do mapa (centro de Campo Grande, coordenada pública da cidade).
+    // Não é ponto de encontro: pontos seguros são criados pelo Moderador no app (PC-07).
+    public static final double MAP_START_LAT = -20.4428;
+    public static final double MAP_START_LNG = -54.6464;
+    public static final double MAP_START_ZOOM = 11.5;
+    public static final String MAP_STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
+
     // PC-09
     public static final int BADGE_DONOR_MIN = 3;
     public static final int BADGE_VETERAN_MIN = 10;

@@ -4,8 +4,9 @@ import android.app.Application;
 
 import br.ufms.leiaufms.core.notification.Notifier;
 import br.ufms.leiaufms.data.local.AppDatabase;
+import br.ufms.leiaufms.work.DeadlineWorker;
 
-/** Application: inicializa o banco. cria os canais de notificação. WorkManager entra na Parte 3. */
+/** Application: inicializa o banco. cria os canais de notificação e agenda a verificação de prazos. */
 public class LeiaApp extends Application {
 
     @Override
@@ -13,5 +14,6 @@ public class LeiaApp extends Application {
         super.onCreate();
         AppDatabase.prepare(this);
         Notifier.createChannels(this);
+        DeadlineWorker.schedule(this);
     }
 }

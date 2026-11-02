@@ -34,6 +34,9 @@ public interface SocialDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long upsertAvaliacao(Avaliacao avaliacao);
 
+    @Query("SELECT usuarioId FROM desejo WHERE obraId = :obraId AND usuarioId != :exceptUserId")
+    java.util.List<Long> wishersOf(long obraId, long exceptUserId);
+
     @Query("SELECT AVG(nota) FROM avaliacao WHERE avaliadoId = :usuarioId")
     Double averageRating(long usuarioId);
 

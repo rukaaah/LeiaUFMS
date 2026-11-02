@@ -5,10 +5,13 @@ import android.content.Context;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.WorkerThread;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import br.ufms.leiaufms.core.util.AppExecutors;
 import br.ufms.leiaufms.data.local.dao.AnuncioDao;
@@ -47,7 +50,7 @@ import br.ufms.leiaufms.data.local.entity.Usuario;
         ObraDisciplina.class, Exemplar.class, PosseExemplar.class, Anuncio.class, Pedido.class,
         Mensagem.class, MovimentoCredito.class, Avaliacao.class, ItemEstante.class, Desejo.class,
         PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class
-}, version = 1, exportSchema = true)
+}, version = 2, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String NAME = "leiaufms.db";
@@ -72,6 +75,14 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract PontoDao pontoDao();
 
     public abstract NotificacaoDao notificacaoDao();
+
+    /** v2: lembrete de "encontro amanhã" (RF-33). */
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("ALTER TABLE pedido ADD COLUMN lembreteEncontroEnviado INTEGER NOT NULL DEFAULT 0");
+        }
+    };
 
     private static final CountDownLatch SEED_READY = new CountDownLatch(1);
 
@@ -101,7 +112,9 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
                     Context app = context.getApplicationContext();
-                    instance = Room.databaseBuilder(app, AppDatabase.class, NAME).build();
+                    instance = Room.databaseBuilder(app, AppDatabase.class, NAME)
+                            .addMigrations(MIGRATION_1_2)
+                            .build();
                 }
             }
         }

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:defaultFocusHighlightEnabled="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/screen_margin"
+        android:paddingEnd="@dimen/screen_margin"
+        android:paddingBottom="@dimen/space_xl">
+
+        <LinearLayout
+            android:id="@+id/book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/cover"
+                layout="@layout/view_cover" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_m"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:accessibilityHeading="true"
+                    android:textAppearance="@style/TextAppearance.Leia.BookTitle"
+                    android:textColor="@color/leia_on_background" />
+
+                <TextView
+                    android:id="@+id/author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                    android:textColor="@color/leia_on_surface_variant" />
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:textAppearance="@style/TextAppearance.Leia.Label"
+                    android:textColor="@color/leia_primary" />
+
+                <TextView
+                    android:id="@+id/offer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                    android:textColor="@color/leia_on_background"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/state_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_l"
+            android:accessibilityLiveRegion="polite"
+            android:background="@drawable/bg_notice"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/space_m">
+
+            <TextView
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/space_xs"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Leia.Title"
+                android:textColor="@color/leia_on_background" />
+
+            <TextView
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xxs"
+                android:textAppearance="@style/TextAppearance.Leia.Body"
+                android:textColor="@color/leia_primary" />
+
+            <TextView
+                android:id="@+id/meeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:drawablePadding="@dimen/space_xs"
+                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                android:textColor="@color/leia_on_background"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_place" />
+
+            <TextView
+                android:id="@+id/reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                android:textColor="@color/leia_on_surface_variant"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/credit_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:background="@drawable/bg_credits"
+            android:padding="@dimen/space_s"
+            android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+            android:textColor="@color/leia_on_tertiary_container"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/party_title"
+            style="@style/Widget.Leia.SectionTitle" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/party_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_s">
+
+                <include
+                    android:id="@+id/party_avatar"
+                    layout="@layout/view_avatar"
+                    android:layout_width="@dimen/avatar_small"
+                    android:layout_height="@dimen/avatar_small" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_s"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/party_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Leia.Title"
+                        android:textColor="@color/leia_on_background" />
+
+                    <TextView
+                        android:id="@+id/party_meta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Leia.Caption"
+                        android:textColor="@color/leia_on_surface_variant" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_l"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_secondary"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xs"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_chat"
+            style="@style/Widget.Leia.ListAction"
+            android:layout_marginTop="@dimen/space_s"
+            android:text="@string/action_open_chat"
+            android:visibility="gone"
+            app:icon="@drawable/ic_chat" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_dispute"
+            style="@style/Widget.Leia.ListAction"
+            android:visibility="gone"
+            app:icon="@drawable/ic_gavel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_cancel"
+            style="@style/Widget.Leia.ListAction"
+            android:text="@string/action_cancel_request"
+            android:textColor="@color/leia_error"
+            android:visibility="gone"
+            app:icon="@drawable/ic_close"
+            app:iconTint="@color/leia_error" />
+    </LinearLayout>
+</ScrollView>

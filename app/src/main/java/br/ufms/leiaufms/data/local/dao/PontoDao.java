@@ -18,6 +18,12 @@ public interface PontoDao {
     @Query("SELECT * FROM ponto_encontro WHERE ativo = 1 ORDER BY nome COLLATE NOCASE")
     List<PontoEncontro> active();
 
+    @Query("SELECT * FROM ponto_encontro WHERE ativo = 1 ORDER BY nome COLLATE NOCASE")
+    androidx.lifecycle.LiveData<List<PontoEncontro>> observeActive();
+
+    @Query("UPDATE ponto_encontro SET ativo = 0 WHERE id = :id")
+    void deactivate(long id);
+
     @Query("SELECT * FROM ponto_encontro WHERE id = :id")
     PontoEncontro findById(long id);
 }

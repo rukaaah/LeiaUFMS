@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/space_l"
+    android:paddingEnd="@dimen/space_l">
+
+    <TextView
+        style="@style/Widget.Leia.FieldLabel"
+        android:labelFor="@id/input_name"
+        android:text="@string/label_point_name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_name"
+        style="@style/Widget.Leia.Field">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_name"
+            style="@style/Widget.Leia.FieldInput"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:maxLength="60" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        style="@style/Widget.Leia.FieldLabel"
+        android:labelFor="@id/input_description"
+        android:text="@string/label_point_description" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_description"
+        style="@style/Widget.Leia.Field"
+        app:counterEnabled="true"
+        app:counterMaxLength="120">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_description"
+            style="@style/Widget.Leia.FieldInput"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLength="120" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

@@ -23,4 +23,15 @@
         <item name="android:textAppearance">@style/TextAppearance.Leia.Body</item>
         <item name="android:textColor">@color/leia_on_background</item>
     </style>
+
+    <!-- Erro de grupo de escolha (chips), no mesmo estilo do erro de TextInputLayout. -->
+    <style name="Widget.Leia.InlineError" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/space_m</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leia.Caption</item>
+        <item name="android:textColor">@color/leia_error</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:accessibilityLiveRegion">polite</item>
+    </style>
 </resources>

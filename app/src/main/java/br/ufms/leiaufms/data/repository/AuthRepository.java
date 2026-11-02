@@ -64,6 +64,7 @@ public class AuthRepository {
         }
         if (!PasswordHasher.verify(senha, u.senhaHash)) return false;
         session.start(u.id);
+        new TradeRepository(context).runDeadlines(System.currentTimeMillis());
         Notifier.deliverPending(context, u.id);
         return true;
     }

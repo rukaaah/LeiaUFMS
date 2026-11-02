@@ -7,6 +7,12 @@
 
     <!-- RF-09: foto pela câmera (pedida no toque em "Tirar foto") -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- RF-27/RF-29: localização sob demanda (pedida no toque em "Perto de mim" ou no mapa) -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Mapa (tiles do OpenFreeMap) e detecção de falta de internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- RF-34: notificações no Android 13+ (pedida na primeira ação relevante) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 

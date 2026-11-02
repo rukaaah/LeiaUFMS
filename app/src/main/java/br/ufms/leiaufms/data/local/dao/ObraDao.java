@@ -18,6 +18,9 @@ public interface ObraDao {
     @Insert
     long insert(Obra obra);
 
+    @androidx.room.Update
+    void update(Obra obra);
+
     @Insert
     long insertDisciplina(Disciplina disciplina);
 

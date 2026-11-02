@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.ufms.leiaufms.data.local.entity.Exemplar;
 import br.ufms.leiaufms.data.local.entity.PosseExemplar;
+import br.ufms.leiaufms.data.local.model.ExemplarRow;
 
 @Dao
 public interface ExemplarDao {
@@ -27,6 +28,12 @@ public interface ExemplarDao {
 
     @Query("SELECT * FROM exemplar WHERE donoAtualId = :usuarioId")
     List<Exemplar> byOwner(long usuarioId);
+
+    @Query("SELECT e.id AS exemplarId, o.id AS obraId, o.titulo, o.autor, e.edicao FROM exemplar e "
+            + "JOIN obra o ON o.id = e.obraId WHERE e.donoAtualId = :usuarioId "
+            + "AND NOT EXISTS (SELECT 1 FROM pedido p WHERE p.exemplarOferecidoId = e.id AND p.estado IN ('ACEITO', 'EM_DISPUTA')) "
+            + "ORDER BY o.titulo COLLATE NOCASE")
+    List<ExemplarRow> offerable(long usuarioId);
 
     @Query("UPDATE posse_exemplar SET ate = :ate WHERE exemplarId = :exemplarId AND ate IS NULL")
     void closeCurrentPossession(long exemplarId, long ate);

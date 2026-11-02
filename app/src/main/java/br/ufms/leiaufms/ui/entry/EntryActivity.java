@@ -9,6 +9,7 @@ import androidx.core.splashscreen.SplashScreen;
 import br.ufms.leiaufms.core.notification.Notifier;
 import br.ufms.leiaufms.core.security.SessionManager;
 import br.ufms.leiaufms.core.util.AppExecutors;
+import br.ufms.leiaufms.data.repository.TradeRepository;
 import br.ufms.leiaufms.ui.auth.AuthActivity;
 import br.ufms.leiaufms.ui.main.MainActivity;
 
@@ -32,6 +33,8 @@ public class EntryActivity extends AppCompatActivity {
             try {
                 status = session.validate();
                 if (status == SessionManager.Status.VALID) {
+                    // RF-24: prazos também são verificados ao abrir o app
+                    new TradeRepository(this).runDeadlines(System.currentTimeMillis());
                     Notifier.deliverPending(this, session.currentUserId());
                 }
             } catch (RuntimeException e) {

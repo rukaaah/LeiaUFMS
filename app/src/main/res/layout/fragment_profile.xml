@@ -194,6 +194,13 @@
                 app:icon="@drawable/ic_notifications" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_points"
+                style="@style/Widget.Leia.ListAction"
+                android:text="@string/action_manage_points"
+                android:visibility="gone"
+                app:icon="@drawable/ic_map" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_logout"
                 style="@style/Widget.Leia.ListAction"
                 android:text="@string/action_logout"

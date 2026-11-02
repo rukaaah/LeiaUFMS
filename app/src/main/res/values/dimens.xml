@@ -30,4 +30,6 @@
     <dimen name="avatar_large">96dp</dimen>
     <dimen name="icon_empty_state">64dp</dimen>
     <dimen name="max_form_width">480dp</dimen>
+    <dimen name="fab_clearance">88dp</dimen>
+    <dimen name="map_height">280dp</dimen>
 </resources>

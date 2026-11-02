@@ -29,6 +29,11 @@ public interface CreditoDao {
             + "AND p.estado IN ('PENDENTE', 'ACEITO', 'EM_DISPUTA')")
     int reserved(long usuarioId);
 
+    /** Reserva ainda presa neste pedido: -1 se reservado e não liberado, 0 caso contrário. */
+    @Query("SELECT COALESCE(SUM(valor), 0) FROM movimento_credito WHERE pedidoId = :pedidoId "
+            + "AND usuarioId = :usuarioId AND tipo IN ('RESERVA', 'LIBERACAO')")
+    int netReserve(long pedidoId, long usuarioId);
+
     @Query("SELECT * FROM movimento_credito WHERE pedidoId = :pedidoId")
     List<MovimentoCredito> byPedido(long pedidoId);
 

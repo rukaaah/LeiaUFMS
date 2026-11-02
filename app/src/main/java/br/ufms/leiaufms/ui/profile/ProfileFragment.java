@@ -1,16 +1,10 @@
 package br.ufms.leiaufms.ui.profile;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -19,20 +13,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import br.ufms.leiaufms.R;
-import br.ufms.leiaufms.core.media.ImageStore;
-import br.ufms.leiaufms.core.permission.PermissionHelper;
 import br.ufms.leiaufms.core.security.SessionManager;
 import br.ufms.leiaufms.data.local.entity.Usuario;
 import br.ufms.leiaufms.data.repository.UserRepository;
 import br.ufms.leiaufms.databinding.FragmentProfileBinding;
-import br.ufms.leiaufms.databinding.SheetPhotoBinding;
 import br.ufms.leiaufms.ui.common.ImageLoader;
+import br.ufms.leiaufms.ui.common.PhotoPicker;
 import br.ufms.leiaufms.ui.main.MainActivity;
+import br.ufms.leiaufms.ui.meeting.MeetingFragment;
 
 /**
  * Cartão de confiança (RF-06), foto pela câmera (RF-09) e pela galeria (RF-10), logout (RF-05).
@@ -44,22 +36,13 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
     private ProfileViewModel viewModel;
-    private PermissionHelper permissions;
-    private ActivityResultLauncher<Uri> takePicture;
-    private ActivityResultLauncher<PickVisualMediaRequest> pickImage;
+    private PhotoPicker photoPicker;
     private boolean own;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        permissions = new PermissionHelper(this);
-        takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), saved -> {
-            // Cancelar a câmera não muda a foto atual
-            if (Boolean.TRUE.equals(saved)) viewModel.savePhoto(ImageStore.newCaptureUri(requireContext()));
-        });
-        pickImage = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-            if (uri != null) viewModel.savePhoto(uri);
-        });
+        photoPicker = new PhotoPicker(this, uri -> viewModel.savePhoto(uri));
     }
 
     @Override
@@ -98,6 +81,11 @@ public class ProfileFragment extends Fragment {
             binding.buttonInbox.setOnClickListener(v -> NavHostFragment.findNavController(this)
                     .navigate(R.id.inboxFragment));
             binding.buttonLogout.setOnClickListener(v -> confirmLogout());
+            binding.buttonPoints.setOnClickListener(v -> {
+                Bundle args = new Bundle();
+                args.putBoolean(MeetingFragment.ARG_MANAGE, true);
+                NavHostFragment.findNavController(this).navigate(R.id.meetingFragment, args);
+            });
         }
     }
 
@@ -114,6 +102,8 @@ public class ProfileFragment extends Fragment {
         boolean hasStatus = u.status != null && !u.status.isEmpty();
         binding.textStatus.setVisibility(hasStatus ? View.VISIBLE : View.GONE);
         binding.textStatus.setText(u.status);
+        // RF-30: só o Moderador cadastra pontos seguros
+        binding.buttonPoints.setVisibility(own && u.isModerador() ? View.VISIBLE : View.GONE);
         int size = getResources().getDimensionPixelSize(R.dimen.avatar_large);
         boolean hasPhoto = ImageLoader.load(binding.avatar.avatarImage, u.fotoPath, size);
         binding.avatar.avatarInitials.setVisibility(hasPhoto ? View.GONE : View.VISIBLE);
@@ -152,50 +142,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showPhotoSheet() {
-        BottomSheetDialog sheet = new BottomSheetDialog(requireContext());
-        SheetPhotoBinding sb = SheetPhotoBinding.inflate(getLayoutInflater());
-        sb.optionCamera.setOnClickListener(v -> {
-            sheet.dismiss();
-            openCamera();
-        });
-        sb.optionGallery.setOnClickListener(v -> {
-            sheet.dismiss();
-            pickImage.launch(new PickVisualMediaRequest.Builder()
-                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                    .build());
-        });
-        sheet.setContentView(sb.getRoot());
-        sheet.show();
-    }
-
-    private void openCamera() {
-        if (!requireContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
-            Snackbar.make(binding.getRoot(), R.string.camera_unavailable, Snackbar.LENGTH_LONG).show();
-            return;
-        }
-        permissions.request(new PermissionHelper.Callback() {
-            @Override
-            public void onGranted() {
-                try {
-                    takePicture.launch(ImageStore.newCaptureUri(requireContext()));
-                } catch (android.content.ActivityNotFoundException e) {
-                    Snackbar.make(binding.getRoot(), R.string.camera_unavailable, Snackbar.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onDenied(boolean permanently) {
-                if (binding == null) return;
-                if (permanently) {
-                    Snackbar.make(binding.getRoot(), R.string.camera_denied, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.action_open_settings,
-                                    v -> PermissionHelper.openAppSettings(requireContext()))
-                            .show();
-                } else {
-                    Snackbar.make(binding.getRoot(), R.string.camera_rationale, Snackbar.LENGTH_LONG).show();
-                }
-            }
-        }, Manifest.permission.CAMERA);
+        photoPicker.show(R.string.photo_sheet_title);
     }
 
     private void confirmLogout() {

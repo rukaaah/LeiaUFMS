@@ -9,6 +9,7 @@
     android:paddingBottom="@dimen/space_l">
 
     <TextView
+        android:id="@+id/sheet_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/space_xs"
