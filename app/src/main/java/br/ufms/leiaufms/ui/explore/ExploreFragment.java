@@ -58,6 +58,13 @@ public class ExploreFragment extends Fragment {
             NavHostFragment.findNavController(this).navigate(R.id.listingDetailFragment, args);
         });
         binding.list.setAdapter(adapter);
+        // Anúncio novo entra no topo: rola até ele em vez de ficar escondido acima da tela
+        adapter.registerAdapterDataObserver(new androidx.recyclerview.widget.RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                if (positionStart == 0 && binding != null) binding.list.scrollToPosition(0);
+            }
+        });
         binding.empty.emptyIcon.setImageResource(R.drawable.ic_book);
         viewModel.listings().observe(getViewLifecycleOwner(), list -> render(adapter, list));
 

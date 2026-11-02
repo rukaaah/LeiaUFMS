@@ -146,7 +146,7 @@ public class ListingDetailFragment extends Fragment {
     private void renderActions() {
         if (current == null || extra == null) return;
         if (extra.ownerMetrics != null) {
-            String meta = getString(R.string.owner_trades, extra.ownerMetrics.trades);
+            String meta = getResources().getQuantityString(R.plurals.owner_trades, extra.ownerMetrics.trades, extra.ownerMetrics.trades);
             if (extra.ownerMetrics.rating != null) meta += " · " + getString(R.string.owner_rating, extra.ownerMetrics.rating);
             binding.ownerMeta.setText(meta);
             binding.ownerCard.setContentDescription(getString(R.string.label_owner) + ": " + current.donoNome + ". " + meta);

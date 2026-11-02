@@ -105,6 +105,10 @@ public class MeetingFragment extends Fragment {
         });
         binding.points.setAdapter(adapter);
         binding.instructions.setText(manage ? R.string.points_instructions : R.string.choose_point_first);
+        if (manage) {
+            com.google.android.material.appbar.MaterialToolbar toolbar = requireActivity().findViewById(R.id.toolbar);
+            if (toolbar != null) toolbar.setTitle(R.string.title_points_manage);
+        }
         binding.instructions.setVisibility(manage ? View.VISIBLE : View.GONE);
         binding.scheduleBox.setVisibility(manage ? View.GONE : View.VISIBLE);
 

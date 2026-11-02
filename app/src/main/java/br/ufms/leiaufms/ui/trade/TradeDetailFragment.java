@@ -59,10 +59,10 @@ public class TradeDetailFragment extends Fragment {
         binding.partyAvatar.avatarInitials.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         viewModel.row().observe(getViewLifecycleOwner(), r -> {
             if (r == null) return;
-            boolean first = current == null;
+            boolean reload = current == null || !current.pedido.estado.equals(r.pedido.estado);
             current = r;
             render(r);
-            if (first) {
+            if (reload) {
                 long other = r.pedido.donoId == viewModel.userId() ? r.pedido.solicitanteId : r.pedido.donoId;
                 viewModel.loadParty(other, r.pedido.solicitanteId);
             }
@@ -141,7 +141,7 @@ public class TradeDetailFragment extends Fragment {
         if (party == null || party.user == null || current == null) return;
         binding.partyName.setText(party.user.nome);
         StringBuilder meta = new StringBuilder(party.user.curso);
-        meta.append(" · ").append(getString(R.string.owner_trades, party.metrics.trades));
+        meta.append(" · ").append(getResources().getQuantityString(R.plurals.owner_trades, party.metrics.trades, party.metrics.trades));
         if (party.metrics.rating != null) meta.append(" · ").append(getString(R.string.owner_rating, party.metrics.rating));
         binding.partyMeta.setText(meta);
         boolean hasPhoto = ImageLoader.load(binding.partyAvatar.avatarImage, party.user.fotoPath,
@@ -159,7 +159,7 @@ public class TradeDetailFragment extends Fragment {
         if (Labels.isRescue(p) && owner) {
             binding.creditNote.setVisibility(View.VISIBLE);
             String text = getString(R.string.trade_requester_balance, party.user.nome, party.requesterCredits);
-            if (p.semCredito) text += "\n" + getString(R.string.trade_no_credit);
+            if (p.semCredito && PedidoEstado.PENDENTE.equals(p.estado)) text += "\n" + getString(R.string.trade_no_credit);
             binding.creditNote.setText(text);
         } else if (Labels.isRescue(p) && p.semCredito && PedidoEstado.PENDENTE.equals(p.estado)) {
             binding.creditNote.setVisibility(View.VISIBLE);

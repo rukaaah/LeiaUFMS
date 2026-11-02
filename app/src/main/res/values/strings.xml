@@ -245,7 +245,10 @@
     <string name="own_listing">Este anúncio é seu.</string>
     <string name="already_requested">Você já pediu este livro.</string>
     <string name="listing_closed">Este anúncio foi encerrado ou já está combinado com outra pessoa.</string>
-    <string name="owner_trades">%1$d trocas concluídas</string>
+    <plurals name="owner_trades">
+        <item quantity="one">%d troca concluída</item>
+        <item quantity="other">%d trocas concluídas</item>
+    </plurals>
     <string name="owner_rating">nota %1$.1f</string>
     <string name="close_listing_title">Encerrar este anúncio?</string>
     <string name="close_listing_message">O livro sai de Explorar e os pedidos pendentes são recusados.</string>
@@ -387,6 +390,7 @@
     <string name="remove_point_title">Remover este ponto?</string>
     <string name="remove_point_message">Ele deixa de aparecer para todos. Encontros já marcados continuam valendo.</string>
     <string name="point_selected">Ponto escolhido: %1$s</string>
+    <string name="title_points_manage">Pontos seguros</string>
     <string name="state_selected">Selecionado</string>
     <string name="map_attribution">© OpenFreeMap © OpenStreetMap</string>
     <string name="notif_permission_rationale">Ative as notificações para saber quando responderem seus pedidos.</string>

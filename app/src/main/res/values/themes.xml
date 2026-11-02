@@ -27,8 +27,8 @@
         <item name="colorSurfaceContainerLowest">@color/leia_surface</item>
         <item name="colorSurfaceContainerLow">@color/leia_surface</item>
         <item name="colorSurfaceContainer">@color/leia_surface_container</item>
-        <item name="colorSurfaceContainerHigh">@color/leia_surface_container</item>
-        <item name="colorSurfaceContainerHighest">@color/leia_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/leia_surface</item>
+        <item name="colorSurfaceContainerHighest">@color/leia_surface</item>
         <item name="colorOutline">@color/leia_outline</item>
         <item name="colorPrimaryInverse">@color/leia_inverse_primary</item>
         <item name="colorOutlineVariant">@color/leia_outline_variant</item>
@@ -141,6 +141,7 @@
 
     <style name="ThemeOverlay.Leia.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="alertDialogStyle">@style/MaterialAlertDialog.Leia</item>
+        <item name="elevationOverlayEnabled">false</item>
         <item name="colorSurface">@color/leia_surface</item>
         <item name="colorSurfaceContainerHigh">@color/leia_surface</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Leia.Large</item>

@@ -49,7 +49,7 @@ public final class ImageLoader {
         String[] parts = name.trim().split("\\s+");
         StringBuilder sb = new StringBuilder();
         for (String p : parts) {
-            if (!p.isEmpty() && Character.isLetter(p.charAt(0))) sb.append(Character.toUpperCase(p.charAt(0)));
+            if (!p.isEmpty() && Character.isLetterOrDigit(p.charAt(0))) sb.append(Character.toUpperCase(p.charAt(0)));
             if (sb.length() == 2) break;
         }
         return sb.toString();

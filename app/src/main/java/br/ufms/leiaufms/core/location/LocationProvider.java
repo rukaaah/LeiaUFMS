@@ -76,11 +76,12 @@ public class LocationProvider {
         client.getCurrentLocation(request, cancellation.getToken())
                 .addOnSuccessListener(location -> {
                     if (location != null) callback.onLocation(location);
-                    else callback.onFailure(Failure.UNAVAILABLE);
+                    else fallback(callback);
                 })
-                .addOnFailureListener(e -> callback.onFailure(Failure.UNAVAILABLE));
+                .addOnFailureListener(e -> fallback(callback));
     }
 
+    /** Sem resposta do Fused: usa a última posição conhecida dos provedores do aparelho. */
     @SuppressLint("MissingPermission")
     private void fallback(Callback callback) {
         LocationManager lm = context.getSystemService(LocationManager.class);

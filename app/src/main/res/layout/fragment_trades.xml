@@ -9,8 +9,8 @@
         android:id="@+id/toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/screen_margin"
-        android:layout_marginEnd="@dimen/screen_margin"
+        android:paddingStart="@dimen/screen_margin"
+        android:paddingEnd="@dimen/screen_margin"
         app:checkedButton="@id/tab_received"
         app:selectionRequired="true"
         app:singleSelection="true">
