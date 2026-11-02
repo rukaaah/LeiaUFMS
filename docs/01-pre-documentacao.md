@@ -108,7 +108,7 @@ O PDF tem 5 páginas e 6 seções. O peso de cada item foi inferido pelo nível 
 
 Detalhamento completo em [`03-design-system.md`](03-design-system.md).
 
-- **Conceito:** "a tranquilidade de um dia de leitura". Papel creme, tinta escura, verde-floresta para ação, âmbar para créditos, sem ruído visual.
+- **Conceito:** "a tranquilidade de um dia de leitura". Cores da UFMS (azul e branco), texto escuro, azul para ação, âmbar só para créditos, sem ruído visual.
 - **Base:** Material Components for Android, tema `Theme.Material3.DayNight.NoActionBar`, com tema claro e escuro.
 - **Contraste:** todos os pares texto/fundo da paleta passam WCAG AA (≥ 4,5:1), calculados na seção 2 do design system.
 - **Tipografia:** Newsreader (serifada, OFL) em títulos de livros e cabeçalhos; Inter (OFL) no corpo.

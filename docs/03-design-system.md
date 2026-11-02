@@ -1,67 +1,67 @@
 # LeiaUFMS: Design System e Usabilidade
 
-> **Status: definido em 02/11/2026 pela skill `/design-md-library` (Etapa D1).** Referência escolhida na biblioteca: **Oura** (papel creme, serifa editorial para sentimento e grotesca para fatos, paleta terrosa, uma única cor de ação). A referência foi adaptada ao LeiaUFMS: nada de logo, texto ou identidade da marca foi copiado. O §6 recebe os briefings da `/design-taste-frontend` (Etapa D2) e o §9 é usado junto com a `/web-design-guidelines` (Etapa D3).
+> **Status: definido em 02/11/2026 pela skill `/design-md-library` (Etapa D1).** Referência escolhida na biblioteca: **Oura** (serifa editorial para sentimento e grotesca para fatos, superfícies planas, uma única cor de ação). A referência foi adaptada ao LeiaUFMS e as cores seguem a identidade da UFMS (azul e branco, pedido do Pedro em 02/11): nada de logo, texto ou identidade da marca foi copiado. O §6 recebe os briefings da `/design-taste-frontend` (Etapa D2) e o §9 é usado junto com a `/web-design-guidelines` (Etapa D3).
 >
 > Fonte única das decisões visuais e de usabilidade. Todo layout XML usa os tokens daqui (via `colors.xml`, `themes.xml`, `type.xml`, `dimens.xml`), nunca valores soltos.
 
 ## 1. Conceito e princípios
 
-**"A tranquilidade de um dia de leitura."** O app se parece com um caderno de leitura em papel: fundo creme, texto em tinta escura, títulos de livro em serifa, e silêncio visual entre os blocos. A cor aparece só quando significa algo.
+**"A tranquilidade de um dia de leitura."** O app se parece com uma página bem diagramada nas cores da UFMS: fundo branco, texto escuro, azul institucional na ação, títulos de livro em serifa e silêncio visual entre os blocos. A cor aparece só quando significa algo.
 
 | Princípio | Na prática |
 |---|---|
-| Calma | Fundo `leia_background` (papel #F7F1E8 no claro, #1A1917 no escuro). No máximo **2 cores de destaque**: verde-floresta para ação e âmbar para créditos/"quero". Animações só de transição, com até **200 ms**; nada pisca nem pula |
-| Clareza | **Uma ação principal por tela**, sempre como botão preenchido (pílula verde, 52 dp de altura) na base do conteúdo ou da tela. Ações secundárias são botões contornados ou de texto |
+| Calma | Fundo `leia_background` (branco #F6F8FB no claro, #15181D no escuro). No máximo **2 cores de destaque**: azul UFMS para ação e âmbar para créditos/"quero". Animações só de transição, com até **200 ms**; nada pisca nem pula |
+| Clareza | **Uma ação principal por tela**, sempre como botão preenchido (pílula azul, 52 dp de altura) na base do conteúdo ou da tela. Ações secundárias são botões contornados ou de texto |
 | Confiança | **Distância, "dá para ir a pé", nota média e trocas do dono** visíveis no card e no detalhe **antes** do botão "Pedir". Ponto de encontro sempre é um ponto seguro com nome |
 | Sem ruído social | Reações aparecem como **texto discreto** ("3 acharam útil"), nunca contador grande, badge vermelho ou ranking. A Caixa de avisos usa um ponto neutro, não um número vermelho |
 | Serifa para sentimento, sans para fatos | **Newsreader** só em títulos de livro e cabeçalhos de tela; **Inter** para tudo que se lê ou se toca (corpo, rótulos, botões, metadados) |
 | Mobile-first, uma mão | Margem lateral de 16 dp, alvos de toque ≥ 48 dp, ação principal na metade inferior, navegação por 4 abas fixas com ícone + rótulo |
-| Papel, não vidro | Superfícies planas: cards com borda fina (1 dp, `leia_outline_variant`) e **elevação 0**. Sombra só em folhas e diálogos |
+| Plano, não vidro | Superfícies planas: cards com borda fina (1 dp, `leia_outline_variant`) e **elevação 0**. Sombra só em folhas e diálogos |
 
 ## 2. Cores
 
-Base Material 3 (`Theme.Material3.DayNight.NoActionBar`). Contraste calculado pela fórmula de luminância relativa da WCAG 2.x (script em Python na sessão de implementação). **Todos os pares de texto passam de 4,5:1** (AA). `leia_outline` é borda de componente (exige 3:1) e `leia_outline_variant` é decorativa.
+Base Material 3 (`Theme.Material3.DayNight.NoActionBar`). **Revisão de 02/11/2026 (pedido do Pedro):** a paleta segue as cores institucionais da UFMS, **azul e branco**, para manter uniformidade com a universidade. O azul é a cor de ação; o branco e um cinza-azulado muito claro são as superfícies; o âmbar fica só para créditos e "quero". Contraste calculado pela fórmula de luminância relativa da WCAG 2.x. **Todos os pares de texto passam de 4,5:1** (AA). `leia_outline` é borda de componente (exige 3:1) e `leia_outline_variant` é decorativa.
 
 ### Tema claro (`values/colors.xml`)
 
 | Token | Hex | Uso | Contraste |
 |---|---|---|---|
-| `leia_background` | `#F7F1E8` | Fundo das telas (papel) | — |
+| `leia_background` | `#F6F8FB` | Fundo das telas (branco levemente azulado) | — |
 | `leia_surface` | `#FFFFFF` | Cards, campos, barra de abas | — |
-| `leia_surface_container` | `#F1EADF` | Blocos de destaque suaves | — |
-| `leia_on_background` | `#1C1B1A` | Texto principal (tinta) | 15,32:1 sobre background; 17,20:1 sobre surface |
-| `leia_on_surface_variant` | `#4A4741` | Texto secundário, metadados | 8,24:1 sobre background; 9,26:1 sobre surface |
-| `leia_primary` | `#2D5A3D` | Ação principal, aba ativa, links (verde-floresta) | 7,08:1 sobre background |
-| `leia_on_primary` | `#FFFFFF` | Texto sobre primary | 7,95:1 |
-| `leia_primary_container` | `#DDE5D3` | Chips selecionados, selos, "a pé" | texto `#1C3323`: 10,49:1 |
-| `leia_tertiary` | `#8A5A12` | Créditos, reação "Quero" (âmbar) | 5,27:1 sobre background; 5,91:1 sobre surface |
+| `leia_surface_container` | `#EDF1F6` | Blocos de destaque suaves | — |
+| `leia_on_background` | `#1A1C20` | Texto principal | 16,04:1 sobre background; 17,06:1 sobre surface |
+| `leia_on_surface_variant` | `#464B54` | Texto secundário, metadados | 8,24:1 sobre background; 8,77:1 sobre surface |
+| `leia_primary` | `#1B4F8F` | Ação principal, aba ativa, links (azul UFMS) | 7,71:1 sobre background; 8,20:1 sobre surface |
+| `leia_on_primary` | `#FFFFFF` | Texto sobre primary | 8,20:1 |
+| `leia_primary_container` | `#DCE6F4` | Chips selecionados, selos, "a pé" | texto `#0D2A4D`: 11,45:1 |
+| `leia_tertiary` | `#8A5A12` | Créditos, reação "Quero" (âmbar) | 5,56:1 sobre background; 5,91:1 sobre surface |
 | `leia_on_tertiary` | `#FFFFFF` | Texto sobre tertiary | 5,91:1 |
 | `leia_tertiary_container` | `#F3E3C3` | Fundo do saldo de créditos | texto `#3D2A08`: 10,82:1 |
-| `leia_error` | `#B3261E` | Erros | 5,82:1 sobre background; 6,54:1 sobre surface |
-| `leia_outline` | `#7D786F` | Borda de campo e botão contornado | 3,91:1 (componente, ≥ 3:1) |
-| `leia_outline_variant` | `#E1DCD3` | Borda de card, divisores | decorativa |
+| `leia_error` | `#B3261E` | Erros | 6,14:1 sobre background; 6,54:1 sobre surface |
+| `leia_outline` | `#747A84` | Borda de campo e botão contornado | 4,06:1 (componente, ≥ 3:1) |
+| `leia_outline_variant` | `#DDE2EA` | Borda de card, divisores | decorativa |
 
 ### Tema escuro (`values-night/colors.xml`)
 
 | Token | Hex | Contraste |
 |---|---|---|
-| `leia_background` | `#1A1917` | — |
-| `leia_surface` | `#262420` | — |
-| `leia_on_background` | `#EFE9DF` | 14,55:1 sobre background; 12,83:1 sobre surface |
-| `leia_on_surface_variant` | `#C2BBAF` | 9,22:1 / 8,13:1 |
-| `leia_primary` | `#A8C9A9` | 9,70:1 / 8,55:1 |
-| `leia_on_primary` | `#10281A` | 8,65:1 sobre primary |
-| `leia_primary_container` | `#2C4433` | texto `#D3E6D2`: 8,08:1 |
-| `leia_tertiary` | `#E2B46C` | 9,18:1 / 8,10:1 |
+| `leia_background` | `#15181D` | — |
+| `leia_surface` | `#1F232A` | — |
+| `leia_on_background` | `#E8ECF2` | 15,01:1 sobre background; 13,30:1 sobre surface |
+| `leia_on_surface_variant` | `#BCC3CE` | 10,03:1 / 8,88:1 |
+| `leia_primary` | `#A8C8F5` | 10,37:1 / 9,19:1 |
+| `leia_on_primary` | `#0A2547` | 8,95:1 sobre primary |
+| `leia_primary_container` | `#1D3A63` | texto `#D6E4FA`: 8,89:1 |
+| `leia_tertiary` | `#E2B46C` | 9,30:1 / 8,24:1 |
 | `leia_on_tertiary` | `#2E1F05` | 8,35:1 sobre tertiary |
 | `leia_tertiary_container` | `#4A3615` | texto `#F6DFB6`: 8,83:1 |
-| `leia_error` | `#F2B8B5` | 10,29:1 / 9,07:1 |
-| `leia_outline` | `#8F897F` | 5,06:1 / 4,46:1 |
+| `leia_error` | `#F2B8B5` | 9,23:1 sobre surface |
+| `leia_outline` | `#8C939E` | 5,09:1 sobre surface |
 
 Regras:
 
 - Cor nunca é o único indicador de estado. Status de pedido sempre tem texto + ícone.
-- Verde é ação; âmbar é crédito e "quero". Nenhuma outra cor de destaque.
+- Azul é ação; âmbar é crédito e "quero". Nenhuma outra cor de destaque.
 - Ícone do app usa cores fixas (`leia_icon_*`), iguais nos dois temas.
 
 ## 3. Tipografia
@@ -107,14 +107,14 @@ Grid de **4 dp** (`values/dimens.xml`).
 
 | Componente | Base Material | Regra |
 |---|---|---|
-| Botão principal | `Widget.Leia.Button` (filled) | Pílula verde, 52 dp. **Um por tela** |
+| Botão principal | `Widget.Leia.Button` (filled) | Pílula azul, 52 dp. **Um por tela** |
 | Botão secundário | `Widget.Leia.Button.Outlined` / `.Text` | Ações alternativas; texto ≥ 48 dp |
 | Card | `Widget.Leia.Card` (`MaterialCardView` outlined) | Superfície branca, borda 1 dp, raio 16 dp, sem sombra |
 | Card de anúncio | `Widget.Leia.Card` | Capa 64×96 dp, título (BookTitle), autor, distância + chip "a pé", modalidade; lido pelo TalkBack como um único item |
 | Campo | `Widget.Leia.TextInputLayout` (outlined) | Raio 12 dp, fundo surface; erro via `setError`, nunca Toast |
 | Chips | `Widget.Leia.Chip` (filter) | Filtros e status de estante; alvo 48 dp |
 | Navegação | `Widget.Leia.BottomNavigation` | 4 abas: Explorar, Mural, Trocas, Perfil; ícone + rótulo sempre visíveis |
-| Barra superior | `Widget.Leia.Toolbar` | Fundo papel, título em Newsreader |
+| Barra superior | `Widget.Leia.Toolbar` | Fundo claro, título em Newsreader |
 | Feedback curto | `Snackbar` | Confirmações ("Anúncio publicado"), com "Desfazer" quando possível |
 | Confirmação | `MaterialAlertDialogBuilder` (`ThemeOverlay.Leia.Dialog`) | Sair, cancelar pedido, abrir disputa |
 | Estado vazio | Ícone 64 dp + frase + botão | Toda lista ensina o próximo passo |
@@ -122,9 +122,9 @@ Grid de **4 dp** (`values/dimens.xml`).
 
 ### Ícone do app (P-05)
 
-- **Conceito:** um livro aberto em papel creme com um **marcador âmbar**: o livro que alguém deixou marcado para passar adiante.
-- **Cores:** fundo verde-floresta `#2D5A3D`, páginas `#F7F1E8`, marcador `#DDAA61`.
-- **Arquivos:** adaptive icon vetorial em `res/mipmap-anydpi/ic_launcher.xml` e `ic_launcher_round.xml` (fundo, frente e camada monocromática para ícones temáticos do Android 13+), declarado no `AndroidManifest.xml` (`android:icon` e `android:roundIcon`). A splash usa `drawable/ic_splash.xml`, o mesmo desenho em tinta verde sobre papel.
+- **Conceito:** um livro aberto em páginas brancas sobre o azul da UFMS, com um **marcador âmbar**: o livro que alguém deixou marcado para passar adiante.
+- **Cores:** fundo azul `#1B4F8F`, páginas `#FFFFFF`, marcador `#DDAA61`.
+- **Arquivos:** adaptive icon vetorial em `res/mipmap-anydpi/ic_launcher.xml` e `ic_launcher_round.xml` (fundo, frente e camada monocromática para ícones temáticos do Android 13+), declarado no `AndroidManifest.xml` (`android:icon` e `android:roundIcon`). A splash usa `drawable/ic_splash.xml`, o mesmo desenho em azul sobre o fundo claro.
 
 ## 6. Mapa de telas
 
@@ -146,6 +146,29 @@ Grid de **4 dp** (`values/dimens.xml`).
 | Editar perfil / Alterar senha | Fragment | Salvar |
 | Estante e desejos | Fragment | Adicionar livro |
 | Caixa de avisos | Fragment | Abrir aviso |
+
+### 6.1 Briefings de tela (Etapa D2, `/design-taste-frontend`)
+
+A skill classifica todas as telas do LeiaUFMS como **telas de app** (trabalhadas, não lidas), então valem as regras de `references/app-screens.md` da skill, traduzidas para Android:
+
+- **Cada tela responde uma pergunta primeiro**; o maior elemento da tela é o que responde essa pergunta.
+- **Rótulo acima do campo**, nunca placeholder no lugar do rótulo. A regra que limita o campo (ex.: regra de senha) fica **visível como texto de ajuda** do campo desde o início, não só depois do erro.
+- **Uma ação preenchida por tela**; secundárias contornadas ou de texto, todas com a mesma altura na mesma linha.
+- **Estados honestos:** zero aparece como zero ("0 créditos"); lista vazia mantém o título da seção e mostra uma frase + próximo passo; carregando mostra o layout final (sem tela piscando); erro aparece **dentro do bloco** que falhou, com "Tentar de novo".
+- **Palavras do ofício** nos rótulos e estados vazios ("Aguardando resposta", "Passei adiante"), nunca "Itens" ou "Registros".
+- **No celular:** navegação por barra inferior de 4 destinos com rótulo curto; filtros em uma linha de chips; o primeiro item da lista começa nos 60% superiores da tela.
+- **Proibido:** gradiente, brilho, sombra em card parado, ícone em círculo colorido, emoji, contador vermelho, rótulo minúsculo em caixa alta com espaçamento largo acima de títulos.
+
+| Tela | Objetivo do usuário | Ação principal → secundárias | Hierarquia (de cima para baixo) | Estados (vazio, carregando, erro, sem permissão) |
+|---|---|---|---|---|
+| Splash | Abrir o app e cair no lugar certo sem esperar | Nenhuma (automática) | Fundo claro, ícone do livro centralizado | Carregando: a própria splash enquanto a sessão é conferida no Room (sem atraso artificial). Erro ao ler a sessão: segue para o Login. Sessão expirada: Login com o aviso "Sua sessão expirou. Entre de novo." |
+| Login | Entrar com o e-mail da UFMS em poucos segundos | **Entrar** → "Criar conta" (texto) | Ícone pequeno + "LeiaUFMS" (Display) → frase "Troque livros com quem estuda com você." → rótulo + campo E-mail → rótulo + campo Senha (com mostrar/ocultar) → botão Entrar → linha "Ainda não tem conta? Criar conta" | Carregando: botão desabilitado com "Entrando…" e indicador; campos bloqueados. Erro de credencial: "E-mail ou senha incorretos." no campo Senha (mensagem única). Campo vazio: "Preencha o seu e-mail." / "Preencha a sua senha." |
+| Cadastro | Criar a conta e já entrar | **Criar conta** → "Já tenho conta" (texto), Voltar | Barra com Voltar e "Criar conta" (Headline) → frase "Só para quem tem e-mail da UFMS." → Nome → E-mail institucional (ajuda: "Termina em @ufms.br") → Curso → Semestre (1 a 12) → Senha (ajuda sempre visível: regra da senha) → Confirmar senha → botão Criar conta | Carregando: botão "Criando conta…" desabilitado. Erros por campo (§7), foco vai para o primeiro campo com erro. E-mail duplicado: no campo E-mail, "Já existe uma conta com este e-mail. Quer entrar?" com ação "Entrar" na Snackbar |
+| Estrutura de abas | Saber onde está e trocar de área com um toque | Trocar de aba → Caixa de avisos (ícone na barra superior, com ponto neutro quando há avisos novos) | Barra superior com o nome da aba (Headline) e ícone da Caixa de avisos → conteúdo → barra inferior fixa: **Explorar, Mural, Trocas, Perfil** (ícone + rótulo sempre visíveis) | Cada aba tem seu estado vazio próprio; a aba ativa preserva a rolagem ao voltar. Voltar na aba inicial fecha o app; nas outras abas volta para Explorar |
+| Explorar (aba) | Achar um livro que eu quero e que esteja perto | Abrir um anúncio → buscar, filtrar (modalidade, raio), "Perto de mim", anunciar (botão preenchido flutuante "Anunciar livro") | Busca → linha de chips de filtro → lista de cards (capa, título, autor, distância, "a pé", modalidade) | Vazio: "Ainda não há livros anunciados. Que tal anunciar o seu?" + Anunciar livro. Busca sem resultado: "Nenhum livro com \"{termo}\". Tente o autor ou o ISBN." Sem localização: lista sem distância + aviso da §7 |
+| Mural (aba) | Ver o que a comunidade está lendo e procurando, sem rolar para sempre | Novo post → reagir "Útil"/"Quero" | Posts dos últimos 14 dias (até 30) → fim "Você está em dia" | Vazio: "O mural está quieto. Compartilhe uma dica sobre um livro." + Novo post |
+| Trocas (aba) | Saber qual pedido precisa de mim agora | Abrir o pedido → alternar "Recebidos" e "Enviados" | Pedidos que pedem ação primeiro, com o próximo passo em texto ("Responda o pedido", "Marque o encontro") → depois os demais | Vazio: "Nenhuma troca por aqui. Peça um livro em Explorar." + Explorar |
+| Perfil (aba) | Ver e cuidar do meu cartão de confiança | Editar perfil → estante, desejos, alterar senha, sair | Foto, nome (Display), curso e semestre → saldo de créditos (âmbar) e métricas → estante → opções da conta → Sair (texto, com confirmação) | Sem foto: iniciais sobre `primary_container`. Estante vazia: "Sua estante está vazia. Adicione o livro que está lendo." |
 
 ## 7. Microcopy e mensagens de erro
 

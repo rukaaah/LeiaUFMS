@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Design system LeiaUFMS, tema escuro (docs/03-design-system.md §2). -->
 <resources>
-    <color name="leia_background">#1A1917</color>
-    <color name="leia_surface">#262420</color>
-    <color name="leia_surface_container">#2E2B27</color>
-    <color name="leia_on_background">#EFE9DF</color>
-    <color name="leia_on_surface_variant">#C2BBAF</color>
-    <color name="leia_outline">#8F897F</color>
-    <color name="leia_outline_variant">#3D3A35</color>
-    <color name="leia_primary">#A8C9A9</color>
-    <color name="leia_on_primary">#10281A</color>
-    <color name="leia_primary_container">#2C4433</color>
-    <color name="leia_on_primary_container">#D3E6D2</color>
+    <color name="leia_background">#15181D</color>
+    <color name="leia_surface">#1F232A</color>
+    <color name="leia_surface_container">#272C34</color>
+    <color name="leia_on_background">#E8ECF2</color>
+    <color name="leia_on_surface_variant">#BCC3CE</color>
+    <color name="leia_outline">#8C939E</color>
+    <color name="leia_outline_variant">#353B45</color>
+    <color name="leia_primary">#A8C8F5</color>
+    <color name="leia_on_primary">#0A2547</color>
+    <color name="leia_primary_container">#1D3A63</color>
+    <color name="leia_on_primary_container">#D6E4FA</color>
     <color name="leia_tertiary">#E2B46C</color>
     <color name="leia_on_tertiary">#2E1F05</color>
     <color name="leia_tertiary_container">#4A3615</color>

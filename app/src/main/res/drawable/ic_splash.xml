@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Ícone da splash: mesmo desenho do launcher, em cor de tinta sobre o fundo papel. -->
+<!-- Ícone da splash: mesmo desenho do launcher, em azul UFMS sobre o fundo claro. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
