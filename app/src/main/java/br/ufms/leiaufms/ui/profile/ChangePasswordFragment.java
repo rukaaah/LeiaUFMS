@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -39,6 +41,25 @@ public class ChangePasswordFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(AccountViewModel.class);
         viewModel.state().observe(getViewLifecycleOwner(), this::render);
         binding.buttonSave.setOnClickListener(v -> submit());
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        boolean dirty = binding.inputCurrent.length() > 0 || binding.inputPassword.length() > 0
+                                || binding.inputConfirm.length() > 0;
+                        if (!dirty) {
+                            NavHostFragment.findNavController(ChangePasswordFragment.this).popBackStack();
+                            return;
+                        }
+                        new MaterialAlertDialogBuilder(requireContext())
+                                .setTitle(R.string.discard_changes_title)
+                                .setMessage(R.string.discard_changes_message)
+                                .setNegativeButton(R.string.action_keep_editing, null)
+                                .setPositiveButton(R.string.action_discard, (d, w) ->
+                                        NavHostFragment.findNavController(ChangePasswordFragment.this).popBackStack())
+                                .show();
+                    }
+                });
     }
 
     private void submit() {

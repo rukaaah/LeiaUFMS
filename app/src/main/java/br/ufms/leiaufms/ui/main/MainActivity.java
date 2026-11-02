@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 R.id.exploreFragment, R.id.feedFragment, R.id.tradesFragment, R.id.profileFragment).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, config);
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
+        // A seta de voltar passa pelo mesmo caminho do botão Voltar (respeita "descartar alterações?")
+        binding.toolbar.setNavigationOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         binding.toolbar.inflateMenu(R.menu.main_toolbar);
         MenuItem inbox = binding.toolbar.getMenu().findItem(R.id.action_inbox);

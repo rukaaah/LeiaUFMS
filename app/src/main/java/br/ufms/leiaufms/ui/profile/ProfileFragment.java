@@ -13,6 +13,8 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -86,6 +88,9 @@ public class ProfileFragment extends Fragment {
         if (own) {
             binding.buttonChangePhoto.setOnClickListener(v -> showPhotoSheet());
             binding.avatar.getRoot().setOnClickListener(v -> showPhotoSheet());
+            ViewCompat.replaceAccessibilityAction(binding.avatar.getRoot(),
+                    AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK,
+                    getString(R.string.action_change_photo), null);
             binding.buttonEdit.setOnClickListener(v -> NavHostFragment.findNavController(this)
                     .navigate(R.id.editProfileFragment));
             binding.buttonPassword.setOnClickListener(v -> NavHostFragment.findNavController(this)

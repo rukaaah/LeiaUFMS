@@ -75,8 +75,7 @@ public class EditProfileFragment extends Fragment {
 
     private void leave(OnBackPressedCallback callback) {
         if (!dirty()) {
-            callback.setEnabled(false);
-            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+            NavHostFragment.findNavController(this).popBackStack();
             return;
         }
         new MaterialAlertDialogBuilder(requireContext())
