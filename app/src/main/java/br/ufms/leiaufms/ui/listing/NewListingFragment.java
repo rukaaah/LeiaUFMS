@@ -105,6 +105,25 @@ public class NewListingFragment extends Fragment {
         });
         viewModel.state().observe(getViewLifecycleOwner(), this::render);
         binding.buttonPublish.setOnClickListener(v -> submit());
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                new androidx.activity.OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        boolean dirty = anuncioId <= 0 && (binding.inputTitle.length() > 0
+                                || binding.inputAuthor.length() > 0 || viewModel.photo != null);
+                        if (!dirty) {
+                            NavHostFragment.findNavController(NewListingFragment.this).popBackStack();
+                            return;
+                        }
+                        new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                                .setTitle(R.string.discard_changes_title)
+                                .setMessage(R.string.discard_changes_message)
+                                .setNegativeButton(R.string.action_keep_editing, null)
+                                .setPositiveButton(R.string.action_discard, (d, w) ->
+                                        NavHostFragment.findNavController(NewListingFragment.this).popBackStack())
+                                .show();
+                    }
+                });
     }
 
     private void fill(ListingRow r) {
@@ -141,6 +160,7 @@ public class NewListingFragment extends Fragment {
         binding.cover.coverImage.setImageURI(viewModel.photo);
         binding.buttonPhoto.setText(R.string.action_change_listing_photo);
         binding.cover.getRoot().setContentDescription(getString(R.string.listing_photo_added));
+        binding.cover.getRoot().setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
     }
 
     private void updateLocationViews() {

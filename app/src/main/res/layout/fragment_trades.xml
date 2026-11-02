@@ -5,32 +5,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggle"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/screen_margin"
-        android:paddingEnd="@dimen/screen_margin"
-        app:checkedButton="@id/tab_received"
-        app:selectionRequired="true"
-        app:singleSelection="true">
+        android:background="@color/leia_background"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/leia_primary"
+        app:tabMinWidth="@dimen/touch_target"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/leia_primary"
+        app:tabTextAppearance="@style/TextAppearance.Leia.Label"
+        app:tabTextColor="@color/leia_on_surface_variant">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tab_received"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="0dp"
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/tab_received" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tab_sent"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="0dp"
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/tab_sent" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+    </com.google.android.material.tabs.TabLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

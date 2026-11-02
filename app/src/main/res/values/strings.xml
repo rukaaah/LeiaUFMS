@@ -194,7 +194,7 @@
     <string name="chat_meeting_auto">Encontro marcado: %1$s, %2$s.</string>
 
     <!-- Explorar (RF-14, RF-27, RF-28) -->
-    <string name="hint_search">Título, autor ou ISBN</string>
+    <string name="hint_search">Título, autor ou ISBN…</string>
     <string name="label_search">Buscar livros</string>
     <string name="filter_all">Todos</string>
     <string name="filter_trade">Troca</string>
@@ -391,6 +391,7 @@
     <string name="remove_point_message">Ele deixa de aparecer para todos. Encontros já marcados continuam valendo.</string>
     <string name="point_selected">Ponto escolhido: %1$s</string>
     <string name="title_points_manage">Pontos seguros</string>
+    <string name="action_point_here">Marcar ponto na minha localização</string>
     <string name="state_selected">Selecionado</string>
     <string name="map_attribution">© OpenFreeMap © OpenStreetMap</string>
     <string name="notif_permission_rationale">Ative as notificações para saber quando responderem seus pedidos.</string>

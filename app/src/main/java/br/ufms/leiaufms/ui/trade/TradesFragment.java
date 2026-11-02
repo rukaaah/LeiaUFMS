@@ -49,16 +49,29 @@ public class TradesFragment extends Fragment {
         binding.list.setAdapter(adapter);
         binding.empty.emptyIcon.setImageResource(R.drawable.ic_swap);
         binding.empty.emptyTitle.setText(R.string.empty_trades_title);
-        if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_SENT)) binding.toggle.check(R.id.tab_sent);
-        binding.toggle.addOnButtonCheckedListener((group, id, checked) -> {
-            if (checked) observe();
+        if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_SENT)) {
+            binding.tabs.selectTab(binding.tabs.getTabAt(1));
+        }
+        binding.tabs.addOnTabSelectedListener(new com.google.android.material.tabs.TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(com.google.android.material.tabs.TabLayout.Tab tab) {
+                observe();
+            }
+
+            @Override
+            public void onTabUnselected(com.google.android.material.tabs.TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(com.google.android.material.tabs.TabLayout.Tab tab) {
+            }
         });
         observe();
     }
 
     private void observe() {
         if (source != null) source.removeObservers(getViewLifecycleOwner());
-        boolean sent = binding.toggle.getCheckedButtonId() == R.id.tab_sent;
+        boolean sent = binding.tabs.getSelectedTabPosition() == 1;
         AppDatabase db = AppDatabase.get(requireContext());
         source = sent ? db.pedidoDao().sent(userId) : db.pedidoDao().received(userId);
         binding.empty.emptyMessage.setText(sent ? R.string.trades_empty_sent : R.string.trades_empty_received);
@@ -77,7 +90,7 @@ public class TradesFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (binding != null) outState.putBoolean(KEY_SENT, binding.toggle.getCheckedButtonId() == R.id.tab_sent);
+        if (binding != null) outState.putBoolean(KEY_SENT, binding.tabs.getSelectedTabPosition() == 1);
     }
 
     @Override

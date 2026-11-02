@@ -135,6 +135,9 @@ public class MeetingFragment extends Fragment {
         binding.buttonTime.setOnClickListener(v -> pickTime());
         binding.buttonConfirm.setOnClickListener(v -> confirm());
         binding.buttonMyLocation.setOnClickListener(v -> showMyLocation());
+        // Alternativa ao toque no mapa (TalkBack e quem está no próprio ponto): usa a posição atual
+        binding.buttonPointHere.setVisibility(manage ? View.VISIBLE : View.GONE);
+        binding.buttonPointHere.setOnClickListener(v -> addPointHere());
 
         if (!isOnline()) {
             showOffline();
@@ -235,6 +238,31 @@ public class MeetingFragment extends Fragment {
                         if (binding == null) return;
                         snack(f == LocationProvider.Failure.DISABLED ? R.string.location_disabled
                                 : R.string.location_unavailable);
+                    }
+                });
+            }
+
+            @Override
+            public void onDenied(boolean permanently) {
+                if (binding != null) snack(R.string.location_denied);
+            }
+        }, LocationProvider.PERMISSIONS);
+    }
+
+    private void addPointHere() {
+        permissions.request(new PermissionHelper.Callback() {
+            @Override
+            public void onGranted() {
+                locationProvider.current(new LocationProvider.Callback() {
+                    @Override
+                    public void onLocation(android.location.Location l) {
+                        if (binding != null) askPointName(new LatLng(l.getLatitude(), l.getLongitude()));
+                    }
+
+                    @Override
+                    public void onFailure(LocationProvider.Failure f) {
+                        if (binding != null) snack(f == LocationProvider.Failure.DISABLED
+                                ? R.string.location_disabled : R.string.location_unavailable);
                     }
                 });
             }

@@ -43,6 +43,18 @@
                 app:srcCompat="@drawable/ic_my_location" />
         </FrameLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_point_here"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_margin"
+            android:layout_marginTop="@dimen/space_s"
+            android:layout_marginEnd="@dimen/screen_margin"
+            android:text="@string/action_point_here"
+            android:visibility="gone"
+            app:icon="@drawable/ic_my_location" />
+
         <TextView
             android:id="@+id/map_notice"
             android:layout_width="match_parent"
