@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import br.ufms.leiaufms.R;
 import br.ufms.leiaufms.core.security.SessionManager;
+import br.ufms.leiaufms.data.local.AppDatabase;
 import br.ufms.leiaufms.data.local.entity.Usuario;
 import br.ufms.leiaufms.data.repository.UserRepository;
 import br.ufms.leiaufms.databinding.FragmentProfileBinding;
@@ -64,6 +65,8 @@ public class ProfileFragment extends Fragment {
         viewModel.user().observe(getViewLifecycleOwner(), this::renderUser);
         viewModel.metrics().observe(getViewLifecycleOwner(), this::renderMetrics);
         viewModel.photoState().observe(getViewLifecycleOwner(), this::renderPhotoState);
+        // RF-35: estante pública no perfil (próprio ou de outro aluno)
+        AppDatabase.get(requireContext()).socialDao().shelf(userId).observe(getViewLifecycleOwner(), this::renderShelf);
 
         binding.buttonChangePhoto.setVisibility(own ? View.VISIBLE : View.GONE);
         binding.creditsBox.setVisibility(own ? View.VISIBLE : View.GONE);
@@ -76,6 +79,8 @@ public class ProfileFragment extends Fragment {
                     getString(R.string.action_change_photo), null);
             binding.buttonEdit.setOnClickListener(v -> NavHostFragment.findNavController(this)
                     .navigate(R.id.editProfileFragment));
+            binding.buttonShelf.setOnClickListener(v -> NavHostFragment.findNavController(this)
+                    .navigate(R.id.shelfFragment));
             binding.buttonPassword.setOnClickListener(v -> NavHostFragment.findNavController(this)
                     .navigate(R.id.changePasswordFragment));
             binding.buttonInbox.setOnClickListener(v -> NavHostFragment.findNavController(this)
@@ -110,6 +115,29 @@ public class ProfileFragment extends Fragment {
         binding.avatar.avatarInitials.setText(ImageLoader.initials(u.nome));
         binding.avatar.getRoot().setContentDescription(hasPhoto
                 ? getString(R.string.photo_of, u.nome) : getString(R.string.initials_of, u.nome));
+    }
+
+    private void renderShelf(java.util.List<br.ufms.leiaufms.data.local.model.ShelfRow> rows) {
+        binding.shelfPreview.removeAllViews();
+        if (rows == null || rows.isEmpty()) {
+            android.widget.TextView t = line(getString(R.string.profile_shelf_empty));
+            binding.shelfPreview.addView(t);
+            return;
+        }
+        for (br.ufms.leiaufms.data.local.model.ShelfRow r : rows) {
+            binding.shelfPreview.addView(line(getString(R.string.shelf_line, r.titulo,
+                    br.ufms.leiaufms.ui.shelf.ShelfAdapter.statusLabel(requireContext(), r))));
+        }
+    }
+
+    private android.widget.TextView line(String text) {
+        android.widget.TextView t = new android.widget.TextView(requireContext());
+        t.setText(text);
+        t.setTextAppearance(R.style.TextAppearance_Leia_Body);
+        t.setTextColor(requireContext().getColor(R.color.leia_on_background));
+        int pad = getResources().getDimensionPixelSize(R.dimen.space_xxs);
+        t.setPadding(0, pad, 0, pad);
+        return t;
     }
 
     private void renderMetrics(UserRepository.Metrics m) {

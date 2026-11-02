@@ -1,5 +1,6 @@
 package br.ufms.leiaufms.data.local.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -11,6 +12,10 @@ import br.ufms.leiaufms.data.local.entity.ItemEstante;
 import br.ufms.leiaufms.data.local.entity.Mensagem;
 import br.ufms.leiaufms.data.local.entity.PostMural;
 import br.ufms.leiaufms.data.local.entity.Reacao;
+import br.ufms.leiaufms.data.local.model.MessageRow;
+import br.ufms.leiaufms.data.local.model.ShelfRow;
+
+import java.util.List;
 
 /** Estante, desejos, mural, reações, chat e avaliações (RF-25, RF-35 a RF-40). */
 @Dao
@@ -33,6 +38,42 @@ public interface SocialDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long upsertAvaliacao(Avaliacao avaliacao);
+
+    // ---- Chat (RF-40)
+    @Query("SELECT m.id, m.autorId, u.nome AS autorNome, m.texto, m.pronta, m.enviadaEm FROM mensagem m "
+            + "JOIN usuario u ON u.id = m.autorId WHERE m.pedidoId = :pedidoId ORDER BY m.enviadaEm, m.id")
+    LiveData<List<MessageRow>> messages(long pedidoId);
+
+    // ---- Estante (RF-35)
+    @Query("SELECT i.id, i.obraId, i.status, o.titulo, o.autor, 0 AS disponiveis, NULL AS anuncioId "
+            + "FROM item_estante i JOIN obra o ON o.id = i.obraId WHERE i.usuarioId = :usuarioId "
+            + "ORDER BY CASE i.status WHEN 'LENDO' THEN 0 WHEN 'LIDO' THEN 1 ELSE 2 END, i.atualizadoEm DESC")
+    LiveData<List<ShelfRow>> shelf(long usuarioId);
+
+    @Query("SELECT * FROM item_estante WHERE id = :id")
+    ItemEstante shelfItem(long id);
+
+    @Query("DELETE FROM item_estante WHERE id = :id AND usuarioId = :usuarioId")
+    void deleteShelf(long id, long usuarioId);
+
+    // ---- Desejos (RF-37)
+    @Query("SELECT d.id, d.obraId, 'DESEJO' AS status, o.titulo, o.autor, "
+            + "(SELECT COUNT(*) FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId "
+            + " WHERE e.obraId = d.obraId AND a.ativo = 1 AND a.donoId != d.usuarioId) AS disponiveis, "
+            + "(SELECT a.id FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId "
+            + " WHERE e.obraId = d.obraId AND a.ativo = 1 AND a.donoId != d.usuarioId ORDER BY a.criadoEm DESC LIMIT 1) AS anuncioId "
+            + "FROM desejo d JOIN obra o ON o.id = d.obraId WHERE d.usuarioId = :usuarioId ORDER BY d.criadoEm DESC")
+    LiveData<List<ShelfRow>> wishes(long usuarioId);
+
+    @Query("DELETE FROM desejo WHERE id = :id AND usuarioId = :usuarioId")
+    void deleteWish(long id, long usuarioId);
+
+    @Query("SELECT COUNT(*) FROM desejo WHERE usuarioId = :usuarioId AND obraId = :obraId")
+    int hasWish(long usuarioId, long obraId);
+
+    // ---- Avaliações (RF-25)
+    @Query("SELECT * FROM avaliacao WHERE pedidoId = :pedidoId AND avaliadorId = :avaliadorId LIMIT 1")
+    Avaliacao rating(long pedidoId, long avaliadorId);
 
     @Query("SELECT usuarioId FROM desejo WHERE obraId = :obraId AND usuarioId != :exceptUserId")
     java.util.List<Long> wishersOf(long obraId, long exceptUserId);

@@ -356,7 +356,6 @@
     <string name="trade_cancelled_done">Pedido cancelado</string>
     <string name="trade_confirmed_done">Confirmação registrada</string>
     <string name="error_invalid_state">Este pedido mudou. Veja o estado atual.</string>
-    <string name="chat_soon">O chat do pedido chega na próxima versão.</string>
 
     <!-- Marcar encontro e pontos seguros (RF-21, RF-29, RF-30) -->
     <string name="title_meeting">Marcar encontro</string>
@@ -395,4 +394,67 @@
     <string name="state_selected">Selecionado</string>
     <string name="map_attribution">© OpenFreeMap © OpenStreetMap</string>
     <string name="notif_permission_rationale">Ative as notificações para saber quando responderem seus pedidos.</string>
+
+    <!-- Parte 4: chat (RF-40) -->
+    <string name="title_chat">Chat do pedido</string>
+    <string name="notif_message_title">Mensagem de %1$s</string>
+    <string name="chat_header">%1$s · com %2$s</string>
+    <string name="chat_locked">O chat abre quando o pedido for aceito.</string>
+    <string name="chat_closed">Este pedido foi encerrado. O chat fica só para leitura.</string>
+    <string name="chat_empty">Nenhuma mensagem ainda. Use uma mensagem pronta para começar.</string>
+    <string name="label_message">Mensagem</string>
+    <string name="hint_message">Escreva uma mensagem…</string>
+    <string name="action_send">Enviar</string>
+    <string name="chat_too_long">A mensagem pode ter no máximo 300 caracteres.</string>
+    <string name="chat_me">Você</string>
+    <string name="chat_bubble_description">%1$s, %2$s: %3$s</string>
+    <string name="quick_1">Posso no RU às 12h?</string>
+    <string name="quick_2">Cheguei</string>
+    <string name="quick_3">Vou me atrasar 10 min</string>
+    <string name="quick_4">Podemos remarcar?</string>
+    <string name="quick_label">Mensagens prontas</string>
+
+    <!-- Estante e desejos (RF-35 a RF-37) -->
+    <string name="title_shelf">Estante e desejos</string>
+    <string name="action_open_shelf">Estante e desejos</string>
+    <string name="tab_shelf">Estante</string>
+    <string name="tab_wishes">Desejos</string>
+    <string name="shelf_reading">Estou lendo</string>
+    <string name="shelf_read">Lido</string>
+    <string name="shelf_passed">Passei adiante</string>
+    <string name="shelf_empty_title">Sua estante está vazia</string>
+    <string name="shelf_empty_message">Adicione o livro que está lendo.</string>
+    <string name="wishes_empty_title">Sua lista de desejos está vazia</string>
+    <string name="wishes_empty_message">Adicione um livro e avisamos quando ele for anunciado.</string>
+    <string name="action_add_book">Adicionar livro</string>
+    <string name="add_shelf_title">Adicionar à estante</string>
+    <string name="add_wish_title">Adicionar aos desejos</string>
+    <string name="wish_available">Disponível agora</string>
+    <string name="wish_not_available">Ainda não anunciado</string>
+    <string name="wish_duplicate">Este livro já está na sua lista de desejos.</string>
+    <string name="wish_added">Livro adicionado aos desejos. Avisamos quando ele for anunciado.</string>
+    <string name="shelf_added">Livro adicionado à estante</string>
+    <string name="action_mark_read">Terminei de ler</string>
+    <string name="action_mark_reading">Voltar para "Estou lendo"</string>
+    <string name="action_pass_on">Passar adiante</string>
+    <string name="action_view_listing">Ver anúncio</string>
+    <string name="pass_on_title">Quer passar este livro adiante?</string>
+    <string name="pass_on_message">Anunciar %1$s ajuda outra pessoa e rende 1 crédito quando a doação for concluída.</string>
+    <string name="action_announce">Anunciar</string>
+    <string name="action_not_now">Agora não</string>
+    <string name="shelf_item_actions">Ações para %1$s</string>
+    <string name="profile_shelf_title">Estante</string>
+    <string name="profile_shelf_empty">Nenhum livro na estante ainda.</string>
+    <string name="shelf_line">%1$s · %2$s</string>
+
+    <!-- Avaliações (RF-25) -->
+    <string name="action_rate">Avaliar a troca</string>
+    <string name="action_edit_rating">Mudar minha nota</string>
+    <string name="rate_title">Como foi a troca com %1$s?</string>
+    <string name="rate_star">%1$d de 5</string>
+    <string name="action_send_rating">Enviar nota</string>
+    <string name="rating_saved">Obrigado pela avaliação</string>
+    <string name="rating_mine">Sua nota: %1$d de 5</string>
+    <string name="rating_expired">O prazo de 48 horas para mudar a nota terminou.</string>
+    <string name="rate_choose">Escolha de 1 a 5 estrelas.</string>
 </resources>

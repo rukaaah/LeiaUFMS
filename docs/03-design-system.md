@@ -193,6 +193,14 @@ A skill classifica todas as telas do LeiaUFMS como **telas de app** (trabalhadas
 | Marcar encontro | Escolher um ponto seguro e um horário | **Confirmar encontro** → ver em lista, minha posição | Mapa com os pontos seguros (marcadores) → ponto escolhido (nome e descrição) → data e hora → botão | Sem pontos: "Ainda não há pontos seguros cadastrados. Peça ao Moderador para cadastrar os pontos do campus.". Sem internet: "O mapa precisa de internet. Veja os pontos seguros em lista.". Data no passado ou após o prazo: erro no campo |
 | Pontos seguros (Moderador) | Cadastrar os pontos de encontro do campus | **Tocar no mapa** para adicionar → nome e descrição em diálogo | Mapa → instrução "Toque no mapa para marcar um ponto seguro." → lista dos pontos | Sem internet: o mapa não carrega e a tela explica que precisa de internet para cadastrar |
 
+#### Parte 4 (chat, estante, desejos e avaliações)
+
+| Tela | Objetivo do usuário | Ação principal → secundárias | Hierarquia (de cima para baixo) | Estados (vazio, carregando, erro, sem permissão) |
+|---|---|---|---|---|
+| Chat do pedido | Combinar a logística do encontro rápido, sem conversa solta | **Enviar** → mensagens prontas em um toque | Livro e outra parte no topo (uma linha) → mensagens (minhas à direita em azul-claro, da outra parte à esquerda em branco, hora em legenda) → linha de mensagens prontas (chips) → campo com contador "0/300" e botão Enviar | Pedido pendente: "O chat abre quando o pedido for aceito." e campo escondido. Pedido encerrado: "Este pedido foi encerrado. O chat fica só para leitura." Sem mensagens: "Nenhuma mensagem ainda. Use uma mensagem pronta para começar." Texto acima de 300: botão desabilitado e contador em vermelho |
+| Estante e desejos | Mostrar o que estou lendo e lembrar o que quero, para ser avisado | **Adicionar livro** (na aba ativa) → mudar status, remover, "Passar adiante" | Abas Estante / Desejos → seções da estante em ordem: Estou lendo, Lido, Passei adiante → em Desejos, cada obra com "Disponível agora" quando houver anúncio | Estante vazia: "Sua estante está vazia. Adicione o livro que está lendo." Desejos vazio: "Sua lista de desejos está vazia. Adicione um livro e avisamos quando ele for anunciado." Ao marcar Lido: pergunta "Quer passar este livro adiante?" |
+| Avaliar troca | Dar uma nota justa depois da troca | **Enviar nota** → Agora não | Pergunta "Como foi a troca com {nome}?" → 5 estrelas (alvo 48 dp cada, rótulo "{n} de 5") → botão | Só aparece em pedido concluído. Editável por 48 h; depois mostra "Sua nota: {n} de 5" |
+
 ## 7. Microcopy e mensagens de erro
 
 Tom: segunda pessoa, frases curtas, diz o que aconteceu e como resolver. Nada de "Erro 500", "inválido" sem contexto ou culpa no usuário.
@@ -216,6 +224,7 @@ Tom: segunda pessoa, frases curtas, diz o que aconteceu e como resolver. Nada de
 | Câmera negada | "Para tirar uma foto, permita o uso da câmera nas configurações." |
 | Notificação negada | "Os avisos ficam na sua Caixa de avisos. Para recebê-los no celular, ative as notificações." |
 | Chat bloqueado | "O chat abre quando o pedido for aceito." |
+| Chat encerrado | "Este pedido foi encerrado. O chat fica só para leitura." |
 | Encontro fora de ponto seguro | "Escolha um dos pontos seguros marcados no mapa." |
 | Sem pontos seguros | "Ainda não há pontos seguros cadastrados. Peça ao Moderador para cadastrar os pontos do campus." |
 | Sessão expirada | "Sua sessão expirou. Entre de novo." |

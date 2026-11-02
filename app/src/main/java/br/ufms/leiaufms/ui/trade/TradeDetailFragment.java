@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +20,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import br.ufms.leiaufms.AppConfig;
 import br.ufms.leiaufms.R;
+import br.ufms.leiaufms.data.local.entity.Avaliacao;
+import br.ufms.leiaufms.databinding.DialogRatingBinding;
+import br.ufms.leiaufms.ui.chat.ChatFragment;
 import br.ufms.leiaufms.data.local.entity.Pedido;
 import br.ufms.leiaufms.data.local.model.PedidoRow;
 import br.ufms.leiaufms.data.pedido.PedidoEstado;
@@ -68,6 +73,7 @@ public class TradeDetailFragment extends Fragment {
             }
         });
         viewModel.party().observe(getViewLifecycleOwner(), this::renderParty);
+        viewModel.myRating().observe(getViewLifecycleOwner(), this::renderRating);
         viewModel.result().observe(getViewLifecycleOwner(), res -> {
             if (res == null) return;
             viewModel.consume();
@@ -134,6 +140,7 @@ public class TradeDetailFragment extends Fragment {
         } else if (PedidoEstado.EM_DISPUTA.equals(p.estado) || PedidoEstado.CONCLUIDO.equals(p.estado)
                 || PedidoEstado.CANCELADO.equals(p.estado)) {
             if (p.aceitoEm != null) show(binding.buttonChat, R.string.action_open_chat, v -> openChat());
+            if (PedidoEstado.CONCLUIDO.equals(p.estado)) viewModel.loadMyRating();
         }
     }
 
@@ -228,12 +235,66 @@ public class TradeDetailFragment extends Fragment {
     }
 
     private void openChat() {
-        Snackbar.make(binding.getRoot(), R.string.chat_soon, Snackbar.LENGTH_SHORT).show();
+        Bundle args = new Bundle();
+        args.putLong(ChatFragment.ARG_PEDIDO, current.pedido.id);
+        NavHostFragment.findNavController(this).navigate(R.id.chatFragment, args);
+    }
+
+    /** RF-25: botão de avaliação no pedido concluído (editável por 48 h). */
+    private void renderRating(Avaliacao mine) {
+        if (current == null || !PedidoEstado.CONCLUIDO.equals(current.pedido.estado)) return;
+        boolean editable = mine == null
+                || System.currentTimeMillis() - mine.criadaEm <= AppConfig.RATING_EDIT_WINDOW_MS;
+        binding.ratingNote.setVisibility(mine == null ? View.GONE : View.VISIBLE);
+        if (mine != null) binding.ratingNote.setText(getString(R.string.rating_mine, mine.nota));
+        if (editable) {
+            show(binding.buttonPrimary, mine == null ? R.string.action_rate : R.string.action_edit_rating,
+                    v -> askRating(mine == null ? 0 : mine.nota));
+        } else {
+            hide(binding.buttonPrimary);
+        }
+    }
+
+    private void askRating(int initial) {
+        DialogRatingBinding d = DialogRatingBinding.inflate(getLayoutInflater());
+        ImageButton[] stars = {d.star1, d.star2, d.star3, d.star4, d.star5};
+        int[] chosen = {initial};
+        Runnable paint = () -> {
+            for (int i = 0; i < stars.length; i++) {
+                stars[i].setImageResource(i < chosen[0] ? R.drawable.ic_star : R.drawable.ic_star_border);
+            }
+            d.label.setText(chosen[0] == 0 ? getString(R.string.rate_choose) : getString(R.string.rate_star, chosen[0]));
+        };
+        for (int i = 0; i < stars.length; i++) {
+            final int n = i + 1;
+            stars[i].setContentDescription(getString(R.string.rate_star, n));
+            stars[i].setOnClickListener(v -> {
+                chosen[0] = n;
+                paint.run();
+            });
+        }
+        paint.run();
+        String name = binding.partyName.getText().toString();
+        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.rate_title, name))
+                .setView(d.getRoot())
+                .setNegativeButton(R.string.action_not_now, null)
+                .setPositiveButton(R.string.action_send_rating, null)
+                .create();
+        dialog.setOnShowListener(x -> dialog.getButton(android.content.DialogInterface.BUTTON_POSITIVE)
+                .setOnClickListener(v -> {
+                    if (chosen[0] == 0) return;
+                    viewModel.rate(chosen[0]);
+                    dialog.dismiss();
+                }));
+        dialog.show();
     }
 
     private void onResult(TradeRepository.Result r) {
         int msg;
-        if (r == TradeRepository.Result.OK) {
+        if (r == TradeRepository.Result.OK && "rate".equals(viewModel.actionName)) {
+            msg = R.string.rating_saved;
+        } else if (r == TradeRepository.Result.OK) {
             switch (viewModel.actionName) {
                 case "accept":
                     msg = R.string.trade_accepted_done;

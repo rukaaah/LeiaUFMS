@@ -158,6 +158,16 @@
             android:textColor="@color/leia_on_surface_variant"
             android:visibility="gone" />
 
+        <TextView
+            style="@style/Widget.Leia.SectionTitle"
+            android:text="@string/profile_shelf_title" />
+
+        <LinearLayout
+            android:id="@+id/shelf_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
         <LinearLayout
             android:id="@+id/extra_sections"
             android:layout_width="match_parent"
@@ -180,6 +190,12 @@
             <TextView
                 style="@style/Widget.Leia.SectionTitle"
                 android:text="@string/section_account" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_shelf"
+                style="@style/Widget.Leia.ListAction"
+                android:text="@string/action_open_shelf"
+                app:icon="@drawable/ic_library" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_password"

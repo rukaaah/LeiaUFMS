@@ -10,8 +10,10 @@ import androidx.lifecycle.MutableLiveData;
 import br.ufms.leiaufms.core.security.SessionManager;
 import br.ufms.leiaufms.core.util.AppExecutors;
 import br.ufms.leiaufms.data.local.AppDatabase;
+import br.ufms.leiaufms.data.local.entity.Avaliacao;
 import br.ufms.leiaufms.data.local.entity.Usuario;
 import br.ufms.leiaufms.data.local.model.PedidoRow;
+import br.ufms.leiaufms.data.repository.SocialRepository;
 import br.ufms.leiaufms.data.repository.TradeRepository;
 import br.ufms.leiaufms.data.repository.UserRepository;
 
@@ -102,6 +104,30 @@ public class TradeDetailViewModel extends AndroidViewModel {
                 r = TradeRepository.Result.INVALID_STATE;
             }
             result.postValue(new TradeRepository.Result[]{r});
+        });
+    }
+
+    private final MutableLiveData<Avaliacao> myRating = new MutableLiveData<>();
+
+    public LiveData<Avaliacao> myRating() {
+        return myRating;
+    }
+
+    public void loadMyRating() {
+        long id = pedidoId;
+        AppExecutors.io().execute(() -> myRating.postValue(new SocialRepository(getApplication()).myRating(id, userId)));
+    }
+
+    /** RF-25: grava a nota e recarrega. O resultado volta como OK ou INVALID_STATE. */
+    public void rate(int nota) {
+        actionName = "rate";
+        long id = pedidoId;
+        AppExecutors.io().execute(() -> {
+            SocialRepository repo = new SocialRepository(getApplication());
+            SocialRepository.Result r = repo.rate(id, userId, nota);
+            myRating.postValue(repo.myRating(id, userId));
+            result.postValue(new TradeRepository.Result[]{r == SocialRepository.Result.OK
+                    ? TradeRepository.Result.OK : TradeRepository.Result.INVALID_STATE});
         });
     }
 
