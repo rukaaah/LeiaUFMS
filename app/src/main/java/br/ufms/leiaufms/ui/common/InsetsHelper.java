@@ -12,6 +12,18 @@ public final class InsetsHelper {
     private InsetsHelper() {
     }
 
+    /** Ícones escuros nas barras do sistema no tema claro e claros no escuro. */
+    public static void styleBars(android.app.Activity activity) {
+        boolean night = (activity.getResources().getConfiguration().uiMode
+                & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
+                == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        androidx.core.view.WindowInsetsControllerCompat controller =
+                androidx.core.view.WindowCompat.getInsetsController(activity.getWindow(),
+                        activity.getWindow().getDecorView());
+        controller.setAppearanceLightStatusBars(!night);
+        controller.setAppearanceLightNavigationBars(!night);
+    }
+
     public static void applySystemBars(View root) {
         final int left = root.getPaddingLeft();
         final int top = root.getPaddingTop();

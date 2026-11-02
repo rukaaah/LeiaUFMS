@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         InsetsHelper.applySystemBars(binding.root);
-        setSupportActionBar(binding.toolbar);
+        InsetsHelper.styleBars(this);
 
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = host.getNavController();

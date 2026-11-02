@@ -23,6 +23,7 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
         InsetsHelper.applySystemBars(findViewById(R.id.auth_container));
+        InsetsHelper.styleBars(this);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.auth_container, new LoginFragment())

@@ -15,6 +15,7 @@
 
     <ScrollView
         android:id="@+id/scroll"
+    android:defaultFocusHighlightEnabled="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -70,7 +71,7 @@
                 style="@style/Widget.Leia.FieldInput"
                 android:autofillHints="emailAddress"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="textEmailAddress|textNoSuggestions"
                 android:maxLength="120" />
         </com.google.android.material.textfield.TextInputLayout>
 

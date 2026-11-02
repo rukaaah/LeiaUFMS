@@ -37,8 +37,6 @@
         <item name="android:windowLightStatusBar">@bool/leia_light_bars</item>
         <item name="android:windowLightNavigationBar">@bool/leia_light_bars</item>
 
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:fontFamily">@font/inter</item>
         <item name="textAppearanceHeadlineMedium">@style/TextAppearance.Leia.Display</item>
         <item name="textAppearanceHeadlineSmall">@style/TextAppearance.Leia.Headline</item>
         <item name="textAppearanceTitleLarge">@style/TextAppearance.Leia.BookTitleLarge</item>
@@ -114,7 +112,7 @@
         <item name="boxCornerRadiusBottomStart">@dimen/radius_m</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/radius_m</item>
         <item name="boxBackgroundColor">@color/leia_surface</item>
-        <item name="boxStrokeColor">@color/leia_primary</item>
+        <item name="boxStrokeColor">@color/leia_box_stroke</item>
         <item name="hintTextColor">@color/leia_primary</item>
     </style>
 
@@ -141,8 +139,13 @@
     </style>
 
     <style name="ThemeOverlay.Leia.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.Leia</item>
         <item name="colorSurface">@color/leia_surface</item>
         <item name="colorSurfaceContainerHigh">@color/leia_surface</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Leia.Large</item>
+    </style>
+    <style name="MaterialAlertDialog.Leia" parent="MaterialAlertDialog.Material3">
+        <item name="backgroundTint">@color/leia_surface</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Leia.Large</item>
     </style>
 </resources>

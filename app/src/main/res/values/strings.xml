@@ -69,4 +69,8 @@
     <string name="logout_title">Sair do LeiaUFMS?</string>
     <string name="logout_message">Você vai precisar entrar de novo com seu e-mail e senha.</string>
     <string name="action_cancel">Cancelar</string>
+    <string name="discard_register_title">Descartar o cadastro?</string>
+    <string name="discard_register_message">Os dados que você preencheu serão perdidos.</string>
+    <string name="action_discard">Descartar</string>
+    <string name="action_keep_editing">Continuar preenchendo</string>
 </resources>

@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -37,8 +39,15 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        binding.toolbar.setNavigationOnClickListener(v -> ((AuthActivity) requireActivity()).showLogin());
-        binding.buttonGoLogin.setOnClickListener(v -> ((AuthActivity) requireActivity()).showLogin());
+        binding.toolbar.setNavigationOnClickListener(v -> leave());
+        binding.buttonGoLogin.setOnClickListener(v -> leave());
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        leave();
+                    }
+                });
         binding.buttonRegister.setOnClickListener(v -> submit());
         binding.inputConfirm.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -88,6 +97,24 @@ public class RegisterFragment extends Fragment {
             return;
         }
         viewModel.register(nome, email, curso, Integer.parseInt(semestre.trim()), senha);
+    }
+
+    /** Pede confirmação antes de descartar um formulário já preenchido. */
+    private void leave() {
+        boolean dirty = !FieldErrors.text(binding.inputName).trim().isEmpty()
+                || !FieldErrors.text(binding.inputEmail).trim().isEmpty()
+                || !FieldErrors.text(binding.inputCourse).trim().isEmpty()
+                || !FieldErrors.text(binding.inputPassword).isEmpty();
+        if (!dirty) {
+            ((AuthActivity) requireActivity()).showLogin();
+            return;
+        }
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.discard_register_title)
+                .setMessage(R.string.discard_register_message)
+                .setNegativeButton(R.string.action_keep_editing, null)
+                .setPositiveButton(R.string.action_discard, (d, w) -> ((AuthActivity) requireActivity()).showLogin())
+                .show();
     }
 
     private void focus(TextInputLayout layout) {
