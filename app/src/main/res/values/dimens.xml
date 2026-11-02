@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Grid de 4 dp (docs/03-design-system.md §4). -->
+<resources>
+    <dimen name="space_xxs">4dp</dimen>
+    <dimen name="space_xs">8dp</dimen>
+    <dimen name="space_s">12dp</dimen>
+    <dimen name="space_m">16dp</dimen>
+    <dimen name="space_l">24dp</dimen>
+    <dimen name="space_xl">32dp</dimen>
+    <dimen name="space_xxl">48dp</dimen>
+
+    <dimen name="screen_margin">16dp</dimen>
+    <dimen name="touch_target">48dp</dimen>
+    <dimen name="button_height">52dp</dimen>
+
+    <dimen name="radius_s">8dp</dimen>
+    <dimen name="radius_m">12dp</dimen>
+    <dimen name="radius_l">16dp</dimen>
+    <dimen name="radius_pill">26dp</dimen>
+
+    <dimen name="stroke_hairline">1dp</dimen>
+    <dimen name="elevation_flat">0dp</dimen>
+    <dimen name="elevation_sheet">2dp</dimen>
+
+    <dimen name="cover_width">64dp</dimen>
+    <dimen name="cover_height">96dp</dimen>
+    <dimen name="cover_width_large">120dp</dimen>
+    <dimen name="cover_height_large">180dp</dimen>
+    <dimen name="avatar_small">40dp</dimen>
+    <dimen name="avatar_large">96dp</dimen>
+    <dimen name="icon_empty_state">64dp</dimen>
+    <dimen name="max_form_width">480dp</dimen>
+</resources>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tema DayNight do LeiaUFMS. As cores vêm de values/colors.xml e values-night/colors.xml. -->
+<resources>
+    <style name="Base.Theme.LeiaUFMS" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/leia_primary</item>
+        <item name="colorOnPrimary">@color/leia_on_primary</item>
+        <item name="colorPrimaryContainer">@color/leia_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/leia_on_primary_container</item>
+        <item name="colorSecondary">@color/leia_primary</item>
+        <item name="colorOnSecondary">@color/leia_on_primary</item>
+        <item name="colorSecondaryContainer">@color/leia_primary_container</item>
+        <item name="colorOnSecondaryContainer">@color/leia_on_primary_container</item>
+        <item name="colorTertiary">@color/leia_tertiary</item>
+        <item name="colorOnTertiary">@color/leia_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/leia_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/leia_on_tertiary_container</item>
+        <item name="colorError">@color/leia_error</item>
+        <item name="colorOnError">@color/leia_on_error</item>
+        <item name="colorErrorContainer">@color/leia_error_container</item>
+        <item name="colorOnErrorContainer">@color/leia_on_error_container</item>
+        <item name="android:colorBackground">@color/leia_background</item>
+        <item name="colorOnBackground">@color/leia_on_background</item>
+        <item name="colorSurface">@color/leia_background</item>
+        <item name="colorOnSurface">@color/leia_on_background</item>
+        <item name="colorSurfaceVariant">@color/leia_surface_container</item>
+        <item name="colorOnSurfaceVariant">@color/leia_on_surface_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/leia_surface</item>
+        <item name="colorSurfaceContainerLow">@color/leia_surface</item>
+        <item name="colorSurfaceContainer">@color/leia_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/leia_surface_container</item>
+        <item name="colorSurfaceContainerHighest">@color/leia_surface_container</item>
+        <item name="colorOutline">@color/leia_outline</item>
+        <item name="colorOutlineVariant">@color/leia_outline_variant</item>
+
+        <item name="android:statusBarColor">@color/leia_background</item>
+        <item name="android:navigationBarColor">@color/leia_background</item>
+
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.Leia.Display</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.Leia.Headline</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.Leia.BookTitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.Leia.Title</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.Leia.Body</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.Leia.BodySmall</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.Leia.Caption</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.Leia.Label</item>
+
+        <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.Leia.Small</item>
+        <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.Leia.Medium</item>
+        <item name="shapeAppearanceCornerLarge">@style/ShapeAppearance.Leia.Large</item>
+
+        <item name="materialButtonStyle">@style/Widget.Leia.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.Leia.Button.Outlined</item>
+        <item name="borderlessButtonStyle">@style/Widget.Leia.Button.Text</item>
+        <item name="textInputStyle">@style/Widget.Leia.TextInputLayout</item>
+        <item name="materialCardViewStyle">@style/Widget.Leia.Card</item>
+        <item name="chipStyle">@style/Widget.Leia.Chip</item>
+        <item name="bottomNavigationStyle">@style/Widget.Leia.BottomNavigation</item>
+        <item name="toolbarStyle">@style/Widget.Leia.Toolbar</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Leia.Dialog</item>
+        <item name="minTouchTargetSize">@dimen/touch_target</item>
+    </style>
+
+    <style name="Theme.LeiaUFMS" parent="Base.Theme.LeiaUFMS" />
+
+    <!-- Splash nativa (core-splashscreen): sem atraso artificial, mantida só enquanto a sessão é verificada. -->
+    <style name="Theme.LeiaUFMS.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/leia_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.LeiaUFMS</item>
+    </style>
+
+    <style name="ShapeAppearance.Leia.Small" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_s</item>
+    </style>
+
+    <style name="ShapeAppearance.Leia.Medium" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_m</item>
+    </style>
+
+    <style name="ShapeAppearance.Leia.Large" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_l</item>
+    </style>
+
+    <style name="Widget.Leia.Button" parent="Widget.Material3.Button">
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leia.Label</item>
+        <item name="android:paddingStart">@dimen/space_l</item>
+        <item name="android:paddingEnd">@dimen/space_l</item>
+    </style>
+
+    <style name="Widget.Leia.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leia.Label</item>
+        <item name="strokeColor">@color/leia_outline</item>
+    </style>
+
+    <style name="Widget.Leia.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leia.Label</item>
+    </style>
+
+    <style name="Widget.Leia.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/radius_m</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_m</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_m</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_m</item>
+        <item name="boxBackgroundColor">@color/leia_surface</item>
+        <item name="boxStrokeColor">@color/leia_primary</item>
+        <item name="hintTextColor">@color/leia_primary</item>
+    </style>
+
+    <style name="Widget.Leia.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/leia_surface</item>
+        <item name="strokeColor">@color/leia_outline_variant</item>
+        <item name="strokeWidth">@dimen/stroke_hairline</item>
+        <item name="cardElevation">@dimen/elevation_flat</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Leia.Large</item>
+    </style>
+
+    <style name="Widget.Leia.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipMinTouchTargetSize">@dimen/touch_target</item>
+    </style>
+
+    <style name="Widget.Leia.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">@color/leia_surface</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="Widget.Leia.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.Leia.Headline</item>
+        <item name="android:background">@color/leia_background</item>
+    </style>
+
+    <style name="ThemeOverlay.Leia.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/leia_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/leia_surface</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Leia.Large</item>
+    </style>
+</resources>

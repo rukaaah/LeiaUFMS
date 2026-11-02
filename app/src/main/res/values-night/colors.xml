@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Design system LeiaUFMS, tema escuro (docs/03-design-system.md §2). -->
+<resources>
+    <color name="leia_background">#1A1917</color>
+    <color name="leia_surface">#262420</color>
+    <color name="leia_surface_container">#2E2B27</color>
+    <color name="leia_on_background">#EFE9DF</color>
+    <color name="leia_on_surface_variant">#C2BBAF</color>
+    <color name="leia_outline">#8F897F</color>
+    <color name="leia_outline_variant">#3D3A35</color>
+    <color name="leia_primary">#A8C9A9</color>
+    <color name="leia_on_primary">#10281A</color>
+    <color name="leia_primary_container">#2C4433</color>
+    <color name="leia_on_primary_container">#D3E6D2</color>
+    <color name="leia_tertiary">#E2B46C</color>
+    <color name="leia_on_tertiary">#2E1F05</color>
+    <color name="leia_tertiary_container">#4A3615</color>
+    <color name="leia_on_tertiary_container">#F6DFB6</color>
+    <color name="leia_error">#F2B8B5</color>
+    <color name="leia_on_error">#601410</color>
+    <color name="leia_error_container">#8C1D18</color>
+    <color name="leia_on_error_container">#F9DEDC</color>
+    <color name="leia_scrim">#000000</color>
+</resources>

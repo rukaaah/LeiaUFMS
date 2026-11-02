@@ -108,11 +108,11 @@ O PDF tem 5 páginas e 6 seções. O peso de cada item foi inferido pelo nível 
 
 Detalhamento completo em [`03-design-system.md`](03-design-system.md).
 
-- **Conceito:** "a tranquilidade de um dia de leitura". Papel creme, tinta escura, verde sálvia, sem ruído visual.
+- **Conceito:** "a tranquilidade de um dia de leitura". Papel creme, tinta escura, verde-floresta para ação, âmbar para créditos, sem ruído visual.
 - **Base:** Material Components for Android, tema `Theme.Material3.DayNight.NoActionBar`, com tema claro e escuro.
 - **Contraste:** todos os pares texto/fundo da paleta passam WCAG AA (≥ 4,5:1), calculados na seção 2 do design system.
-- **Tipografia:** serifada (Literata) só em títulos de livros e cabeçalhos; Roboto (padrão do sistema) no corpo.
-- **Skills de design:** a direção visual definitiva será gerada **somente** por `/design-md-library` (estilo), `/design-taste-frontend` (briefing por tela) e `/web-design-guidelines` (auditoria), nesta ordem. Os valores acima são provisórios. Procedimento em `AGENT.md` §6.
+- **Tipografia:** Newsreader (serifada, OFL) em títulos de livros e cabeçalhos; Inter (OFL) no corpo.
+- **Skills de design:** direção visual definida em 02/11/2026 por `/design-md-library` (referência Oura, adaptada). Briefings por tela com `/design-taste-frontend` e auditoria com `/web-design-guidelines`. Procedimento em `AGENT.md` §6.
 
 ---
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Escala tipográfica (docs/03-design-system.md §3). Serifa para títulos de livro, Inter para o resto. -->
+<resources>
+    <style name="TextAppearance.Leia.Display" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/newsreader_medium</item>
+        <item name="android:fontFamily">@font/newsreader_medium</item>
+        <item name="android:textSize">28sp</item>
+        <item name="lineHeight">36sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.Headline" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">@font/newsreader_medium</item>
+        <item name="android:fontFamily">@font/newsreader_medium</item>
+        <item name="android:textSize">22sp</item>
+        <item name="lineHeight">28sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.BookTitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/newsreader_semibold</item>
+        <item name="android:fontFamily">@font/newsreader_semibold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">30sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.BookTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/newsreader_semibold</item>
+        <item name="android:fontFamily">@font/newsreader_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="lineHeight">24sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.Body" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.BodySmall" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">20sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.Label" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="lineHeight">20sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.Caption" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="lineHeight">18sp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="TextAppearance.Leia.Overline" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">16sp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+</resources>

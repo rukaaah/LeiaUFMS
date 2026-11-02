@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ícone da splash: mesmo desenho do launcher, em cor de tinta sobre o fundo papel. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="@color/leia_primary" android:pathData="M53,40.5C45.5,35.8 36.5,34.6 28,36.2L28,72.4C36.5,70.9 45.5,72 53,76.4Z" />
+    <path android:fillColor="@color/leia_primary" android:pathData="M55,40.5C62.5,35.8 71.5,34.6 80,36.2L80,72.4C71.5,70.9 62.5,72 55,76.4Z" />
+    <path android:fillColor="@color/leia_tertiary" android:pathData="M64,37.6L70.5,36.5L70.5,53L67.25,49.8L64,53Z" />
+</vector>
