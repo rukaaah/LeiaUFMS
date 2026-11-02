@@ -23,8 +23,22 @@ Avaliação 3 de Programação Mobile (Android nativo, Java).
 
 ## Como rodar
 
-`[PENDENTE: preencher quando o projeto Android for criado]` (Android Studio, abrir a pasta, sincronizar Gradle, rodar no emulador).
+1. Instale o Android Studio (2026.1 ou mais novo).
+2. Abra a pasta do repositório e espere a sincronização do Gradle.
+3. Rode a configuração `app` em um emulador ou aparelho com Android 8.0 (API 26) ou mais novo.
+
+Pela linha de comando: `./gradlew assembleDebug` (APK em `app/build/outputs/apk/debug/`) e `./gradlew testDebugUnitTest` (testes JUnit).
 
 ## Contas de demonstração
 
-`[PENDENTE: preencher após criar o seed]`
+Criadas automaticamente na primeira abertura do app. Todas usam a senha **`Leia2026`**.
+
+| Conta | Papel | Curso |
+|---|---|---|
+| `moderacao@ufms.br` | Moderador | — |
+| `ana.souza@ufms.br` | Aluna (2 créditos, 1 reservado numa disputa) | Letras |
+| `bruno.lima@ufms.br` | Aluno | Engenharia Civil |
+| `carla.mendes@ufms.br` | Aluna | Ciência da Computação |
+| `diego.rocha@ufms.br` | Aluno | Física |
+
+Nenhum ponto seguro vem pronto: entre como Moderador e cadastre os pontos tocando no mapa.

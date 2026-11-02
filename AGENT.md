@@ -34,7 +34,7 @@ Para tarefas pequenas (ex.: corrigir um layout), basta ler este arquivo + o docu
 | `README.md` | Apresentação do projeto, como rodar, contas de demonstração |
 | `docs/` | Toda a documentação (numerada na ordem de leitura) |
 | `docs/referencias/` | PDF do enunciado e prompt original |
-| `app/` | Módulo Android (ainda não criado) |
+| `app/` | Módulo Android |
 | `app/src/main/java/br/ufms/leiaufms/` | Código Java (estrutura em `docs/04-arquitetura.md` §2) |
 | `app/src/main/res/values/` | `colors.xml`, `themes.xml`, `dimens.xml`, `strings.xml` (tokens do design system) |
 | `.github/` | Templates e automações do GitHub (opcional) |
@@ -108,13 +108,15 @@ O design é definido **exclusivamente** por três skills, nesta ordem:
 
 | Item | Situação |
 |---|---|
-| Documentação | Completa (02/11/2026) |
-| Projeto Android | **Não criado** |
+| Documentação | Completa; design system definido (D1) com as cores da UFMS |
+| Projeto Android | Criado (Java, Views, `br.ufms.leiaufms`, minSdk 26, target 37, AGP 9.4.1, Gradle 9.6.0). Versões em `gradle/libs.versions.toml` |
+| Parte 1 | **Concluída**: splash, login, cadastro, sessão, logout, Room com todas as entidades, seed |
 | Integrantes | Pedro Lucas de Souza Cremonini, Gabriel Mattos de Aquino, Angelo Antonio Correia de Souza |
 | Repositório | https://github.com/rukaaah/LeiaUFMS (branch `main`) |
-| Pendências abertas | P-01, P-04 a P-09, PC-01 a PC-12 (com padrão adotado) |
-| Testes executados | 0 de 59 |
-| Próximo passo | Criar o projeto Android (Empty Views Activity, Java, `br.ufms.leiaufms`) e implementar Room + auth + splash (cronograma em `01-pre-documentacao.md` §7) |
+| Pendências abertas | P-07, P-09, PC-01 a PC-12 (com padrão adotado) |
+| Testes caixa-preta executados | 0 de 59 (executados pelo grupo) |
+| Próximo passo | Parte 2 (perfil, foto, permissões, notificações). Ver `docs/07-handoff.md` |
+| Build pela linha de comando | `export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"` e `./gradlew assembleDebug` |
 
 ## 10. Antes de entregar (09/11)
 

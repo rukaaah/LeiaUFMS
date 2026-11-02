@@ -9,7 +9,7 @@
 | Entrega | **09/11/2026 até 23:59**, via AVA |
 | Compartilhar com | `matheus.albuquerque@ufms.br` (pasta do Drive ou repositório GitHub) |
 | Integrantes | Pedro Lucas de Souza Cremonini, Gabriel Mattos de Aquino, Angelo Antonio Correia de Souza |
-| Status | Documentação pronta, código não iniciado |
+| Status | Implementação em andamento (ver `06-log-implementacao.md`) |
 
 ---
 
@@ -21,7 +21,7 @@ O PDF tem 5 páginas e 6 seções. O peso de cada item foi inferido pelo nível 
 
 | Seção do PDF | O que exige | Peso inferido | Observação |
 |---|---|---|---|
-| 1. Objetivo e tema | Tema livre, Java nativo, **projeto inédito** (não pode ser tema/continuação das Avaliações 1 e 2) | Eliminatório | Confirmar que nenhum integrante usou "troca de livros" antes (P-01) |
+| 1. Objetivo e tema | Tema livre, Java nativo, **projeto inédito** (não pode ser tema/continuação das Avaliações 1 e 2) | Eliminatório | Confirmado pelo grupo em 02/11 (P-01 resolvida) |
 | 2. Especificação | Identificação, visão geral, papéis, RFs (usuários, ações, entradas, processamento, saídas) | Alto | Os 5 subitens de RF viram colunas fixas no `02-especificacao.md` |
 | 3A. Estrutura | Java, template Empty/Basic Views Activity, ≥3 telas/fragments, splash sem atraso artificial, ícone no Manifest | Alto | Splash **não conta** como tela |
 | 3B. Auth/Room | Login/cadastro, sessão, logout, edição de perfil, BCrypt com salt, novo hash na troca de senha, bloqueio de não autenticados | **Muito alto** | Seção mais detalhada do PDF |
@@ -128,7 +128,7 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 | PC-04 | Prazo para concluir a entrega após aceite | **7 dias**. Lembrete no 5º dia; no 8º dia o pedido é cancelado automaticamente |
 | PC-05 | Como a troca é dada por concluída | **Confirmação dos dois lados** ("Entreguei"/"Recebi"). Só então créditos e posse mudam |
 | PC-06 | Limite anti-spam de pedidos | Máx. **5 pedidos pendentes** por usuário e **1 pedido ativo** por anúncio por usuário |
-| PC-07 | Pontos de encontro seguros | Somente pontos cadastrados pelo Moderador. **As coordenadas reais do campus precisam ser coletadas pelo grupo** (não foram inventadas) |
+| PC-07 | Pontos de encontro seguros | **Resolvido (02/11, grupo):** somente pontos cadastrados pelo Moderador **dentro do app, tocando no mapa** (RF-30). Nenhuma coordenada vem no seed. Sem pontos cadastrados, "Marcar encontro" mostra um estado vazio explicando que o Moderador precisa cadastrá-los |
 | PC-08 | Raio "a pé" | ≤ **2 km** em linha reta, tempo estimado a 80 m/min (≈ 4,8 km/h); valores ajustáveis em `AppConfig` |
 | PC-09 | Critério dos selos | **Doador:** ≥ 3 doações concluídas. **Veterano:** ≥ 10 trocas concluídas |
 | PC-10 | Avaliação após troca | Nota 1 a 5, opcional, uma por lado, editável por 48 h |
@@ -139,14 +139,14 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 
 | ID | Pendência | Responsável |
 |---|---|---|
-| P-01 | Confirmar que o tema não repete Avaliação 1/2 de nenhum integrante | Grupo |
+| P-01 | ~~Confirmar que o tema não repete Avaliação 1/2~~ **Resolvido em 02/11:** o tema não repete as Avaliações 1 e 2 | Grupo |
 | P-02 | ~~Nomes completos dos integrantes~~ **Resolvido em 02/11** | Grupo |
 | P-03 | ~~Formato do e-mail de aluno~~ **Resolvido em 02/11:** todo e-mail de aluno termina em `@ufms.br` | Grupo |
-| P-04 | Definir `applicationId` (padrão: `br.ufms.leiaufms`) | Grupo |
-| P-05 | Criar o ícone do app (adaptive icon) | Grupo |
-| P-06 | Coletar coordenadas dos pontos seguros (PC-07) | Grupo |
-| P-07 | Definir dispositivo/emulador e versão do Android usados nos testes | Grupo |
-| P-08 | Verificar versões estáveis atuais das dependências (MapLibre, bcrypt, Room, Navigation, play-services-location) | Agente/Grupo |
+| P-04 | ~~Definir `applicationId`~~ **Resolvido em 02/11:** `br.ufms.leiaufms` (pacote e applicationId) | Grupo |
+| P-05 | ~~Criar o ícone do app~~ **Resolvido em 02/11:** adaptive icon vetorial criado na Etapa D1 (`/design-md-library`), declarado no Manifest (`android:icon` e `android:roundIcon`). Ver `03-design-system.md` §5 | Agente |
+| P-06 | ~~Coletar coordenadas dos pontos seguros~~ **Resolvido em 02/11:** os pontos são criados no app pelo Moderador (PC-07); nada é semeado | Grupo |
+| P-07 | Definir dispositivo/emulador e versão do Android usados nos testes. O desenvolvimento usou o AVD `Pixel_10` (Android API 37) | Grupo |
+| P-08 | ~~Verificar versões estáveis atuais das dependências~~ **Resolvido em 02/11:** conferidas no Google Maven e no Maven Central e registradas em `gradle/libs.versions.toml` | Agente |
 | P-09 | Entrega no GitHub: https://github.com/rukaaah/LeiaUFMS. **Falta compartilhar com o professor** (adicionar como colaborador ou deixar público) | Grupo |
 
 ---

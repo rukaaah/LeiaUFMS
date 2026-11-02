@@ -141,7 +141,7 @@ Legenda de prioridade: **D** = Deve (exigência do PDF), **De** = Deveria, **P**
 
 | ID | Requisito |
 |---|---|
-| RNF-01 | Android nativo em Java; minSdk 26 sugerido, targetSdk na versão estável atual (confirmar no Android Studio) |
+| RNF-01 | Android nativo em Java; minSdk 26, targetSdk/compileSdk 37 |
 | RNF-02 | Banco local Room; nenhum dado sai do aparelho além do download de tiles do mapa |
 | RNF-03 | Nenhuma operação de banco ou disco na main thread |
 | RNF-04 | O app não pode encerrar (crash) com entrada inválida, permissão negada, falta de GPS ou de internet |

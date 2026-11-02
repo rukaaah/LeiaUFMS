@@ -23,7 +23,7 @@
 
 ## 2. Estrutura de pacotes
 
-Pacote base sugerido: `br.ufms.leiaufms` (confirmar em P-04).
+Pacote base: `br.ufms.leiaufms` (P-04 resolvida).
 
 ```
 app/src/main/java/br/ufms/leiaufms/
@@ -85,7 +85,7 @@ App abre
 | `desejo` | id, usuarioId, obraId, criadoEm | Única por (usuário, obra) |
 | `post_mural` | id, autorId, obraId (obrigatório), tipo (`DICA`/`PROCURO`/`DOACAO`/`TROCA_CONCLUIDA`), texto, oculto, criadoEm | — |
 | `reacao` | postId, usuarioId, tipo (`UTIL`/`QUERO`) | PK composta |
-| `ponto_encontro` | id, nome, descricao, lat, lng, ativo | Coordenadas reais pendentes (PC-07) |
+| `ponto_encontro` | id, nome, descricao, lat, lng, ativo, criadoPor, criadoEm | Criado pelo Moderador tocando no mapa (RF-30); nenhum no seed (PC-07) |
 | `notificacao` | id, usuarioId, canal, titulo, texto, destinoTipo, destinoId, lida, criadaEm | Caixa de avisos |
 
 **Pedido sem crédito:** permitido (RN-CRED-04). Se o saldo disponível for 0, o pedido é criado sem `RESERVA` e com `semCredito = true` em `pedido`; na conclusão só o doador recebe `DOACAO` (+1).
@@ -122,9 +122,11 @@ Use `shouldShowRequestPermissionRationale` para diferenciar "negado uma vez" de 
 
 ## 7. Seed de demonstração
 
-`SeedData` popula no primeiro uso (via `RoomDatabase.Callback.onCreate`):
+`SeedData` popula no primeiro uso (via `RoomDatabase.Callback.onCreate`, em background e numa transação):
 
-- 1 Moderador, 4 alunos de cursos diferentes com saldo de créditos (senha de demo documentada só no README, hash gerado no seed).
-- ~15 obras, 3 disciplinas com recomendações, ~12 anúncios com coordenadas de pontos seguros.
-- Pontos seguros: **placeholder até o grupo coletar coordenadas reais** (P-06). Não inventar nomes de locais.
-- 1 pedido em cada estado, para demonstrar a tela de Trocas.
+- 1 Moderador e 4 alunos de cursos diferentes. Senha de demonstração só no README; o hash BCrypt é gerado no seed.
+- 15 obras reais, 3 disciplinas com nomes genéricos (sem códigos UFMS inventados) e recomendações.
+- 11 anúncios ativos **sem coordenadas**: o local é escolhido no próprio app (localização atual ou ponto seguro).
+- **Nenhum ponto seguro.** O Moderador cadastra os pontos tocando no mapa (RF-30, PC-07). Sem pontos, "Marcar encontro" mostra um estado vazio.
+- Histórico de 3 doações concluídas que geram os créditos no livro-razão (Ana 2, os outros 0) e 1 pedido em cada estado: pendente sem crédito, aceito (com mensagens no chat), recusado, cancelado (reserva e liberação), expirado e em disputa (reserva congelada).
+- Estantes, desejos, 3 posts no mural e reações.
