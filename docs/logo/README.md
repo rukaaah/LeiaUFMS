@@ -28,7 +28,7 @@ O Paliteiro da UFMS, com colunas quadradas em quatro eixos e todas com a mesma a
 
 No app:
 
-- `ic_launcher_foreground` e `ic_launcher_background`: ícone adaptativo.
+- `ic_launcher_foreground` e `ic_launcher_background`: ícone adaptativo, com o símbolo em 60 dp dentro da zona segura de 66 dp (o círculo do launcher corta o resto).
 - `ic_launcher_monochrome`: ícone temático do Android 13+, na versão plana.
 - `ic_splash`: splash e login, em azul sobre o fundo do tema.
 - `ic_notification`: barra de status, na versão plana em branco.

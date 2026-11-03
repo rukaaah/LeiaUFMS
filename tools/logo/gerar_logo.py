@@ -69,7 +69,7 @@ if __name__ == '__main__':
     open(os.path.join(RES, 'ic_launcher_foreground.xml'), 'w').write(vector(
         ITEMS, '@color/leia_icon_page', '@color/leia_icon_background',
         'Logo LeiaUFMS: o Paliteiro da UFMS em 3D (colunas em 4 eixos, topo reto) de pé sobre um livro aberto. '
-        'Gerado por tools/logo/gerar_logo.py', box=76))
+        'Gerado por tools/logo/gerar_logo.py', box=60))  # dentro da zona segura de 66 dp, com respiro
     open(os.path.join(RES, 'ic_splash.xml'), 'w').write(vector(
         ITEMS, '@color/leia_primary', '@color/leia_background',
         'Logo LeiaUFMS na splash e no login: azul sobre o fundo do tema. Gerado por tools/logo/gerar_logo.py', box=72))
