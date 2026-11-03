@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:defaultFocusHighlightEnabled="false"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="@dimen/space_l">
+
+        <FrameLayout
+            android:id="@+id/art"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:importantForAccessibility="no">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xl"
+            android:accessibilityHeading="true"
+            android:textAppearance="@style/TextAppearance.Leia.Display"
+            android:textColor="@color/leia_on_background" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:textAppearance="@style/TextAppearance.Leia.Body"
+            android:textColor="@color/leia_on_surface_variant" />
+
+        <LinearLayout
+            android:id="@+id/setup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/Widget.Leia.FieldLabel"
+                android:labelFor="@id/input_reading_title"
+                android:text="@string/onb_reading" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_reading_title"
+                style="@style/Widget.Leia.Field">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/input_reading_title"
+                    style="@style/Widget.Leia.FieldInput"
+                    android:completionThreshold="2"
+                    android:hint="@string/label_title"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences"
+                    android:maxLength="150"
+                    android:paddingStart="@dimen/space_m"
+                    android:paddingEnd="@dimen/space_m" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_reading_author"
+                style="@style/Widget.Leia.Field"
+                android:layout_marginTop="@dimen/space_xs">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_reading_author"
+                    style="@style/Widget.Leia.FieldInput"
+                    android:contentDescription="@string/label_author"
+                    android:hint="@string/label_author"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapWords"
+                    android:maxLength="120" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/Widget.Leia.FieldLabel"
+                android:labelFor="@id/input_wish_title"
+                android:text="@string/onb_wish" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_wish_title"
+                style="@style/Widget.Leia.Field">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/input_wish_title"
+                    style="@style/Widget.Leia.FieldInput"
+                    android:completionThreshold="2"
+                    android:hint="@string/label_title"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences"
+                    android:maxLength="150"
+                    android:paddingStart="@dimen/space_m"
+                    android:paddingEnd="@dimen/space_m" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_wish_author"
+                style="@style/Widget.Leia.Field"
+                android:layout_marginTop="@dimen/space_xs">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_wish_author"
+                    style="@style/Widget.Leia.FieldInput"
+                    android:contentDescription="@string/label_author"
+                    android:hint="@string/label_author"
+                    android:importantForAutofill="no"
+                    android:inputType="textCapWords"
+                    android:maxLength="120" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

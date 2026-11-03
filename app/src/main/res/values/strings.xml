@@ -457,4 +457,22 @@
     <string name="rating_mine">Sua nota: %1$d de 5</string>
     <string name="rating_expired">O prazo de 48 horas para mudar a nota terminou.</string>
     <string name="rate_choose">Escolha de 1 a 5 estrelas.</string>
+
+    <!-- Onboarding (jornada §3, momentos 1 e 2) -->
+    <string name="onb_1_title">Livros da UFMS, de aluno para aluno</string>
+    <string name="onb_1_text">Troque um livro por outro ou passe adiante o que você já leu. Sem dinheiro, só com quem estuda com você.</string>
+    <string name="onb_2_title">Doou, ganhou 1 crédito</string>
+    <string name="onb_2_text">Cada livro que você passa adiante vale 1 crédito. Use para resgatar outro livro. Sem crédito? Você pode pedir mesmo assim: quem anunciou decide se aceita.</string>
+    <string name="onb_3_title">Encontro sempre em ponto seguro</string>
+    <string name="onb_3_text">A entrega é feita em pontos seguros do campus. Vocês combinam no chat do pedido e os dois confirmam a entrega. Só então os créditos são lançados.</string>
+    <string name="onb_4_title">Sua localização só no encontro</string>
+    <string name="onb_4_text">A outra pessoa só vê onde você está nos 10 minutos antes do encontro, e só se você ativar. Fora disso, ninguém vê sua localização.</string>
+    <string name="onb_5_title">Conte o que você lê</string>
+    <string name="onb_5_text">Assim o Início mostra o que importa pra você. Tudo opcional, dá para mudar depois no Perfil.</string>
+    <string name="onb_reading">O que você está lendo agora?</string>
+    <string name="onb_wish">Um livro que você quer</string>
+    <string name="action_continue">Continuar</string>
+    <string name="action_skip">Pular</string>
+    <string name="action_start">Começar</string>
+    <string name="onb_page">Página %1$d de %2$d</string>
 </resources>

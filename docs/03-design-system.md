@@ -105,6 +105,19 @@ Livro aberto em páginas brancas sobre o azul da UFMS, com marcador âmbar. Adap
 | Estante e desejos | Fragment | Adicionar livro |
 | Caixa de avisos | Fragment | Abrir aviso |
 
+### 6.0 Briefings v2 (03/11/2026, `/design-taste-frontend` aplicada com a jornada)
+
+A skill pede que cada tela **responda uma pergunta primeiro**, que o maior elemento seja o que responde essa pergunta e que o produto tenha **um elemento que só ele tem**. O elemento próprio do LeiaUFMS é a **capa do livro com o selo "a pé"** (distância real até o ponto seguro). Os briefings v1 abaixo continuam valendo para estados e microcopy; estes substituem a hierarquia.
+
+| Tela | Pergunta que responde primeiro | Maior elemento | Ação principal → secundárias | Hierarquia (cima → baixo) | Estados |
+|---|---|---|---|---|---|
+| Onboarding (4 telas + preferências) | "Como isso funciona e é seguro?" | Ilustração (ícone grande em contêiner colorido) + frase de 1 linha | **Continuar** → Pular | 1. Troque ou passe adiante. 2. Créditos (doou ganhou 1; sem crédito também pode pedir). 3. Encontro sempre em ponto seguro, confirmação dos dois lados. 4. Localização só nos 10 min antes do encontro e só se você ativar. 5. Curso, o que está lendo e um desejo | Passos pulados podem ser feitos depois no Perfil |
+| Início | "O que tem pra mim agora?" | Cartões "Pra você agora" (quando houver) e o carrossel de capas "Perto de você" | Abrir um livro → buscar, **Anunciar livro** | Saudação + créditos (âmbar) → busca em pílula → "Pra você agora" (pedidos esperando você, desejos que apareceram, encontro hoje) → "Perto de você, a pé" (carrossel de capas grandes com selo) → "Para o seu curso" (disciplinas) → "Chegaram agora" (carrossel) → "Todos os livros" (lista com filtros) | Sem localização: o carrossel "Perto de você" vira um convite "Ative a localização para ver o que dá para buscar a pé". Sem nada pra você: o bloco some (não mostra caixa vazia) |
+| Livro | "Vale a pena pedir este?" | Capa grande (280 dp) | **Pedir troca / Resgatar** em barra fixa → Salvar nos desejos (coração), Ver perfil do dono | Capa → título/autor → chips (conservação, edição, modalidade) → bloco de local (mapa estático do ponto + "a pé ~N min") → cartão de confiança (nota em destaque) → "Quantos querem" + "Passou por N mãos" → Disciplinas que indicam → Outras cópias → barra fixa | Próprio anúncio, já pedido, encerrado (como v1) |
+| Trocas | "Qual troca precisa de mim agora?" | Card da troca ativa com a barra de 4 etapas | Abrir a troca → Recebidos/Enviados | Troca(s) que pedem ação, cada uma com barra de etapas e o próximo passo → histórico compacto | Vazio com convite para Explorar |
+| Pedido | "Qual é o próximo passo?" | Barra de 4 etapas + frase do próximo passo | Botão do passo atual em barra fixa → chat, remarcar, cancelar | Livro → etapas → encontro (ponto, hora, localização ao vivo na janela de 10 min) → outra parte → ações | Fora da janela: "A localização aparece 10 min antes do encontro" |
+| Perfil | "Como a comunidade me vê?" | Cabeçalho azul com foto, nome, nota e créditos | Editar perfil → estante, desejos, conta | Cabeçalho azul → três números (trocas, livros passados adiante, nota) → selos → estante em capas (carrossel) → conta | Sem foto: iniciais |
+
 ### 6.1 Briefings de tela (Etapa D2, `/design-taste-frontend`)
 
 A skill classifica todas as telas do LeiaUFMS como **telas de app** (trabalhadas, não lidas), então valem as regras de `references/app-screens.md` da skill, traduzidas para Android:

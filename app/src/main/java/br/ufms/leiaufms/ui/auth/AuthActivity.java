@@ -50,7 +50,10 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     void openMain() {
-        Intent intent = new Intent(this, MainActivity.class);
+        long uid = br.ufms.leiaufms.core.security.SessionManager.get(this).currentUserId();
+        Class<?> next = br.ufms.leiaufms.ui.onboarding.OnboardingState.isDone(this, uid)
+                ? MainActivity.class : br.ufms.leiaufms.ui.onboarding.OnboardingActivity.class;
+        Intent intent = new Intent(this, next);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

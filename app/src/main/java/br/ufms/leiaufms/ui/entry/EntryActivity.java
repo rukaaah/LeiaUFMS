@@ -48,7 +48,10 @@ public class EntryActivity extends AppCompatActivity {
     private void route(SessionManager.Status status) {
         Intent next;
         if (status == SessionManager.Status.VALID) {
-            next = new Intent(this, MainActivity.class);
+            boolean onboarded = br.ufms.leiaufms.ui.onboarding.OnboardingState.isDone(this,
+                    SessionManager.get(this).currentUserId());
+            next = new Intent(this, onboarded ? MainActivity.class
+                    : br.ufms.leiaufms.ui.onboarding.OnboardingActivity.class);
             next.putExtra(Notifier.EXTRA_OPEN_INBOX, getIntent().getBooleanExtra(Notifier.EXTRA_OPEN_INBOX, false));
         } else {
             next = new Intent(this, AuthActivity.class);
