@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Post do mural (estrutura Pinterest: a capa é o post; cores do meio-termo Playful). -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/space_xxs"
+    android:clickable="true"
+    android:focusable="true"
+    app:shapeAppearance="@style/ShapeAppearance.Leia.Social">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/cover"
+                layout="@layout/view_cover"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <TextView
+                android:id="@+id/tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_xs"
+                android:background="@drawable/bg_post_tag"
+                android:importantForAccessibility="no"
+                android:paddingStart="@dimen/space_xs"
+                android:paddingTop="@dimen/space_xxs"
+                android:paddingEnd="@dimen/space_xs"
+                android:paddingBottom="@dimen/space_xxs"
+                android:textAppearance="@style/TextAppearance.Leia.Label"
+                android:textSize="13sp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_s">
+
+            <TextView
+                android:id="@+id/book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:importantForAccessibility="no"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.Leia.BookTitle"
+                android:textColor="@color/leia_on_background"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xxs"
+                android:ellipsize="end"
+                android:importantForAccessibility="no"
+                android:maxLines="5"
+                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                android:textColor="@color/leia_on_background" />
+
+            <TextView
+                android:id="@+id/meta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:importantForAccessibility="no"
+                android:textAppearance="@style/TextAppearance.Leia.Caption"
+                android:textColor="@color/leia_on_surface_variant" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/react_useful"
+                style="@style/Widget.Leia.ReactionButton"
+                android:text="@string/react_useful"
+                app:icon="@drawable/ic_thumb_up" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/react_want"
+                style="@style/Widget.Leia.ReactionButton"
+                android:text="@string/react_want"
+                app:icon="@drawable/ic_favorite_border" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

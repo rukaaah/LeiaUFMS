@@ -542,4 +542,38 @@
     <string name="live_on">Compartilhando. Atualiza a cada minuto enquanto esta tela estiver aberta.</string>
     <string name="live_other">%1$s está a %2$s do ponto · atualizado %3$s</string>
     <string name="live_other_none">%1$s ainda não compartilhou a localização.</string>
+
+    <!-- Mural (RF-38, RF-39), estrutura Pinterest -->
+    <string name="feed_all">Todos</string>
+    <string name="post_type_dica">Dica</string>
+    <string name="post_type_procuro">Procuro</string>
+    <string name="post_type_doacao">Doação</string>
+    <string name="post_type_troca">Troca concluída</string>
+    <string name="feed_caught_up">Você está em dia</string>
+    <string name="feed_caught_up_sub">Esses são os posts dos últimos 14 dias. Volte depois para ver os novos.</string>
+    <string name="action_new_post">Novo post</string>
+    <string name="react_useful">Útil</string>
+    <string name="react_want">Quero</string>
+    <plurals name="react_useful_count">
+        <item quantity="one">%d achou útil</item>
+        <item quantity="other">%d acharam útil</item>
+    </plurals>
+    <plurals name="react_want_count">
+        <item quantity="one">%d quer</item>
+        <item quantity="other">%d querem</item>
+    </plurals>
+    <string name="post_description">%1$s. %2$s sobre %3$s. %4$s. %5$s, %6$s</string>
+    <string name="title_new_post">Novo post</string>
+    <string name="label_post_type">Tipo do post</string>
+    <string name="label_post_book">Sobre qual livro?</string>
+    <string name="label_post_text">O que você quer contar?</string>
+    <string name="helper_post_book">Todo post fala de um livro.</string>
+    <string name="error_post_book">Escolha o livro do post.</string>
+    <string name="error_post_text">Escreva o texto do post.</string>
+    <string name="error_choose_post_type">Escolha o tipo do post.</string>
+    <string name="action_publish_post">Publicar no mural</string>
+    <string name="post_published">Post publicado no mural</string>
+    <string name="action_hide_post">Ocultar post</string>
+    <string name="post_hidden">Post ocultado</string>
+    <string name="action_tell_feed">Contar no mural</string>
 </resources>

@@ -54,6 +54,45 @@ public class SocialRepository {
         return Result.OK;
     }
 
+    /** RF-38: post com obra obrigatória e texto até 500 caracteres. */
+    @WorkerThread
+    public Result post(long autorId, String tipo, String titulo, String autor, String texto, Long anuncioId) {
+        String t = texto == null ? "" : texto.trim();
+        if (t.isEmpty()) return Result.EMPTY;
+        if (t.length() > AppConfig.POST_MAX_CHARS) return Result.TOO_LONG;
+        if (titulo == null || titulo.trim().isEmpty() || autor == null || autor.trim().isEmpty()) return Result.NOT_ALLOWED;
+        br.ufms.leiaufms.data.local.entity.PostMural p = new br.ufms.leiaufms.data.local.entity.PostMural();
+        p.autorId = autorId;
+        p.obraId = obra(titulo, autor);
+        p.tipo = tipo;
+        p.texto = t;
+        p.anuncioId = anuncioId;
+        p.criadoEm = System.currentTimeMillis();
+        db.socialDao().insertPost(p);
+        return Result.OK;
+    }
+
+    /** RF-39: reação alterna (liga/desliga); uma de cada tipo por pessoa, sem somar. */
+    @WorkerThread
+    public boolean toggleReaction(long postId, long usuarioId, String tipo) {
+        if (db.socialDao().deleteReacao(postId, usuarioId, tipo) > 0) return false;
+        br.ufms.leiaufms.data.local.entity.Reacao r = new br.ufms.leiaufms.data.local.entity.Reacao();
+        r.postId = postId;
+        r.usuarioId = usuarioId;
+        r.tipo = tipo;
+        db.socialDao().insertReacao(r);
+        return true;
+    }
+
+    /** Moderador oculta post (papel do Moderador, §3 da especificação). */
+    @WorkerThread
+    public boolean hidePost(long moderadorId, long postId) {
+        Usuario u = db.usuarioDao().findById(moderadorId);
+        if (u == null || !u.isModerador()) return false;
+        db.socialDao().hidePost(postId);
+        return true;
+    }
+
     /** Liga a uma obra existente por título + autor ou cria uma. */
     @WorkerThread
     public long obra(String titulo, String autor) {

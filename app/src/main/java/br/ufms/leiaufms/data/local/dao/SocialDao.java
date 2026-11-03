@@ -13,6 +13,7 @@ import br.ufms.leiaufms.data.local.entity.Mensagem;
 import br.ufms.leiaufms.data.local.entity.PostMural;
 import br.ufms.leiaufms.data.local.entity.Reacao;
 import br.ufms.leiaufms.data.local.model.MessageRow;
+import br.ufms.leiaufms.data.local.model.PostRow;
 import br.ufms.leiaufms.data.local.model.ShelfRow;
 
 import java.util.List;
@@ -38,6 +39,24 @@ public interface SocialDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long upsertAvaliacao(Avaliacao avaliacao);
+
+    // ---- Mural (RF-38, RF-39): finito, últimos 14 dias, até 30 itens
+    @Query("SELECT p.id, p.autorId, u.nome AS autorNome, p.obraId, o.titulo, o.autor, o.capaPath, p.tipo, p.texto, "
+            + "p.anuncioId, p.criadoEm, "
+            + "(SELECT COUNT(*) FROM reacao r WHERE r.postId = p.id AND r.tipo = 'UTIL') AS uteis, "
+            + "(SELECT COUNT(*) FROM reacao r WHERE r.postId = p.id AND r.tipo = 'QUERO') AS queros, "
+            + "EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'UTIL' AND r.usuarioId = :me) AS meuUtil, "
+            + "EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'QUERO' AND r.usuarioId = :me) AS meuQuero "
+            + "FROM post_mural p JOIN obra o ON o.id = p.obraId JOIN usuario u ON u.id = p.autorId "
+            + "WHERE p.oculto = 0 AND p.criadoEm >= :desde AND (:tipo = '' OR p.tipo = :tipo) "
+            + "ORDER BY p.criadoEm DESC LIMIT :limite")
+    LiveData<List<PostRow>> feed(long me, long desde, String tipo, int limite);
+
+    @Query("DELETE FROM reacao WHERE postId = :postId AND usuarioId = :usuarioId AND tipo = :tipo")
+    int deleteReacao(long postId, long usuarioId, String tipo);
+
+    @Query("UPDATE post_mural SET oculto = 1 WHERE id = :postId")
+    void hidePost(long postId);
 
     // ---- Chat (RF-40)
     @Query("SELECT m.id, m.autorId, u.nome AS autorNome, m.texto, m.pronta, m.enviadaEm FROM mensagem m "

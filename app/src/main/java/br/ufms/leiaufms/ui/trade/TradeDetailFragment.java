@@ -144,7 +144,18 @@ public class TradeDetailFragment extends Fragment {
         } else if (PedidoEstado.EM_DISPUTA.equals(p.estado) || PedidoEstado.CONCLUIDO.equals(p.estado)
                 || PedidoEstado.CANCELADO.equals(p.estado)) {
             if (p.aceitoEm != null) show(binding.buttonChat, R.string.action_open_chat, v -> openChat());
-            if (PedidoEstado.CONCLUIDO.equals(p.estado)) viewModel.loadMyRating();
+            if (PedidoEstado.CONCLUIDO.equals(p.estado)) {
+                viewModel.loadMyRating();
+                // Conclusão + recompensa (docs/08 §2): convite para contar no mural
+                show(binding.buttonSecondary, R.string.action_tell_feed, v -> {
+                    Bundle args = new Bundle();
+                    args.putString(br.ufms.leiaufms.ui.feed.NewPostFragment.ARG_TYPE,
+                            br.ufms.leiaufms.data.local.entity.PostMural.TIPO_TROCA_CONCLUIDA);
+                    args.putString(br.ufms.leiaufms.ui.feed.NewPostFragment.ARG_TITLE, r.titulo);
+                    args.putString(br.ufms.leiaufms.ui.feed.NewPostFragment.ARG_AUTHOR, r.autor);
+                    NavHostFragment.findNavController(this).navigate(R.id.newPostFragment, args);
+                });
+            }
         }
     }
 

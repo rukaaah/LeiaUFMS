@@ -114,4 +114,9 @@
             android:defaultValue="false"
             app:argType="boolean" />
     </fragment>
+
+    <fragment
+        android:id="@+id/newPostFragment"
+        android:name="br.ufms.leiaufms.ui.feed.NewPostFragment"
+        android:label="@string/title_new_post" />
 </navigation>
