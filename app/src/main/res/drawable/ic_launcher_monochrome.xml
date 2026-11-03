@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Camada monocromática do ícone (Android 13+): versão plana do logo. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:fillColor="#FFFFFFFF" android:pathData="M53,40.5C45.5,35.8 36.5,34.6 28,36.2L28,72.4C36.5,70.9 45.5,72 53,76.4Z" />
-    <path android:fillColor="#FFFFFFFF" android:pathData="M55,40.5C62.5,35.8 71.5,34.6 80,36.2L80,72.4C71.5,70.9 62.5,72 55,76.4Z" />
+    <group android:translateX="24" android:translateY="24" android:scaleX="2.5" android:scaleY="2.5">
+        <path android:fillColor="#FFFFFFFF" android:pathData="M2,14.6C5.2,13.4 8.8,13.4 11.3,15V21.6C8.8,20.2 5.2,20 2,20.8Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M22,14.6C18.8,13.4 15.2,13.4 12.7,15V21.6C15.2,20.2 18.8,20 22,20.8Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M4.05,3.00h1.50v9.60h-1.50Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M6.45,3.00h1.50v9.60h-1.50Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M8.85,3.00h1.50v9.60h-1.50Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M11.25,3.00h1.50v9.60h-1.50Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M13.65,3.00h1.50v9.60h-1.50Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M16.05,3.00h1.50v9.60h-1.50Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M18.45,3.00h1.50v9.60h-1.50Z" />
+    </group>
 </vector>

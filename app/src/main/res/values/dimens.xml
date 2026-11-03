@@ -66,4 +66,6 @@
     <dimen name="screen_margin_negative">-16dp</dimen>
     <dimen name="home_slot">80dp</dimen>
     <dimen name="home_slot_height">80dp</dimen>
+    <dimen name="login_logo">112dp</dimen>
+    <dimen name="login_logo_inset">-14dp</dimen>
 </resources>

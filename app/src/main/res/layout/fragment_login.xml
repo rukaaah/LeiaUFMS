@@ -17,9 +17,11 @@
         android:paddingEnd="@dimen/screen_margin"
         android:paddingBottom="@dimen/space_l">
 
+        <!-- Logo: o Paliteiro sobre o livro aberto (docs/logo) -->
         <ImageView
-            android:layout_width="@dimen/space_xxl"
-            android:layout_height="@dimen/space_xxl"
+            android:layout_width="@dimen/login_logo"
+            android:layout_height="@dimen/login_logo"
+            android:layout_marginStart="@dimen/login_logo_inset"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_splash" />
 

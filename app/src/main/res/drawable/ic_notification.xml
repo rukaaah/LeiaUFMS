@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Ícone de notificação: versão plana do logo (livro aberto + Paliteiro de topo reto), uma cor. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="56"
-    android:viewportHeight="56">
-    <group android:translateX="-26" android:translateY="-28">
-    <path android:fillColor="#FFFFFFFF" android:pathData="M53,40.5C45.5,35.8 36.5,34.6 28,36.2L28,72.4C36.5,70.9 45.5,72 53,76.4Z" />
-    <path android:fillColor="#FFFFFFFF" android:pathData="M55,40.5C62.5,35.8 71.5,34.6 80,36.2L80,72.4C71.5,70.9 62.5,72 55,76.4Z" />
-    </group>
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path android:fillColor="@android:color/white" android:pathData="M2,14.6C5.2,13.4 8.8,13.4 11.3,15V21.6C8.8,20.2 5.2,20 2,20.8Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M22,14.6C18.8,13.4 15.2,13.4 12.7,15V21.6C15.2,20.2 18.8,20 22,20.8Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M4.05,3.00h1.50v9.60h-1.50Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M6.45,3.00h1.50v9.60h-1.50Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M8.85,3.00h1.50v9.60h-1.50Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M11.25,3.00h1.50v9.60h-1.50Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M13.65,3.00h1.50v9.60h-1.50Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M16.05,3.00h1.50v9.60h-1.50Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M18.45,3.00h1.50v9.60h-1.50Z" />
 </vector>
