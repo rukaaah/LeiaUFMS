@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     ? getString(R.string.title_inbox) + ". " + getString(R.string.inbox_new)
                     : getString(R.string.title_inbox));
         });
+        observeMeeting(userId);
         if (savedInstanceState == null && getIntent().getBooleanExtra(Notifier.EXTRA_OPEN_INBOX, false)) {
             navController.navigate(R.id.inboxFragment);
         }
@@ -95,6 +96,82 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    // ---- Faixa do próximo encontro (feedback 03/11): fixa acima das abas, em qualquer tela ----
+
+    private static final long MIN = 60_000L;
+    private final android.os.Handler meetingTick = new android.os.Handler(android.os.Looper.getMainLooper());
+    private br.ufms.leiaufms.data.local.model.MeetingRow meeting;
+
+    private void observeMeeting(long userId) {
+        AppDatabase.get(this).pedidoDao().nextMeeting(userId, System.currentTimeMillis() - 30 * MIN)
+                .observe(this, m -> {
+                    meeting = m;
+                    renderMeeting();
+                });
+        binding.meeting.meetingBar.setOnClickListener(v -> {
+            if (meeting == null) return;
+            Bundle args = new Bundle();
+            args.putLong(br.ufms.leiaufms.ui.trade.TradeDetailFragment.ARG_ID, meeting.pedidoId);
+            navController.navigate(R.id.tradeDetailFragment, args);
+        });
+    }
+
+    private final Runnable meetingRefresh = this::renderMeeting;
+
+    /** Aparece 60 min antes; a 30 min fica verde forte e a 10 min azul (mais forte), até 30 min depois. */
+    private void renderMeeting() {
+        meetingTick.removeCallbacks(meetingRefresh);
+        com.google.android.material.card.MaterialCardView bar = binding.meeting.meetingBar;
+        long now = System.currentTimeMillis();
+        if (meeting == null || meeting.encontroEm - now > 60 * MIN || now - meeting.encontroEm > 30 * MIN) {
+            bar.setVisibility(android.view.View.GONE);
+            if (meeting != null && meeting.encontroEm - now > 60 * MIN) {
+                meetingTick.postDelayed(meetingRefresh, meeting.encontroEm - now - 60 * MIN);
+            }
+            return;
+        }
+        long diff = meeting.encontroEm - now;
+        int mins = (int) Math.round(Math.abs(diff) / (double) MIN);
+        String when = diff > MIN ? getString(R.string.meet_in, mins)
+                : diff < -MIN ? getString(R.string.meet_late, mins) : getString(R.string.meet_now);
+        boolean urgent = diff <= 10 * MIN;
+        boolean soon = diff <= 30 * MIN;
+        int bg = urgent ? R.color.leia_primary : soon ? R.color.leia_success : R.color.leia_success_container;
+        int fg = urgent ? R.color.leia_on_primary : soon ? R.color.leia_on_meeting : R.color.leia_on_success_container;
+        if (soon && !urgent) bg = R.color.leia_meeting_soon;
+        bar.setCardBackgroundColor(getColor(bg));
+        int fgc = getColor(fg);
+        for (android.widget.TextView t : new android.widget.TextView[]{binding.meeting.meetWhen,
+                binding.meeting.meetWhere, binding.meeting.meetOther}) {
+            t.setTextColor(fgc);
+            androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(t, android.content.res.ColorStateList.valueOf(fgc));
+        }
+        binding.meeting.meetWhen.setText(when + " · " + br.ufms.leiaufms.ui.common.TimeText.hour(meeting.encontroEm));
+        binding.meeting.meetWhere.setText(meeting.pontoNome);
+        br.ufms.leiaufms.ui.common.Covers.bind(binding.meeting.meetCover.coverImage, binding.meeting.meetCover.coverText,
+                meeting.capaPath, meeting.titulo);
+        String other = "";
+        if (meeting.outroLat != null && meeting.pontoLat != null) {
+            float d = br.ufms.leiaufms.core.location.WalkEstimate.distance(meeting.outroLat, meeting.outroLng,
+                    meeting.pontoLat, meeting.pontoLng);
+            other = getString(R.string.meet_other_dist, meeting.outroNome,
+                    br.ufms.leiaufms.ui.common.Labels.distance(this, d).replaceFirst("^a ", ""));
+            binding.meeting.meetOther.setVisibility(android.view.View.VISIBLE);
+            binding.meeting.meetOther.setText(other);
+        } else {
+            binding.meeting.meetOther.setVisibility(android.view.View.GONE);
+        }
+        bar.setContentDescription(getString(R.string.meet_bar_description, when, meeting.pontoNome, other));
+        bar.setVisibility(android.view.View.VISIBLE);
+        meetingTick.postDelayed(meetingRefresh, 30_000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        meetingTick.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 
     /** RF-05: chamado depois da confirmação do logout. */

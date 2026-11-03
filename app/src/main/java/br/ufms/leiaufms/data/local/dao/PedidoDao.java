@@ -75,6 +75,19 @@ public interface PedidoDao {
     @Query("SELECT COUNT(*) FROM pedido WHERE estado = 'CONCLUIDO' AND donoId = :usuarioId AND tipo = 'RESGATE'")
     int countDonations(long usuarioId);
 
+    /** Próximo encontro marcado (até 30 min depois do horário), para a faixa fixa do app. */
+    @Query("SELECT pd.id AS pedidoId, o.titulo, o.capaPath, pd.encontroEm, pt.nome AS pontoNome, pt.lat AS pontoLat, "
+            + "pt.lng AS pontoLng, CASE WHEN pd.donoId = :me THEN sol.nome ELSE dono.nome END AS outroNome, "
+            + "le.lat AS outroLat, le.lng AS outroLng, le.atualizadaEm AS outroAtualizadoEm "
+            + "FROM pedido pd JOIN anuncio a ON a.id = pd.anuncioId JOIN exemplar e ON e.id = a.exemplarId "
+            + "JOIN obra o ON o.id = e.obraId JOIN usuario sol ON sol.id = pd.solicitanteId "
+            + "JOIN usuario dono ON dono.id = pd.donoId LEFT JOIN ponto_encontro pt ON pt.id = pd.pontoEncontroId "
+            + "LEFT JOIN localizacao_encontro le ON le.pedidoId = pd.id "
+            + "AND le.usuarioId = CASE WHEN pd.donoId = :me THEN pd.solicitanteId ELSE pd.donoId END "
+            + "WHERE pd.estado = 'ACEITO' AND pd.encontroEm IS NOT NULL AND (pd.donoId = :me OR pd.solicitanteId = :me) "
+            + "AND pd.encontroEm >= :desde ORDER BY pd.encontroEm LIMIT 1")
+    LiveData<br.ufms.leiaufms.data.local.model.MeetingRow> nextMeeting(long me, long desde);
+
     @Query(SELECT_ROW + "WHERE pd.estado = 'EM_DISPUTA' ORDER BY pd.atualizadoEm")
     LiveData<List<PedidoRow>> disputes();
 }

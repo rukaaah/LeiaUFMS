@@ -41,6 +41,25 @@ public final class TimeText {
         return DateFormat.getDateInstance(DateFormat.SHORT, PT_BR).format(new Date(when));
     }
 
+    public static String hour(long when) {
+        return DateFormat.getTimeInstance(DateFormat.SHORT, PT_BR).format(new Date(when));
+    }
+
+    /** "Hoje 23:35 · em 18 min", "Amanhã 12:00" ou "05/11 12:00": data em palavra curta, hora em destaque. */
+    public static String meeting(Context c, long when) {
+        long now = System.currentTimeMillis();
+        String day;
+        if (android.text.format.DateUtils.isToday(when)) day = c.getString(R.string.today);
+        else if (android.text.format.DateUtils.isToday(when - DAY)) day = c.getString(R.string.tomorrow);
+        else day = new java.text.SimpleDateFormat("dd/MM", PT_BR).format(new Date(when));
+        String base = day + " " + hour(when);
+        long diff = when - now;
+        if (diff > 0 && diff < 2 * HOUR) {
+            return c.getString(R.string.meet_time_rel, base, c.getString(R.string.time_in_min, (int) Math.ceil(diff / (double) MINUTE)));
+        }
+        return base;
+    }
+
     public static String dateTime(long when) {
         return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, PT_BR).format(new Date(when));
     }

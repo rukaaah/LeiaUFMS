@@ -536,12 +536,12 @@
 
     <!-- RF-41: localização no encontro -->
     <string name="live_title">Localização no encontro</string>
-    <string name="live_closed">Você pode compartilhar sua localização a partir de %1$s (10 min antes do encontro). Fora dessa janela, ninguém vê onde você está.</string>
-    <string name="live_ended">A janela de localização deste encontro terminou.</string>
-    <string name="live_switch">Compartilhar minha localização com %1$s</string>
-    <string name="live_on">Compartilhando. Atualiza a cada minuto enquanto esta tela estiver aberta.</string>
-    <string name="live_other">%1$s está a %2$s do ponto · atualizado %3$s</string>
-    <string name="live_other_none">%1$s ainda não compartilhou a localização.</string>
+    <string name="live_closed">Localização liberada às %1$s (10 min antes)</string>
+    <string name="live_ended">Janela de localização encerrada</string>
+    <string name="live_switch">Mostrar onde estou para %1$s</string>
+    <string name="live_on">Visível · atualiza a cada minuto</string>
+    <string name="live_other">%1$s · %2$s do ponto · %3$s</string>
+    <string name="live_other_none">%1$s ainda não mostrou onde está</string>
 
     <!-- Mural (RF-38, RF-39), estrutura Pinterest -->
     <string name="feed_all">Todos</string>
@@ -621,4 +621,16 @@
     <string name="chat_empty_closed">Nenhuma mensagem neste pedido.</string>
     <string name="trajectory_title">Trajetória do exemplar</string>
     <string name="trajectory_line">%1$s · %2$s, %3$dº semestre · desde %4$s</string>
+
+    <!-- Encontro em destaque -->
+    <string name="meet_in">Encontro em %1$d min</string>
+    <string name="meet_now">Encontro agora</string>
+    <string name="meet_late">Encontro há %1$d min</string>
+    <string name="meet_at">Encontro às %1$s</string>
+    <string name="meet_other_dist">%1$s a %2$s</string>
+    <string name="meet_bar_description">%1$s. %2$s. %3$s. Toque para abrir o pedido</string>
+    <string name="time_in_min">em %1$d min</string>
+    <string name="meet_time_rel">%1$s · %2$s</string>
+    <string name="today">Hoje</string>
+    <string name="tomorrow">Amanhã</string>
 </resources>

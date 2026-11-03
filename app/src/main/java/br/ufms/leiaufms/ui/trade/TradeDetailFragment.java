@@ -112,8 +112,9 @@ public class TradeDetailFragment extends Fragment {
         binding.next.setText(next);
         boolean hasMeeting = p.encontroEm != null && r.pontoNome != null;
         binding.meeting.setVisibility(PedidoEstado.ACEITO.equals(p.estado) || hasMeeting ? View.VISIBLE : View.GONE);
-        binding.meeting.setText(hasMeeting ? getString(R.string.trade_meeting, r.pontoNome, TimeText.dateTime(p.encontroEm))
-                : getString(R.string.trade_no_meeting));
+        binding.meeting.setText(hasMeeting ? r.pontoNome : getString(R.string.trade_no_meeting));
+        binding.meetingTime.setVisibility(hasMeeting ? View.VISIBLE : View.GONE);
+        if (hasMeeting) binding.meetingTime.setText(TimeText.meeting(requireContext(), p.encontroEm));
         renderLive(r);
         binding.reason.setVisibility(p.motivo == null ? View.GONE : View.VISIBLE);
         if (p.motivo != null) binding.reason.setText(getString(R.string.trade_reason, p.motivo));
@@ -205,8 +206,9 @@ public class TradeDetailFragment extends Fragment {
         String otherName = p.donoId == me ? r.solicitanteNome : r.donoNome;
         if (!open) {
             boolean ended = now > p.encontroEm;
+            binding.liveText.setVisibility(View.VISIBLE);
             binding.liveText.setText(ended ? getString(R.string.live_ended) : getString(R.string.live_closed,
-                    TimeText.dateTime(br.ufms.leiaufms.data.pedido.MeetingWindow.opensAt(p.encontroEm))));
+                    TimeText.hour(br.ufms.leiaufms.data.pedido.MeetingWindow.opensAt(p.encontroEm))));
             binding.liveSwitch.setVisibility(View.GONE);
             binding.liveOther.setVisibility(View.GONE);
             stopLive();
@@ -216,7 +218,8 @@ public class TradeDetailFragment extends Fragment {
         }
         binding.liveSwitch.setVisibility(View.VISIBLE);
         binding.liveSwitch.setText(getString(R.string.live_switch, otherName));
-        binding.liveText.setText(binding.liveSwitch.isChecked() ? getString(R.string.live_on) : "");
+        binding.liveText.setVisibility(binding.liveSwitch.isChecked() ? View.VISIBLE : View.GONE);
+        binding.liveText.setText(R.string.live_on);
         binding.liveSwitch.setOnCheckedChangeListener((b, checked) -> {
             if (checked) startLive();
             else {
@@ -225,7 +228,7 @@ public class TradeDetailFragment extends Fragment {
                 android.content.Context app = requireContext().getApplicationContext();
                 br.ufms.leiaufms.core.util.AppExecutors.io().execute(() ->
                         br.ufms.leiaufms.data.local.AppDatabase.get(app).localizacaoDao().stop(pid, me));
-                binding.liveText.setText("");
+                binding.liveText.setVisibility(View.GONE);
             }
         });
         if (!liveObserving) {
@@ -251,6 +254,7 @@ public class TradeDetailFragment extends Fragment {
         float d = br.ufms.leiaufms.core.location.WalkEstimate.distance(loc.lat, loc.lng, current.pontoLat, current.pontoLng);
         binding.liveOther.setText(getString(R.string.live_other, otherName,
                 Labels.distance(requireContext(), d).replaceFirst("^a ", ""), TimeText.ago(requireContext(), loc.atualizadaEm)));
+        binding.liveOther.setTextAppearance(R.style.TextAppearance_Leia_Title);
     }
 
     private void startLive() {
@@ -258,6 +262,7 @@ public class TradeDetailFragment extends Fragment {
             @Override
             public void onGranted() {
                 if (binding == null) return;
+                binding.liveText.setVisibility(View.VISIBLE);
                 binding.liveText.setText(R.string.live_on);
                 liveHandler.removeCallbacks(liveTick);
                 liveHandler.post(liveTick);

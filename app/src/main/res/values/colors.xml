@@ -26,6 +26,8 @@
     <color name="leia_on_error_container">#5A0E09</color>
     <color name="leia_primary_header">#1B4F8F</color>
     <color name="leia_on_header">#FFFFFF</color>
+    <color name="leia_meeting_soon">#166534</color>
+    <color name="leia_on_meeting">#FFFFFF</color>
     <color name="leia_scrim">#000000</color>
     <color name="leia_inverse_primary">#8DB8F2</color>
     <color name="leia_shadow">#1A111827</color>

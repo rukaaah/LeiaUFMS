@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Faixa fixa do próximo encontro (feedback 03/11): aparece 60 min antes e fica mais forte a 30/20/10 min. -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/meeting_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_xs"
+    android:layout_marginEnd="@dimen/space_xs"
+    android:layout_marginBottom="@dimen/space_xxs"
+    android:clickable="true"
+    android:focusable="true"
+    android:visibility="gone"
+    app:cardBackgroundColor="@color/leia_success_container"
+    app:cardElevation="@dimen/elevation_hero"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_s">
+
+        <include
+            android:id="@+id/meet_cover"
+            layout="@layout/view_cover"
+            android:layout_width="@dimen/icon_box"
+            android:layout_height="@dimen/cover_mini_height" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_s"
+            android:layout_weight="1"
+            android:importantForAccessibility="noHideDescendants"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/meet_when"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/space_xxs"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Leia.Title"
+                android:textColor="@color/leia_on_success_container"
+                app:drawableStartCompat="@drawable/ic_schedule"
+                app:drawableTint="@color/leia_on_success_container" />
+
+            <TextView
+                android:id="@+id/meet_where"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/space_xxs"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.Leia.Label"
+                android:textColor="@color/leia_on_success_container"
+                app:drawableStartCompat="@drawable/ic_place"
+                app:drawableTint="@color/leia_on_success_container" />
+
+            <TextView
+                android:id="@+id/meet_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/space_xxs"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Leia.Label"
+                android:textColor="@color/leia_on_success_container"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_walk"
+                app:drawableTint="@color/leia_on_success_container" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/icon_m"
+            android:layout_height="@dimen/icon_m"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_chevron_right"
+            app:tint="@color/leia_on_success_container" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

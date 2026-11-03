@@ -104,12 +104,25 @@
                 android:id="@+id/meeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_xs"
+                android:layout_marginTop="@dimen/space_s"
                 android:drawablePadding="@dimen/space_xs"
-                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Leia.Title"
                 android:textColor="@color/leia_on_background"
                 android:visibility="gone"
                 app:drawableStartCompat="@drawable/ic_place" />
+
+            <TextView
+                android:id="@+id/meeting_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xxs"
+                android:drawablePadding="@dimen/space_xs"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Leia.Title"
+                android:textColor="@color/leia_on_background"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_schedule" />
 
             <TextView
                 android:id="@+id/reason"
@@ -131,16 +144,16 @@
             android:padding="@dimen/space_m"
             android:visibility="gone">
 
-            <TextView
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/live_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:accessibilityHeading="true"
                 android:drawablePadding="@dimen/space_xs"
-                android:gravity="center_vertical"
-                android:text="@string/live_title"
                 android:textAppearance="@style/TextAppearance.Leia.Title"
-                android:textColor="@color/leia_on_background"
-                app:drawableStartCompat="@drawable/ic_my_location" />
+                app:drawableStartCompat="@drawable/ic_my_location"
+                android:minHeight="@dimen/touch_target"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/live_text"
@@ -150,15 +163,6 @@
                 android:accessibilityLiveRegion="polite"
                 android:textAppearance="@style/TextAppearance.Leia.BodySmall"
                 android:textColor="@color/leia_on_surface_variant" />
-
-            <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/live_switch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_xs"
-                android:minHeight="@dimen/touch_target"
-                android:textAppearance="@style/TextAppearance.Leia.Body"
-                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/live_other"
