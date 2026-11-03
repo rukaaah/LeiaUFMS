@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = host.getNavController();
         AppBarConfiguration config = new AppBarConfiguration.Builder(
-                R.id.exploreFragment, R.id.feedFragment, R.id.tradesFragment, R.id.profileFragment).build();
+                R.id.homeFragment, R.id.feedFragment, R.id.tradesFragment, R.id.profileFragment).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, config);
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
         // A seta de voltar passa pelo mesmo caminho do botão Voltar (respeita "descartar alterações?")

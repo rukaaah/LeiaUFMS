@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Card do carrossel (referência Airbnb: capa primeiro, selo sobre a capa, coração no canto). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="@dimen/cover_card_width"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/space_s"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="@dimen/cover_card_width"
+        android:layout_height="@dimen/cover_card_height">
+
+        <include
+            android:id="@+id/cover"
+            layout="@layout/view_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="@dimen/space_xs"
+            android:background="@drawable/bg_badge_walk"
+            android:drawablePadding="@dimen/space_xxs"
+            android:importantForAccessibility="no"
+            android:paddingStart="@dimen/space_xs"
+            android:paddingTop="@dimen/space_xxs"
+            android:paddingEnd="@dimen/space_xs"
+            android:paddingBottom="@dimen/space_xxs"
+            android:textAppearance="@style/TextAppearance.Leia.Caption"
+            android:textColor="@color/leia_on_success_container"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/heart"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
+            android:layout_gravity="top|end"
+            android:background="@drawable/bg_heart_inset"
+            android:padding="14dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_favorite_border" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_xs"
+        android:ellipsize="end"
+        android:importantForAccessibility="no"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.Leia.BookTitle"
+        android:textColor="@color/leia_on_background"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:importantForAccessibility="no"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Leia.Caption"
+        android:textColor="@color/leia_on_surface_variant" />
+</LinearLayout>

@@ -475,4 +475,35 @@
     <string name="action_skip">Pular</string>
     <string name="action_start">Começar</string>
     <string name="onb_page">Página %1$d de %2$d</string>
+
+    <!-- Início (redesenho v2) -->
+    <string name="tab_home">Início</string>
+    <string name="title_search">Buscar livros</string>
+    <string name="home_hello">Olá, %1$s</string>
+    <string name="home_search">Buscar título, autor ou ISBN</string>
+    <string name="home_for_you">Pra você agora</string>
+    <string name="home_near">Perto de você, a pé</string>
+    <string name="home_near_sub">Livros em pontos seguros até 2 km</string>
+    <string name="home_near_invite">Ative a localização para ver o que dá para buscar a pé.</string>
+    <string name="home_near_none">Nenhum livro a pé agora. Veja os que chegaram.</string>
+    <string name="home_course">Para o seu curso</string>
+    <string name="home_course_sub">Indicados em disciplinas de %1$s</string>
+    <string name="home_new">Chegaram agora</string>
+    <string name="home_all">Ver todos os livros</string>
+    <string name="home_credits_chip">%1$d crédito(s)</string>
+    <string name="action_activate_location">Ativar localização</string>
+    <string name="badge_walk">A pé · %1$d min</string>
+    <string name="badge_far">%1$s</string>
+    <string name="wish_add">Salvar nos desejos</string>
+    <string name="wish_remove">Tirar dos desejos</string>
+    <string name="wish_saved">Salvo nos desejos. Avisamos quando aparecer outra cópia.</string>
+    <string name="act_answer">%1$s pediu %2$s</string>
+    <string name="act_answer_sub">Responda o pedido</string>
+    <string name="act_schedule">Marque o encontro de %1$s</string>
+    <string name="act_confirm">Confirme a entrega de %1$s</string>
+    <string name="act_meeting_today">Encontro hoje: %1$s</string>
+    <string name="act_wish">%1$s está disponível</string>
+    <string name="act_wish_sub">Está na sua lista de desejos</string>
+    <string name="act_with">com %1$s</string>
+    <string name="book_card_description">%1$s, de %2$s. %3$s. Anunciado por %4$s</string>
 </resources>

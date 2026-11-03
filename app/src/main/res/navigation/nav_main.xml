@@ -2,12 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_main"
-    app:startDestination="@id/exploreFragment">
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="br.ufms.leiaufms.ui.home.HomeFragment"
+        android:label=" " />
 
     <fragment
         android:id="@+id/exploreFragment"
         android:name="br.ufms.leiaufms.ui.explore.ExploreFragment"
-        android:label="@string/tab_explore" />
+        android:label="@string/title_search" />
 
     <fragment
         android:id="@+id/feedFragment"

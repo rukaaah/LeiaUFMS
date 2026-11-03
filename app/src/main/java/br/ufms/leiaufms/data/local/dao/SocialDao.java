@@ -68,6 +68,16 @@ public interface SocialDao {
     @Query("DELETE FROM desejo WHERE id = :id AND usuarioId = :usuarioId")
     void deleteWish(long id, long usuarioId);
 
+    @Query("SELECT obraId FROM desejo WHERE usuarioId = :usuarioId")
+    LiveData<List<Long>> wishedObras(long usuarioId);
+
+    @Query("DELETE FROM desejo WHERE usuarioId = :usuarioId AND obraId = :obraId")
+    void deleteWishByObra(long usuarioId, long obraId);
+
+    /** Prova social leve: quantas pessoas querem a obra. */
+    @Query("SELECT COUNT(*) FROM desejo WHERE obraId = :obraId")
+    int wishCount(long obraId);
+
     @Query("SELECT COUNT(*) FROM desejo WHERE usuarioId = :usuarioId AND obraId = :obraId")
     int hasWish(long usuarioId, long obraId);
 

@@ -1,0 +1,268 @@
+package br.ufms.leiaufms.ui.home;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import br.ufms.leiaufms.R;
+import br.ufms.leiaufms.core.location.LocationProvider;
+import br.ufms.leiaufms.core.permission.PermissionHelper;
+import br.ufms.leiaufms.data.local.model.ListingRow;
+import br.ufms.leiaufms.data.local.model.PedidoRow;
+import br.ufms.leiaufms.data.local.model.ShelfRow;
+import br.ufms.leiaufms.data.pedido.PedidoEstado;
+import br.ufms.leiaufms.databinding.FragmentHomeBinding;
+import br.ufms.leiaufms.databinding.ItemActionCardBinding;
+import br.ufms.leiaufms.ui.common.Labels;
+import br.ufms.leiaufms.ui.common.TimeText;
+import br.ufms.leiaufms.ui.listing.ListingDetailFragment;
+import br.ufms.leiaufms.ui.trade.TradeDetailFragment;
+
+/**
+ * Início (jornada §3, momentos 2, 3 e 9): responde "o que tem pra mim agora?".
+ * Diferencial: sempre mostra o próximo livro e o próximo passo.
+ */
+public class HomeFragment extends Fragment {
+
+    private FragmentHomeBinding binding;
+    private HomeViewModel viewModel;
+    private PermissionHelper permissions;
+    private LocationProvider locationProvider;
+    private List<PedidoRow> received = new ArrayList<>();
+    private List<PedidoRow> sent = new ArrayList<>();
+    private List<ShelfRow> wishes = new ArrayList<>();
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        permissions = new PermissionHelper(this);
+        locationProvider = new LocationProvider(requireContext());
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        BookCardAdapter.Listener listener = new BookCardAdapter.Listener() {
+            @Override
+            public void onOpen(ListingRow row) {
+                openListing(row.anuncioId);
+            }
+
+            @Override
+            public void onToggleWish(ListingRow row) {
+                viewModel.toggleWish(row.obraId);
+            }
+        };
+        BookCardAdapter nearAdapter = new BookCardAdapter(listener);
+        BookCardAdapter courseAdapter = new BookCardAdapter(listener);
+        BookCardAdapter freshAdapter = new BookCardAdapter(listener);
+        binding.nearList.setAdapter(nearAdapter);
+        binding.courseList.setAdapter(courseAdapter);
+        binding.freshList.setAdapter(freshAdapter);
+
+        viewModel.user().observe(getViewLifecycleOwner(), u -> {
+            if (u == null) return;
+            String first = u.nome.trim().split("\\s+")[0];
+            binding.hello.setText(getString(R.string.home_hello, first));
+            binding.courseSub.setText(getString(R.string.home_course_sub, u.curso));
+        });
+        viewModel.credits().observe(getViewLifecycleOwner(), c -> {
+            int n = c == null ? 0 : c;
+            binding.credits.setText(getResources().getQuantityString(R.plurals.credits_available, n, n));
+            binding.credits.setContentDescription(getString(R.string.credits_balance_description) + ": "
+                    + getResources().getQuantityString(R.plurals.credits_available, n, n));
+        });
+        viewModel.wished().observe(getViewLifecycleOwner(), ids -> {
+            HashSet<Long> set = ids == null ? new HashSet<>() : new HashSet<>(ids);
+            nearAdapter.setWished(set);
+            courseAdapter.setWished(set);
+            freshAdapter.setWished(set);
+        });
+        viewModel.near().observe(getViewLifecycleOwner(), list -> {
+            nearAdapter.submitList(list);
+            renderNear(list);
+        });
+        viewModel.course().observe(getViewLifecycleOwner(), list -> {
+            courseAdapter.submitList(list);
+            boolean show = list != null && !list.isEmpty();
+            binding.courseTitle.setVisibility(show ? View.VISIBLE : View.GONE);
+            binding.courseSub.setVisibility(show ? View.VISIBLE : View.GONE);
+            binding.courseList.setVisibility(show ? View.VISIBLE : View.GONE);
+        });
+        viewModel.fresh().observe(getViewLifecycleOwner(), freshAdapter::submitList);
+        viewModel.received().observe(getViewLifecycleOwner(), l -> {
+            received = l == null ? new ArrayList<>() : l;
+            renderForYou();
+        });
+        viewModel.sent().observe(getViewLifecycleOwner(), l -> {
+            sent = l == null ? new ArrayList<>() : l;
+            renderForYou();
+        });
+        viewModel.wishes().observe(getViewLifecycleOwner(), l -> {
+            wishes = l == null ? new ArrayList<>() : l;
+            renderForYou();
+        });
+
+        binding.search.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.exploreFragment));
+        binding.buttonAll.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.exploreFragment));
+        binding.fabNew.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.newListingFragment));
+        binding.nearInviteAction.setOnClickListener(v -> askLocation());
+        binding.scroll.setOnScrollChangeListener((androidx.core.widget.NestedScrollView.OnScrollChangeListener)
+                (sv, x, y, ox, oy) -> {
+                    if (y > oy + 8) binding.fabNew.shrink();
+                    else if (y < oy - 8) binding.fabNew.extend();
+                });
+
+        // RNF-07: só lê a posição se a permissão já existe; senão, convida (não pede ao abrir)
+        if (PermissionHelper.anyGranted(requireContext(), LocationProvider.PERMISSIONS)) fetchLocation();
+    }
+
+    private void renderNear(List<ListingRow> list) {
+        boolean hasLocation = viewModel.hasLocation();
+        boolean any = list != null && !list.isEmpty();
+        binding.nearSub.setText(R.string.home_near_sub);
+        binding.nearList.setVisibility(any ? View.VISIBLE : View.GONE);
+        binding.nearInvite.setVisibility(any ? View.GONE : View.VISIBLE);
+        if (!hasLocation) {
+            binding.nearInviteText.setText(R.string.home_near_invite);
+            binding.nearInviteAction.setVisibility(View.VISIBLE);
+        } else if (!any) {
+            binding.nearInviteText.setText(R.string.home_near_none);
+            binding.nearInviteAction.setVisibility(View.GONE);
+        }
+    }
+
+    /** "Pra você agora": só ações reais; o bloco some quando não há nada (sem caixa vazia). */
+    private void renderForYou() {
+        if (binding == null) return;
+        binding.forYouList.removeAllViews();
+        long me = viewModel.userId;
+        int count = 0;
+        for (PedidoRow r : received) {
+            if (PedidoEstado.PENDENTE.equals(r.pedido.estado)) {
+                addAction(R.drawable.ic_swap, R.drawable.bg_circle_primary, R.color.leia_primary,
+                        getString(R.string.act_answer, r.solicitanteNome, r.titulo), getString(R.string.act_answer_sub),
+                        () -> openTrade(r.pedido.id));
+                count++;
+            }
+        }
+        List<PedidoRow> mine = new ArrayList<>(received);
+        mine.addAll(sent);
+        for (PedidoRow r : mine) {
+            if (!PedidoEstado.ACEITO.equals(r.pedido.estado)) continue;
+            String other = r.pedido.donoId == me ? r.solicitanteNome : r.donoNome;
+            if (r.pedido.encontroEm == null) {
+                addAction(R.drawable.ic_place, R.drawable.bg_circle_success, R.color.leia_success,
+                        getString(R.string.act_schedule, r.titulo), getString(R.string.act_with, other),
+                        () -> openTrade(r.pedido.id));
+            } else if (android.text.format.DateUtils.isToday(r.pedido.encontroEm)) {
+                addAction(R.drawable.ic_event, R.drawable.bg_circle_success, R.color.leia_success,
+                        getString(R.string.act_meeting_today, r.titulo),
+                        (r.pontoNome == null ? "" : r.pontoNome + " · ") + TimeText.dateTime(r.pedido.encontroEm),
+                        () -> openTrade(r.pedido.id));
+            } else if (Labels.needsAction(r.pedido, me)) {
+                addAction(R.drawable.ic_check_circle, R.drawable.bg_circle_success, R.color.leia_success,
+                        getString(R.string.act_confirm, r.titulo), getString(R.string.act_with, other),
+                        () -> openTrade(r.pedido.id));
+            } else {
+                continue;
+            }
+            count++;
+        }
+        for (ShelfRow w : wishes) {
+            if (w.disponiveis > 0 && w.anuncioId != null) {
+                addAction(R.drawable.ic_favorite, R.drawable.bg_circle_tertiary, R.color.leia_tertiary,
+                        getString(R.string.act_wish, w.titulo), getString(R.string.act_wish_sub),
+                        () -> openListing(w.anuncioId));
+                count++;
+            }
+        }
+        binding.forYou.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+    }
+
+    private void addAction(int icon, int bg, int tint, String title, String subtitle, Runnable onClick) {
+        Context c = requireContext();
+        ItemActionCardBinding b = ItemActionCardBinding.inflate(getLayoutInflater(), binding.forYouList, false);
+        b.icon.setImageResource(icon);
+        b.icon.setColorFilter(c.getColor(tint));
+        b.iconBox.setBackgroundResource(bg);
+        b.title.setText(title);
+        b.subtitle.setText(subtitle);
+        b.getRoot().setContentDescription(title + ". " + subtitle);
+        b.getRoot().setOnClickListener(v -> onClick.run());
+        binding.forYouList.addView(b.getRoot());
+    }
+
+    private void askLocation() {
+        permissions.request(new PermissionHelper.Callback() {
+            @Override
+            public void onGranted() {
+                fetchLocation();
+            }
+
+            @Override
+            public void onDenied(boolean permanently) {
+                if (binding == null) return;
+                binding.nearInviteText.setText(R.string.location_denied);
+                if (permanently) {
+                    binding.nearInviteAction.setText(R.string.action_open_settings);
+                    binding.nearInviteAction.setOnClickListener(v -> PermissionHelper.openAppSettings(requireContext()));
+                }
+            }
+        }, LocationProvider.PERMISSIONS);
+    }
+
+    private void fetchLocation() {
+        locationProvider.current(new LocationProvider.Callback() {
+            @Override
+            public void onLocation(android.location.Location l) {
+                if (binding != null) viewModel.setLocation(l);
+            }
+
+            @Override
+            public void onFailure(LocationProvider.Failure f) {
+                if (binding == null) return;
+                binding.nearInviteText.setText(f == LocationProvider.Failure.DISABLED
+                        ? R.string.location_disabled : R.string.location_unavailable);
+            }
+        });
+    }
+
+    private void openListing(long anuncioId) {
+        Bundle args = new Bundle();
+        args.putLong(ListingDetailFragment.ARG_ID, anuncioId);
+        NavHostFragment.findNavController(this).navigate(R.id.listingDetailFragment, args);
+    }
+
+    private void openTrade(long pedidoId) {
+        Bundle args = new Bundle();
+        args.putLong(TradeDetailFragment.ARG_ID, pedidoId);
+        NavHostFragment.findNavController(this).navigate(R.id.tradeDetailFragment, args);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        locationProvider.cancel();
+        binding = null;
+    }
+}

@@ -103,6 +103,21 @@ public class SocialRepository {
         return Result.OK;
     }
 
+    /** Coração do card: liga ou desliga o desejo da obra. Devolve true se ficou desejada. */
+    @WorkerThread
+    public boolean toggleWish(long usuarioId, long obraId) {
+        if (db.socialDao().hasWish(usuarioId, obraId) > 0) {
+            db.socialDao().deleteWishByObra(usuarioId, obraId);
+            return false;
+        }
+        Desejo d = new Desejo();
+        d.usuarioId = usuarioId;
+        d.obraId = obraId;
+        d.criadoEm = System.currentTimeMillis();
+        db.socialDao().insertDesejo(d);
+        return true;
+    }
+
     @WorkerThread
     public void removeWish(long id, long usuarioId) {
         db.socialDao().deleteWish(id, usuarioId);

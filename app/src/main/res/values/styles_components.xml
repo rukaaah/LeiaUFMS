@@ -29,4 +29,16 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <!-- Título de seção do Início (Nova Mobile: Title 22 SemiBold) -->
+    <style name="Widget.Leia.HomeSection" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/screen_margin</item>
+        <item name="android:layout_marginEnd">@dimen/screen_margin</item>
+        <item name="android:layout_marginTop">@dimen/space_xl</item>
+        <item name="android:accessibilityHeading">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leia.Headline</item>
+        <item name="android:textColor">@color/leia_on_background</item>
+    </style>
 </resources>

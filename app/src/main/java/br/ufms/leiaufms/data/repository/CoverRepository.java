@@ -29,7 +29,7 @@ import br.ufms.leiaufms.data.local.entity.Obra;
  */
 public class CoverRepository {
 
-    private static final String SEARCH = "https://openlibrary.org/search.json?limit=1&fields=cover_i";
+    private static final String SEARCH = "https://openlibrary.org/search.json?limit=5&fields=cover_i";
     private static final String COVER = "https://covers.openlibrary.org/b/id/%d-M.jpg?default=false";
     private static final int TIMEOUT_MS = 8000;
     private static final long RETRY_MS = 24L * 60 * 60 * 1000;
@@ -62,20 +62,48 @@ public class CoverRepository {
         return ok;
     }
 
+    /**
+     * Tenta, em ordem: ISBN; título curto (antes de ":" ou ",") + sobrenome do primeiro autor;
+     * título completo + primeiro autor. Fica com o primeiro resultado que tenha capa.
+     */
     @Nullable
     Long searchCoverId(Obra o) throws IOException {
-        String query = o.isbn13 != null && !o.isbn13.isEmpty()
-                ? "&isbn=" + enc(o.isbn13)
-                : "&title=" + enc(o.titulo) + "&author=" + enc(firstAuthor(o.autor));
+        if (o.isbn13 != null && !o.isbn13.isEmpty()) {
+            Long id = firstCover("&isbn=" + enc(o.isbn13));
+            if (id != null) return id;
+        }
+        String author = firstAuthor(o.autor);
+        String[] parts = author.split("\\s+");
+        String lastName = parts[parts.length - 1];
+        Long id = firstCover("&title=" + enc(shortTitle(o.titulo)) + "&author=" + enc(lastName));
+        if (id != null) return id;
+        return firstCover("&title=" + enc(o.titulo) + "&author=" + enc(author));
+    }
+
+    @Nullable
+    private Long firstCover(String query) throws IOException {
         String json = new String(get(SEARCH + query), StandardCharsets.UTF_8);
         try {
             JSONArray docs = new JSONObject(json).optJSONArray("docs");
-            if (docs == null || docs.length() == 0) return null;
-            long id = docs.getJSONObject(0).optLong("cover_i", -1);
-            return id > 0 ? id : null;
+            if (docs == null) return null;
+            for (int i = 0; i < docs.length(); i++) {
+                long id = docs.getJSONObject(i).optLong("cover_i", -1);
+                if (id > 0) return id;
+            }
+            return null;
         } catch (org.json.JSONException e) {
             return null;
         }
+    }
+
+    static String shortTitle(String titulo) {
+        String t = titulo == null ? "" : titulo;
+        int cut = t.length();
+        for (char ch : new char[]{':', ','}) {
+            int i = t.indexOf(ch);
+            if (i > 0 && i < cut) cut = i;
+        }
+        return t.substring(0, cut).trim();
     }
 
     @Nullable
