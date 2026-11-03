@@ -45,7 +45,7 @@ public interface SocialDao {
     LiveData<List<MessageRow>> messages(long pedidoId);
 
     // ---- Estante (RF-35)
-    @Query("SELECT i.id, i.obraId, i.status, o.titulo, o.autor, 0 AS disponiveis, NULL AS anuncioId "
+    @Query("SELECT i.id, i.obraId, i.status, o.titulo, o.autor, o.capaPath, 0 AS disponiveis, NULL AS anuncioId "
             + "FROM item_estante i JOIN obra o ON o.id = i.obraId WHERE i.usuarioId = :usuarioId "
             + "ORDER BY CASE i.status WHEN 'LENDO' THEN 0 WHEN 'LIDO' THEN 1 ELSE 2 END, i.atualizadoEm DESC")
     LiveData<List<ShelfRow>> shelf(long usuarioId);
@@ -57,7 +57,7 @@ public interface SocialDao {
     void deleteShelf(long id, long usuarioId);
 
     // ---- Desejos (RF-37)
-    @Query("SELECT d.id, d.obraId, 'DESEJO' AS status, o.titulo, o.autor, "
+    @Query("SELECT d.id, d.obraId, 'DESEJO' AS status, o.titulo, o.autor, o.capaPath, "
             + "(SELECT COUNT(*) FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId "
             + " WHERE e.obraId = d.obraId AND a.ativo = 1 AND a.donoId != d.usuarioId) AS disponiveis, "
             + "(SELECT a.id FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId "

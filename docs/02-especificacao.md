@@ -112,6 +112,9 @@ Legenda de prioridade: **D** = Deve (exigência do PDF), **De** = Deveria, **P**
 | RF-29 | Mapa de pontos seguros | Partes | Abrir "Marcar encontro" | Mapa MapLibre com marcadores dos pontos cadastrados e posição do usuário (se permitida) | Seleção de um ponto; sem internet, lista dos pontos como alternativa | D |
 | RF-30 | Cadastrar ponto seguro | Moderador | Nome, descrição, toque no mapa | Valida nome e coordenadas | Novo ponto disponível para todos | P |
 
+| RF-41 | Localização no encontro | Partes | Ativar "Compartilhar minha localização" no pedido | Só com pedido ACEITO e encontro marcado, de 10 min antes até 30 min depois do horário (ou até a entrega ser confirmada); leitura sob demanda com o app aberto, sem rastreio em segundo plano | A outra parte vê a posição no mapa do pedido com "atualizada há N min"; fora da janela, nada é mostrado | De |
+| RF-42 | Capas dos livros | Sistema | Nova obra cadastrada | Consome a API pública da Open Library (busca por título + autor ou ISBN), baixa a capa e guarda em `filesDir/capas`; tenta de novo depois de 24 h se falhar; só com internet (WorkManager) | Capa real em cards, detalhe, estante e pedidos; sem capa, iniciais do título | De |
+
 ### 4.6 Notificações
 
 | ID | Evento | Destinatário | Prio |
@@ -142,7 +145,7 @@ Legenda de prioridade: **D** = Deve (exigência do PDF), **De** = Deveria, **P**
 | ID | Requisito |
 |---|---|
 | RNF-01 | Android nativo em Java; minSdk 26, targetSdk/compileSdk 37 |
-| RNF-02 | Banco local Room; nenhum dado sai do aparelho além do download de tiles do mapa |
+| RNF-02 | Banco local Room. Saem do aparelho só: download de tiles do mapa e a busca de capas na Open Library (título e autor da obra, sem dado pessoal), decisão do grupo em 03/11/2026 |
 | RNF-03 | Nenhuma operação de banco ou disco na main thread |
 | RNF-04 | O app não pode encerrar (crash) com entrada inválida, permissão negada, falta de GPS ou de internet |
 | RNF-05 | Textos em `strings.xml` (pt-BR); nenhum texto fixo no layout |

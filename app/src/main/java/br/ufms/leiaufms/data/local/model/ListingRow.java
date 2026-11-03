@@ -18,6 +18,7 @@ public class ListingRow {
     public String titulo;
     public String autor;
     public String isbn13;
+    public String capaPath;
     public String donoNome;
     public String donoCurso;
     public String donoFoto;
@@ -47,6 +48,7 @@ public class ListingRow {
         c.titulo = titulo;
         c.autor = autor;
         c.isbn13 = isbn13;
+        c.capaPath = capaPath;
         c.donoNome = donoNome;
         c.donoCurso = donoCurso;
         c.donoFoto = donoFoto;
@@ -54,6 +56,11 @@ public class ListingRow {
         c.pontoLat = pontoLat;
         c.pontoLng = pontoLng;
         return c;
+    }
+
+    /** Imagem do card: capa da obra; sem capa, a foto do exemplar. */
+    public String imagem() {
+        return capaPath != null ? capaPath : fotoPath;
     }
 
     public Double latitude() {

@@ -65,7 +65,7 @@ public class ShelfAdapter extends ListAdapter<ShelfRow, ShelfAdapter.Holder> {
         Context c = h.itemView.getContext();
         h.b.title.setText(r.titulo);
         h.b.author.setText(r.autor);
-        Covers.bind(h.b.cover.coverImage, h.b.cover.coverText, null, r.titulo);
+        Covers.bind(h.b.cover.coverImage, h.b.cover.coverText, r.capaPath, r.titulo);
         h.b.cover.coverText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 13);
         String status = statusLabel(c, r);
         h.b.status.setText(status);

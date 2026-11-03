@@ -37,7 +37,7 @@ public class ListingAdapter extends ListAdapter<ListingRow, ListingAdapter.Holde
             public boolean areContentsTheSame(@NonNull ListingRow a, @NonNull ListingRow b) {
                 return a.titulo.equals(b.titulo) && a.modalidade.equals(b.modalidade)
                         && java.util.Objects.equals(a.distancia, b.distancia)
-                        && java.util.Objects.equals(a.fotoPath, b.fotoPath);
+                        && java.util.Objects.equals(a.imagem(), b.imagem());
             }
         });
         this.onClick = onClick;
@@ -55,7 +55,7 @@ public class ListingAdapter extends ListAdapter<ListingRow, ListingAdapter.Holde
         Context c = h.itemView.getContext();
         h.b.title.setText(r.titulo);
         h.b.author.setText(r.autor);
-        Covers.bind(h.b.cover.coverImage, h.b.cover.coverText, r.fotoPath, r.titulo);
+        Covers.bind(h.b.cover.coverImage, h.b.cover.coverText, r.imagem(), r.titulo);
         String distance;
         if (r.distancia != null) {
             distance = Labels.distance(c, r.distancia) + " · " + Labels.walk(c, r.distancia);

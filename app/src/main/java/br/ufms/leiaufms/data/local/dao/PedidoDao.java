@@ -15,7 +15,7 @@ import br.ufms.leiaufms.data.local.model.PedidoRow;
 @Dao
 public interface PedidoDao {
 
-    String SELECT_ROW = "SELECT pd.*, o.titulo, o.autor, e.fotoPath AS capaPath, o.id AS obraId, "
+    String SELECT_ROW = "SELECT pd.*, o.titulo, o.autor, COALESCE(o.capaPath, e.fotoPath) AS capaPath, o.id AS obraId, "
             + "sol.nome AS solicitanteNome, dono.nome AS donoNome, oo.titulo AS oferecidoTitulo, "
             + "pt.nome AS pontoNome, pt.descricao AS pontoDescricao "
             + "FROM pedido pd JOIN anuncio a ON a.id = pd.anuncioId JOIN exemplar e ON e.id = a.exemplarId "

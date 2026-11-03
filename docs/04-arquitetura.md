@@ -16,7 +16,8 @@
 | Splash | `androidx.core:core-splashscreen` | Sem atraso artificial |
 | Localização | `com.google.android.gms:play-services-location` | `getCurrentLocation` sob demanda |
 | Mapa | MapLibre Native Android + estilo OpenFreeMap (`tiles.openfreemap.org/styles/liberty`) | Sem chave de API. Câmera inicial no centro de Campo Grande (coordenada pública da cidade, não é ponto de encontro) |
-| Tarefas | WorkManager | Expiração de pedidos e lembretes |
+| Tarefas | WorkManager | Expiração de pedidos e lembretes (`DeadlineWorker`); capas (`CoverWorker`, só com internet) |
+| HTTP | `HttpURLConnection` + `org.json` (nativos) | API pública da Open Library para capas (RF-42) |
 | Imagens | `ActivityResultContracts.TakePicture` / `PickVisualMedia` + `FileProvider` | — |
 
 **Versões:** não fixadas aqui de propósito. Usar a versão estável mais recente de cada uma no momento do setup, registrar no `gradle/libs.versions.toml` e anotar no `AGENT.md` (seção Estado atual).
@@ -70,7 +71,7 @@ App abre
 |---|---|---|
 | `usuario` | id, nome, email (único, minúsculo), senhaHash, curso, semestre, status, fotoPath, papel (`ALUNO`/`MODERADOR`), criadoEm | Nunca guardar senha |
 | `sessao` | id, usuarioId, tokenHash, criadaEm, expiraEm | Token em claro só no `SharedPreferences` |
-| `obra` | id, titulo, autor, isbn13 (nulo) | Agrupador do hub |
+| `obra` | id, titulo, autor, isbn13 (nulo), capaPath, capaTentativaEm | Agrupador do hub. Capa da Open Library (RF-42); banco v3 |
 | `edicao_compativel` | obraId, obraCompativelId | Marcado por moderador |
 | `disciplina` | id, codigo, nome, curso | Seed |
 | `obra_disciplina` | obraId, disciplinaId | Recomendações |

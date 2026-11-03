@@ -45,6 +45,13 @@ public interface ObraDao {
     @Query("SELECT * FROM obra WHERE titulo LIKE '%' || :q || '%' OR autor LIKE '%' || :q || '%' ORDER BY titulo COLLATE NOCASE LIMIT 30")
     List<Obra> search(String q);
 
+    /** Obras sem capa ainda não tentadas (ou tentadas antes de :antesDe). */
+    @Query("SELECT * FROM obra WHERE capaPath IS NULL AND (capaTentativaEm IS NULL OR capaTentativaEm < :antesDe) LIMIT 40")
+    List<Obra> withoutCover(long antesDe);
+
+    @Query("UPDATE obra SET capaPath = :path, capaTentativaEm = :quando WHERE id = :id")
+    void setCover(long id, String path, long quando);
+
     @Query("SELECT * FROM disciplina ORDER BY nome COLLATE NOCASE")
     List<Disciplina> disciplinas();
 }

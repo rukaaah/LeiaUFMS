@@ -20,4 +20,10 @@ public class Obra {
     public String autor = "";
 
     public String isbn13;
+
+    /** Capa baixada da Open Library e guardada em filesDir/capas (null enquanto não houver). */
+    public String capaPath;
+
+    /** Última tentativa de buscar a capa (evita repetir a busca a cada abertura). */
+    public Long capaTentativaEm;
 }

@@ -17,7 +17,7 @@ public interface AnuncioDao {
 
     String SELECT_ROW = "SELECT a.id AS anuncioId, a.modalidade, a.lat, a.lng, a.ativo, a.criadoEm, a.donoId, "
             + "a.pontoPreferidoId, e.id AS exemplarId, e.edicao, e.conservacao, e.fotoPath, o.id AS obraId, "
-            + "o.titulo, o.autor, o.isbn13, u.nome AS donoNome, u.curso AS donoCurso, u.fotoPath AS donoFoto, "
+            + "o.titulo, o.autor, o.isbn13, o.capaPath, u.nome AS donoNome, u.curso AS donoCurso, u.fotoPath AS donoFoto, "
             + "p.nome AS pontoNome, p.lat AS pontoLat, p.lng AS pontoLng "
             + "FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId JOIN obra o ON o.id = e.obraId "
             + "JOIN usuario u ON u.id = a.donoId LEFT JOIN ponto_encontro p ON p.id = a.pontoPreferidoId ";

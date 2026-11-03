@@ -87,6 +87,7 @@ public class ListingRepository {
             interessados.addAll(db.socialDao().wishersOf(obraId, donoId));
             return anuncioId;
         });
+        br.ufms.leiaufms.work.CoverWorker.enqueue(context);
         // RF-32: avisa quem tem a obra na lista de desejos
         Obra obra = db.obraDao().findById(obraOut[0]);
         for (Long usuarioId : interessados) {

@@ -100,7 +100,7 @@ public class ListingDetailFragment extends Fragment {
     private void renderRow(ListingRow r) {
         binding.title.setText(r.titulo);
         binding.author.setText(r.autor);
-        Covers.bind(binding.cover.coverImage, binding.cover.coverText, r.fotoPath, r.titulo);
+        Covers.bind(binding.cover.coverImage, binding.cover.coverText, r.imagem(), r.titulo);
         StringBuilder details = new StringBuilder();
         details.append(getString(R.string.label_condition)).append(": ").append(Labels.condition(requireContext(), r.conservacao));
         if (r.edicao != null) details.append('\n').append(getString(R.string.label_edition)).append(": ").append(r.edicao);

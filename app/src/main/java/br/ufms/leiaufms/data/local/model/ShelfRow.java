@@ -7,6 +7,7 @@ public class ShelfRow {
     public String status;
     public String titulo;
     public String autor;
+    public String capaPath;
     public int disponiveis;
     public Long anuncioId;
 }

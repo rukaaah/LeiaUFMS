@@ -50,7 +50,7 @@ import br.ufms.leiaufms.data.local.entity.Usuario;
         ObraDisciplina.class, Exemplar.class, PosseExemplar.class, Anuncio.class, Pedido.class,
         Mensagem.class, MovimentoCredito.class, Avaliacao.class, ItemEstante.class, Desejo.class,
         PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class
-}, version = 2, exportSchema = true)
+}, version = 3, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String NAME = "leiaufms.db";
@@ -84,6 +84,15 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    /** v3: capa da obra vinda da Open Library. */
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("ALTER TABLE obra ADD COLUMN capaPath TEXT");
+            db.execSQL("ALTER TABLE obra ADD COLUMN capaTentativaEm INTEGER");
+        }
+    };
+
     private static final CountDownLatch SEED_READY = new CountDownLatch(1);
 
     /** Abre o banco e cria os dados de demonstração na primeira execução (em background). */
@@ -113,7 +122,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (instance == null) {
                     Context app = context.getApplicationContext();
                     instance = Room.databaseBuilder(app, AppDatabase.class, NAME)
-                            .addMigrations(MIGRATION_1_2)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .build();
                 }
             }

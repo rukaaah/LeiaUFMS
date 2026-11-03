@@ -62,7 +62,9 @@ public class SocialRepository {
         Obra nova = new Obra();
         nova.titulo = titulo.trim();
         nova.autor = autor.trim();
-        return db.obraDao().insert(nova);
+        long id = db.obraDao().insert(nova);
+        br.ufms.leiaufms.work.CoverWorker.enqueue(context);
+        return id;
     }
 
     @WorkerThread
