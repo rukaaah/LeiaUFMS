@@ -66,6 +66,8 @@ Para tarefas pequenas (ex.: corrigir um layout), basta ler este arquivo + o docu
 
 ## 6. Design e uso de skills
 
+> **Atualização de 03/11/2026 (Pedro):** `/design-md-library` define organização, modelos e lógica das telas (Airbnb na troca, Pinterest no social) e `/mobile-design-md-library` define cores e combinações (Nova Mobile; meio-termo Playful no mural). Resumo em `DESIGN.md`.
+
 O design é definido **exclusivamente** por três skills, nesta ordem:
 
 | Ordem | Skill | Quando | Resultado |
@@ -113,11 +115,14 @@ O design é definido **exclusivamente** por três skills, nesta ordem:
 | Parte 1 | **Concluída**: splash, login, cadastro, sessão, logout, Room com todas as entidades, seed |
 | Parte 2 | **Concluída**: perfil, editar, senha, foto câmera/galeria, permissões, Caixa de avisos e notificações |
 | Parte 3 | **Concluída**: anúncios, Explorar com "Perto de mim", pedidos, créditos, mapa de pontos seguros, prazos |
+| Parte 4 | **Concluída**: chat do pedido, estante, desejos com aviso, avaliações |
+| Parte 5 | **Concluída**: mural (estrutura Pinterest), hubs, trajetória, selos, disputa, auditoria completa |
+| Redesenho v2 | **Concluído** (03/11): `DESIGN.md`, jornada em `docs/08`, onboarding, capas reais (RF-42), localização no encontro (RF-41), pontos fictícios no seed |
 | Integrantes | Pedro Lucas de Souza Cremonini, Gabriel Mattos de Aquino, Angelo Antonio Correia de Souza |
 | Repositório | https://github.com/rukaaah/LeiaUFMS (branch `main`) |
 | Pendências abertas | P-07, P-09, PC-02 a PC-12 (com padrão adotado) |
 | Testes caixa-preta executados | 0 de 64 (executados pelo grupo) |
-| Próximo passo | Parte 4 (chat, estante, desejos, avaliações). Ver `docs/07-handoff.md` |
+| Próximo passo | Grupo executar os 64 testes caixa-preta e exportar a especificação. Ver `docs/07-handoff.md` |
 | Build pela linha de comando | `export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"` e `./gradlew assembleDebug` |
 
 ## 10. Antes de entregar (09/11)

@@ -1,6 +1,6 @@
 # LeiaUFMS: Jornada do aluno e diferencial de usabilidade
 
-> **Status: rascunho para aprovação do Pedro (03/11/2026).** Escrito depois do feedback de que o app ficou "morno, padrão, com abas iguais e sem incentivo". A direção visual proposta vem da `/mobile-design-md-library` (estilo **Playful Color**, adaptado ao azul e branco da UFMS) e só será aplicada depois da confirmação.
+> **Status: aprovado e implementado (03/11/2026).** Escrito depois do feedback de que o app ficou "morno, padrão, com abas iguais e sem incentivo". Estrutura das telas pela `/design-md-library` (Airbnb na troca, Pinterest no social) e cores pela `/mobile-design-md-library` (Nova Mobile; meio-termo Playful no mural), nas cores da UFMS. Ver `DESIGN.md`.
 
 ## 1. Diferencial em uma frase
 

@@ -1,8 +1,8 @@
 # Handoff
-- Atualizado em: 02/11/2026 20:58 (horário de Campo Grande)
-- Parte atual: 4 (Chat, estante, desejos e avaliações), em andamento
-- Último commit verde: commit `feat: chat do pedido, estante, desejos e avaliações (RF-25, RF-35 a RF-37, RF-40)`
-- Feito na Parte 4 (código pronto, build verde, ainda NÃO verificado no emulador): briefings D2 (03-design-system §6.1), ChatFragment (só com pedido ACEITO, somente leitura depois, mensagens prontas, 300 caracteres), ShelfFragment (Estante/Desejos, "Terminei de ler" → anúncio pré-preenchido), estante pública no Perfil, avaliação 1–5 no pedido concluído (editável por 48 h), SocialRepository
-- Em andamento: verificação manual da Parte 4. Já visto: chat de pedido encerrado abre somente leitura
-- Próximo passo exato: no emulador, entrar como carla.mendes@ufms.br (senha alterada no teste para NovaSenha1), Trocas → Enviados → Fundamentos de Física (Aceito) → Abrir chat e mandar mensagem pronta e texto; depois avaliar a troca concluída de Álgebra Linear; depois estante/desejos. Em seguida: auditoria D3 da Parte 4, `docs: log da parte 4` e Parte 5
-- Problemas conhecidos: no chat encerrado, o texto vazio ainda diz "Use uma mensagem pronta para começar" (trocar por "Nenhuma mensagem."). O script de logout por adb às vezes não acha o botão "Sair" quando a tela não está no Perfil. Marcadores do mapa com ícone padrão. APK debug de ~60 MB
+- Atualizado em: 03/11/2026 (madrugada, horário de Campo Grande)
+- Parte atual: 5 concluída + redesenho v2 concluído
+- Último commit verde: commit `docs: log das partes 4 e 5 e do redesenho`
+- Feito: RF-01 a RF-42 (RF-41 localização no encontro e RF-42 capas são novos), onboarding, redesenho v2 (Início, Livro, Trocas, Perfil, Mural)
+- Em andamento: nada
+- Próximo passo exato: o grupo executar os 64 casos de teste caixa-preta no aparelho e registrar em `docs/05-relatorio-testes.md`; exportar `02-especificacao.md` + `05-relatorio-testes.md` em PDF
+- Problemas conhecidos: APK debug ~60 MB (MapLibre com todas as ABIs). Marcadores do mapa com o ícone padrão. TalkBack não foi testado com o leitor ligado (só pela árvore de acessibilidade). No emulador, "Perto de mim" precisa de posição injetada (ver log da Parte 3). Bancos antigos migram até a v4, mas para ver os pontos fictícios e o seed novo é preciso reinstalar o app
