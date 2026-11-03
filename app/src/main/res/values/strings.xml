@@ -525,4 +525,11 @@
     <string name="bar_free">Doação · usa 1 crédito se você tiver</string>
     <string name="bar_trade">Troca por um livro seu</string>
     <string name="bar_both">Troca ou doação</string>
+
+    <!-- Barra de etapas da troca -->
+    <string name="step_request">Pedido</string>
+    <string name="step_accepted">Aceito</string>
+    <string name="step_meeting">Encontro</string>
+    <string name="step_done">Concluído</string>
+    <string name="steps_description">Etapa %1$d de 4: %2$s</string>
 </resources>

@@ -77,6 +77,12 @@
             android:orientation="vertical"
             android:padding="@dimen/space_m">
 
+            <br.ufms.leiaufms.ui.common.TradeProgressView
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_m" />
+
             <TextView
                 android:id="@+id/state"
                 android:layout_width="match_parent"

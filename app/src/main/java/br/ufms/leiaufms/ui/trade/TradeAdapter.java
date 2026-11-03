@@ -66,6 +66,14 @@ public class TradeAdapter extends ListAdapter<PedidoRow, TradeAdapter.Holder> {
         String next = Labels.nextStep(c, r.pedido, viewerId);
         h.b.next.setVisibility(next == null ? View.GONE : View.VISIBLE);
         h.b.next.setText(next);
+        int step = br.ufms.leiaufms.ui.common.TradeProgressView.stepOf(r.pedido);
+        boolean active = step >= 0 && step < 3;
+        h.b.progress.setVisibility(active ? View.VISIBLE : View.GONE);
+        if (active) h.b.progress.setStep(step, false);
+        // Pedido que precisa de mim ganha borda azul (próximo passo em destaque)
+        boolean needs = Labels.needsAction(r.pedido, viewerId);
+        h.b.card.setStrokeColor(c.getColor(needs ? R.color.leia_primary : R.color.leia_outline_variant));
+        h.b.card.setStrokeWidth(needs ? Math.round(2 * c.getResources().getDisplayMetrics().density) : 0);
         h.itemView.setContentDescription(c.getString(R.string.trade_row_description, r.titulo, party, state,
                 next == null ? "" : next));
         h.itemView.setOnClickListener(v -> onClick.onClick(r));

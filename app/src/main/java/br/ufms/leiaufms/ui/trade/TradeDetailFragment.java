@@ -97,6 +97,9 @@ public class TradeDetailFragment extends Fragment {
             NavHostFragment.findNavController(this).navigate(R.id.listingDetailFragment, args);
         });
 
+        int step = br.ufms.leiaufms.ui.common.TradeProgressView.stepOf(p);
+        binding.progress.setVisibility(step >= 0 ? View.VISIBLE : View.GONE);
+        if (step >= 0) binding.progress.setStep(step, PedidoEstado.CONCLUIDO.equals(p.estado));
         binding.state.setText(Labels.state(requireContext(), p.estado));
         binding.state.setCompoundDrawablesRelativeWithIntrinsicBounds(Labels.stateIcon(p.estado), 0, 0, 0);
         String next = Labels.nextStep(requireContext(), p, me);
