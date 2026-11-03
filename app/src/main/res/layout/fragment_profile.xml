@@ -15,56 +15,120 @@
         android:paddingBottom="@dimen/space_xl">
 
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:background="@drawable/bg_profile_header"
+            android:orientation="vertical"
+            android:padding="@dimen/space_l">
 
-            <include
-                android:id="@+id/avatar"
-                layout="@layout/view_avatar" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/avatar"
+                    layout="@layout/view_avatar" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_m"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:textAppearance="@style/TextAppearance.Leia.Display"
+                        android:textColor="@color/leia_on_header" />
+
+                    <TextView
+                        android:id="@+id/text_course"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Leia.Body"
+                        android:textColor="@color/leia_hero_secondary" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                android:textAppearance="@style/TextAppearance.Leia.Body"
+                android:textColor="@color/leia_on_header"
+                android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_change_photo"
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_m"
+                android:layout_marginStart="-12dp"
                 android:text="@string/action_change_photo"
-                app:icon="@drawable/ic_camera" />
+                android:textColor="@color/leia_on_header"
+                app:icon="@drawable/ic_camera"
+                app:iconTint="@color/leia_on_header" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/metric_trades"
+                    style="@style/Widget.Leia.HeaderMetric">
+
+                    <TextView
+                        android:id="@+id/value_trades"
+                        style="@style/Widget.Leia.HeaderMetricValue" />
+
+                    <TextView
+                        style="@style/Widget.Leia.HeaderMetricLabel"
+                        android:text="@string/metric_trades" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/metric_passed"
+                    style="@style/Widget.Leia.HeaderMetric">
+
+                    <TextView
+                        android:id="@+id/value_passed"
+                        style="@style/Widget.Leia.HeaderMetricValue" />
+
+                    <TextView
+                        style="@style/Widget.Leia.HeaderMetricLabel"
+                        android:text="@string/metric_passed" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/metric_rating"
+                    style="@style/Widget.Leia.HeaderMetric">
+
+                    <TextView
+                        android:id="@+id/value_rating"
+                        style="@style/Widget.Leia.HeaderMetricValue" />
+
+                    <TextView
+                        style="@style/Widget.Leia.HeaderMetricLabel"
+                        android:text="@string/metric_rating" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/text_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_m"
-            android:accessibilityHeading="true"
-            android:textAppearance="@style/TextAppearance.Leia.Display"
-            android:textColor="@color/leia_on_background" />
-
-        <TextView
-            android:id="@+id/text_course"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xxs"
-            android:textAppearance="@style/TextAppearance.Leia.Body"
-            android:textColor="@color/leia_on_surface_variant" />
-
-        <TextView
-            android:id="@+id/text_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xs"
-            android:textAppearance="@style/TextAppearance.Leia.Body"
-            android:textColor="@color/leia_on_background"
-            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/credits_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_l"
+            android:layout_marginTop="@dimen/space_m"
             android:background="@drawable/bg_credits"
             android:focusable="true"
             android:orientation="vertical"
@@ -74,8 +138,11 @@
                 android:id="@+id/text_credits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/space_xs"
+                android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.Leia.Title"
-                android:textColor="@color/leia_on_tertiary_container" />
+                android:textColor="@color/leia_on_tertiary_container"
+                app:drawableStartCompat="@drawable/ic_donate" />
 
             <TextView
                 android:id="@+id/text_credits_reserved"
@@ -92,60 +159,6 @@
                 android:text="@string/credits_hint"
                 android:textAppearance="@style/TextAppearance.Leia.Caption"
                 android:textColor="@color/leia_on_tertiary_container" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_l"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/metric_trades"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/value_trades"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Leia.Headline"
-                    android:textColor="@color/leia_on_background" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/metric_trades"
-                    android:textAppearance="@style/TextAppearance.Leia.Caption"
-                    android:textColor="@color/leia_on_surface_variant" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/metric_rating"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/value_rating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Leia.Headline"
-                    android:textColor="@color/leia_on_background" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/metric_rating"
-                    android:textAppearance="@style/TextAppearance.Leia.Caption"
-                    android:textColor="@color/leia_on_surface_variant" />
-            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -167,6 +180,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shelf_covers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xs"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <LinearLayout
             android:id="@+id/extra_sections"

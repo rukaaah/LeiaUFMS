@@ -118,6 +118,7 @@
     <string name="credits_hint">Você ganha 1 crédito a cada livro que passa adiante.</string>
     <string name="metric_trades">Trocas concluídas</string>
     <string name="metric_rating">Nota média</string>
+    <string name="metric_passed">Passados adiante</string>
     <string name="metric_rating_value">%1$.1f de 5 (%2$d)</string>
     <string name="metric_none">—</string>
     <string name="metric_rating_none">Sem avaliações</string>

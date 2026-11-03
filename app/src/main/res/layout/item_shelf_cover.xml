@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="96dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/space_s"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/cover"
+        layout="@layout/view_cover"
+        android:layout_width="96dp"
+        android:layout_height="144dp" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_xxs"
+        android:importantForAccessibility="no"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.Leia.Caption"
+        android:textColor="@color/leia_on_surface_variant" />
+</LinearLayout>

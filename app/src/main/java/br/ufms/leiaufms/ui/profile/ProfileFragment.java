@@ -38,6 +38,7 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private ProfileViewModel viewModel;
     private PhotoPicker photoPicker;
+    private br.ufms.leiaufms.ui.shelf.ShelfCoverAdapter shelfAdapter;
     private boolean own;
 
     @Override
@@ -65,6 +66,8 @@ public class ProfileFragment extends Fragment {
         viewModel.user().observe(getViewLifecycleOwner(), this::renderUser);
         viewModel.metrics().observe(getViewLifecycleOwner(), this::renderMetrics);
         viewModel.photoState().observe(getViewLifecycleOwner(), this::renderPhotoState);
+        shelfAdapter = new br.ufms.leiaufms.ui.shelf.ShelfCoverAdapter();
+        binding.shelfCovers.setAdapter(shelfAdapter);
         // RF-35: estante pública no perfil (próprio ou de outro aluno)
         AppDatabase.get(requireContext()).socialDao().shelf(userId).observe(getViewLifecycleOwner(), this::renderShelf);
 
@@ -119,15 +122,10 @@ public class ProfileFragment extends Fragment {
 
     private void renderShelf(java.util.List<br.ufms.leiaufms.data.local.model.ShelfRow> rows) {
         binding.shelfPreview.removeAllViews();
-        if (rows == null || rows.isEmpty()) {
-            android.widget.TextView t = line(getString(R.string.profile_shelf_empty));
-            binding.shelfPreview.addView(t);
-            return;
-        }
-        for (br.ufms.leiaufms.data.local.model.ShelfRow r : rows) {
-            binding.shelfPreview.addView(line(getString(R.string.shelf_line, r.titulo,
-                    br.ufms.leiaufms.ui.shelf.ShelfAdapter.statusLabel(requireContext(), r))));
-        }
+        boolean empty = rows == null || rows.isEmpty();
+        if (empty) binding.shelfPreview.addView(line(getString(R.string.profile_shelf_empty)));
+        binding.shelfCovers.setVisibility(empty ? View.GONE : View.VISIBLE);
+        shelfAdapter.submit(rows);
     }
 
     private android.widget.TextView line(String text) {
@@ -145,7 +143,9 @@ public class ProfileFragment extends Fragment {
         binding.valueTrades.setText(String.valueOf(m.trades));
         binding.metricTrades.setContentDescription(getString(R.string.metric_trades) + ": " + m.trades);
         String rating = m.rating == null ? getString(R.string.metric_none)
-                : getString(R.string.metric_rating_value, m.rating, m.ratingCount);
+                : String.format(new java.util.Locale("pt", "BR"), "%.1f", m.rating);
+        binding.valuePassed.setText(String.valueOf(m.donations));
+        binding.metricPassed.setContentDescription(getString(R.string.metric_passed) + ": " + m.donations);
         binding.valueRating.setText(rating);
         binding.metricRating.setContentDescription(getString(R.string.metric_rating) + ": "
                 + (m.rating == null ? getString(R.string.metric_rating_none) : rating));

@@ -148,11 +148,13 @@
 
         <TextView
             android:id="@+id/course_title"
+            android:visibility="gone"
             style="@style/Widget.Leia.HomeSection"
             android:text="@string/home_course" />
 
         <TextView
             android:id="@+id/course_sub"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/screen_margin"
@@ -162,6 +164,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/course_list"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_s"
