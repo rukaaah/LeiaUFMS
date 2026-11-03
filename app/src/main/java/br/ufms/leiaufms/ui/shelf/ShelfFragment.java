@@ -42,6 +42,7 @@ import br.ufms.leiaufms.ui.listing.NewListingFragment;
 public class ShelfFragment extends Fragment {
 
     public static final String ARG_WISHES = "desejos";
+    public static final String ARG_ADD_NOW = "adicionar";
 
     private FragmentShelfBinding binding;
     private LiveData<List<ShelfRow>> source;
@@ -81,6 +82,9 @@ public class ShelfFragment extends Fragment {
         });
         binding.fabAdd.setOnClickListener(v -> askBook());
         observe();
+        if (getArguments() != null && getArguments().getBoolean(ARG_ADD_NOW) && savedInstanceState == null) {
+            binding.getRoot().post(this::askBook);
+        }
     }
 
     private boolean wishes() {

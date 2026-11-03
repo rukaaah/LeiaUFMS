@@ -59,6 +59,15 @@ public interface AnuncioDao {
             + "WHERE d.curso LIKE '%' || :chaveCurso || '%') ORDER BY a.criadoEm DESC LIMIT 10")
     LiveData<List<ListingRow>> forCourse(long usuarioId, String chaveCurso);
 
+    /** Aba Desejos: livros do mesmo autor ou das mesmas disciplinas dos desejos (sem repetir os desejados). */
+    @Query(SELECT_ROW + "WHERE a.ativo = 1 AND a.donoId != :me "
+            + "AND o.id NOT IN (SELECT obraId FROM desejo WHERE usuarioId = :me) "
+            + "AND (o.autor IN (SELECT o2.autor FROM desejo d JOIN obra o2 ON o2.id = d.obraId WHERE d.usuarioId = :me) "
+            + "OR o.id IN (SELECT od.obraId FROM obra_disciplina od WHERE od.disciplinaId IN "
+            + "(SELECT od2.disciplinaId FROM obra_disciplina od2 JOIN desejo d2 ON d2.obraId = od2.obraId WHERE d2.usuarioId = :me))) "
+            + "ORDER BY a.criadoEm DESC LIMIT 10")
+    LiveData<List<ListingRow>> wishSuggestions(long me);
+
     @Query("SELECT COUNT(*) FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId "
             + "WHERE e.obraId = :obraId AND a.ativo = 1 AND a.donoId != :exceptUserId")
     int activeCountForObra(long obraId, long exceptUserId);

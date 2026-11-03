@@ -74,6 +74,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/meet_chevron"
             android:layout_width="@dimen/icon_m"
             android:layout_height="@dimen/icon_m"
             android:importantForAccessibility="no"

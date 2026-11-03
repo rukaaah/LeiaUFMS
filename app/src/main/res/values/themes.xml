@@ -134,6 +134,12 @@
     <style name="Widget.Leia.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
         <item name="backgroundTint">@color/leia_surface</item>
         <item name="labelVisibilityMode">labeled</item>
+        <item name="itemIconTint">@color/nav_item</item>
+        <item name="itemTextColor">@color/nav_item</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Leia.NavIndicator</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Leia.NavActive</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.Leia.NavInactive</item>
+        <item name="android:elevation">@dimen/elevation_hero</item>
     </style>
 
     <style name="Widget.Leia.Toolbar" parent="Widget.Material3.Toolbar">
@@ -151,5 +157,20 @@
     <style name="MaterialAlertDialog.Leia" parent="MaterialAlertDialog.Material3">
         <item name="backgroundTint">@color/leia_surface</item>
         <item name="shapeAppearance">@style/ShapeAppearance.Leia.Large</item>
+    </style>
+
+    <style name="Widget.Leia.NavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/leia_primary_container</item>
+        <item name="android:width">64dp</item>
+    </style>
+
+    <style name="TextAppearance.Leia.NavActive" parent="TextAppearance.Leia.Label">
+        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+    </style>
+
+    <style name="TextAppearance.Leia.NavInactive" parent="TextAppearance.Leia.Label">
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>

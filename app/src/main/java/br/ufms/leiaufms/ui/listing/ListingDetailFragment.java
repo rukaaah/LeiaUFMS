@@ -253,11 +253,13 @@ public class ListingDetailFragment extends Fragment {
             binding.actionBar.setVisibility(View.GONE);
             return;
         }
+        // Com crédito: "Resgatar · 1 crédito". Sem crédito: "Pedir doação" (RN-CRED-04 continua valendo)
+        int rescueLabel = extra.myCredits >= 1 ? R.string.action_rescue_credit : R.string.action_ask_donation;
         if (Anuncio.MODALIDADE_DOACAO.equals(current.modalidade)) {
-            primary(R.string.action_rescue, v -> askRescue());
+            primary(rescueLabel, v -> askRescue());
         } else {
             primary(R.string.action_request_trade, v -> viewModel.loadOfferable());
-            if (Anuncio.MODALIDADE_AMBAS.equals(current.modalidade)) secondary(R.string.action_rescue, v -> askRescue());
+            if (Anuncio.MODALIDADE_AMBAS.equals(current.modalidade)) secondary(rescueLabel, v -> askRescue());
         }
     }
 
@@ -314,7 +316,7 @@ public class ListingDetailFragment extends Fragment {
         String message = credits >= 1 ? getString(R.string.request_rescue_with_credit, credits)
                 : getString(R.string.request_no_credit);
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.request_rescue_title)
+                .setTitle(credits >= 1 ? R.string.request_rescue_title : R.string.ask_donation_title)
                 .setMessage(message)
                 .setNegativeButton(R.string.action_cancel, null)
                 .setPositiveButton(R.string.action_send_request, (d, w) -> viewModel.request(Pedido.TIPO_RESGATE, null))

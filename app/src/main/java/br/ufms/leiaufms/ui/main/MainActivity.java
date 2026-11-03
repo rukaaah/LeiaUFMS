@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = host.getNavController();
         AppBarConfiguration config = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.id.feedFragment, R.id.tradesFragment, R.id.profileFragment).build();
+                R.id.homeFragment, R.id.wishesFragment, R.id.tradesFragment, R.id.feedFragment, R.id.profileFragment).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, config);
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
         // A seta de voltar passa pelo mesmo caminho do botão Voltar (respeita "descartar alterações?")
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     : getString(R.string.title_inbox));
         });
         observeMeeting(userId);
+        observeTradeBadge(userId);
         if (savedInstanceState == null && getIntent().getBooleanExtra(Notifier.EXTRA_OPEN_INBOX, false)) {
             navController.navigate(R.id.inboxFragment);
         }
@@ -120,6 +121,37 @@ public class MainActivity extends AppCompatActivity {
 
     private final Runnable meetingRefresh = this::renderMeeting;
 
+    /** Ponto azul na aba Trocas quando algum pedido precisa da pessoa (sem número vermelho). */
+    private void observeTradeBadge(long userId) {
+        androidx.lifecycle.MediatorLiveData<Boolean> needs = new androidx.lifecycle.MediatorLiveData<>();
+        java.util.List<?>[] lists = new java.util.List<?>[2];
+        androidx.lifecycle.LiveData<java.util.List<br.ufms.leiaufms.data.local.model.PedidoRow>> rec =
+                AppDatabase.get(this).pedidoDao().received(userId);
+        androidx.lifecycle.LiveData<java.util.List<br.ufms.leiaufms.data.local.model.PedidoRow>> sent =
+                AppDatabase.get(this).pedidoDao().sent(userId);
+        needs.addSource(rec, l -> { lists[0] = l; needs.setValue(anyNeeds(lists, userId)); });
+        needs.addSource(sent, l -> { lists[1] = l; needs.setValue(anyNeeds(lists, userId)); });
+        needs.observe(this, n -> {
+            com.google.android.material.badge.BadgeDrawable badge = binding.bottomNav.getOrCreateBadge(R.id.tradesFragment);
+            badge.setBackgroundColor(getColor(R.color.leia_primary));
+            badge.clearNumber();
+            badge.setVisible(Boolean.TRUE.equals(n));
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+    private static boolean anyNeeds(java.util.List<?>[] lists, long userId) {
+        for (java.util.List<?> l : lists) {
+            if (l == null) continue;
+            for (Object o : l) {
+                if (br.ufms.leiaufms.ui.common.Labels.needsAction(((br.ufms.leiaufms.data.local.model.PedidoRow) o).pedido, userId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /** Aparece 60 min antes; a 30 min fica verde forte e a 10 min azul (mais forte), até 30 min depois. */
     private void renderMeeting() {
         meetingTick.removeCallbacks(meetingRefresh);
@@ -148,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             t.setTextColor(fgc);
             androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(t, android.content.res.ColorStateList.valueOf(fgc));
         }
+        binding.meeting.meetChevron.setColorFilter(fgc);
         binding.meeting.meetWhen.setText(when + " · " + br.ufms.leiaufms.ui.common.TimeText.hour(meeting.encontroEm));
         binding.meeting.meetWhere.setText(meeting.pontoNome);
         br.ufms.leiaufms.ui.common.Covers.bind(binding.meeting.meetCover.coverImage, binding.meeting.meetCover.coverText,

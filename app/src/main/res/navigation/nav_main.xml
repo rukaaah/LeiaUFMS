@@ -15,6 +15,11 @@
         android:label="@string/title_search" />
 
     <fragment
+        android:id="@+id/wishesFragment"
+        android:name="br.ufms.leiaufms.ui.wishes.WishesFragment"
+        android:label="@string/wishes_header" />
+
+    <fragment
         android:id="@+id/feedFragment"
         android:name="br.ufms.leiaufms.ui.feed.FeedFragment"
         android:label="@string/tab_feed" />
@@ -111,6 +116,10 @@
         android:label="@string/title_shelf">
         <argument
             android:name="desejos"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="adicionar"
             android:defaultValue="false"
             app:argType="boolean" />
     </fragment>

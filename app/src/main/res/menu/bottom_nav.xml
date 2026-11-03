@@ -2,18 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/nav_home"
         android:title="@string/tab_home" />
     <item
-        android:id="@+id/feedFragment"
-        android:icon="@drawable/ic_forum"
-        android:title="@string/tab_feed" />
+        android:id="@+id/wishesFragment"
+        android:icon="@drawable/nav_wish"
+        android:title="@string/tab_wishes" />
     <item
         android:id="@+id/tradesFragment"
-        android:icon="@drawable/ic_swap"
+        android:icon="@drawable/nav_trades"
         android:title="@string/tab_trades" />
     <item
+        android:id="@+id/feedFragment"
+        android:icon="@drawable/nav_feed"
+        android:title="@string/tab_feed" />
+    <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/nav_profile"
         android:title="@string/tab_profile" />
 </menu>

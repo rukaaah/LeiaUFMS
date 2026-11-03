@@ -261,7 +261,7 @@
     <string name="request_trade_none">Você precisa ter um livro seu para oferecer. Anuncie um livro primeiro.</string>
     <string name="request_rescue_title">Resgatar este livro?</string>
     <string name="request_rescue_with_credit">Você tem %1$d crédito(s). 1 fica reservado até a troca ser concluída.</string>
-    <string name="request_no_credit">Você está sem créditos, mas pode pedir. Quem anunciou decide se aceita.</string>
+    <string name="request_no_credit">Você ainda não tem créditos, então o pedido vai sem crédito. Quem anunciou decide se aceita.</string>
     <string name="action_send_request">Enviar pedido</string>
     <string name="request_sent">Pedido enviado</string>
     <string name="error_own_listing">Este anúncio é seu.</string>
@@ -633,4 +633,20 @@
     <string name="meet_time_rel">%1$s · %2$s</string>
     <string name="today">Hoje</string>
     <string name="tomorrow">Amanhã</string>
+
+    <!-- Aba Desejos -->
+    <string name="tab_wishes_nav">Desejos</string>
+    <string name="wishes_header">Seus desejos</string>
+    <plurals name="wishes_available">
+        <item quantity="one">%d disponível agora</item>
+        <item quantity="other">%d disponíveis agora</item>
+    </plurals>
+    <string name="wish_badge_available">Disponível</string>
+    <string name="wish_badge_waiting">Aguardando</string>
+    <string name="wishes_suggest">Talvez você queira</string>
+    <string name="wish_card_description">%1$s, de %2$s. %3$s</string>
+
+    <string name="action_rescue_credit">Resgatar · 1 crédito</string>
+    <string name="action_ask_donation">Pedir doação</string>
+    <string name="ask_donation_title">Pedir esta doação?</string>
 </resources>
