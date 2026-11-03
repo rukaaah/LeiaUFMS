@@ -41,8 +41,6 @@ import br.ufms.leiaufms.ui.listing.NewListingFragment;
  */
 public class ShelfFragment extends Fragment {
 
-    public static final String ARG_WISHES = "desejos";
-    public static final String ARG_ADD_NOW = "adicionar";
 
     private FragmentShelfBinding binding;
     private LiveData<List<ShelfRow>> source;
@@ -63,32 +61,14 @@ public class ShelfFragment extends Fragment {
         app = requireContext().getApplicationContext();
         adapter = new ShelfAdapter(this::onItem);
         binding.list.setAdapter(adapter);
-        if (getArguments() != null && getArguments().getBoolean(ARG_WISHES) && savedInstanceState == null) {
-            binding.tabs.selectTab(binding.tabs.getTabAt(1));
-        }
-        binding.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                observe();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
+        // Desejos têm aba própria na barra; aqui fica só a estante (feedback 03/11: sem repetição)
+        binding.tabs.setVisibility(View.GONE);
         binding.fabAdd.setOnClickListener(v -> askBook());
         observe();
-        if (getArguments() != null && getArguments().getBoolean(ARG_ADD_NOW) && savedInstanceState == null) {
-            binding.getRoot().post(this::askBook);
-        }
     }
 
     private boolean wishes() {
-        return binding.tabs.getSelectedTabPosition() == 1;
+        return false;
     }
 
     private void observe() {

@@ -234,12 +234,6 @@
                 app:icon="@drawable/ic_lock" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_inbox"
-                style="@style/Widget.Leia.ListAction"
-                android:text="@string/action_open_inbox"
-                app:icon="@drawable/ic_notifications" />
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_disputes"
                 style="@style/Widget.Leia.ListAction"
                 android:text="@string/action_disputes"

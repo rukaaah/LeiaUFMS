@@ -86,8 +86,6 @@ public class ProfileFragment extends Fragment {
                     .navigate(R.id.shelfFragment));
             binding.buttonPassword.setOnClickListener(v -> NavHostFragment.findNavController(this)
                     .navigate(R.id.changePasswordFragment));
-            binding.buttonInbox.setOnClickListener(v -> NavHostFragment.findNavController(this)
-                    .navigate(R.id.inboxFragment));
             binding.buttonLogout.setOnClickListener(v -> confirmLogout());
             binding.buttonDisputes.setOnClickListener(v -> NavHostFragment.findNavController(this)
                     .navigate(R.id.disputesFragment));

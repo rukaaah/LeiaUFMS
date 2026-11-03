@@ -81,7 +81,6 @@
     <string name="title_user_profile">Perfil</string>
     <string name="action_edit_profile">Editar perfil</string>
     <string name="action_change_password">Alterar senha</string>
-    <string name="action_open_inbox">Caixa de avisos</string>
     <string name="action_change_photo">Alterar foto</string>
     <string name="action_save">Salvar</string>
     <string name="action_saving">Salvando…</string>
@@ -414,8 +413,8 @@
     <string name="quick_label">Mensagens prontas</string>
 
     <!-- Estante e desejos (RF-35 a RF-37) -->
-    <string name="title_shelf">Estante e desejos</string>
-    <string name="action_open_shelf">Estante e desejos</string>
+    <string name="title_shelf">Estante</string>
+    <string name="action_open_shelf">Estante</string>
     <string name="tab_shelf">Estante</string>
     <string name="tab_wishes">Desejos</string>
     <string name="shelf_reading">Estou lendo</string>
