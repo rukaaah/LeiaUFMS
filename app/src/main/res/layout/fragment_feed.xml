@@ -35,24 +35,36 @@
                     android:id="@+id/f_dica"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_lightbulb"
+                    app:chipIconTint="@color/post_dica_on"
+                    app:chipIconVisible="true"
                     android:text="@string/post_type_dica" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/f_procuro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_search"
+                    app:chipIconTint="@color/post_procuro_on"
+                    app:chipIconVisible="true"
                     android:text="@string/post_type_procuro" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/f_doacao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_donate"
+                    app:chipIconTint="@color/post_doacao_on"
+                    app:chipIconVisible="true"
                     android:text="@string/post_type_doacao" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/f_troca"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:chipIcon="@drawable/ic_check_circle"
+                    app:chipIconTint="@color/post_troca_on"
+                    app:chipIconVisible="true"
                     android:text="@string/post_type_troca" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>

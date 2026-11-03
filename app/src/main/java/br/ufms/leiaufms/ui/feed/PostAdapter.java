@@ -82,7 +82,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case PostMural.TIPO_TROCA_CONCLUIDA:
                 return R.drawable.ic_check_circle;
             default:
-                return R.drawable.ic_info;
+                return R.drawable.ic_lightbulb;
         }
     }
 
@@ -109,8 +109,9 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         int on = c.getColor(col[1]);
         // O card inteiro ganha a cor da categoria: o olho acha o tipo antes de ler
         h.b.card.setCardBackgroundColor(c.getColor(col[0]));
+        // No card, o ícone na cor da categoria basta (feedback 03/11); os filtros no topo mostram ícone + nome
         h.b.tag.setTextColor(on);
-        h.b.tag.setText(col[2]);
+        h.b.tag.setText("");
         h.b.tag.setCompoundDrawablesRelativeWithIntrinsicBounds(icon(p.tipo), 0, 0, 0);
         androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(h.b.tag, android.content.res.ColorStateList.valueOf(on));
         h.b.book.setTextColor(on);
