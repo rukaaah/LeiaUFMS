@@ -614,10 +614,11 @@
     <string name="compatible_saved">Edição compatível registrada</string>
     <string name="action_see_all_copies">Ver a página do livro</string>
     <plurals name="wish_count_total">
-        <item quantity="zero">Ninguém pediu este livro ainda</item>
         <item quantity="one">%d pessoa quer este livro</item>
         <item quantity="other">%d pessoas querem este livro</item>
     </plurals>
+    <string name="wish_count_zero">Ninguém salvou este livro nos desejos ainda</string>
+    <string name="chat_empty_closed">Nenhuma mensagem neste pedido.</string>
     <string name="trajectory_title">Trajetória do exemplar</string>
     <string name="trajectory_line">%1$s · %2$s, %3$dº semestre · desde %4$s</string>
 </resources>

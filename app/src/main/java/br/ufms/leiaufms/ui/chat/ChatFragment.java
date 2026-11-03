@@ -98,6 +98,7 @@ public class ChatFragment extends Fragment {
         String other = r.pedido.donoId == me ? r.solicitanteNome : r.donoNome;
         binding.header.setText(getString(R.string.chat_header, r.titulo, other));
         open = PedidoEstado.ACEITO.equals(r.pedido.estado);
+        binding.empty.setText(open ? R.string.chat_empty : R.string.chat_empty_closed);
         binding.composer.setVisibility(open ? View.VISIBLE : View.GONE);
         if (open) {
             binding.status.setVisibility(View.GONE);

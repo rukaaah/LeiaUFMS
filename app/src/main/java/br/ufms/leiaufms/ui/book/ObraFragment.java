@@ -89,7 +89,8 @@ public class ObraFragment extends Fragment {
                 binding.title.setText(o.titulo);
                 binding.author.setText(o.autor);
                 Covers.bind(binding.cover.coverImage, binding.cover.coverText, o.capaPath, o.titulo);
-                binding.wishes.setText(getResources().getQuantityString(R.plurals.wish_count_total, wishCount, wishCount));
+                binding.wishes.setText(wishCount == 0 ? getString(R.string.wish_count_zero)
+                        : getResources().getQuantityString(R.plurals.wish_count_total, wishCount, wishCount));
                 binding.buttonWish.setText(wished ? R.string.wish_remove : R.string.wish_add);
                 binding.buttonWish.setIconResource(wished ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
                 binding.compatible.removeAllViews();
