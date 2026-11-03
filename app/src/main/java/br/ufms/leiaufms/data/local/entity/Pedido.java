@@ -54,4 +54,11 @@ public class Pedido {
 
     @ColumnInfo(defaultValue = "0")
     public boolean lembreteEncontroEnviado;
+
+    /** RF-44: quem propôs o local e horário atuais; o outro lado precisa aceitar. */
+    public Long encontroPropostoPor;
+
+    /** RF-44: true quando a outra parte aceitou o horário proposto. */
+    @ColumnInfo(defaultValue = "0")
+    public boolean encontroAceito;
 }

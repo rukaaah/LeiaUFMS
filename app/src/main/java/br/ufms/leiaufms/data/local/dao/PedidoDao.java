@@ -66,7 +66,7 @@ public interface PedidoDao {
     List<Pedido> needingDeadlineReminder(long limite);
 
     @Query("SELECT * FROM pedido WHERE estado = 'ACEITO' AND lembreteEncontroEnviado = 0 "
-            + "AND encontroEm IS NOT NULL AND encontroEm BETWEEN :agora AND :ate")
+            + "AND encontroEm IS NOT NULL AND encontroAceito = 1 AND encontroEm BETWEEN :agora AND :ate")
     List<Pedido> meetingsSoon(long agora, long ate);
 
     @Query("SELECT COUNT(*) FROM pedido WHERE estado = 'CONCLUIDO' AND (solicitanteId = :usuarioId OR donoId = :usuarioId)")
@@ -84,7 +84,7 @@ public interface PedidoDao {
             + "JOIN usuario dono ON dono.id = pd.donoId LEFT JOIN ponto_encontro pt ON pt.id = pd.pontoEncontroId "
             + "LEFT JOIN localizacao_encontro le ON le.pedidoId = pd.id "
             + "AND le.usuarioId = CASE WHEN pd.donoId = :me THEN pd.solicitanteId ELSE pd.donoId END "
-            + "WHERE pd.estado = 'ACEITO' AND pd.encontroEm IS NOT NULL AND (pd.donoId = :me OR pd.solicitanteId = :me) "
+            + "WHERE pd.estado = 'ACEITO' AND pd.encontroEm IS NOT NULL AND pd.encontroAceito = 1 AND (pd.donoId = :me OR pd.solicitanteId = :me) "
             + "AND pd.encontroEm >= :desde ORDER BY pd.encontroEm LIMIT 1")
     LiveData<br.ufms.leiaufms.data.local.model.MeetingRow> nextMeeting(long me, long desde);
 

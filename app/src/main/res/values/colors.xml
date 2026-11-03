@@ -18,6 +18,7 @@
     <color name="leia_tertiary_container">#FDF0D5</color>
     <color name="leia_on_tertiary_container">#3D2A08</color>
     <color name="leia_success">#166534</color>
+    <color name="leia_on_success">#FFFFFF</color>
     <color name="leia_success_container">#DCFCE7</color>
     <color name="leia_on_success_container">#14532D</color>
     <color name="leia_error">#B42318</color>

@@ -115,6 +115,15 @@ public class TradeDetailFragment extends Fragment {
         binding.meeting.setText(hasMeeting ? r.pontoNome : getString(R.string.trade_no_meeting));
         binding.meetingTime.setVisibility(hasMeeting ? View.VISIBLE : View.GONE);
         if (hasMeeting) binding.meetingTime.setText(TimeText.meeting(requireContext(), p.encontroEm));
+        binding.meetingStatus.setVisibility(hasMeeting && PedidoEstado.ACEITO.equals(p.estado) ? View.VISIBLE : View.GONE);
+        if (hasMeeting) {
+            String other = owner ? r.solicitanteNome : r.donoNome;
+            binding.meetingStatus.setText(p.encontroAceito ? getString(R.string.trade_meeting_agreed)
+                    : Labels.proposedBy(p, me) ? getString(R.string.trade_meeting_proposed_by_me)
+                    : getString(R.string.trade_meeting_proposed_by_other, other));
+            binding.meetingStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    p.encontroAceito ? R.drawable.ic_check_circle : R.drawable.ic_schedule, 0, 0, 0);
+        }
         renderLive(r);
         binding.reason.setVisibility(p.motivo == null ? View.GONE : View.VISIBLE);
         if (p.motivo != null) binding.reason.setText(getString(R.string.trade_reason, p.motivo));
@@ -137,6 +146,14 @@ public class TradeDetailFragment extends Fragment {
             boolean mine = owner ? p.confirmadoDono : p.confirmadoSolicitante;
             if (p.encontroEm == null) {
                 show(binding.buttonPrimary, R.string.action_schedule, v -> openMeeting());
+            } else if (!p.encontroAceito) {
+                // RF-44: proposta pendente; quem recebeu aceita ou sugere outro
+                if (!Labels.proposedBy(p, me)) {
+                    show(binding.buttonPrimary, R.string.action_accept_meeting, v -> viewModel.run("acceptMeeting"));
+                    show(binding.buttonSecondary, R.string.action_suggest_meeting, v -> openMeeting());
+                } else {
+                    show(binding.buttonSecondary, R.string.action_reschedule, v -> openMeeting());
+                }
             } else {
                 if (!mine) {
                     int label = !Labels.isRescue(p) ? R.string.action_confirm_exchange
@@ -193,7 +210,7 @@ public class TradeDetailFragment extends Fragment {
 
     private void renderLive(PedidoRow r) {
         Pedido p = r.pedido;
-        boolean show = PedidoEstado.ACEITO.equals(p.estado) && p.encontroEm != null;
+        boolean show = PedidoEstado.ACEITO.equals(p.estado) && p.encontroEm != null && p.encontroAceito;
         binding.liveBox.setVisibility(show ? View.VISIBLE : View.GONE);
         if (!show) {
             stopLive();
@@ -526,6 +543,9 @@ public class TradeDetailFragment extends Fragment {
                     break;
                 case "cancel":
                     msg = R.string.trade_cancelled_done;
+                    break;
+                case "acceptMeeting":
+                    msg = R.string.result_meeting_accepted;
                     break;
                 default:
                     msg = R.string.trade_confirmed_done;

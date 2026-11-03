@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Desejo que ainda não apareceu: capa pequena, aviso ligado, quantos também querem, coração para tirar -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/touch_target"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/screen_margin"
+    android:paddingTop="@dimen/space_s"
+    android:paddingEnd="@dimen/space_xs"
+    android:paddingBottom="@dimen/space_s">
+
+    <include
+        android:id="@+id/cover"
+        layout="@layout/view_cover"
+        android:layout_width="@dimen/avatar_small"
+        android:layout_height="@dimen/cover_mini_height" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_m"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.Leia.BookTitle"
+            android:textColor="@color/leia_on_background" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+            android:textColor="@color/leia_on_surface_variant" />
+
+        <TextView
+            android:id="@+id/others"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xxs"
+            android:drawablePadding="@dimen/space_xxs"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.Leia.Label"
+            android:textColor="@color/leia_primary"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/ic_person"
+            app:drawableTint="@color/leia_primary" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/heart"
+        android:layout_width="@dimen/touch_target"
+        android:layout_height="@dimen/touch_target"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_favorite"
+        app:tint="@color/leia_primary" />
+</LinearLayout>

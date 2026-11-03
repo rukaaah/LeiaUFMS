@@ -64,13 +64,13 @@ public interface SocialDao {
     LiveData<List<MessageRow>> messages(long pedidoId);
 
     // ---- Estante (RF-35)
-    @Query("SELECT i.id, i.obraId, i.status, o.titulo, o.autor, o.capaPath, 0 AS disponiveis, NULL AS anuncioId "
+    @Query("SELECT i.id, i.obraId, i.status, o.titulo, o.autor, o.capaPath, 0 AS disponiveis, NULL AS anuncioId, 0 AS outrosQuerem "
             + "FROM item_estante i JOIN obra o ON o.id = i.obraId WHERE i.usuarioId = :usuarioId "
             + "ORDER BY CASE i.status WHEN 'LENDO' THEN 0 WHEN 'LIDO' THEN 1 ELSE 2 END, i.atualizadoEm DESC")
     LiveData<List<ShelfRow>> shelf(long usuarioId);
 
     /** Último livro lido ou em leitura (base do "Porque você leu"). */
-    @Query("SELECT i.id, i.obraId, i.status, o.titulo, o.autor, o.capaPath, 0 AS disponiveis, NULL AS anuncioId "
+    @Query("SELECT i.id, i.obraId, i.status, o.titulo, o.autor, o.capaPath, 0 AS disponiveis, NULL AS anuncioId, 0 AS outrosQuerem "
             + "FROM item_estante i JOIN obra o ON o.id = i.obraId WHERE i.usuarioId = :usuarioId "
             + "AND i.status IN ('LIDO', 'LENDO', 'PASSADO_ADIANTE') ORDER BY i.atualizadoEm DESC LIMIT 1")
     LiveData<ShelfRow> lastRead(long usuarioId);
@@ -86,7 +86,8 @@ public interface SocialDao {
             + "(SELECT COUNT(*) FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId "
             + " WHERE e.obraId = d.obraId AND a.ativo = 1 AND a.donoId != d.usuarioId) AS disponiveis, "
             + "(SELECT a.id FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId "
-            + " WHERE e.obraId = d.obraId AND a.ativo = 1 AND a.donoId != d.usuarioId ORDER BY a.criadoEm DESC LIMIT 1) AS anuncioId "
+            + " WHERE e.obraId = d.obraId AND a.ativo = 1 AND a.donoId != d.usuarioId ORDER BY a.criadoEm DESC LIMIT 1) AS anuncioId, "
+            + "(SELECT COUNT(*) FROM desejo d2 WHERE d2.obraId = d.obraId AND d2.usuarioId != d.usuarioId) AS outrosQuerem "
             + "FROM desejo d JOIN obra o ON o.id = d.obraId WHERE d.usuarioId = :usuarioId ORDER BY d.criadoEm DESC")
     LiveData<List<ShelfRow>> wishes(long usuarioId);
 

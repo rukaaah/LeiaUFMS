@@ -94,6 +94,9 @@ public class TradeDetailViewModel extends AndroidViewModel {
                     case "decline":
                         r = repo.decline(id, userId);
                         break;
+                    case "acceptMeeting":
+                        r = repo.acceptMeeting(id, userId);
+                        break;
                     case "confirm":
                         r = repo.confirm(id, userId);
                         break;

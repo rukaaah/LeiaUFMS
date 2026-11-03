@@ -38,7 +38,7 @@ public class TradeProgressView extends LinearLayout {
             case PedidoEstado.PENDENTE:
                 return 0;
             case PedidoEstado.ACEITO:
-                return p.encontroEm == null ? 1 : 2;
+                return p.encontroEm == null || !p.encontroAceito ? 1 : 2;
             case PedidoEstado.EM_DISPUTA:
                 return 2;
             case PedidoEstado.CONCLUIDO:

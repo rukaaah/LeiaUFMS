@@ -27,6 +27,7 @@ import br.ufms.leiaufms.data.local.dao.SocialDao;
 import br.ufms.leiaufms.data.local.dao.UsuarioDao;
 import br.ufms.leiaufms.data.local.entity.Anuncio;
 import br.ufms.leiaufms.data.local.entity.Avaliacao;
+import br.ufms.leiaufms.data.local.entity.ComentarioPost;
 import br.ufms.leiaufms.data.local.entity.Desejo;
 import br.ufms.leiaufms.data.local.entity.Disciplina;
 import br.ufms.leiaufms.data.local.entity.EdicaoCompativel;
@@ -51,8 +52,9 @@ import br.ufms.leiaufms.data.local.entity.Usuario;
         Usuario.class, Sessao.class, Obra.class, EdicaoCompativel.class, Disciplina.class,
         ObraDisciplina.class, Exemplar.class, PosseExemplar.class, Anuncio.class, Pedido.class,
         Mensagem.class, MovimentoCredito.class, Avaliacao.class, ItemEstante.class, Desejo.class,
-        PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class, LocalizacaoEncontro.class
-}, version = 5, exportSchema = true)
+        PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class, LocalizacaoEncontro.class,
+        ComentarioPost.class
+}, version = 6, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String NAME = "leiaufms.db";
@@ -115,6 +117,22 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * v6: encontro vira proposta (RF-44) e comentários no mural (RF-43).
+     * Encontros já marcados antes da v6 contam como aceitos.
+     */
+    static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("ALTER TABLE pedido ADD COLUMN encontroPropostoPor INTEGER");
+            db.execSQL("ALTER TABLE pedido ADD COLUMN encontroAceito INTEGER NOT NULL DEFAULT 0");
+            db.execSQL("UPDATE pedido SET encontroAceito = 1 WHERE encontroEm IS NOT NULL");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `comentario_post` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                    + "`postId` INTEGER NOT NULL, `autorId` INTEGER NOT NULL, `texto` TEXT NOT NULL, `criadoEm` INTEGER NOT NULL)");
+            db.execSQL("CREATE INDEX IF NOT EXISTS `index_comentario_post_postId` ON `comentario_post` (`postId`)");
+        }
+    };
+
     private static final CountDownLatch SEED_READY = new CountDownLatch(1);
 
     /** Abre o banco e cria os dados de demonstração na primeira execução (em background). */
@@ -144,7 +162,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (instance == null) {
                     Context app = context.getApplicationContext();
                     instance = Room.databaseBuilder(app, AppDatabase.class, NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
                             .build();
                 }
             }

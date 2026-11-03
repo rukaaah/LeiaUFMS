@@ -16,7 +16,7 @@ import br.ufms.leiaufms.data.local.model.ShelfRow;
 import br.ufms.leiaufms.databinding.ItemBookCardBinding;
 import br.ufms.leiaufms.ui.common.Covers;
 
-/** Grade de desejos: capa grande, selo verde "Disponível" ou neutro "Aguardando", coração cheio para tirar. */
+/** Desejos já disponíveis, em carrossel de capas grandes com o número de cópias; coração cheio para tirar. */
 public class WishCardAdapter extends RecyclerView.Adapter<WishCardAdapter.Holder> {
 
     public interface Listener {
@@ -32,12 +32,14 @@ public class WishCardAdapter extends RecyclerView.Adapter<WishCardAdapter.Holder
         this.listener = listener;
     }
 
+    public Listener listener() {
+        return listener;
+    }
+
     public void submit(List<ShelfRow> rows) {
         items.clear();
         if (rows != null) {
-            // Disponíveis primeiro: o olho vai direto ao que dá para pedir agora
-            for (ShelfRow r : rows) if (r.disponiveis > 0) items.add(r);
-            for (ShelfRow r : rows) if (r.disponiveis == 0) items.add(r);
+            items.addAll(rows);
         }
         notifyDataSetChanged();
     }
@@ -46,13 +48,6 @@ public class WishCardAdapter extends RecyclerView.Adapter<WishCardAdapter.Holder
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemBookCardBinding b = ItemBookCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        ViewGroup.LayoutParams lp = b.getRoot().getLayoutParams();
-        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        b.getRoot().setLayoutParams(lp);
-        ViewGroup.LayoutParams cover = b.coverBox.getLayoutParams();
-        cover.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        cover.height = parent.getResources().getDimensionPixelSize(R.dimen.cover_grid_height);
-        b.coverBox.setLayoutParams(cover);
         return new Holder(b);
     }
 
@@ -63,18 +58,17 @@ public class WishCardAdapter extends RecyclerView.Adapter<WishCardAdapter.Holder
         Covers.bind(h.b.cover.coverImage, h.b.cover.coverText, r.capaPath, r.titulo);
         h.b.title.setText(r.titulo);
         h.b.meta.setText(r.autor);
-        boolean available = r.disponiveis > 0;
+        String copies = c.getResources().getQuantityString(R.plurals.wish_copies, r.disponiveis, r.disponiveis);
         h.b.badge.setVisibility(View.VISIBLE);
-        h.b.badge.setBackgroundResource(available ? R.drawable.bg_badge_walk : R.drawable.bg_badge_neutral);
-        h.b.badge.setTextColor(c.getColor(available ? R.color.leia_on_success_container : R.color.leia_on_surface_variant));
-        h.b.badge.setText(available ? R.string.wish_badge_available : R.string.wish_badge_waiting);
-        h.b.cover.getRoot().setAlpha(available ? 1f : 0.75f);
+        h.b.badge.setBackgroundResource(R.drawable.bg_badge_walk);
+        h.b.badge.setTextColor(c.getColor(R.color.leia_on_success_container));
+        h.b.badge.setText(copies);
         h.b.heart.setImageResource(R.drawable.ic_favorite);
         h.b.heart.setColorFilter(c.getColor(R.color.leia_primary));
         h.b.heart.setContentDescription(c.getString(R.string.wish_remove) + ": " + r.titulo);
         h.b.heart.setOnClickListener(v -> listener.onRemove(r));
         h.b.card.setContentDescription(c.getString(R.string.wish_card_description, r.titulo, r.autor,
-                c.getString(available ? R.string.wish_badge_available : R.string.wish_badge_waiting)));
+                copies));
         h.b.card.setOnClickListener(v -> listener.onOpen(r));
     }
 

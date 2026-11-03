@@ -174,8 +174,8 @@
     <string name="notif_cancelled_title">Pedido cancelado</string>
     <string name="notif_cancelled_text">%1$s cancelou o pedido de %2$s.</string>
     <string name="notif_cancelled_reason_text">%1$s cancelou o pedido de %2$s. Motivo: %3$s</string>
-    <string name="notif_meeting_title">Encontro marcado</string>
-    <string name="notif_meeting_text">%1$s marcou o encontro em %2$s, %3$s.</string>
+    <string name="notif_meeting_title">Proposta de encontro</string>
+    <string name="notif_meeting_text">%1$s propôs %2$s, %3$s. Aceite ou sugira outro horário.</string>
     <string name="notif_confirm_other_title">Falta a sua confirmação</string>
     <string name="notif_confirm_other_text">%1$s confirmou a entrega de %2$s. Confirme também para concluir.</string>
     <string name="notif_concluded_title">Troca concluída</string>
@@ -314,7 +314,7 @@
     <string name="state_dispute">Em disputa</string>
     <string name="next_answer">Responder pedido</string>
     <string name="next_wait_answer">Aguardando resposta</string>
-    <string name="next_schedule">Marcar encontro</string>
+    <string name="next_schedule">Propor encontro</string>
     <string name="next_confirm">Confirmar entrega</string>
     <string name="next_wait_other">Esperando a outra parte</string>
     <string name="next_dispute">Moderador analisando</string>
@@ -336,7 +336,7 @@
     <string name="action_accept">Aceitar</string>
     <string name="action_decline">Recusar</string>
     <string name="action_cancel_request">Cancelar pedido</string>
-    <string name="action_schedule">Marcar encontro</string>
+    <string name="action_schedule">Propor encontro</string>
     <string name="action_reschedule">Remarcar encontro</string>
     <string name="action_confirm_delivered">Entreguei o livro</string>
     <string name="action_confirm_received">Recebi o livro</string>
@@ -359,7 +359,7 @@
     <string name="error_invalid_state">Este pedido mudou. Veja o estado atual.</string>
 
     <!-- Marcar encontro e pontos seguros (RF-21, RF-29, RF-30) -->
-    <string name="title_meeting">Marcar encontro</string>
+    <string name="title_meeting">Propor encontro</string>
     <string name="title_points">Pontos seguros</string>
     <string name="action_manage_points">Pontos seguros</string>
     <string name="map_offline">O mapa precisa de internet. Veja os pontos seguros em lista.</string>
@@ -375,8 +375,8 @@
     <string name="choose_time">Escolha a hora</string>
     <string name="error_meeting_date">Escolha uma data entre agora e o fim do prazo de entrega (%1$s).</string>
     <string name="error_point">Escolha um dos pontos seguros marcados no mapa.</string>
-    <string name="action_confirm_meeting">Confirmar encontro</string>
-    <string name="meeting_done">Encontro marcado</string>
+    <string name="action_confirm_meeting">Propor este horário</string>
+    <string name="meeting_done">Proposta enviada. O encontro vale quando a outra pessoa aceitar.</string>
     <string name="action_show_list">Ver em lista</string>
     <string name="action_show_map">Ver no mapa</string>
     <string name="action_my_location">Minha localização</string>
@@ -500,7 +500,7 @@
     <string name="wish_saved">Salvo nos desejos. Avisamos quando aparecer outra cópia.</string>
     <string name="act_answer">%1$s pediu %2$s</string>
     <string name="act_answer_sub">Responda o pedido</string>
-    <string name="act_schedule">Marque o encontro de %1$s</string>
+    <string name="act_schedule">Proponha o encontro de %1$s</string>
     <string name="act_confirm">Confirme a entrega de %1$s</string>
     <string name="act_meeting_today">Encontro hoje: %1$s</string>
     <string name="act_wish">%1$s está disponível</string>
@@ -628,7 +628,10 @@
     <string name="meet_late">Encontro há %1$d min</string>
     <string name="meet_at">Encontro às %1$s</string>
     <string name="meet_other_dist">%1$s a %2$s</string>
-    <string name="meet_bar_description">%1$s. %2$s. %3$s. Toque para abrir o pedido</string>
+    <string name="meet_bar_description">%1$s. %2$s. %3$s %4$s. Toque para abrir o pedido</string>
+    <string name="meet_me_walk">Você chega em ~%1$d min a pé</string>
+    <string name="meet_me_far">Você está %1$s</string>
+    <string name="meet_me_there">Você já está no ponto</string>
     <string name="time_in_min">em %1$d min</string>
     <string name="meet_time_rel">%1$s · %2$s</string>
     <string name="today">Hoje</string>
@@ -655,6 +658,34 @@
     <string name="home_genres">Explore por gênero</string>
     <string name="label_genre">Gênero</string>
     <string name="all_genres">Todos</string>
-    <string name="tab_new">Anunciar</string>
-    <string name="open_wishes">Seus desejos</string>
+    <string name="notif_meeting_accepted_title">Encontro combinado</string>
+    <string name="notif_meeting_accepted_text">%1$s aceitou: %2$s, %3$s.</string>
+    <string name="chat_meeting_proposed">Proposta de encontro: %1$s, %2$s.</string>
+    <string name="next_accept_meeting">Aceitar ou sugerir horário</string>
+    <string name="next_wait_meeting">Aguardando aceitarem o horário</string>
+    <string name="action_accept_meeting">Aceitar horário</string>
+    <string name="action_suggest_meeting">Sugerir outro</string>
+    <string name="trade_meeting_proposed_by_me">Você propôs. Falta a outra pessoa aceitar.</string>
+    <string name="trade_meeting_proposed_by_other">%1$s propôs este horário.</string>
+    <string name="trade_meeting_agreed">Combinado pelos dois</string>
+    <string name="result_meeting_accepted">Encontro combinado.</string>
+    <string name="act_meeting_proposal">%1$s propôs um horário: %2$s</string>
+    <string name="action_add_wish">Desejar um livro</string>
+    <string name="wishes_available_title">Disponíveis agora</string>
+    <string name="wishes_waiting_title">Esperando aparecer</string>
+    <string name="wishes_waiting_sub">Avisamos assim que alguém anunciar.</string>
+    <string name="wishes_summary">%1$s, %2$s.</string>
+    <plurals name="wishes_total">
+        <item quantity="one">%d livro desejado</item>
+        <item quantity="other">%d livros desejados</item>
+    </plurals>
+    <plurals name="wish_copies">
+        <item quantity="one">%d cópia</item>
+        <item quantity="other">%d cópias</item>
+    </plurals>
+    <plurals name="wish_others">
+        <item quantity="one">Mais %d pessoa quer</item>
+        <item quantity="other">Mais %d pessoas querem</item>
+    </plurals>
+    <string name="wishes_none_available">nenhum disponível ainda</string>
 </resources>

@@ -10,4 +10,6 @@ public class ShelfRow {
     public String capaPath;
     public int disponiveis;
     public Long anuncioId;
+    /** Só nos desejos: quantas outras pessoas também querem a obra. */
+    public int outrosQuerem;
 }

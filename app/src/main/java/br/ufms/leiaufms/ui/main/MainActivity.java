@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = host.getNavController();
         AppBarConfiguration config = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.id.tradesFragment, R.id.feedFragment, R.id.profileFragment).build();
+                R.id.homeFragment, R.id.tradesFragment, R.id.feedFragment, R.id.wishesFragment, R.id.profileFragment).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, config);
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
         setupBottomBar();
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         });
         observeMeeting(userId);
         observeTradeBadge(userId);
+        observeWishBadge(userId);
         if (savedInstanceState == null && getIntent().getBooleanExtra(Notifier.EXTRA_OPEN_INBOX, false)) {
             navController.navigate(R.id.inboxFragment);
         }
@@ -100,16 +101,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // ---- Barra inferior (feedback 03/11): Início em bola central, Anunciar como ação, reselecionar volta ao topo ----
+    // ---- Barra inferior (feedback 03/11): Início em bola central, reselecionar volta ao topo ----
 
     private void setupBottomBar() {
-        binding.bottomNav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.action_new_listing) {
-                navController.navigate(R.id.newListingFragment);
-                return false;
-            }
-            return NavigationUI.onNavDestinationSelected(item, navController);
-        });
         // Tocar de novo na aba em que você já está fecha as páginas abertas e volta ao começo dela
         binding.bottomNav.setOnItemReselectedListener(item -> navController.popBackStack(item.getItemId(), false));
         binding.homeBall.setOnClickListener(v -> {
@@ -160,6 +154,19 @@ public class MainActivity extends AppCompatActivity {
     private final Runnable meetingRefresh = this::renderMeeting;
 
     /** Número em âmbar na aba Trocas: quantos pedidos precisam da pessoa (nunca vermelho). */
+    /** Número verde na aba Desejos: quantos desejos já dá para pedir. */
+    private void observeWishBadge(long userId) {
+        AppDatabase.get(this).socialDao().wishes(userId).observe(this, rows -> {
+            int n = 0;
+            if (rows != null) for (br.ufms.leiaufms.data.local.model.ShelfRow r : rows) if (r.disponiveis > 0) n++;
+            com.google.android.material.badge.BadgeDrawable badge = binding.bottomNav.getOrCreateBadge(R.id.wishesFragment);
+            badge.setBackgroundColor(getColor(R.color.leia_success));
+            badge.setBadgeTextColor(getColor(R.color.leia_on_success));
+            badge.setVisible(n > 0);
+            if (n > 0) badge.setNumber(n);
+        });
+    }
+
     private void observeTradeBadge(long userId) {
         androidx.lifecycle.MediatorLiveData<Integer> needs = new androidx.lifecycle.MediatorLiveData<>();
         java.util.List<?>[] lists = new java.util.List<?>[2];
@@ -220,6 +227,9 @@ public class MainActivity extends AppCompatActivity {
             t.setTextColor(fgc);
             androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(t, android.content.res.ColorStateList.valueOf(fgc));
         }
+        androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(binding.meeting.meetMe,
+                android.content.res.ColorStateList.valueOf(fgc));
+        binding.meeting.meetMe.setTextColor(fgc);
         binding.meeting.meetChevron.setColorFilter(fgc);
         binding.meeting.meetWhen.setText(when + " · " + br.ufms.leiaufms.ui.common.TimeText.hour(meeting.encontroEm));
         binding.meeting.meetWhere.setText(meeting.pontoNome);
@@ -236,13 +246,55 @@ public class MainActivity extends AppCompatActivity {
         } else {
             binding.meeting.meetOther.setVisibility(android.view.View.GONE);
         }
-        bar.setContentDescription(getString(R.string.meet_bar_description, when, meeting.pontoNome, other));
+        String meText = myEta();
+        binding.meeting.meetMe.setVisibility(meText == null ? android.view.View.GONE : android.view.View.VISIBLE);
+        binding.meeting.meetMe.setText(meText);
+        refreshMyLocation();
+        bar.setContentDescription(getString(R.string.meet_bar_description, when, meeting.pontoNome,
+                meText == null ? "" : meText + ".", other));
         bar.setVisibility(android.view.View.VISIBLE);
         meetingTick.postDelayed(meetingRefresh, 30_000);
     }
 
+    // ---- Meu tempo até o ponto: só com a permissão já concedida (RNF-07), nunca pede aqui ----
+
+    private android.location.Location myLocation;
+    private long myLocationAt;
+    private br.ufms.leiaufms.core.location.LocationProvider locationProvider;
+
+    private String myEta() {
+        if (myLocation == null || meeting == null || meeting.pontoLat == null) return null;
+        float d = br.ufms.leiaufms.core.location.WalkEstimate.distance(myLocation.getLatitude(),
+                myLocation.getLongitude(), meeting.pontoLat, meeting.pontoLng);
+        if (d < 50) return getString(R.string.meet_me_there);
+        if (!br.ufms.leiaufms.core.location.WalkEstimate.isWalkable(d)) {
+            return getString(R.string.meet_me_far, br.ufms.leiaufms.ui.common.Labels.distance(this, d));
+        }
+        return getString(R.string.meet_me_walk, br.ufms.leiaufms.core.location.WalkEstimate.minutes(d));
+    }
+
+    private void refreshMyLocation() {
+        if (System.currentTimeMillis() - myLocationAt < 60_000) return;
+        if (!br.ufms.leiaufms.core.permission.PermissionHelper.anyGranted(this,
+                br.ufms.leiaufms.core.location.LocationProvider.PERMISSIONS)) return;
+        myLocationAt = System.currentTimeMillis();
+        if (locationProvider == null) locationProvider = new br.ufms.leiaufms.core.location.LocationProvider(this);
+        locationProvider.current(new br.ufms.leiaufms.core.location.LocationProvider.Callback() {
+            @Override
+            public void onLocation(android.location.Location location) {
+                myLocation = location;
+                if (binding != null && meeting != null) renderMeeting();
+            }
+
+            @Override
+            public void onFailure(br.ufms.leiaufms.core.location.LocationProvider.Failure failure) {
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
+        if (locationProvider != null) locationProvider.cancel();
         meetingTick.removeCallbacksAndMessages(null);
         super.onDestroy();
     }

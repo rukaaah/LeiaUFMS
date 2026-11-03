@@ -83,6 +83,9 @@ public final class Labels {
                 return c.getString(owner ? R.string.next_answer : R.string.next_wait_answer);
             case PedidoEstado.ACEITO:
                 if (p.encontroEm == null) return c.getString(R.string.next_schedule);
+                if (!p.encontroAceito) {
+                    return c.getString(proposedBy(p, viewerId) ? R.string.next_wait_meeting : R.string.next_accept_meeting);
+                }
                 boolean mine = owner ? p.confirmadoDono : p.confirmadoSolicitante;
                 return c.getString(mine ? R.string.next_wait_other : R.string.next_confirm);
             case PedidoEstado.EM_DISPUTA:
@@ -97,9 +100,16 @@ public final class Labels {
         if (PedidoEstado.PENDENTE.equals(p.estado)) return p.donoId == viewerId;
         if (PedidoEstado.ACEITO.equals(p.estado)) {
             boolean mine = p.donoId == viewerId ? p.confirmadoDono : p.confirmadoSolicitante;
-            return p.encontroEm == null || !mine;
+            if (p.encontroEm == null) return true;
+            if (!p.encontroAceito) return !proposedBy(p, viewerId);
+            return !mine;
         }
         return false;
+    }
+
+    /** RF-44: quem está olhando foi quem propôs o horário atual. */
+    public static boolean proposedBy(Pedido p, long viewerId) {
+        return p.encontroPropostoPor != null && p.encontroPropostoPor == viewerId;
     }
 
     public static boolean isRescue(Pedido p) {

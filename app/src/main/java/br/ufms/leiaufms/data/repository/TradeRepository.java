@@ -211,6 +211,9 @@ public class TradeRepository {
             if (quando <= now || quando > base + AppConfig.DELIVERY_DEADLINE_MS) return Result.BAD_DATE;
             p.pontoEncontroId = pontoId;
             p.encontroEm = quando;
+            // RF-44: é só uma proposta até a outra parte aceitar
+            p.encontroPropostoPor = usuarioId;
+            p.encontroAceito = false;
             p.lembreteEncontroEnviado = false;
             p.atualizadoEm = now;
             db.pedidoDao().update(p);
@@ -218,13 +221,49 @@ public class TradeRepository {
             Mensagem m = new Mensagem();
             m.pedidoId = p.id;
             m.autorId = usuarioId;
-            m.texto = context.getString(R.string.chat_meeting_auto, ponto.nome, quandoTexto);
+            m.texto = context.getString(R.string.chat_meeting_proposed, ponto.nome, quandoTexto);
             m.enviadaEm = now;
             db.socialDao().insertMensagem(m);
             long other = p.donoId == usuarioId ? p.solicitanteId : p.donoId;
             out.add(new Pending(other, Notifier.CHANNEL_TRADES,
                     context.getString(R.string.notif_meeting_title),
                     context.getString(R.string.notif_meeting_text, nome(usuarioId), ponto.nome, quandoTexto), p.id));
+            return Result.OK;
+        });
+        send(out);
+        return r;
+    }
+
+    /** RF-44: a parte que não propôs aceita o local e horário. Só então o encontro vale. */
+    @WorkerThread
+    public Result acceptMeeting(long pedidoId, long usuarioId) {
+        List<Pending> out = new ArrayList<>();
+        Result r = db.runInTransaction(() -> {
+            Pedido p = db.pedidoDao().findById(pedidoId);
+            if (p == null) return Result.NOT_FOUND;
+            if (p.donoId != usuarioId && p.solicitanteId != usuarioId) return Result.NOT_ALLOWED;
+            if (!PedidoEstado.ACEITO.equals(p.estado) || p.encontroEm == null || p.encontroAceito) {
+                return Result.INVALID_STATE;
+            }
+            if (p.encontroPropostoPor != null && p.encontroPropostoPor == usuarioId) return Result.NOT_ALLOWED;
+            long now = System.currentTimeMillis();
+            if (p.encontroEm <= now) return Result.BAD_DATE;
+            p.encontroAceito = true;
+            p.atualizadoEm = now;
+            db.pedidoDao().update(p);
+            PontoEncontro ponto = p.pontoEncontroId == null ? null : db.pontoDao().findById(p.pontoEncontroId);
+            String onde = ponto == null ? "" : ponto.nome;
+            String quandoTexto = TimeText.dateTime(p.encontroEm);
+            Mensagem m = new Mensagem();
+            m.pedidoId = p.id;
+            m.autorId = usuarioId;
+            m.texto = context.getString(R.string.chat_meeting_auto, onde, quandoTexto);
+            m.enviadaEm = now;
+            db.socialDao().insertMensagem(m);
+            long other = p.donoId == usuarioId ? p.solicitanteId : p.donoId;
+            out.add(new Pending(other, Notifier.CHANNEL_TRADES,
+                    context.getString(R.string.notif_meeting_accepted_title),
+                    context.getString(R.string.notif_meeting_accepted_text, nome(usuarioId), onde, quandoTexto), p.id));
             return Result.OK;
         });
         send(out);
@@ -240,6 +279,7 @@ public class TradeRepository {
             Pedido p = db.pedidoDao().findById(pedidoId);
             if (p == null) return Result.NOT_FOUND;
             if (!PedidoEstado.ACEITO.equals(p.estado)) return Result.INVALID_STATE;
+            if (p.encontroEm == null || !p.encontroAceito) return Result.INVALID_STATE;
             if (p.donoId == usuarioId) p.confirmadoDono = true;
             else if (p.solicitanteId == usuarioId) p.confirmadoSolicitante = true;
             else return Result.NOT_ALLOWED;

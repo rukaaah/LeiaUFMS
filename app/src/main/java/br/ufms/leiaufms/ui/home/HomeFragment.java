@@ -162,19 +162,17 @@ public class HomeFragment extends Fragment {
         });
         viewModel.wishes().observe(getViewLifecycleOwner(), l -> {
             wishes = l == null ? new ArrayList<>() : l;
-            int available = 0;
-            for (ShelfRow w : wishes) if (w.disponiveis > 0) available++;
-            binding.wishesCount.setVisibility(available > 0 ? View.VISIBLE : View.GONE);
-            binding.wishesCount.setText(String.valueOf(available));
-            binding.wishesButton.setContentDescription(available > 0
-                    ? getString(R.string.open_wishes) + ". " + getResources().getQuantityString(R.plurals.wishes_available, available, available)
-                    : getString(R.string.open_wishes));
             renderForYou();
         });
 
         binding.search.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.exploreFragment));
         binding.buttonAll.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.exploreFragment));
-        binding.wishesButton.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.wishesFragment));
+        binding.fabNew.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.newListingFragment));
+        binding.scroll.setOnScrollChangeListener((androidx.core.widget.NestedScrollView.OnScrollChangeListener)
+                (sv, x, y, ox, oy) -> {
+                    if (y > oy + 8) binding.fabNew.shrink();
+                    else if (y < oy - 8) binding.fabNew.extend();
+                });
         binding.nearInviteAction.setOnClickListener(v -> askLocation());
 
         // RNF-07: só lê a posição se a permissão já existe; senão, convida (não pede ao abrir)
@@ -223,6 +221,13 @@ public class HomeFragment extends Fragment {
             if (r.pedido.encontroEm == null) {
                 addAction(R.drawable.ic_place, R.drawable.bg_circle_success, R.color.leia_success,
                         getString(R.string.act_schedule, r.titulo), getString(R.string.act_with, other),
+                        () -> openTrade(r.pedido.id));
+            } else if (!r.pedido.encontroAceito) {
+                // RF-44: proposta de horário esperando a pessoa
+                if (Labels.proposedBy(r.pedido, me)) continue;
+                addAction(R.drawable.ic_schedule, R.drawable.bg_circle_success, R.color.leia_success,
+                        getString(R.string.act_meeting_proposal, other, r.titulo),
+                        (r.pontoNome == null ? "" : r.pontoNome + " · ") + TimeText.dateTime(r.pedido.encontroEm),
                         () -> openTrade(r.pedido.id));
             } else if (android.text.format.DateUtils.isToday(r.pedido.encontroEm)
                     && r.pedido.encontroEm > System.currentTimeMillis() - br.ufms.leiaufms.data.pedido.MeetingWindow.AFTER_MS) {

@@ -46,42 +46,6 @@
                 android:textAppearance="@style/TextAppearance.Leia.Label"
                 android:textColor="@color/leia_on_tertiary_container" />
 
-            <!-- Coração: abre os desejos; o número diz quantos já estão disponíveis -->
-            <FrameLayout
-                android:id="@+id/wishes_button"
-                android:layout_width="@dimen/touch_target"
-                android:layout_height="@dimen/touch_target"
-                android:layout_marginStart="@dimen/space_xs"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="@string/open_wishes"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="@dimen/heart_button"
-                    android:layout_height="@dimen/heart_button"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_circle_tertiary"
-                    android:importantForAccessibility="no"
-                    android:padding="@dimen/space_xs"
-                    android:src="@drawable/ic_favorite"
-                    app:tint="@color/leia_tertiary" />
-
-                <TextView
-                    android:id="@+id/wishes_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:background="@drawable/bg_count_badge"
-                    android:gravity="center"
-                    android:importantForAccessibility="no"
-                    android:minWidth="@dimen/count_badge"
-                    android:paddingStart="@dimen/space_xxs"
-                    android:paddingEnd="@dimen/space_xxs"
-                    android:textAppearance="@style/TextAppearance.Leia.Caption"
-                    android:textColor="@color/leia_on_success_container"
-                    android:visibility="gone" />
-            </FrameLayout>
         </LinearLayout>
 
         <TextView
@@ -297,4 +261,12 @@
     </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/screen_margin"
+        android:text="@string/action_new_listing"
+        app:icon="@drawable/ic_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

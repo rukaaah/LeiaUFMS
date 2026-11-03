@@ -27,7 +27,7 @@
         android:id="@+id/meeting"
         layout="@layout/view_meeting_bar" />
 
-    <!-- Barra inferior com o Início em destaque: bola central elevada (feedback 03/11) -->
+    <!-- Barra inferior com o Início em destaque: bola central dentro da barra, sem cobrir o conteúdo (feedback 03/11) -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

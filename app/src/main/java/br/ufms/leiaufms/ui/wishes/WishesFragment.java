@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import br.ufms.leiaufms.R;
 import br.ufms.leiaufms.core.security.SessionManager;
@@ -24,8 +23,8 @@ import br.ufms.leiaufms.ui.home.BookCardAdapter;
 import br.ufms.leiaufms.ui.listing.ListingDetailFragment;
 
 /**
- * Página de desejos, aberta pelo coração do Início (RF-37, feedback 03/11): grade de capas com o que já está disponível primeiro,
- * aviso quando a obra aparece (RF-32) e sugestões do mesmo autor ou disciplina.
+ * Aba Desejos (RF-37, feedback 03/11): "Disponíveis agora" em capas grandes, "Esperando aparecer" em lista
+ * com o aviso ligado (RF-32) e quantas pessoas também querem, e sugestões do mesmo autor ou disciplina.
  */
 public class WishesFragment extends Fragment {
 
@@ -60,20 +59,28 @@ public class WishesFragment extends Fragment {
                 AppExecutors.io().execute(() -> new SocialRepository(app).removeWish(row.id, me));
             }
         });
-        binding.grid.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        binding.grid.setAdapter(adapter);
+        binding.available.setAdapter(adapter);
+        WishRowAdapter waiting = new WishRowAdapter(adapter.listener());
+        binding.waiting.setAdapter(waiting);
         binding.empty.emptyIcon.setImageResource(R.drawable.ic_favorite_border);
         binding.empty.emptyTitle.setText(R.string.wishes_empty_title);
         binding.empty.emptyMessage.setText(R.string.wishes_empty_message);
         AppDatabase db = AppDatabase.get(requireContext());
         db.socialDao().wishes(me).observe(getViewLifecycleOwner(), rows -> {
-            adapter.submit(rows);
-            boolean empty = rows == null || rows.isEmpty();
+            java.util.List<ShelfRow> now = new java.util.ArrayList<>();
+            java.util.List<ShelfRow> later = new java.util.ArrayList<>();
+            if (rows != null) for (ShelfRow r : rows) (r.disponiveis > 0 && r.anuncioId != null ? now : later).add(r);
+            adapter.submit(now);
+            waiting.submit(later);
+            boolean empty = now.isEmpty() && later.isEmpty();
             binding.empty.getRoot().setVisibility(empty ? View.VISIBLE : View.GONE);
-            int available = 0;
-            if (rows != null) for (ShelfRow r : rows) if (r.disponiveis > 0) available++;
-            binding.summary.setVisibility(available > 0 ? View.VISIBLE : View.GONE);
-            binding.summary.setText(getResources().getQuantityString(R.plurals.wishes_available, available, available));
+            show(!now.isEmpty(), binding.availableTitle, binding.available);
+            show(!later.isEmpty(), binding.waitingTitle, binding.waitingSub, binding.waiting);
+            binding.summary.setVisibility(empty ? View.GONE : View.VISIBLE);
+            binding.summary.setText(getString(R.string.wishes_summary,
+                    getResources().getQuantityString(R.plurals.wishes_total, now.size() + later.size(), now.size() + later.size()),
+                    now.isEmpty() ? getString(R.string.wishes_none_available)
+                            : getResources().getQuantityString(R.plurals.wishes_available, now.size(), now.size())));
         });
         BookCardAdapter suggest = new BookCardAdapter(new BookCardAdapter.Listener() {
             @Override
@@ -98,6 +105,10 @@ public class WishesFragment extends Fragment {
         // Adiciona aqui mesmo: a pessoa continua na página de desejos (feedback 03/11)
         binding.fabAdd.setOnClickListener(v ->
                 br.ufms.leiaufms.ui.shelf.AddBookDialog.show(this, true, binding.getRoot()));
+    }
+
+    private static void show(boolean visible, View... views) {
+        for (View v : views) v.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     @Override
