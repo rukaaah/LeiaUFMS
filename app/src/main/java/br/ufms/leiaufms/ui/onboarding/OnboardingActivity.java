@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.List;
 
@@ -66,14 +65,12 @@ public class OnboardingActivity extends AppCompatActivity {
         InsetsHelper.styleBars(this);
 
         binding.pager.setAdapter(new PageAdapter());
-        new TabLayoutMediator(binding.dots, binding.pager, (tab, position) -> {
-            tab.setContentDescription(getString(R.string.onb_page, position + 1, PAGES.length));
-            tab.view.setClickable(false);
-        }).attach();
+        buildDots();
         binding.pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 boolean last = position == PAGES.length - 1;
+                renderDots(position);
                 binding.buttonNext.setText(last ? R.string.action_start : R.string.action_continue);
                 binding.buttonSkip.setVisibility(last ? View.INVISIBLE : View.VISIBLE);
             }
@@ -84,6 +81,34 @@ public class OnboardingActivity extends AppCompatActivity {
             else finishOnboarding(true);
         });
         binding.buttonSkip.setOnClickListener(v -> binding.pager.setCurrentItem(PAGES.length - 1));
+    }
+
+    /** Pontos fixos (8 dp); a página atual vira uma pílula de 24 dp, sem esticar os outros. */
+    private void buildDots() {
+        int size = getResources().getDimensionPixelSize(R.dimen.space_xs);
+        int gap = getResources().getDimensionPixelSize(R.dimen.space_xxs);
+        for (int i = 0; i < PAGES.length; i++) {
+            View dot = new View(this);
+            android.widget.LinearLayout.LayoutParams lp = new android.widget.LinearLayout.LayoutParams(size, size);
+            lp.setMarginStart(gap);
+            lp.setMarginEnd(gap);
+            dot.setLayoutParams(lp);
+            dot.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            binding.dots.addView(dot);
+        }
+        renderDots(0);
+    }
+
+    private void renderDots(int current) {
+        int size = getResources().getDimensionPixelSize(R.dimen.space_xs);
+        for (int i = 0; i < binding.dots.getChildCount(); i++) {
+            View dot = binding.dots.getChildAt(i);
+            boolean on = i == current;
+            dot.setBackgroundResource(on ? R.drawable.bg_page_dot_active : R.drawable.bg_page_dot);
+            dot.getLayoutParams().width = on ? size * 3 : size;
+            dot.requestLayout();
+        }
+        binding.dots.setContentDescription(getString(R.string.onb_page, current + 1, PAGES.length));
     }
 
     private void finishOnboarding(boolean savePrefs) {

@@ -124,9 +124,12 @@ public class MainActivity extends AppCompatActivity {
             binding.homeBall.setImageTintList(android.content.res.ColorStateList.valueOf(
                     getColor(home ? R.color.leia_on_primary : R.color.leia_on_primary_container)));
             // Indicador da aba ganha a cor do contexto: Mural com a cor viva do social
+            // No Início a própria bola é o destaque: sem a pílula de seleção aparecendo atrás dela
             boolean feed = d.getId() == R.id.feedFragment;
-            binding.bottomNav.setItemActiveIndicatorColor(android.content.res.ColorStateList.valueOf(
-                    getColor(feed ? R.color.post_dica_container : R.color.leia_primary_container)));
+            boolean homeSelected = binding.bottomNav.getSelectedItemId() == R.id.homeFragment;
+            binding.bottomNav.setItemActiveIndicatorColor(android.content.res.ColorStateList.valueOf(homeSelected
+                    ? android.graphics.Color.TRANSPARENT
+                    : getColor(feed ? R.color.post_dica_container : R.color.leia_primary_container)));
         });
     }
 

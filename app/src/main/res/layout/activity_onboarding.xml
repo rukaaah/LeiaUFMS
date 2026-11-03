@@ -22,20 +22,14 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.tabs.TabLayout
+    <!-- Pontos das páginas: círculos iguais e a atual em pílula (desenhados no código) -->
+    <LinearLayout
         android:id="@+id/dots"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/space_l"
         android:layout_gravity="center_horizontal"
-        android:background="@android:color/transparent"
-        app:tabBackground="@drawable/tab_dot"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        app:tabMaxWidth="@dimen/size_32"
-        app:tabMinWidth="@dimen/space_m"
-        app:tabPaddingEnd="@dimen/space_xxs"
-        app:tabPaddingStart="@dimen/space_xxs"
-        app:tabRippleColor="@android:color/transparent" />
+        android:gravity="center"
+        android:orientation="horizontal" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_next"
