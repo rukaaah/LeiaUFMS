@@ -85,4 +85,18 @@
         <item name="iconSize">18dp</item>
         <item name="iconPadding">@dimen/space_xs</item>
     </style>
+
+    <!-- Linha "ícone + valor" que substitui frases (quem, onde, quando) -->
+    <style name="Widget.Leia.IconLine" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/space_xxs</item>
+        <item name="android:drawablePadding">@dimen/space_xs</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textAppearance">@style/TextAppearance.Leia.BodySmall</item>
+        <item name="android:textColor">@color/leia_on_background</item>
+        <item name="drawableTint">@color/leia_on_surface_variant</item>
+    </style>
 </resources>

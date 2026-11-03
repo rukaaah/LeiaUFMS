@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Linha de troca com ícones no lugar de frases (feedback 03/11): quem, onde, quando e a etapa. -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,63 +18,79 @@
         android:orientation="vertical"
         android:padding="@dimen/space_s">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <include
-            android:id="@+id/cover"
-            layout="@layout/view_cover" />
-
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_m"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.Leia.BookTitle"
-                android:textColor="@color/leia_on_background" />
+            <include
+                android:id="@+id/cover"
+                layout="@layout/view_cover" />
 
-            <TextView
-                android:id="@+id/party"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
-                android:textColor="@color/leia_on_surface_variant" />
+                android:layout_marginStart="@dimen/space_m"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_xs"
-                android:drawablePadding="@dimen/space_xs"
-                android:gravity="center_vertical"
-                android:textAppearance="@style/TextAppearance.Leia.Label"
-                android:textColor="@color/leia_on_background" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.Leia.BookTitle"
+                    android:textColor="@color/leia_on_background" />
 
-            <TextView
-                android:id="@+id/next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_xxs"
-                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
-                android:textColor="@color/leia_primary" />
+                <TextView
+                    android:id="@+id/party"
+                    style="@style/Widget.Leia.IconLine"
+                    app:drawableStartCompat="@drawable/ic_person" />
+
+                <TextView
+                    android:id="@+id/where"
+                    style="@style/Widget.Leia.IconLine"
+                    android:textAppearance="@style/TextAppearance.Leia.Title"
+                    android:visibility="gone"
+                    app:drawableStartCompat="@drawable/ic_place" />
+
+                <TextView
+                    android:id="@+id/when"
+                    style="@style/Widget.Leia.IconLine"
+                    android:textAppearance="@style/TextAppearance.Leia.Title"
+                    android:visibility="gone"
+                    app:drawableStartCompat="@drawable/ic_schedule" />
+
+                <TextView
+                    android:id="@+id/state"
+                    style="@style/Widget.Leia.IconLine"
+                    android:textAppearance="@style/TextAppearance.Leia.Label" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <br.ufms.leiaufms.ui.common.TradeProgressView
-        android:id="@+id/progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_s"
-        android:visibility="gone" />
+        <br.ufms.leiaufms.ui.common.TradeProgressView
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:background="@drawable/bg_chip_walk"
+            android:drawablePadding="@dimen/space_xxs"
+            android:paddingStart="@dimen/space_s"
+            android:paddingTop="@dimen/space_xxs"
+            android:paddingEnd="@dimen/space_s"
+            android:paddingBottom="@dimen/space_xxs"
+            android:textAppearance="@style/TextAppearance.Leia.Label"
+            android:textColor="@color/leia_on_primary_container"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/ic_chevron_right"
+            app:drawableTint="@color/leia_on_primary_container" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

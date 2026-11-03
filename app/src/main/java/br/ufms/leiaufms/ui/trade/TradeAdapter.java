@@ -57,25 +57,34 @@ public class TradeAdapter extends ListAdapter<PedidoRow, TradeAdapter.Holder> {
         h.b.title.setText(r.titulo);
         Covers.bind(h.b.cover.coverImage, h.b.cover.coverText, r.capaPath, r.titulo);
         boolean owner = r.pedido.donoId == viewerId;
-        String party = owner ? c.getString(R.string.trade_with_requester, r.solicitanteNome)
-                : c.getString(R.string.trade_with_owner, r.donoNome);
+        String party = owner ? r.solicitanteNome : r.donoNome;
         h.b.party.setText(party);
+        boolean hasMeeting = r.pedido.encontroEm != null && r.pontoNome != null
+                && br.ufms.leiaufms.data.pedido.PedidoEstado.ACEITO.equals(r.pedido.estado);
+        h.b.where.setVisibility(hasMeeting ? View.VISIBLE : View.GONE);
+        h.b.when.setVisibility(hasMeeting ? View.VISIBLE : View.GONE);
+        String whenText = "";
+        if (hasMeeting) {
+            h.b.where.setText(r.pontoNome);
+            whenText = br.ufms.leiaufms.ui.common.TimeText.meeting(c, r.pedido.encontroEm);
+            h.b.when.setText(whenText);
+        }
         String state = Labels.state(c, r.pedido.estado);
         h.b.state.setText(state);
         h.b.state.setCompoundDrawablesRelativeWithIntrinsicBounds(Labels.stateIcon(r.pedido.estado), 0, 0, 0);
-        String next = Labels.nextStep(c, r.pedido, viewerId);
-        h.b.next.setVisibility(next == null ? View.GONE : View.VISIBLE);
-        h.b.next.setText(next);
         int step = br.ufms.leiaufms.ui.common.TradeProgressView.stepOf(r.pedido);
         boolean active = step >= 0 && step < 3;
+        h.b.state.setVisibility(active ? View.GONE : View.VISIBLE);
         h.b.progress.setVisibility(active ? View.VISIBLE : View.GONE);
         if (active) h.b.progress.setStep(step, false);
-        // Pedido que precisa de mim ganha borda azul (próximo passo em destaque)
         boolean needs = Labels.needsAction(r.pedido, viewerId);
+        String next = Labels.nextStep(c, r.pedido, viewerId);
+        h.b.next.setVisibility(needs && next != null ? View.VISIBLE : View.GONE);
+        h.b.next.setText(next);
         h.b.card.setStrokeColor(c.getColor(needs ? R.color.leia_primary : R.color.leia_outline_variant));
         h.b.card.setStrokeWidth(needs ? Math.round(2 * c.getResources().getDisplayMetrics().density) : 0);
-        h.itemView.setContentDescription(c.getString(R.string.trade_row_description, r.titulo, party, state,
-                next == null ? "" : next));
+        h.itemView.setContentDescription(c.getString(R.string.trade_row_description, r.titulo, party,
+                hasMeeting ? r.pontoNome + ", " + whenText : state, next == null ? "" : next));
         h.itemView.setOnClickListener(v -> onClick.onClick(r));
     }
 
