@@ -2,6 +2,8 @@ package br.ufms.leiaufms.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import br.ufms.leiaufms.core.util.AppExecutors;
+import br.ufms.leiaufms.data.repository.SocialRepository;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,6 +145,41 @@ public class HomeFragment extends Fragment {
         viewModel.near().observe(getViewLifecycleOwner(), list -> {
             nearAdapter.submitList(list);
             renderNear(list);
+        });
+        // RF-45: livros das disciplinas do curso (catálogo); coração deseja, toque abre a página do livro
+        android.content.Context appCtx = requireContext().getApplicationContext();
+        long meId = br.ufms.leiaufms.core.security.SessionManager.get(appCtx).currentUserId();
+        CatalogCardAdapter gradeAdapter = new CatalogCardAdapter(new CatalogCardAdapter.Listener() {
+            @Override
+            public void onOpen(br.ufms.leiaufms.data.local.entity.LivroCatalogo l) {
+                AppExecutors.io().execute(() -> {
+                    long obraId = new SocialRepository(appCtx).obra(l.titulo, l.autor);
+                    AppExecutors.main(() -> {
+                        if (binding == null) return;
+                        Bundle args = new Bundle();
+                        args.putLong(br.ufms.leiaufms.ui.book.ObraFragment.ARG_ID, obraId);
+                        NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.obraFragment, args);
+                    });
+                });
+            }
+
+            @Override
+            public void onWish(br.ufms.leiaufms.data.local.entity.LivroCatalogo l) {
+                AppExecutors.io().execute(() -> {
+                    new SocialRepository(appCtx).addWish(meId, l.titulo, l.autor);
+                    AppExecutors.main(() -> {
+                        if (binding != null) com.google.android.material.snackbar.Snackbar.make(binding.getRoot(),
+                                R.string.wish_saved, com.google.android.material.snackbar.Snackbar.LENGTH_SHORT).show();
+                    });
+                });
+            }
+        });
+        binding.gradeList.setAdapter(gradeAdapter);
+        viewModel.grade().observe(getViewLifecycleOwner(), list -> {
+            gradeAdapter.submit(list);
+            boolean show = list != null && !list.isEmpty();
+            binding.gradeTitle.setVisibility(show ? View.VISIBLE : View.GONE);
+            binding.gradeList.setVisibility(show ? View.VISIBLE : View.GONE);
         });
         viewModel.course().observe(getViewLifecycleOwner(), list -> {
             courseAdapter.submitList(list);

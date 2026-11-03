@@ -29,4 +29,7 @@ public class Obra {
 
     /** Última tentativa de buscar a capa (evita repetir a busca a cada abertura). */
     public Long capaTentativaEm;
+
+    /** Livro do catálogo de onde a obra veio (null quando foi digitada fora do catálogo). */
+    public Long catalogoId;
 }

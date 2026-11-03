@@ -132,19 +132,8 @@ public class OnboardingActivity extends AppCompatActivity {
     }
 
     private void bindSuggestions(PageOnboardingBinding b) {
-        AppExecutors.io().execute(() -> {
-            List<Obra> obras = AppDatabase.get(this).obraDao().all();
-            AppExecutors.main(() -> {
-                String[] titles = new String[obras.size()];
-                for (int i = 0; i < obras.size(); i++) titles[i] = obras.get(i).titulo;
-                b.inputReadingTitle.setSimpleItems(titles);
-                b.inputWishTitle.setSimpleItems(titles);
-                b.inputReadingTitle.setOnItemClickListener((parent, v, pos, id) -> fillAuthor(obras,
-                        (String) parent.getItemAtPosition(pos), b.inputReadingAuthor));
-                b.inputWishTitle.setOnItemClickListener((parent, v, pos, id) -> fillAuthor(obras,
-                        (String) parent.getItemAtPosition(pos), b.inputWishAuthor));
-            });
-        });
+        br.ufms.leiaufms.ui.common.BookSuggestions.attach(b.inputReadingTitle, b.inputReadingAuthor);
+        br.ufms.leiaufms.ui.common.BookSuggestions.attach(b.inputWishTitle, b.inputWishAuthor);
     }
 
     private static void fillAuthor(List<Obra> obras, String titulo, android.widget.EditText author) {

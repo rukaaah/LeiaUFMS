@@ -60,10 +60,11 @@ Todas as listas mostram só anúncios ativos de **outras** pessoas e escondem os
 |---|---|---|---|
 | Pra você agora | Pedidos que esperam sua resposta, encontros a propor/aceitar/de hoje, entregas a confirmar, desejos que já têm cópia | Pela urgência da ação | Não há nada para fazer |
 | Perto de você, a pé | Distância até 2 km da sua posição (ponto seguro do anúncio ou posição do anúncio); 80 m/min a pé | Mais perto primeiro | Sem permissão de localização (aparece o convite) |
-| Para o seu curso | Livros ligados a disciplinas cujo curso contém a primeira palavra do seu curso | Mais novos primeiro | Curso vazio ou nada indicado |
+| Para o seu curso | Anúncios de livros ligados às disciplinas do seu curso: pelos tópicos do catálogo (disciplinas reais da UFMS) ou pelas indicações da demonstração | Mais novos primeiro | Curso vazio ou nada indicado |
 | Porque você leu X | X = último livro da sua estante (lendo, lido ou passado adiante); mostra o mesmo autor primeiro, depois o mesmo gênero | Autor, depois data | Estante vazia |
 | Mais de {gênero} | Gênero que mais aparece na sua estante, nos seus desejos e nos livros que já passaram por você | Mais novos primeiro | Nenhum livro com gênero |
-| Explore por gênero | Os 7 gêneros fixos do app | Fixa | Nunca |
+| Da sua grade | Livros do catálogo (Open Library) dos tópicos que aparecem nas disciplinas reais do seu curso (Dados Abertos UFMS 2026-1). Os 5 tópicos com mais disciplinas no curso se alternam (um livro de cada por vez); tira o que você já deseja | Peso do tópico no curso, capa primeiro | Curso sem disciplinas ligadas |
+| Explore por gênero | Os 13 gêneros do app (ampliados para as áreas da UFMS) | Fixa | Nunca |
 | Chegaram agora | Anúncios mais recentes | Mais novos primeiro | Nunca |
 | Desejos → Talvez você queira | Mesmo autor de um desejo ou mesma disciplina de um desejo, sem repetir o que já é desejo | Mais novos primeiro | Nada parecido |
 

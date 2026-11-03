@@ -73,7 +73,7 @@ App abre
 | `sessao` | id, usuarioId, tokenHash, criadaEm, expiraEm | Token em claro só no `SharedPreferences` |
 | `obra` | id, titulo, autor, isbn13 (nulo), genero, capaPath, capaTentativaEm | Agrupador do hub. Capa da Open Library (RF-42, v3); gênero para o Início (v5) |
 | `edicao_compativel` | obraId, obraCompativelId | Marcado por moderador |
-| `disciplina` | id, codigo, nome, curso | Seed |
+| `disciplina` (v8: + índice em curso; disciplinas reais com `codigo`) | id, codigo, nome, curso | Seed |
 | `obra_disciplina` | obraId, disciplinaId | Recomendações |
 | `exemplar` | id, obraId, donoAtualId, edicao, conservacao, fotoPath | Objeto físico |
 | `posse_exemplar` | id, exemplarId, usuarioId, desde, ate, pedidoId | Trajetória (RF-17) |
@@ -86,6 +86,9 @@ App abre
 | `desejo` | id, usuarioId, obraId, criadoEm | Única por (usuário, obra) |
 | `post_mural` | id, autorId, obraId (obrigatório), tipo (`DICA`/`PROCURO`/`DOACAO`/`TROCA_CONCLUIDA`), texto, oculto, criadoEm | — |
 | `reacao` | postId, usuarioId, tipo (`UTIL`/`QUERO`) | PK composta |
+| `livro_catalogo` | id, titulo, autor, chave (sem acento), isbn13, ano, capaOl, genero | RF-45; carregado de `assets/catalogo.json` (Open Library, CC0); banco v8 |
+| `topico` | id, nome, genero | 90 tópicos (`tools/catalogo/topicos.py`) |
+| `catalogo_topico`, `disciplina_topico`, `obra_topico` | (livro/disciplina/obra), topicoId | Ligam livros e disciplinas reais da UFMS por assunto; a obra herda os tópicos do livro do catálogo |
 | `comentario_post` | id, postId, autorId, texto (até 300), criadoEm | RF-43; banco v6 |
 | `ponto_encontro` | id, nome, descricao, lat, lng, ativo, criadoPor, criadoEm | Criado pelo Moderador tocando no mapa (RF-30); nenhum no seed (PC-07) |
 | `localizacao_encontro` | pedidoId, usuarioId (PK composta), lat, lng, atualizadaEm | RF-41: só durante a janela de 10 min antes a 30 min depois do encontro; apagada ao encerrar o pedido; banco v4 |

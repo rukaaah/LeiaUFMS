@@ -144,29 +144,7 @@ public class ListingRepository {
     }
 
     private long findOrCreateObra(String titulo, String autor, String isbnRaw, String genero) {
-        String isbn = Validators.normalizeIsbn(isbnRaw);
-        Obra o = null;
-        if (!isbn.isEmpty()) o = db.obraDao().findByIsbn(isbn);
-        if (o == null) o = db.obraDao().findByTitleAuthor(titulo.trim(), autor.trim());
-        if (o != null) {
-            boolean changed = false;
-            if (o.isbn13 == null && !isbn.isEmpty()) {
-                o.isbn13 = isbn;
-                changed = true;
-            }
-            if (o.genero == null && genero != null) {
-                o.genero = genero;
-                changed = true;
-            }
-            if (changed) db.obraDao().update(o);
-            return o.id;
-        }
-        Obra nova = new Obra();
-        nova.titulo = titulo.trim();
-        nova.autor = autor.trim();
-        nova.isbn13 = isbn.isEmpty() ? null : isbn;
-        nova.genero = genero;
-        return db.obraDao().insert(nova);
+        return ObraResolver.resolve(db, titulo, autor, Validators.normalizeIsbn(isbnRaw), genero);
     }
 
     private static String emptyToNull(String s) {

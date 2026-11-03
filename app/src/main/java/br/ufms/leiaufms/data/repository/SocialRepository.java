@@ -119,13 +119,9 @@ public class SocialRepository {
     /** Liga a uma obra existente por título + autor ou cria uma. */
     @WorkerThread
     public long obra(String titulo, String autor) {
-        Obra o = db.obraDao().findByTitleAuthor(titulo.trim(), autor.trim());
-        if (o != null) return o.id;
-        Obra nova = new Obra();
-        nova.titulo = titulo.trim();
-        nova.autor = autor.trim();
-        long id = db.obraDao().insert(nova);
-        br.ufms.leiaufms.work.CoverWorker.enqueue(context);
+        long before = db.obraDao().findByTitleAuthor(titulo.trim(), autor.trim()) == null ? -1 : 0;
+        long id = ObraResolver.resolve(db, titulo, autor, null, null);
+        if (before < 0) br.ufms.leiaufms.work.CoverWorker.enqueue(context);
         return id;
     }
 

@@ -55,9 +55,12 @@ public interface AnuncioDao {
     /** Início: livros indicados para disciplinas do curso do aluno (chave = primeira palavra do curso). */
     @Query(SELECT_ROW + "WHERE a.ativo = 1 AND a.donoId != :usuarioId "
             + "AND NOT EXISTS (SELECT 1 FROM pedido pd WHERE pd.anuncioId = a.id AND pd.estado IN ('ACEITO', 'EM_DISPUTA')) "
-            + "AND o.id IN (SELECT od.obraId FROM obra_disciplina od JOIN disciplina d ON d.id = od.disciplinaId "
-            + "WHERE d.curso LIKE '%' || :chaveCurso || '%') ORDER BY a.criadoEm DESC LIMIT 10")
-    LiveData<List<ListingRow>> forCourse(long usuarioId, String chaveCurso);
+            + "AND (o.id IN (SELECT od.obraId FROM obra_disciplina od JOIN disciplina d ON d.id = od.disciplinaId "
+            + "WHERE d.curso LIKE '%' || :chaveCurso || '%') "
+            // RF-45: livros cujos tópicos aparecem nas disciplinas reais do curso
+            + "OR o.id IN (SELECT ot.obraId FROM obra_topico ot JOIN disciplina_topico dt ON dt.topicoId = ot.topicoId "
+            + "JOIN disciplina d ON d.id = dt.disciplinaId WHERE d.curso = :curso)) ORDER BY a.criadoEm DESC LIMIT 10")
+    LiveData<List<ListingRow>> forCourse(long usuarioId, String chaveCurso, String curso);
 
     /** Explorar por gênero (grade de "Todos os livros"). */
     @Query(SELECT_ROW + "WHERE a.ativo = 1 "

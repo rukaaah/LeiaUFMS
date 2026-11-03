@@ -68,6 +68,11 @@ public class CoverRepository {
      */
     @Nullable
     Long searchCoverId(Obra o) throws IOException {
+        // Obra vinda do catálogo já sabe o id da capa na Open Library (RF-45): sem busca
+        if (o.catalogoId != null) {
+            br.ufms.leiaufms.data.local.entity.LivroCatalogo l = db.catalogoDao().byId(o.catalogoId);
+            if (l != null && l.capaOl != null) return l.capaOl;
+        }
         if (o.isbn13 != null && !o.isbn13.isEmpty()) {
             Long id = firstCover("&isbn=" + enc(o.isbn13));
             if (id != null) return id;
@@ -117,6 +122,28 @@ public class CoverRepository {
             fos.write(data);
         }
         return out.getAbsolutePath();
+    }
+
+    /**
+     * Capa de um livro do catálogo (RF-45), guardada em filesDir/capas/cat_{id}.jpg. Devolve o caminho
+     * ou null sem internet. Só o id da capa sai do aparelho.
+     */
+    @WorkerThread
+    @Nullable
+    public String catalogCover(long livroId, long capaOl) {
+        File out = new File(new File(context.getFilesDir(), "capas"), "cat_" + livroId + ".jpg");
+        if (out.exists()) return out.getAbsolutePath();
+        try {
+            byte[] data = get(String.format(java.util.Locale.ROOT, COVER, capaOl));
+            if (data.length < 1000) return null;
+            out.getParentFile().mkdirs();
+            try (FileOutputStream fos = new FileOutputStream(out)) {
+                fos.write(data);
+            }
+            return out.getAbsolutePath();
+        } catch (IOException | RuntimeException e) {
+            return null;
+        }
     }
 
     private static byte[] get(String url) throws IOException {

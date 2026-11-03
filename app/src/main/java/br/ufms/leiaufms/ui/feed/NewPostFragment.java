@@ -52,20 +52,7 @@ public class NewPostFragment extends Fragment {
             binding.inputTitle.setText(a.getString(ARG_TITLE));
             binding.inputAuthor.setText(a.getString(ARG_AUTHOR));
         }
-        android.content.Context app = requireContext().getApplicationContext();
-        AppExecutors.io().execute(() -> {
-            List<Obra> obras = AppDatabase.get(app).obraDao().all();
-            AppExecutors.main(() -> {
-                if (binding == null) return;
-                String[] titles = new String[obras.size()];
-                for (int i = 0; i < obras.size(); i++) titles[i] = obras.get(i).titulo;
-                binding.inputTitle.setSimpleItems(titles);
-                binding.inputTitle.setOnItemClickListener((parent, v, pos, id) -> {
-                    String chosen = (String) parent.getItemAtPosition(pos);
-                    for (Obra o : obras) if (o.titulo.equals(chosen)) binding.inputAuthor.setText(o.autor);
-                });
-            });
-        });
+        br.ufms.leiaufms.ui.common.BookSuggestions.attach(binding.inputTitle, binding.inputAuthor);
         binding.buttonPublish.setOnClickListener(v -> submit());
     }
 

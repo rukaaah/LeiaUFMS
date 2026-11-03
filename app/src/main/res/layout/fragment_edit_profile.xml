@@ -66,7 +66,7 @@
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/input_course"
-                    style="@style/Widget.Leia.FieldInput"
+                    style="@style/Widget.Leia.FieldInput.Dropdown"
                     android:completionThreshold="1"
                     android:importantForAutofill="no"
                     android:imeOptions="actionNext"

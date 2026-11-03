@@ -38,6 +38,12 @@ public class HomeViewModel extends AndroidViewModel {
     private final MediatorLiveData<List<ListingRow>> near = new MediatorLiveData<>();
     private final MediatorLiveData<List<ListingRow>> fresh = new MediatorLiveData<>();
     private final LiveData<List<ListingRow>> course;
+    private final LiveData<List<br.ufms.leiaufms.data.local.entity.LivroCatalogo>> grade;
+
+    /** RF-45: livros do catálogo ligados às disciplinas do curso (mesmo sem anúncio). */
+    public LiveData<List<br.ufms.leiaufms.data.local.entity.LivroCatalogo>> grade() {
+        return grade;
+    }
 
     public HomeViewModel(@NonNull Application app) {
         super(app);
@@ -48,7 +54,11 @@ public class HomeViewModel extends AndroidViewModel {
         near.addSource(location, l -> computeNear());
         fresh.addSource(all, l -> computeFresh());
         fresh.addSource(location, l -> computeFresh());
-        course = Transformations.switchMap(user(), u -> db.anuncioDao().forCourse(userId, courseKey(u)));
+        course = Transformations.switchMap(user(), u -> db.anuncioDao().forCourse(userId, courseKey(u),
+                u == null || u.curso == null ? "" : u.curso.trim()));
+        grade = Transformations.map(Transformations.switchMap(user(), u -> db.catalogoDao().forCourse(
+                u == null || u.curso == null ? "" : u.curso.trim(), userId)),
+                rows -> br.ufms.leiaufms.data.local.GradeMix.mix(rows, 5, 15));
     }
 
     static String courseKey(Usuario u) {

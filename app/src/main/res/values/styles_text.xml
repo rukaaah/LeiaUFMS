@@ -29,6 +29,14 @@
         <item name="android:textColor">@color/leia_on_background</item>
     </style>
 
+    <!-- Texto do campo com lista: o padrão do AutoComplete não tem respiro e o texto encostava na borda -->
+    <style name="Widget.Leia.FieldInput.Dropdown">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/space_m</item>
+        <item name="android:paddingTop">@dimen/space_m</item>
+        <item name="android:paddingBottom">@dimen/space_m</item>
+    </style>
+
     <!-- Erro de grupo de escolha (chips), no mesmo estilo do erro de TextInputLayout. -->
     <style name="Widget.Leia.InlineError" parent="">
         <item name="android:layout_width">match_parent</item>

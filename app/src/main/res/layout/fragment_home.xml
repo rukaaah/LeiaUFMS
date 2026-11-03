@@ -176,6 +176,26 @@
             android:paddingEnd="@dimen/screen_margin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+        <!-- Da sua grade (RF-45): livros do catálogo para as disciplinas reais do curso, mesmo sem anúncio -->
+        <TextView
+            android:id="@+id/grade_title"
+            style="@style/Widget.Leia.HomeSection"
+            android:text="@string/home_grade"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/grade_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/screen_margin"
+            android:paddingEnd="@dimen/screen_margin"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
 
         <TextView
             android:id="@+id/because_title"

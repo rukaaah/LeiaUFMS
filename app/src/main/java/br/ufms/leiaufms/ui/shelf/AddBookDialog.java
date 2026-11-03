@@ -35,19 +35,8 @@ public final class AddBookDialog {
         Context app = f.requireContext().getApplicationContext();
         long me = SessionManager.get(app).currentUserId();
         DialogAddBookBinding d = DialogAddBookBinding.inflate(f.getLayoutInflater());
-        // Sugestões de obras já cadastradas (título → autor preenchido)
-        AppExecutors.io().execute(() -> {
-            List<Obra> obras = AppDatabase.get(app).obraDao().all();
-            AppExecutors.main(() -> {
-                String[] titles = new String[obras.size()];
-                for (int i = 0; i < obras.size(); i++) titles[i] = obras.get(i).titulo;
-                d.inputTitle.setSimpleItems(titles);
-                d.inputTitle.setOnItemClickListener((parent, v, pos, id) -> {
-                    String chosen = (String) parent.getItemAtPosition(pos);
-                    for (Obra o : obras) if (o.titulo.equals(chosen)) d.inputAuthor.setText(o.autor);
-                });
-            });
-        });
+        // Sugestões do catálogo + obras do app: título e autor padronizados (RF-45)
+        br.ufms.leiaufms.ui.common.BookSuggestions.attach(d.inputTitle, d.inputAuthor);
         androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(f.requireContext())
                 .setTitle(wish ? R.string.add_wish_title : R.string.add_shelf_title)
                 .setView(d.getRoot())

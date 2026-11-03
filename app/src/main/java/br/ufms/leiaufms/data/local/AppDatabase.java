@@ -27,7 +27,12 @@ import br.ufms.leiaufms.data.local.dao.SocialDao;
 import br.ufms.leiaufms.data.local.dao.UsuarioDao;
 import br.ufms.leiaufms.data.local.entity.Anuncio;
 import br.ufms.leiaufms.data.local.entity.Avaliacao;
+import br.ufms.leiaufms.data.local.entity.CatalogoTopico;
 import br.ufms.leiaufms.data.local.entity.ComentarioPost;
+import br.ufms.leiaufms.data.local.entity.DisciplinaTopico;
+import br.ufms.leiaufms.data.local.entity.LivroCatalogo;
+import br.ufms.leiaufms.data.local.entity.ObraTopico;
+import br.ufms.leiaufms.data.local.entity.Topico;
 import br.ufms.leiaufms.data.local.entity.Desejo;
 import br.ufms.leiaufms.data.local.entity.Disciplina;
 import br.ufms.leiaufms.data.local.entity.EdicaoCompativel;
@@ -53,9 +58,12 @@ import br.ufms.leiaufms.data.local.entity.Usuario;
         ObraDisciplina.class, Exemplar.class, PosseExemplar.class, Anuncio.class, Pedido.class,
         Mensagem.class, MovimentoCredito.class, Avaliacao.class, ItemEstante.class, Desejo.class,
         PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class, LocalizacaoEncontro.class,
-        ComentarioPost.class
-}, version = 7, exportSchema = true)
+        ComentarioPost.class, LivroCatalogo.class, Topico.class, CatalogoTopico.class, DisciplinaTopico.class,
+        ObraTopico.class
+}, version = 8, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
+
+    public abstract br.ufms.leiaufms.data.local.dao.CatalogoDao catalogoDao();
 
     private static final String NAME = "leiaufms.db";
     private static volatile AppDatabase instance;
@@ -142,6 +150,27 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    /** v8: catálogo de livros, tópicos e disciplinas reais da UFMS (RF-45). Os dados entram pelo CatalogLoader. */
+    static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("ALTER TABLE obra ADD COLUMN catalogoId INTEGER");
+            db.execSQL("CREATE INDEX IF NOT EXISTS `index_disciplina_curso` ON `disciplina` (`curso`)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `livro_catalogo` (`id` INTEGER NOT NULL, `titulo` TEXT NOT NULL, "
+                    + "`autor` TEXT NOT NULL, `chave` TEXT NOT NULL, `isbn13` TEXT, `ano` INTEGER, `capaOl` INTEGER, "
+                    + "`genero` TEXT, PRIMARY KEY(`id`))");
+            db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_livro_catalogo_chave` ON `livro_catalogo` (`chave`)");
+            db.execSQL("CREATE INDEX IF NOT EXISTS `index_livro_catalogo_titulo` ON `livro_catalogo` (`titulo`)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `topico` (`id` INTEGER NOT NULL, `nome` TEXT NOT NULL, `genero` TEXT, PRIMARY KEY(`id`))");
+            for (String t : new String[]{"catalogo_topico:livroId", "disciplina_topico:disciplinaId", "obra_topico:obraId"}) {
+                String[] p = t.split(":");
+                db.execSQL("CREATE TABLE IF NOT EXISTS `" + p[0] + "` (`" + p[1] + "` INTEGER NOT NULL, `topicoId` INTEGER NOT NULL, "
+                        + "PRIMARY KEY(`" + p[1] + "`, `topicoId`))");
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_" + p[0] + "_topicoId` ON `" + p[0] + "` (`topicoId`)");
+            }
+        }
+    };
+
     private static final CountDownLatch SEED_READY = new CountDownLatch(1);
 
     /** Abre o banco e cria os dados de demonstração na primeira execução (em background). */
@@ -149,6 +178,7 @@ public abstract class AppDatabase extends RoomDatabase {
         AppExecutors.io().execute(() -> {
             try {
                 SeedData.populate(get(context));
+                CatalogLoader.loadIfNeeded(context.getApplicationContext(), get(context));
             } finally {
                 SEED_READY.countDown();
             }
@@ -171,7 +201,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (instance == null) {
                     Context app = context.getApplicationContext();
                     instance = Room.databaseBuilder(app, AppDatabase.class, NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8)
                             .build();
                 }
             }

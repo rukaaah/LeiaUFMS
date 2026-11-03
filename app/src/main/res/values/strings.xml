@@ -701,4 +701,5 @@
     <string name="action_enable_notifications">Ativar notificações</string>
     <string name="feed_saved_empty_title">Nenhum post salvo</string>
     <string name="error_course_list">Escolha um curso da lista da UFMS.</string>
+    <string name="home_grade">Da sua grade</string>
 </resources>
