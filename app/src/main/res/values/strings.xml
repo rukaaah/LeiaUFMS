@@ -556,7 +556,7 @@
     <string name="action_save_post">Salvar post</string>
     <string name="action_unsave_post">Tirar dos salvos</string>
     <string name="feed_saved">Salvos</string>
-    <string name="feed_saved_empty">Toque no marcador de um post para guardar aqui.</string>
+    <string name="feed_saved_empty">Toque no marcador de um post para guardar.</string>
     <string name="post_description">%1$s. %2$s sobre %3$s. %4$s. %5$s, %6$s</string>
     <string name="title_new_post">Novo post</string>
     <string name="label_post_type">Tipo do post</string>
@@ -700,4 +700,5 @@
     <string name="action_close">Fechar</string>
     <string name="state_saved">salvo</string>
     <string name="action_enable_notifications">Ativar notificações</string>
+    <string name="feed_saved_empty_title">Nenhum post salvo</string>
 </resources>

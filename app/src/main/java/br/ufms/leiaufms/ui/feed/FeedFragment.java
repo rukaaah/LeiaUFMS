@@ -35,7 +35,6 @@ import br.ufms.leiaufms.ui.listing.ListingDetailFragment;
  */
 public class FeedFragment extends Fragment {
 
-    private static final String FILTER_SAVED = "SALVOS";
 
     private FragmentFeedBinding binding;
     private LiveData<List<PostRow>> source;
@@ -97,6 +96,7 @@ public class FeedFragment extends Fragment {
         binding.empty.emptyAction.setText(R.string.action_new_post);
         binding.empty.emptyAction.setOnClickListener(v -> newPost());
         binding.filters.setOnCheckedStateChangeListener((g, ids) -> observe());
+        binding.fSaved.setOnCheckedChangeListener((c, on) -> observe());
         binding.fabPost.setOnClickListener(v -> newPost());
         observe();
     }
@@ -105,10 +105,14 @@ public class FeedFragment extends Fragment {
         if (source != null) source.removeObservers(getViewLifecycleOwner());
         int id = binding.filters.getCheckedChipId();
         String tipo = id == R.id.f_dica ? PostMural.TIPO_DICA : id == R.id.f_procuro ? PostMural.TIPO_PROCURO
-                : id == R.id.f_doacao ? PostMural.TIPO_DOACAO : id == R.id.f_troca ? PostMural.TIPO_TROCA_CONCLUIDA
-                : id == R.id.f_saved ? FILTER_SAVED : "";
-        binding.empty.emptyMessage.setText(FILTER_SAVED.equals(tipo) ? R.string.feed_saved_empty : R.string.empty_feed_message);
-        source = AppDatabase.get(requireContext()).socialDao().feed(me, System.currentTimeMillis(), tipo,
+                : id == R.id.f_doacao ? PostMural.TIPO_DOACAO : id == R.id.f_troca ? PostMural.TIPO_TROCA_CONCLUIDA : "";
+        boolean saved = binding.fSaved.isChecked();
+        binding.fSaved.setChipIconResource(saved ? R.drawable.ic_bookmark : R.drawable.ic_bookmark_border);
+        binding.empty.emptyIcon.setImageResource(saved ? R.drawable.ic_bookmark_border : R.drawable.ic_forum);
+        binding.empty.emptyTitle.setText(saved ? R.string.feed_saved_empty_title : R.string.empty_feed_title);
+        binding.empty.emptyMessage.setText(saved ? R.string.feed_saved_empty : R.string.empty_feed_message);
+        binding.empty.emptyAction.setVisibility(saved ? View.GONE : View.VISIBLE);
+        source = AppDatabase.get(requireContext()).socialDao().feed(me, System.currentTimeMillis(), tipo, saved,
                 AppConfig.FEED_MAX_ITEMS);
         source.observe(getViewLifecycleOwner(), list -> {
             adapter.submit(list);

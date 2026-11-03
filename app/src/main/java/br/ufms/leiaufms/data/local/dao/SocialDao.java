@@ -41,7 +41,7 @@ public interface SocialDao {
     long upsertAvaliacao(Avaliacao avaliacao);
 
     // ---- Mural (RF-38, RF-39): finito; cada post vive 12 h + 12 h a cada 25 corações (PostLifetime).
-    // Filtro "SALVOS": os posts que a pessoa salvou, sem prazo.
+    // "Salvos" (combinável com o tipo): os posts que a pessoa salvou, sem prazo.
     @Query("SELECT p.id, p.autorId, u.nome AS autorNome, p.obraId, o.titulo, o.autor, o.capaPath, p.tipo, p.texto, "
             + "p.anuncioId, p.criadoEm, "
             + "(SELECT COUNT(*) FROM reacao r WHERE r.postId = p.id AND r.tipo = 'CORACAO') AS coracoes, "
@@ -49,12 +49,12 @@ public interface SocialDao {
             + "EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'SALVO' AND r.usuarioId = :me) AS meuSalvo, "
             + "(SELECT COUNT(*) FROM comentario_post c WHERE c.postId = p.id) AS comentarios "
             + "FROM post_mural p JOIN obra o ON o.id = p.obraId JOIN usuario u ON u.id = p.autorId "
-            + "WHERE p.oculto = 0 AND ("
-            + " (:tipo = 'SALVOS' AND EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'SALVO' AND r.usuarioId = :me)) "
-            + " OR (:tipo != 'SALVOS' AND (:tipo = '' OR p.tipo = :tipo) "
+            + "WHERE p.oculto = 0 AND (:tipo = '' OR p.tipo = :tipo) AND ("
+            + " (:salvos = 1 AND EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'SALVO' AND r.usuarioId = :me)) "
+            + " OR (:salvos = 0 "
             + "  AND p.criadoEm + (12 + 12 * ((SELECT COUNT(*) FROM reacao r WHERE r.postId = p.id AND r.tipo = 'CORACAO') / 25)) * 3600000 >= :agora)) "
             + "ORDER BY p.criadoEm DESC LIMIT :limite")
-    LiveData<List<PostRow>> feed(long me, long agora, String tipo, int limite);
+    LiveData<List<PostRow>> feed(long me, long agora, String tipo, boolean salvos, int limite);
 
     @Query("SELECT p.id, p.autorId, u.nome AS autorNome, p.obraId, o.titulo, o.autor, o.capaPath, p.tipo, p.texto, "
             + "p.anuncioId, p.criadoEm, "
