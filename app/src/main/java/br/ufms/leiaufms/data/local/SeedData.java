@@ -60,21 +60,21 @@ public final class SeedData {
             long diego = usuario("Diego Rocha", "diego.rocha@ufms.br", "Física", 4,
                     Usuario.PAPEL_ALUNO, "Troco livros de exatas");
 
-            long domCasmurro = obra("Dom Casmurro", "Machado de Assis");
-            long bras = obra("Memórias Póstumas de Brás Cubas", "Machado de Assis");
-            long vidasSecas = obra("Vidas Secas", "Graciliano Ramos");
-            long sertao = obra("Grande Sertão: Veredas", "João Guimarães Rosa");
-            long horaEstrela = obra("A Hora da Estrela", "Clarice Lispector");
-            long capitaes = obra("Capitães da Areia", "Jorge Amado");
-            long calculo = obra("Cálculo, Volume 1", "James Stewart");
-            long fisica = obra("Fundamentos de Física, Volume 1", "David Halliday, Robert Resnick, Jearl Walker");
-            long algoritmos = obra("Algoritmos: Teoria e Prática", "Thomas H. Cormen e outros");
-            long codigoLimpo = obra("Código Limpo", "Robert C. Martin");
-            long algebra = obra("Álgebra Linear com Aplicações", "Howard Anton, Chris Rorres");
-            long quimica = obra("Química Geral, Volume 1", "John B. Russell");
-            long sapiens = obra("Sapiens: Uma Breve História da Humanidade", "Yuval Noah Harari");
-            long principe = obra("O Pequeno Príncipe", "Antoine de Saint-Exupéry");
-            long orwell = obra("1984", "George Orwell");
+            long domCasmurro = obra("Dom Casmurro", "Machado de Assis", Generos.LIT_BRASILEIRA);
+            long bras = obra("Memórias Póstumas de Brás Cubas", "Machado de Assis", Generos.LIT_BRASILEIRA);
+            long vidasSecas = obra("Vidas Secas", "Graciliano Ramos", Generos.LIT_BRASILEIRA);
+            long sertao = obra("Grande Sertão: Veredas", "João Guimarães Rosa", Generos.LIT_BRASILEIRA);
+            long horaEstrela = obra("A Hora da Estrela", "Clarice Lispector", Generos.LIT_BRASILEIRA);
+            long capitaes = obra("Capitães da Areia", "Jorge Amado", Generos.LIT_BRASILEIRA);
+            long calculo = obra("Cálculo, Volume 1", "James Stewart", Generos.EXATAS);
+            long fisica = obra("Fundamentos de Física, Volume 1", "David Halliday, Robert Resnick, Jearl Walker", Generos.EXATAS);
+            long algoritmos = obra("Algoritmos: Teoria e Prática", "Thomas H. Cormen e outros", Generos.COMPUTACAO);
+            long codigoLimpo = obra("Código Limpo", "Robert C. Martin", Generos.COMPUTACAO);
+            long algebra = obra("Álgebra Linear com Aplicações", "Howard Anton, Chris Rorres", Generos.EXATAS);
+            long quimica = obra("Química Geral, Volume 1", "John B. Russell", Generos.EXATAS);
+            long sapiens = obra("Sapiens: Uma Breve História da Humanidade", "Yuval Noah Harari", Generos.HUMANAS);
+            long principe = obra("O Pequeno Príncipe", "Antoine de Saint-Exupéry", Generos.LIT_ESTRANGEIRA);
+            long orwell = obra("1984", "George Orwell", Generos.LIT_ESTRANGEIRA);
 
             long dCalculo = disciplina("Cálculo Diferencial e Integral I", "Engenharias e Exatas");
             long dAlgo = disciplina("Algoritmos e Programação", "Ciência da Computação");
@@ -176,10 +176,11 @@ public final class SeedData {
             return db.usuarioDao().insert(u);
         }
 
-        private long obra(String titulo, String autor) {
+        private long obra(String titulo, String autor, String genero) {
             Obra o = new Obra();
             o.titulo = titulo;
             o.autor = autor;
+            o.genero = genero;
             return db.obraDao().insert(o);
         }
 

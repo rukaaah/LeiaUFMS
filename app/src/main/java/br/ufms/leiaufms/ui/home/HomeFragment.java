@@ -78,6 +78,49 @@ public class HomeFragment extends Fragment {
         binding.nearList.setAdapter(nearAdapter);
         binding.courseList.setAdapter(courseAdapter);
         binding.freshList.setAdapter(freshAdapter);
+        BookCardAdapter becauseAdapter = new BookCardAdapter(listener);
+        BookCardAdapter genreAdapter = new BookCardAdapter(listener);
+        binding.becauseList.setAdapter(becauseAdapter);
+        binding.genreList.setAdapter(genreAdapter);
+        // "Porque você leu X": mesmo autor ou gênero do último livro da estante
+        viewModel.lastRead().observe(getViewLifecycleOwner(), last -> {
+            if (last == null) {
+                showSection(binding.becauseTitle, binding.becauseList, false);
+                return;
+            }
+            binding.becauseTitle.setText(getString(R.string.home_because, last.titulo));
+            viewModel.because(last.obraId).observe(getViewLifecycleOwner(), list -> {
+                becauseAdapter.submitList(list);
+                showSection(binding.becauseTitle, binding.becauseList, list != null && !list.isEmpty());
+            });
+        });
+        // Gênero que a pessoa mais lê, deseja ou troca
+        viewModel.topGenre().observe(getViewLifecycleOwner(), genero -> {
+            if (genero == null) {
+                showSection(binding.genreTitle, binding.genreList, false);
+                return;
+            }
+            binding.genreTitle.setText(getString(R.string.home_more_genre, genero));
+            viewModel.byGenre(genero).observe(getViewLifecycleOwner(), list -> {
+                genreAdapter.submitList(list);
+                showSection(binding.genreTitle, binding.genreList, list != null && !list.isEmpty());
+            });
+        });
+        for (String g : br.ufms.leiaufms.data.local.Generos.TODOS) {
+            com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(requireContext());
+            chip.setText(g);
+            chip.setOnClickListener(v -> {
+                Bundle args = new Bundle();
+                args.putString(br.ufms.leiaufms.ui.explore.ExploreFragment.ARG_GENRE, g);
+                NavHostFragment.findNavController(this).navigate(R.id.exploreFragment, args);
+            });
+            binding.genres.addView(chip);
+        }
+        viewModel.wished().observe(getViewLifecycleOwner(), ids -> {
+            HashSet<Long> set = ids == null ? new HashSet<>() : new HashSet<>(ids);
+            becauseAdapter.setWished(set);
+            genreAdapter.setWished(set);
+        });
 
         viewModel.user().observe(getViewLifecycleOwner(), u -> {
             if (u == null) return;
@@ -134,6 +177,11 @@ public class HomeFragment extends Fragment {
 
         // RNF-07: só lê a posição se a permissão já existe; senão, convida (não pede ao abrir)
         if (PermissionHelper.anyGranted(requireContext(), LocationProvider.PERMISSIONS)) fetchLocation();
+    }
+
+    private static void showSection(View title, View list, boolean show) {
+        title.setVisibility(show ? View.VISIBLE : View.GONE);
+        list.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private void renderNear(List<ListingRow> list) {

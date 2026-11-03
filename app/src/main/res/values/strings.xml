@@ -649,4 +649,10 @@
     <string name="action_rescue_credit">Resgatar · 1 crédito</string>
     <string name="action_ask_donation">Pedir doação</string>
     <string name="ask_donation_title">Pedir esta doação?</string>
+
+    <string name="home_because">Porque você leu %1$s</string>
+    <string name="home_more_genre">Mais de %1$s</string>
+    <string name="home_genres">Explore por gênero</string>
+    <string name="label_genre">Gênero</string>
+    <string name="all_genres">Todos</string>
 </resources>

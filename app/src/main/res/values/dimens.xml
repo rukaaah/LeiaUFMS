@@ -55,4 +55,5 @@
     <dimen name="cover_detail_height">246dp</dimen>
     <dimen name="post_cover_height">200dp</dimen>
     <dimen name="bubble_max_width">280dp</dimen>
+    <dimen name="cover_grid_height">236dp</dimen>
 </resources>

@@ -34,6 +34,13 @@ public class BookCardAdapter extends ListAdapter<ListingRow, BookCardAdapter.Hol
 
     private final Listener listener;
     private Set<Long> wished = Collections.emptySet();
+    private boolean grid;
+
+    /** Em grade, o card ocupa a coluna inteira. */
+    public BookCardAdapter grid() {
+        grid = true;
+        return this;
+    }
 
     public BookCardAdapter(Listener listener) {
         super(new DiffUtil.ItemCallback<ListingRow>() {
@@ -59,7 +66,17 @@ public class BookCardAdapter extends ListAdapter<ListingRow, BookCardAdapter.Hol
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Holder(ItemBookCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        ItemBookCardBinding b = ItemBookCardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        if (grid) {
+            ViewGroup.LayoutParams lp = b.getRoot().getLayoutParams();
+            lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            b.getRoot().setLayoutParams(lp);
+            ViewGroup.LayoutParams cover = b.coverBox.getLayoutParams();
+            cover.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            cover.height = parent.getResources().getDimensionPixelSize(br.ufms.leiaufms.R.dimen.cover_grid_height);
+            b.coverBox.setLayoutParams(cover);
+        }
+        return new Holder(b);
     }
 
     @Override

@@ -35,21 +35,30 @@
             android:scrollbars="none">
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chips_filter"
+                android:id="@+id/genres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/screen_margin"
                 android:paddingEnd="@dimen/screen_margin"
                 app:selectionRequired="true"
                 app:singleLine="true"
-                app:singleSelection="true">
+                app:singleSelection="true" />
+        </HorizontalScrollView>
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/filter_all" />
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chips_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/screen_margin"
+                android:paddingEnd="@dimen/screen_margin"
+                app:selectionRequired="false"
+                app:singleLine="true"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_trade"
@@ -169,7 +178,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
+                android:paddingStart="@dimen/screen_margin"
                 android:paddingTop="@dimen/space_xs"
+                android:paddingEnd="@dimen/space_xxs"
                 android:paddingBottom="@dimen/fab_clearance"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

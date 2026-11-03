@@ -35,6 +35,8 @@ public class ListingRepository {
         public String conservacao;
         public String modalidade;
         @Nullable
+        public String genero;
+        @Nullable
         public Uri foto;
         @Nullable
         public Double lat;
@@ -60,7 +62,7 @@ public class ListingRepository {
         long[] obraOut = new long[1];
         long id = db.runInTransaction(() -> {
             long now = System.currentTimeMillis();
-            long obraId = findOrCreateObra(f.titulo, f.autor, f.isbn);
+            long obraId = findOrCreateObra(f.titulo, f.autor, f.isbn, f.genero);
             obraOut[0] = obraId;
             Exemplar e = new Exemplar();
             e.obraId = obraId;
@@ -108,7 +110,7 @@ public class ListingRepository {
         String foto = f.foto == null ? null : ImageStore.save(context, f.foto, "exemplar_" + donoId);
         return db.runInTransaction(() -> {
             Exemplar e = db.exemplarDao().findById(a.exemplarId);
-            e.obraId = findOrCreateObra(f.titulo, f.autor, f.isbn);
+            e.obraId = findOrCreateObra(f.titulo, f.autor, f.isbn, f.genero);
             e.edicao = emptyToNull(f.edicao);
             e.conservacao = f.conservacao;
             if (foto != null) {
@@ -141,22 +143,29 @@ public class ListingRepository {
         return Result.OK;
     }
 
-    private long findOrCreateObra(String titulo, String autor, String isbnRaw) {
+    private long findOrCreateObra(String titulo, String autor, String isbnRaw, String genero) {
         String isbn = Validators.normalizeIsbn(isbnRaw);
         Obra o = null;
         if (!isbn.isEmpty()) o = db.obraDao().findByIsbn(isbn);
         if (o == null) o = db.obraDao().findByTitleAuthor(titulo.trim(), autor.trim());
         if (o != null) {
+            boolean changed = false;
             if (o.isbn13 == null && !isbn.isEmpty()) {
                 o.isbn13 = isbn;
-                db.obraDao().update(o);
+                changed = true;
             }
+            if (o.genero == null && genero != null) {
+                o.genero = genero;
+                changed = true;
+            }
+            if (changed) db.obraDao().update(o);
             return o.id;
         }
         Obra nova = new Obra();
         nova.titulo = titulo.trim();
         nova.autor = autor.trim();
         nova.isbn13 = isbn.isEmpty() ? null : isbn;
+        nova.genero = genero;
         return db.obraDao().insert(nova);
     }
 

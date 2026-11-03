@@ -21,7 +21,6 @@ import br.ufms.leiaufms.core.permission.PermissionHelper;
 import br.ufms.leiaufms.data.local.entity.Anuncio;
 import br.ufms.leiaufms.data.local.model.ListingRow;
 import br.ufms.leiaufms.databinding.FragmentExploreBinding;
-import br.ufms.leiaufms.ui.listing.ListingAdapter;
 import br.ufms.leiaufms.ui.listing.ListingDetailFragment;
 
 /**
@@ -29,6 +28,8 @@ import br.ufms.leiaufms.ui.listing.ListingDetailFragment;
  * A localização é pedida só no toque em "Perto de mim" (RNF-07).
  */
 public class ExploreFragment extends Fragment {
+
+    public static final String ARG_GENRE = "genero";
 
     private FragmentExploreBinding binding;
     private ExploreViewModel viewModel;
@@ -52,12 +53,48 @@ public class ExploreFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(ExploreViewModel.class);
-        ListingAdapter adapter = new ListingAdapter(row -> {
-            Bundle args = new Bundle();
-            args.putLong(ListingDetailFragment.ARG_ID, row.anuncioId);
-            NavHostFragment.findNavController(this).navigate(R.id.listingDetailFragment, args);
-        });
+        // "Todos os livros" em grade de capas (feedback 03/11), com o mesmo card do Início
+        long me = br.ufms.leiaufms.core.security.SessionManager.get(requireContext()).currentUserId();
+        android.content.Context app = requireContext().getApplicationContext();
+        br.ufms.leiaufms.ui.home.BookCardAdapter adapter = new br.ufms.leiaufms.ui.home.BookCardAdapter(
+                new br.ufms.leiaufms.ui.home.BookCardAdapter.Listener() {
+                    @Override
+                    public void onOpen(ListingRow row) {
+                        Bundle args = new Bundle();
+                        args.putLong(ListingDetailFragment.ARG_ID, row.anuncioId);
+                        NavHostFragment.findNavController(ExploreFragment.this).navigate(R.id.listingDetailFragment, args);
+                    }
+
+                    @Override
+                    public void onToggleWish(ListingRow row) {
+                        br.ufms.leiaufms.core.util.AppExecutors.io().execute(() ->
+                                new br.ufms.leiaufms.data.repository.SocialRepository(app).toggleWish(me, row.obraId));
+                    }
+                }).grid();
+        binding.list.setLayoutManager(new androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2));
         binding.list.setAdapter(adapter);
+        br.ufms.leiaufms.data.local.AppDatabase.get(requireContext()).socialDao().wishedObras(me)
+                .observe(getViewLifecycleOwner(), ids -> adapter.setWished(ids == null ? new java.util.HashSet<>()
+                        : new java.util.HashSet<>(ids)));
+        String initialGenre = getArguments() == null ? null : getArguments().getString(ARG_GENRE);
+        com.google.android.material.chip.Chip all = new com.google.android.material.chip.Chip(requireContext());
+        all.setText(R.string.all_genres);
+        all.setCheckable(true);
+        all.setId(View.generateViewId());
+        binding.genres.addView(all);
+        int checkId = all.getId();
+        for (String g : br.ufms.leiaufms.data.local.Generos.TODOS) {
+            com.google.android.material.chip.Chip c = new com.google.android.material.chip.Chip(requireContext());
+            c.setText(g);
+            c.setCheckable(true);
+            c.setId(View.generateViewId());
+            c.setTag(g);
+            binding.genres.addView(c);
+            if (g.equals(initialGenre)) checkId = c.getId();
+        }
+        binding.genres.check(checkId);
+        binding.genres.setOnCheckedStateChangeListener((g, ids) -> applyFilter());
+        applyFilter();
         // Anúncio novo entra no topo: rola até ele em vez de ficar escondido acima da tela
         adapter.registerAdapterDataObserver(new androidx.recyclerview.widget.RecyclerView.AdapterDataObserver() {
             @Override
@@ -111,7 +148,9 @@ public class ExploreFragment extends Fragment {
         String modalidade = id == R.id.chip_trade ? Anuncio.MODALIDADE_TROCA
                 : id == R.id.chip_donation ? Anuncio.MODALIDADE_DOACAO : "";
         String q = binding.inputSearch.getText() == null ? "" : binding.inputSearch.getText().toString();
-        viewModel.setQuery(q, modalidade);
+        View checkedGenre = binding.genres.findViewById(binding.genres.getCheckedChipId());
+        String genero = checkedGenre == null || checkedGenre.getTag() == null ? "" : (String) checkedGenre.getTag();
+        viewModel.setQuery(q, modalidade, genero);
     }
 
     private int selectedRadius() {
@@ -187,7 +226,7 @@ public class ExploreFragment extends Fragment {
         binding.notice.setVisibility(View.GONE);
     }
 
-    private void render(ListingAdapter adapter, List<ListingRow> list) {
+    private void render(br.ufms.leiaufms.ui.home.BookCardAdapter adapter, List<ListingRow> list) {
         adapter.submitList(list);
         boolean empty = list == null || list.isEmpty();
         binding.empty.getRoot().setVisibility(empty ? View.VISIBLE : View.GONE);

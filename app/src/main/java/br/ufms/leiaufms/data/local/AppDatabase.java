@@ -52,7 +52,7 @@ import br.ufms.leiaufms.data.local.entity.Usuario;
         ObraDisciplina.class, Exemplar.class, PosseExemplar.class, Anuncio.class, Pedido.class,
         Mensagem.class, MovimentoCredito.class, Avaliacao.class, ItemEstante.class, Desejo.class,
         PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class, LocalizacaoEncontro.class
-}, version = 4, exportSchema = true)
+}, version = 5, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String NAME = "leiaufms.db";
@@ -107,6 +107,14 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    /** v5: gênero da obra (categorias do Início). Obras já existentes ficam sem gênero. */
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("ALTER TABLE obra ADD COLUMN genero TEXT");
+        }
+    };
+
     private static final CountDownLatch SEED_READY = new CountDownLatch(1);
 
     /** Abre o banco e cria os dados de demonstração na primeira execução (em background). */
@@ -136,7 +144,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (instance == null) {
                     Context app = context.getApplicationContext();
                     instance = Room.databaseBuilder(app, AppDatabase.class, NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                             .build();
                 }
             }

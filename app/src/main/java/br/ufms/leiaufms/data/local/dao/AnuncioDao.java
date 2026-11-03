@@ -17,7 +17,7 @@ public interface AnuncioDao {
 
     String SELECT_ROW = "SELECT a.id AS anuncioId, a.modalidade, a.lat, a.lng, a.ativo, a.criadoEm, a.donoId, "
             + "a.pontoPreferidoId, e.id AS exemplarId, e.edicao, e.conservacao, e.fotoPath, o.id AS obraId, "
-            + "o.titulo, o.autor, o.isbn13, o.capaPath, u.nome AS donoNome, u.curso AS donoCurso, u.fotoPath AS donoFoto, "
+            + "o.titulo, o.autor, o.isbn13, o.capaPath, o.genero, u.nome AS donoNome, u.curso AS donoCurso, u.fotoPath AS donoFoto, "
             + "p.nome AS pontoNome, p.lat AS pontoLat, p.lng AS pontoLng "
             + "FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId JOIN obra o ON o.id = e.obraId "
             + "JOIN usuario u ON u.id = a.donoId LEFT JOIN ponto_encontro p ON p.id = a.pontoPreferidoId ";
@@ -58,6 +58,32 @@ public interface AnuncioDao {
             + "AND o.id IN (SELECT od.obraId FROM obra_disciplina od JOIN disciplina d ON d.id = od.disciplinaId "
             + "WHERE d.curso LIKE '%' || :chaveCurso || '%') ORDER BY a.criadoEm DESC LIMIT 10")
     LiveData<List<ListingRow>> forCourse(long usuarioId, String chaveCurso);
+
+    /** Explorar por gênero (grade de "Todos os livros"). */
+    @Query(SELECT_ROW + "WHERE a.ativo = 1 "
+            + "AND NOT EXISTS (SELECT 1 FROM pedido pd WHERE pd.anuncioId = a.id AND pd.estado IN ('ACEITO', 'EM_DISPUTA')) "
+            + "AND (:q = '' OR o.titulo LIKE '%' || :q || '%' OR o.autor LIKE '%' || :q || '%' "
+            + "OR REPLACE(COALESCE(o.isbn13, ''), '-', '') LIKE '%' || :q || '%') "
+            + "AND (:genero = '' OR o.genero = :genero) ORDER BY a.criadoEm DESC")
+    LiveData<List<ListingRow>> searchByGenre(String q, String genero);
+
+    /** "Porque você leu X": mesmo autor ou mesmo gênero da obra lida, sem a própria obra. */
+    @Query(SELECT_ROW + "WHERE a.ativo = 1 AND a.donoId != :me AND o.id != :obraId "
+            + "AND (o.autor = (SELECT autor FROM obra WHERE id = :obraId) "
+            + "OR (o.genero IS NOT NULL AND o.genero = (SELECT genero FROM obra WHERE id = :obraId))) "
+            + "ORDER BY CASE WHEN o.autor = (SELECT autor FROM obra WHERE id = :obraId) THEN 0 ELSE 1 END, a.criadoEm DESC LIMIT 10")
+    LiveData<List<ListingRow>> because(long me, long obraId);
+
+    /** Gênero que a pessoa mais lê, deseja ou já trocou (estante + desejos + posses). */
+    @Query("SELECT o.genero FROM obra o WHERE o.genero IS NOT NULL AND o.id IN ("
+            + "SELECT obraId FROM item_estante WHERE usuarioId = :me UNION ALL "
+            + "SELECT obraId FROM desejo WHERE usuarioId = :me UNION ALL "
+            + "SELECT e.obraId FROM posse_exemplar p JOIN exemplar e ON e.id = p.exemplarId WHERE p.usuarioId = :me) "
+            + "GROUP BY o.genero ORDER BY COUNT(*) DESC LIMIT 1")
+    LiveData<String> topGenre(long me);
+
+    @Query(SELECT_ROW + "WHERE a.ativo = 1 AND a.donoId != :me AND o.genero = :genero ORDER BY a.criadoEm DESC LIMIT 10")
+    LiveData<List<ListingRow>> byGenre(long me, String genero);
 
     /** Aba Desejos: livros do mesmo autor ou das mesmas disciplinas dos desejos (sem repetir os desejados). */
     @Query(SELECT_ROW + "WHERE a.ativo = 1 AND a.donoId != :me "

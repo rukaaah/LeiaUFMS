@@ -49,6 +49,10 @@ public class WishCardAdapter extends RecyclerView.Adapter<WishCardAdapter.Holder
         ViewGroup.LayoutParams lp = b.getRoot().getLayoutParams();
         lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
         b.getRoot().setLayoutParams(lp);
+        ViewGroup.LayoutParams cover = b.coverBox.getLayoutParams();
+        cover.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        cover.height = parent.getResources().getDimensionPixelSize(R.dimen.cover_grid_height);
+        b.coverBox.setLayoutParams(cover);
         return new Holder(b);
     }
 

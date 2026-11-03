@@ -19,6 +19,7 @@ public class ListingRow {
     public String autor;
     public String isbn13;
     public String capaPath;
+    public String genero;
     public String donoNome;
     public String donoCurso;
     public String donoFoto;
@@ -49,6 +50,7 @@ public class ListingRow {
         c.autor = autor;
         c.isbn13 = isbn13;
         c.capaPath = capaPath;
+        c.genero = genero;
         c.donoNome = donoNome;
         c.donoCurso = donoCurso;
         c.donoFoto = donoFoto;

@@ -12,6 +12,7 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/cover_box"
         android:layout_width="@dimen/cover_card_width"
         android:layout_height="@dimen/cover_card_height">
 

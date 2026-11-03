@@ -76,6 +76,22 @@ public class HomeViewModel extends AndroidViewModel {
         return course;
     }
 
+    public LiveData<ShelfRow> lastRead() {
+        return db.socialDao().lastRead(userId);
+    }
+
+    public LiveData<List<ListingRow>> because(long obraId) {
+        return db.anuncioDao().because(userId, obraId);
+    }
+
+    public LiveData<String> topGenre() {
+        return db.anuncioDao().topGenre(userId);
+    }
+
+    public LiveData<List<ListingRow>> byGenre(String genero) {
+        return db.anuncioDao().byGenre(userId, genero);
+    }
+
     public LiveData<List<Long>> wished() {
         return db.socialDao().wishedObras(userId);
     }

@@ -85,6 +85,14 @@ public class NewListingFragment extends Fragment {
             binding.inputAuthor.setText(getArguments().getString(ARG_AUTHOR));
         }
         Covers.bind(binding.cover.coverImage, binding.cover.coverText, null, "");
+        for (String g : br.ufms.leiaufms.data.local.Generos.TODOS) {
+            com.google.android.material.chip.Chip c = new com.google.android.material.chip.Chip(requireContext());
+            c.setText(g);
+            c.setTag(g);
+            c.setCheckable(true);
+            c.setId(View.generateViewId());
+            binding.chipsGenre.addView(c);
+        }
         // Sugere obras já cadastradas: evita duplicar a obra e faz o aviso de desejo (RF-32) funcionar
         android.content.Context app = requireContext().getApplicationContext();
         br.ufms.leiaufms.core.util.AppExecutors.io().execute(() -> {
@@ -282,6 +290,8 @@ public class NewListingFragment extends Fragment {
                 ? Exemplar.CONSERVACAO_BOM : cond == R.id.cond_worn ? Exemplar.CONSERVACAO_GASTO : Exemplar.CONSERVACAO_USADO;
         f.modalidade = mod == R.id.mod_trade ? Anuncio.MODALIDADE_TROCA : mod == R.id.mod_donation
                 ? Anuncio.MODALIDADE_DOACAO : Anuncio.MODALIDADE_AMBAS;
+        View g = binding.chipsGenre.findViewById(binding.chipsGenre.getCheckedChipId());
+        f.genero = g == null ? null : (String) g.getTag();
         f.foto = viewModel.photo;
         if (loc == R.id.loc_current) {
             f.lat = viewModel.lat;

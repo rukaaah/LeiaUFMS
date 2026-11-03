@@ -96,6 +96,16 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            style="@style/Widget.Leia.FieldLabel"
+            android:text="@string/label_genre" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_genre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:singleSelection="true" />
+
+        <TextView
             android:id="@+id/label_condition"
             style="@style/Widget.Leia.FieldLabel"
             android:text="@string/label_condition" />

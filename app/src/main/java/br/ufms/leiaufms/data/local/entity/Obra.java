@@ -21,6 +21,9 @@ public class Obra {
 
     public String isbn13;
 
+    /** Gênero da obra (lista fixa em Generos), usado nas categorias do Início. */
+    public String genero;
+
     /** Capa baixada da Open Library e guardada em filesDir/capas (null enquanto não houver). */
     public String capaPath;
 

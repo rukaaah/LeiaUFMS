@@ -69,6 +69,12 @@ public interface SocialDao {
             + "ORDER BY CASE i.status WHEN 'LENDO' THEN 0 WHEN 'LIDO' THEN 1 ELSE 2 END, i.atualizadoEm DESC")
     LiveData<List<ShelfRow>> shelf(long usuarioId);
 
+    /** Último livro lido ou em leitura (base do "Porque você leu"). */
+    @Query("SELECT i.id, i.obraId, i.status, o.titulo, o.autor, o.capaPath, 0 AS disponiveis, NULL AS anuncioId "
+            + "FROM item_estante i JOIN obra o ON o.id = i.obraId WHERE i.usuarioId = :usuarioId "
+            + "AND i.status IN ('LIDO', 'LENDO', 'PASSADO_ADIANTE') ORDER BY i.atualizadoEm DESC LIMIT 1")
+    LiveData<ShelfRow> lastRead(long usuarioId);
+
     @Query("SELECT * FROM item_estante WHERE id = :id")
     ItemEstante shelfItem(long id);
 
