@@ -138,10 +138,9 @@
         <item quantity="one">%d aviso chegou enquanto você estava fora.</item>
         <item quantity="other">%d avisos chegaram enquanto você estava fora.</item>
     </plurals>
-    <string name="notifications_denied">Os avisos ficam na sua Caixa de avisos. Para recebê-los no celular, ative as notificações.</string>
+    <string name="notifications_denied">Notificações desligadas</string>
     <string name="action_enable">Ativar</string>
     <string name="inbox_empty_title">Nenhum aviso por enquanto</string>
-    <string name="inbox_empty_message">Quando alguém pedir um livro seu, você fica sabendo aqui.</string>
     <string name="action_mark_all_read">Marcar todos como lidos</string>
     <string name="inbox_unread">Não lido</string>
     <string name="inbox_new">Há avisos novos</string>
@@ -393,7 +392,7 @@
     <string name="action_point_here">Marcar ponto na minha localização</string>
     <string name="state_selected">Selecionado</string>
     <string name="map_attribution">© OpenFreeMap © OpenStreetMap</string>
-    <string name="notif_permission_rationale">Ative as notificações para saber quando responderem seus pedidos.</string>
+    <string name="notif_permission_rationale">Ative as notificações.</string>
 
     <!-- Parte 4: chat (RF-40) -->
     <string name="title_chat">Chat do pedido</string>
@@ -700,4 +699,5 @@
     <string name="trades_hint_sent">Livros que você pediu.</string>
     <string name="action_close">Fechar</string>
     <string name="state_saved">salvo</string>
+    <string name="action_enable_notifications">Ativar notificações</string>
 </resources>

@@ -5,37 +5,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!-- Só o pedido: um botão "Ativar notificações" (o resto é óbvio, feedback 03/11) -->
+    <FrameLayout
         android:id="@+id/banner_permission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/screen_margin"
         android:layout_marginEnd="@dimen/screen_margin"
         android:layout_marginBottom="@dimen/space_xs"
-        android:background="@drawable/bg_notice"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/space_m"
-        android:paddingTop="@dimen/space_xs"
-        android:paddingEnd="@dimen/space_xs"
-        android:paddingBottom="@dimen/space_xs"
         android:visibility="gone">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/notifications_denied"
-            android:textAppearance="@style/TextAppearance.Leia.BodySmall"
-            android:textColor="@color/leia_on_background" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_enable"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+            style="@style/Widget.Material3.Button.TonalButton.Icon"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/action_enable" />
-    </LinearLayout>
+            android:text="@string/action_enable_notifications"
+            app:iconGravity="textStart"
+            app:icon="@drawable/ic_notifications" />
+    </FrameLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_mark_all"

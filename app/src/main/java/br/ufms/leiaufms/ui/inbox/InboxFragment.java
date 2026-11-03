@@ -52,7 +52,7 @@ public class InboxFragment extends Fragment {
         binding.list.setAdapter(adapter);
         binding.empty.emptyIcon.setImageResource(R.drawable.ic_inbox);
         binding.empty.emptyTitle.setText(R.string.inbox_empty_title);
-        binding.empty.emptyMessage.setText(R.string.inbox_empty_message);
+        binding.empty.emptyMessage.setVisibility(View.GONE); // o título já basta
         db.notificacaoDao().observeAll(userId).observe(getViewLifecycleOwner(), list -> {
             adapter.submitList(list);
             boolean empty = list == null || list.isEmpty();
