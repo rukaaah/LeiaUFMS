@@ -115,6 +115,7 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 | CT-75 | RF-45 | Desejos → "+" | Digitar "calculo" no título | Sugestões com "Cálculo ..." e autor; escolher preenche título e autor | — | Não executado |
 | CT-76 | RF-45 | Conta de Ciência da Computação | Abrir o Início | Seção "Da sua grade" com livros de programação, engenharia de software, teoria da computação etc.; coração salva nos desejos e o livro sai da seção | — | Não executado |
 | CT-77 | RF-45 | Anunciar livro | Digitar "codigo limpo", escolher a sugestão e publicar; depois anunciar o mesmo livro digitando "CÓDIGO LIMPO" com o mesmo autor | Os dois anúncios ficam na mesma obra (mesmo título e autor) | — | Não executado |
+| CT-78 | RF-45 | Aparelho com internet, Desejos → "+" | Digitar "percy jackson" | Sugestões em português da Open Library ("O ladrão de raios", Rick Riordan); sem internet, só as do catálogo local | — | Não executado |
 
 ## 6. Falhas encontradas e correções
 
@@ -126,4 +127,4 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 
 | Total | Aprovados | Reprovados | Não executados |
 |---|---|---|---|
-| 77 | 0 | 0 | 77 |
+| 78 | 0 | 0 | 78 |

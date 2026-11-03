@@ -37,7 +37,9 @@ public class LocationProvider {
     };
 
     private static final long MAX_AGE_MS = 2 * 60 * 1000;
-    private static final long TIMEOUT_MS = 15 * 1000;
+    /** Última posição aceita na hora para listas "perto de você" (a pessoa não andou muito em 10 min). */
+    private static final long LAST_OK_MS = 10 * 60 * 1000;
+    private static final long TIMEOUT_MS = 8 * 1000;
 
     private final Context context;
     private CancellationTokenSource cancellation;
@@ -67,13 +69,30 @@ public class LocationProvider {
         }
         cancel();
         cancellation = new CancellationTokenSource();
+        CancellationTokenSource token = cancellation;
         FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(context);
+        // Rápido primeiro: a última posição do aparelho, se for recente, responde na hora (feedback 03/11:
+        // "ativar localização demora uma era"); só sem ela pedimos uma posição nova
+        client.getLastLocation()
+                .addOnSuccessListener(last -> {
+                    if (token.getToken().isCancellationRequested()) return;
+                    if (last != null && System.currentTimeMillis() - last.getTime() <= LAST_OK_MS) {
+                        callback.onLocation(last);
+                    } else {
+                        requestCurrent(client, token, callback);
+                    }
+                })
+                .addOnFailureListener(e -> requestCurrent(client, token, callback));
+    }
+
+    @SuppressLint("MissingPermission")
+    private void requestCurrent(FusedLocationProviderClient client, CancellationTokenSource token, Callback callback) {
         CurrentLocationRequest request = new CurrentLocationRequest.Builder()
                 .setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY)
                 .setMaxUpdateAgeMillis(MAX_AGE_MS)
                 .setDurationMillis(TIMEOUT_MS)
                 .build();
-        client.getCurrentLocation(request, cancellation.getToken())
+        client.getCurrentLocation(request, token.getToken())
                 .addOnSuccessListener(location -> {
                     if (location != null) callback.onLocation(location);
                     else fallback(callback);

@@ -35,11 +35,18 @@ public final class BookSuggestions {
         public final String titulo;
         public final String autor;
         public final String extra;
+        /** Veio da busca na internet: ao escolher, entra no catálogo local para padronizar as próximas vezes. */
+        final br.ufms.leiaufms.data.repository.OpenLibrarySearch.Result online;
 
         Item(String titulo, String autor, String extra) {
+            this(titulo, autor, extra, null);
+        }
+
+        Item(String titulo, String autor, String extra, br.ufms.leiaufms.data.repository.OpenLibrarySearch.Result online) {
             this.titulo = titulo;
             this.autor = autor;
             this.extra = extra;
+            this.online = online;
         }
 
         @NonNull
@@ -70,7 +77,26 @@ public final class BookSuggestions {
             title.setText(it.titulo, false);
             title.setSelection(it.titulo.length());
             if (author != null) author.setText(it.autor);
+            if (it.online != null) saveToCatalog(title.getContext().getApplicationContext(), it.online);
             if (onPick != null) onPick.onPick(it);
+        });
+    }
+
+    /** Livro achado na internet passa a fazer parte do catálogo local (mesmo título e autor da próxima vez). */
+    private static void saveToCatalog(Context app, br.ufms.leiaufms.data.repository.OpenLibrarySearch.Result r) {
+        br.ufms.leiaufms.core.util.AppExecutors.io().execute(() -> {
+            AppDatabase db = AppDatabase.get(app);
+            String key = CatalogLoader.key(r.titulo, r.autor);
+            if (db.catalogoDao().byChave(key) != null) return;
+            LivroCatalogo l = new LivroCatalogo();
+            l.id = db.catalogoDao().maxId() + 1;
+            l.titulo = r.titulo;
+            l.autor = r.autor;
+            l.chave = key;
+            l.isbn13 = r.isbn13;
+            l.ano = r.ano;
+            l.capaOl = r.capa;
+            db.catalogoDao().insertLivros(java.util.Collections.singletonList(l));
         });
     }
 
@@ -126,6 +152,16 @@ public final class BookSuggestions {
                             String k = CatalogLoader.key(l.titulo, l.autor);
                             if (!unique.containsKey(k)) {
                                 unique.put(k, new Item(l.titulo, l.autor, l.ano == null ? null : String.valueOf(l.ano)));
+                            }
+                        }
+                        // Pouca coisa no app: completa com a Open Library pela internet (livros fora da grade)
+                        if (unique.size() < 6 && constraint.toString().trim().length() >= 3) {
+                            for (br.ufms.leiaufms.data.repository.OpenLibrarySearch.Result o
+                                    : br.ufms.leiaufms.data.repository.OpenLibrarySearch.search(constraint.toString())) {
+                                String k = CatalogLoader.key(o.titulo, o.autor);
+                                if (!unique.containsKey(k)) {
+                                    unique.put(k, new Item(o.titulo, o.autor, o.ano == null ? null : String.valueOf(o.ano), o));
+                                }
                             }
                         }
                         found.addAll(unique.values());

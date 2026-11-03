@@ -65,6 +65,9 @@ public interface CatalogoDao {
     @Query("SELECT * FROM livro_catalogo WHERE chave = :chave LIMIT 1")
     LivroCatalogo byChave(String chave);
 
+    @Query("SELECT COALESCE(MAX(id), 0) FROM livro_catalogo")
+    long maxId();
+
     @Query("SELECT * FROM livro_catalogo WHERE id = :id")
     LivroCatalogo byId(long id);
 

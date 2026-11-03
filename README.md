@@ -33,7 +33,7 @@ O app sempre mostra qual é o próximo livro e qual é o próximo passo. O Iníc
 
 - **Trocas e créditos.** Troca direta ou resgate com crédito, com reserva de crédito, prazos de 72 horas e 7 dias, disputa decidida pelo Moderador e um registro de cada movimentação de crédito.
 - **Encontro combinado pelos dois.** Um lado propõe o ponto seguro e o horário, e o outro aceita ou sugere outro. Uma faixa fixa mostra quanto falta para o encontro e quanto tempo você leva a pé até o ponto.
-- **Catálogo e recomendações.** São 3.055 livros da Open Library ligados às 5.551 disciplinas da UFMS de 2026. Ao digitar um título, o app sugere livros do catálogo e padroniza título e autor. O Início traz "Da sua grade", "Perto de você, a pé", "Porque você leu" e gêneros.
+- **Catálogo e recomendações.** São 3.055 livros da Open Library ligados às 5.551 disciplinas da UFMS de 2026. Ao digitar um título, o app sugere livros do catálogo e, com internet, busca na Open Library a edição em português de qualquer outro livro, padronizando título e autor. O Início traz "Da sua grade", "Perto de você, a pé", "Porque você leu" e gêneros.
 - **Desejos.** O app avisa quando alguém anuncia um livro que você deseja, mostra o que já está disponível e quantas pessoas também querem cada livro.
 - **Mural.** Dicas, procuras, doações e trocas concluídas, com coração, salvar e comentários. O mural é finito, e quanto mais corações um post recebe, mais tempo ele fica visível.
 - **Conta e segurança.** Cadastro só com e-mail da UFMS e curso da lista oficial, senha com BCrypt (custo 12) e sessão por token, guardada no banco só como hash.
@@ -98,7 +98,7 @@ Fontes de dados abertos: livros da [Open Library](https://openlibrary.org/develo
 | Documento | Conteúdo |
 |---|---|
 | [Especificação](docs/02-especificacao.md) | Visão geral, papéis e requisitos RF-01 a RF-45 |
-| [Relatório de testes](docs/05-relatorio-testes.md) | 77 casos de teste caixa-preta |
+| [Relatório de testes](docs/05-relatorio-testes.md) | 78 casos de teste caixa-preta |
 | [Arquitetura](docs/04-arquitetura.md) | Stack, pacotes, modelo de dados e máquina de estados |
 | [Design](DESIGN.md) e [design system](docs/03-design-system.md) | Cores UFMS, tipografia, componentes, navegação |
 | [Jornada e usabilidade](docs/08-jornada-e-usabilidade.md) | Jornada do aluno, critérios das recomendações e decisões |
