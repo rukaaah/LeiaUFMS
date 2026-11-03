@@ -75,6 +75,6 @@ public interface PedidoDao {
     @Query("SELECT COUNT(*) FROM pedido WHERE estado = 'CONCLUIDO' AND donoId = :usuarioId AND tipo = 'RESGATE'")
     int countDonations(long usuarioId);
 
-    @Query("SELECT * FROM pedido WHERE estado = 'EM_DISPUTA' ORDER BY atualizadoEm")
-    LiveData<List<Pedido>> disputes();
+    @Query(SELECT_ROW + "WHERE pd.estado = 'EM_DISPUTA' ORDER BY pd.atualizadoEm")
+    LiveData<List<PedidoRow>> disputes();
 }

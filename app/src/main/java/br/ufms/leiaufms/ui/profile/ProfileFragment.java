@@ -89,6 +89,8 @@ public class ProfileFragment extends Fragment {
             binding.buttonInbox.setOnClickListener(v -> NavHostFragment.findNavController(this)
                     .navigate(R.id.inboxFragment));
             binding.buttonLogout.setOnClickListener(v -> confirmLogout());
+            binding.buttonDisputes.setOnClickListener(v -> NavHostFragment.findNavController(this)
+                    .navigate(R.id.disputesFragment));
             binding.buttonPoints.setOnClickListener(v -> {
                 Bundle args = new Bundle();
                 args.putBoolean(MeetingFragment.ARG_MANAGE, true);
@@ -112,6 +114,7 @@ public class ProfileFragment extends Fragment {
         binding.textStatus.setText(u.status);
         // RF-30: só o Moderador cadastra pontos seguros
         binding.buttonPoints.setVisibility(own && u.isModerador() ? View.VISIBLE : View.GONE);
+        binding.buttonDisputes.setVisibility(own && u.isModerador() ? View.VISIBLE : View.GONE);
         int size = getResources().getDimensionPixelSize(R.dimen.avatar_large);
         boolean hasPhoto = ImageLoader.load(binding.avatar.avatarImage, u.fotoPath, size);
         binding.avatar.avatarInitials.setVisibility(hasPhoto ? View.GONE : View.VISIBLE);
@@ -126,6 +129,19 @@ public class ProfileFragment extends Fragment {
         if (empty) binding.shelfPreview.addView(line(getString(R.string.profile_shelf_empty)));
         binding.shelfCovers.setVisibility(empty ? View.GONE : View.VISIBLE);
         shelfAdapter.submit(rows);
+    }
+
+    private void addBadge(int label, int icon) {
+        com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(requireContext());
+        chip.setText(label);
+        chip.setChipIconResource(icon);
+        chip.setChipIconVisible(true);
+        chip.setClickable(false);
+        chip.setChipBackgroundColorResource(R.color.leia_tertiary_container);
+        chip.setTextColor(requireContext().getColor(R.color.leia_on_tertiary_container));
+        chip.setChipIconTintResource(R.color.leia_tertiary);
+        chip.setChipStrokeWidth(0f);
+        binding.badges.addView(chip);
     }
 
     private android.widget.TextView line(String text) {
@@ -145,6 +161,11 @@ public class ProfileFragment extends Fragment {
         String rating = m.rating == null ? getString(R.string.metric_none)
                 : String.format(new java.util.Locale("pt", "BR"), "%.1f", m.rating);
         binding.valuePassed.setText(String.valueOf(m.donations));
+        // RF-11: selos Doador e Veterano
+        binding.badges.removeAllViews();
+        if (br.ufms.leiaufms.data.pedido.Badges.isDonor(m.donations)) addBadge(R.string.badge_donor, R.drawable.ic_donate);
+        if (br.ufms.leiaufms.data.pedido.Badges.isVeteran(m.trades)) addBadge(R.string.badge_veteran, R.drawable.ic_verified);
+        binding.badges.setVisibility(binding.badges.getChildCount() > 0 ? View.VISIBLE : View.GONE);
         binding.metricPassed.setContentDescription(getString(R.string.metric_passed) + ": " + m.donations);
         binding.valueRating.setText(rating);
         binding.metricRating.setContentDescription(getString(R.string.metric_rating) + ": "

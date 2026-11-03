@@ -31,7 +31,8 @@ public class ListingDetailViewModel extends AndroidViewModel {
         public int wishCount;
         public int hands;
         public boolean wished;
-        public List<String> courses;
+        public List<br.ufms.leiaufms.data.local.entity.Disciplina> courses;
+        public List<br.ufms.leiaufms.data.local.dao.ExemplarDao.TrajetoriaRow> trajectory;
     }
 
     public static class Event {
@@ -96,7 +97,8 @@ public class ListingDetailViewModel extends AndroidViewModel {
                 e.wished = db.socialDao().hasWish(userId, r.obraId) > 0;
                 e.wishCount = db.socialDao().wishCount(r.obraId) - (e.wished ? 1 : 0);
                 e.hands = db.exemplarDao().hands(r.exemplarId);
-                e.courses = db.obraDao().disciplinasOf(r.obraId);
+                e.courses = db.obraDao().disciplinaRows(r.obraId);
+                e.trajectory = db.exemplarDao().trajectory(r.exemplarId);
             }
             extra.postValue(e);
         });

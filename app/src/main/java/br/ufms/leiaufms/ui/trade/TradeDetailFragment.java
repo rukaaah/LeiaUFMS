@@ -49,6 +49,7 @@ public class TradeDetailFragment extends Fragment {
     private FragmentTradeDetailBinding binding;
     private TradeDetailViewModel viewModel;
     private PedidoRow current;
+    private boolean isModerator;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -74,6 +75,10 @@ public class TradeDetailFragment extends Fragment {
         });
         viewModel.party().observe(getViewLifecycleOwner(), this::renderParty);
         viewModel.myRating().observe(getViewLifecycleOwner(), this::renderRating);
+        viewModel.moderator().observe(getViewLifecycleOwner(), mod -> {
+            isModerator = Boolean.TRUE.equals(mod);
+            if (current != null) render(current);
+        });
         viewModel.result().observe(getViewLifecycleOwner(), res -> {
             if (res == null) return;
             viewModel.consume();
@@ -140,10 +145,15 @@ public class TradeDetailFragment extends Fragment {
                 show(binding.buttonSecondary, R.string.action_reschedule, v -> openMeeting());
             }
             show(binding.buttonChat, R.string.action_open_chat, v -> openChat());
+            show(binding.buttonDispute, R.string.action_open_dispute, v -> confirmDispute());
             show(binding.buttonCancel, R.string.action_cancel_request, v -> confirmCancel());
         } else if (PedidoEstado.EM_DISPUTA.equals(p.estado) || PedidoEstado.CONCLUIDO.equals(p.estado)
                 || PedidoEstado.CANCELADO.equals(p.estado)) {
             if (p.aceitoEm != null) show(binding.buttonChat, R.string.action_open_chat, v -> openChat());
+            if (isModerator && PedidoEstado.EM_DISPUTA.equals(p.estado)) {
+                show(binding.buttonPrimary, R.string.action_resolve_conclude, v -> confirmResolve(true));
+                show(binding.buttonSecondary, R.string.action_resolve_cancel, v -> confirmResolve(false));
+            }
             if (PedidoEstado.CONCLUIDO.equals(p.estado)) {
                 viewModel.loadMyRating();
                 // Conclusão + recompensa (docs/08 §2): convite para contar no mural
@@ -377,6 +387,47 @@ public class TradeDetailFragment extends Fragment {
                 .show();
     }
 
+    /** RF-26: disputa pede motivo e confirmação (ação destrutiva). */
+    private void confirmDispute() {
+        TextInputLayout layout = new TextInputLayout(requireContext());
+        TextInputEditText input = new TextInputEditText(layout.getContext());
+        input.setHint(R.string.label_reason);
+        input.setFilters(new android.text.InputFilter[]{new android.text.InputFilter.LengthFilter(200)});
+        layout.addView(input);
+        FrameLayout box = new FrameLayout(requireContext());
+        int pad = getResources().getDimensionPixelSize(R.dimen.space_l);
+        box.setPadding(pad, 0, pad, 0);
+        box.addView(layout);
+        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.dispute_title)
+                .setMessage(R.string.dispute_message)
+                .setView(box)
+                .setNegativeButton(R.string.action_keep, null)
+                .setPositiveButton(R.string.action_open_dispute, null)
+                .create();
+        dialog.setOnShowListener(x -> dialog.getButton(android.content.DialogInterface.BUTTON_POSITIVE)
+                .setOnClickListener(v -> {
+                    String motivo = text(input);
+                    if (motivo == null || motivo.trim().isEmpty()) {
+                        layout.setError(getString(R.string.dispute_reason_required));
+                        return;
+                    }
+                    viewModel.dispute(motivo.trim());
+                    dialog.dismiss();
+                }));
+        dialog.show();
+    }
+
+    private void confirmResolve(boolean concluir) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.resolve_title)
+                .setMessage(R.string.resolve_message)
+                .setNegativeButton(R.string.action_cancel, null)
+                .setPositiveButton(concluir ? R.string.action_resolve_conclude : R.string.action_resolve_cancel,
+                        (d, w) -> viewModel.resolve(concluir))
+                .show();
+    }
+
     private static String text(EditText e) {
         return e.getText() == null ? null : e.getText().toString();
     }
@@ -456,6 +507,10 @@ public class TradeDetailFragment extends Fragment {
         int msg;
         if (r == TradeRepository.Result.OK && "rate".equals(viewModel.actionName)) {
             msg = R.string.rating_saved;
+        } else if (r == TradeRepository.Result.OK && "dispute".equals(viewModel.actionName)) {
+            msg = R.string.dispute_opened;
+        } else if (r == TradeRepository.Result.OK && "resolve".equals(viewModel.actionName)) {
+            msg = R.string.notif_dispute_resolved;
         } else if (r == TradeRepository.Result.OK) {
             switch (viewModel.actionName) {
                 case "accept":

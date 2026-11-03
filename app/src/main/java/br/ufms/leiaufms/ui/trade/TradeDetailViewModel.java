@@ -131,6 +131,30 @@ public class TradeDetailViewModel extends AndroidViewModel {
         });
     }
 
+    private final MutableLiveData<Boolean> moderator = new MutableLiveData<>(false);
+
+    public LiveData<Boolean> moderator() {
+        AppExecutors.io().execute(() -> {
+            Usuario u = db.usuarioDao().findById(userId);
+            moderator.postValue(u != null && u.isModerador());
+        });
+        return moderator;
+    }
+
+    public void dispute(String motivo) {
+        actionName = "dispute";
+        long id = pedidoId;
+        AppExecutors.io().execute(() -> result.postValue(new TradeRepository.Result[]{
+                new TradeRepository(getApplication()).openDispute(id, userId, motivo)}));
+    }
+
+    public void resolve(boolean concluir) {
+        actionName = "resolve";
+        long id = pedidoId;
+        AppExecutors.io().execute(() -> result.postValue(new TradeRepository.Result[]{
+                new TradeRepository(getApplication()).resolveDispute(id, userId, concluir)}));
+    }
+
     public void cancel(String motivo) {
         actionName = "cancel";
         long id = pedidoId;

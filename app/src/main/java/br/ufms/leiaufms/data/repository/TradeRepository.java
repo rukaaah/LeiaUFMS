@@ -22,6 +22,7 @@ import br.ufms.leiaufms.data.local.entity.Pedido;
 import br.ufms.leiaufms.data.local.entity.PontoEncontro;
 import br.ufms.leiaufms.data.local.entity.PosseExemplar;
 import br.ufms.leiaufms.data.local.entity.Usuario;
+import br.ufms.leiaufms.data.pedido.Badges;
 import br.ufms.leiaufms.data.pedido.CreditRules;
 import br.ufms.leiaufms.data.pedido.PedidoEstado;
 import br.ufms.leiaufms.ui.common.TimeText;
@@ -234,6 +235,7 @@ public class TradeRepository {
     @WorkerThread
     public Result confirm(long pedidoId, long usuarioId) {
         List<Pending> out = new ArrayList<>();
+        boolean[] concludedNow = {false};
         Result r = db.runInTransaction(() -> {
             Pedido p = db.pedidoDao().findById(pedidoId);
             if (p == null) return Result.NOT_FOUND;
@@ -252,6 +254,7 @@ public class TradeRepository {
                         context.getString(R.string.notif_concluded_text, livro), p.id));
                 out.add(new Pending(p.solicitanteId, Notifier.CHANNEL_TRADES, titulo,
                         context.getString(R.string.notif_concluded_text, livro), p.id));
+                concludedNow[0] = true;
             } else {
                 db.pedidoDao().update(p);
                 out.add(new Pending(other, Notifier.CHANNEL_TRADES,
@@ -261,7 +264,84 @@ public class TradeRepository {
             return Result.OK;
         });
         send(out);
+        if (concludedNow[0]) checkBadgesFor(pedidoId);
         return r;
+    }
+
+    // RF-26: qualquer parte abre disputa num pedido aceito; créditos e exemplares ficam congelados
+    @WorkerThread
+    public Result openDispute(long pedidoId, long usuarioId, String motivo) {
+        List<Pending> out = new ArrayList<>();
+        Result r = db.runInTransaction(() -> {
+            Pedido p = db.pedidoDao().findById(pedidoId);
+            if (p == null) return Result.NOT_FOUND;
+            if (p.donoId != usuarioId && p.solicitanteId != usuarioId) return Result.NOT_ALLOWED;
+            if (!PedidoEstado.canTransition(p.estado, PedidoEstado.EM_DISPUTA)) return Result.INVALID_STATE;
+            move(p, PedidoEstado.EM_DISPUTA, System.currentTimeMillis());
+            p.motivo = motivo;
+            db.pedidoDao().update(p);
+            long other = p.donoId == usuarioId ? p.solicitanteId : p.donoId;
+            String livro = tituloPedido(p);
+            out.add(new Pending(other, Notifier.CHANNEL_TRADES, context.getString(R.string.notif_dispute_title),
+                    context.getString(R.string.notif_dispute_text, nome(usuarioId), livro), p.id));
+            for (Usuario m : db.usuarioDao().moderators()) {
+                out.add(new Pending(m.id, Notifier.CHANNEL_PENDING, context.getString(R.string.notif_dispute_mod_title),
+                        context.getString(R.string.notif_dispute_mod_text, livro), p.id));
+            }
+            return Result.OK;
+        });
+        send(out);
+        return r;
+    }
+
+    /** RF-26: o Moderador decide: conclui (efeitos de conclusão) ou cancela (libera a reserva). */
+    @WorkerThread
+    public Result resolveDispute(long pedidoId, long moderadorId, boolean concluir) {
+        List<Pending> out = new ArrayList<>();
+        Result r = db.runInTransaction(() -> {
+            Usuario mod = db.usuarioDao().findById(moderadorId);
+            if (mod == null || !mod.isModerador()) return Result.NOT_ALLOWED;
+            Pedido p = db.pedidoDao().findById(pedidoId);
+            if (p == null) return Result.NOT_FOUND;
+            if (!PedidoEstado.EM_DISPUTA.equals(p.estado)) return Result.INVALID_STATE;
+            long now = System.currentTimeMillis();
+            if (concluir) {
+                p.confirmadoDono = true;
+                p.confirmadoSolicitante = true;
+                conclude(p, now);
+            } else {
+                move(p, PedidoEstado.CANCELADO, now);
+                db.pedidoDao().update(p);
+                release(p);
+            }
+            String texto = context.getString(concluir ? R.string.notif_dispute_done : R.string.notif_dispute_cancel,
+                    tituloPedido(p));
+            out.add(new Pending(p.donoId, Notifier.CHANNEL_TRADES, context.getString(R.string.notif_dispute_resolved), texto, p.id));
+            out.add(new Pending(p.solicitanteId, Notifier.CHANNEL_TRADES, context.getString(R.string.notif_dispute_resolved), texto, p.id));
+            return Result.OK;
+        });
+        send(out);
+        if (r == Result.OK && concluir) checkBadgesFor(pedidoId);
+        return r;
+    }
+
+    /** RF-11 / PC-09: avisa quem acabou de ganhar um selo. */
+    @WorkerThread
+    public void checkBadgesFor(long pedidoId) {
+        Pedido p = db.pedidoDao().findById(pedidoId);
+        if (p == null || !PedidoEstado.CONCLUIDO.equals(p.estado)) return;
+        for (long u : new long[]{p.donoId, p.solicitanteId}) {
+            int doacoes = db.pedidoDao().countDonations(u);
+            int trocas = db.pedidoDao().countConcluded(u);
+            if (Badges.justEarnedDonor(doacoes, p, u)) {
+                Notifier.notify(context, u, Notifier.CHANNEL_TRADES, context.getString(R.string.notif_badge_title),
+                        context.getString(R.string.notif_badge_donor), Notificacao.DESTINO_PERFIL, u);
+            }
+            if (trocas == AppConfig.BADGE_VETERAN_MIN) {
+                Notifier.notify(context, u, Notifier.CHANNEL_TRADES, context.getString(R.string.notif_badge_title),
+                        context.getString(R.string.notif_badge_veteran), Notificacao.DESTINO_PERFIL, u);
+            }
+        }
     }
 
     /** Troca de posse, histórico, créditos e estante. Chamado dentro da transação. */

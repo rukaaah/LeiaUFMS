@@ -42,6 +42,18 @@ public interface ExemplarDao {
     @Query("SELECT COUNT(DISTINCT usuarioId) FROM posse_exemplar WHERE exemplarId = :exemplarId")
     int hands(long exemplarId);
 
+    /** RF-17: linha do tempo do exemplar (nome, curso, semestre e desde quando). */
+    @Query("SELECT u.nome AS nome, u.curso AS curso, u.semestre AS semestre, p.desde AS desde FROM posse_exemplar p "
+            + "JOIN usuario u ON u.id = p.usuarioId WHERE p.exemplarId = :exemplarId ORDER BY p.desde")
+    List<TrajetoriaRow> trajectory(long exemplarId);
+
+    class TrajetoriaRow {
+        public String nome;
+        public String curso;
+        public int semestre;
+        public long desde;
+    }
+
     @Query("SELECT * FROM posse_exemplar WHERE exemplarId = :exemplarId ORDER BY desde")
     List<PosseExemplar> history(long exemplarId);
 }

@@ -56,6 +56,20 @@ public interface ObraDao {
             + "WHERE od.obraId = :obraId ORDER BY d.nome")
     List<String> disciplinasOf(long obraId);
 
+    /** Edições compatíveis marcadas pelo Moderador (nos dois sentidos). */
+    @Query("SELECT o.* FROM obra o WHERE o.id IN (SELECT obraCompativelId FROM edicao_compativel WHERE obraId = :obraId "
+            + "UNION SELECT obraId FROM edicao_compativel WHERE obraCompativelId = :obraId)")
+    List<Obra> compatibles(long obraId);
+
+    @Query("SELECT d.* FROM disciplina d JOIN obra_disciplina od ON od.disciplinaId = d.id WHERE od.obraId = :obraId ORDER BY d.nome")
+    List<Disciplina> disciplinaRows(long obraId);
+
+    @Query("SELECT * FROM disciplina WHERE id = :id")
+    Disciplina disciplina(long id);
+
+    @Query("SELECT o.* FROM obra o JOIN obra_disciplina od ON od.obraId = o.id WHERE od.disciplinaId = :disciplinaId ORDER BY o.titulo")
+    List<Obra> obrasOf(long disciplinaId);
+
     @Query("SELECT * FROM disciplina ORDER BY nome COLLATE NOCASE")
     List<Disciplina> disciplinas();
 }

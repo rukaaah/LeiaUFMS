@@ -59,6 +59,10 @@ public interface AnuncioDao {
             + "WHERE d.curso LIKE '%' || :chaveCurso || '%') ORDER BY a.criadoEm DESC LIMIT 10")
     LiveData<List<ListingRow>> forCourse(long usuarioId, String chaveCurso);
 
+    @Query("SELECT COUNT(*) FROM anuncio a JOIN exemplar e ON e.id = a.exemplarId "
+            + "WHERE e.obraId = :obraId AND a.ativo = 1 AND a.donoId != :exceptUserId")
+    int activeCountForObra(long obraId, long exceptUserId);
+
     @Query("SELECT COUNT(*) FROM pedido WHERE anuncioId = :anuncioId AND estado IN ('ACEITO', 'EM_DISPUTA')")
     int countAccepted(long anuncioId);
 }

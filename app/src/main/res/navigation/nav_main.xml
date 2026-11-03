@@ -119,4 +119,27 @@
         android:id="@+id/newPostFragment"
         android:name="br.ufms.leiaufms.ui.feed.NewPostFragment"
         android:label="@string/title_new_post" />
+
+    <fragment
+        android:id="@+id/disputesFragment"
+        android:name="br.ufms.leiaufms.ui.trade.DisputesFragment"
+        android:label="@string/title_disputes" />
+
+    <fragment
+        android:id="@+id/obraFragment"
+        android:name="br.ufms.leiaufms.ui.book.ObraFragment"
+        android:label="@string/title_obra">
+        <argument
+            android:name="obraId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/disciplinaFragment"
+        android:name="br.ufms.leiaufms.ui.book.DisciplinaFragment"
+        android:label="@string/title_disciplina">
+        <argument
+            android:name="disciplinaId"
+            app:argType="long" />
+    </fragment>
 </navigation>

@@ -124,6 +124,13 @@
             </LinearLayout>
         </LinearLayout>
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/badges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:visibility="gone" />
+
         <LinearLayout
             android:id="@+id/credits_box"
             android:layout_width="match_parent"
@@ -231,6 +238,13 @@
                 style="@style/Widget.Leia.ListAction"
                 android:text="@string/action_open_inbox"
                 app:icon="@drawable/ic_notifications" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_disputes"
+                style="@style/Widget.Leia.ListAction"
+                android:text="@string/action_disputes"
+                android:visibility="gone"
+                app:icon="@drawable/ic_gavel" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_points"

@@ -576,4 +576,48 @@
     <string name="action_hide_post">Ocultar post</string>
     <string name="post_hidden">Post ocultado</string>
     <string name="action_tell_feed">Contar no mural</string>
+
+    <!-- Parte 5: disputa (RF-26), selos (RF-11), hubs (RF-15, RF-16), trajetória (RF-17) -->
+    <string name="notif_dispute_title">Disputa aberta</string>
+    <string name="notif_dispute_text">%1$s abriu uma disputa no pedido de %2$s. O Moderador vai analisar.</string>
+    <string name="notif_dispute_mod_title">Nova disputa para analisar</string>
+    <string name="notif_dispute_mod_text">Pedido de %1$s está em disputa.</string>
+    <string name="notif_dispute_resolved">Disputa resolvida</string>
+    <string name="notif_dispute_done">O Moderador concluiu a troca de %1$s.</string>
+    <string name="notif_dispute_cancel">O Moderador cancelou o pedido de %1$s.</string>
+    <string name="notif_badge_title">Você ganhou um selo</string>
+    <string name="notif_badge_donor">Selo Doador: você já passou adiante 3 livros.</string>
+    <string name="notif_badge_veteran">Selo Veterano: 10 trocas concluídas.</string>
+    <string name="badge_donor">Doador</string>
+    <string name="badge_veteran">Veterano</string>
+    <string name="action_open_dispute">Abrir disputa</string>
+    <string name="dispute_title">Abrir disputa?</string>
+    <string name="dispute_message">Use quando o combinado não aconteceu. O pedido fica congelado até o Moderador decidir. Conte o que houve.</string>
+    <string name="dispute_reason_required">Conte o que aconteceu para abrir a disputa.</string>
+    <string name="dispute_opened">Disputa aberta. O Moderador vai analisar.</string>
+    <string name="title_disputes">Disputas</string>
+    <string name="action_disputes">Disputas para analisar</string>
+    <string name="disputes_empty">Nenhuma disputa aberta.</string>
+    <string name="action_resolve_conclude">Concluir a troca</string>
+    <string name="action_resolve_cancel">Cancelar o pedido</string>
+    <string name="resolve_title">Decidir a disputa</string>
+    <string name="resolve_message">Concluir lança os créditos e troca a posse. Cancelar devolve a reserva de crédito.</string>
+    <string name="title_obra">Livro</string>
+    <string name="title_disciplina">Disciplina</string>
+    <string name="hub_copies">Cópias disponíveis</string>
+    <string name="hub_no_copies">Nenhuma cópia anunciada agora. Salve nos desejos e avisamos quando aparecer.</string>
+    <string name="hub_compatible">Edições compatíveis</string>
+    <string name="hub_disciplines">Indicado nas disciplinas</string>
+    <string name="hub_books">Livros indicados</string>
+    <string name="hub_book_available">%1$d disponível(is)</string>
+    <string name="action_mark_compatible">Marcar edição compatível</string>
+    <string name="compatible_saved">Edição compatível registrada</string>
+    <string name="action_see_all_copies">Ver a página do livro</string>
+    <plurals name="wish_count_total">
+        <item quantity="zero">Ninguém pediu este livro ainda</item>
+        <item quantity="one">%d pessoa quer este livro</item>
+        <item quantity="other">%d pessoas querem este livro</item>
+    </plurals>
+    <string name="trajectory_title">Trajetória do exemplar</string>
+    <string name="trajectory_line">%1$s · %2$s, %3$dº semestre · desde %4$s</string>
 </resources>

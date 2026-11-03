@@ -33,6 +33,7 @@ import br.ufms.leiaufms.databinding.FragmentListingDetailBinding;
 import br.ufms.leiaufms.ui.common.Covers;
 import br.ufms.leiaufms.ui.common.ImageLoader;
 import br.ufms.leiaufms.ui.common.Labels;
+import br.ufms.leiaufms.ui.common.TimeText;
 import br.ufms.leiaufms.ui.profile.ProfileFragment;
 import br.ufms.leiaufms.ui.trade.TradeDetailFragment;
 
@@ -116,6 +117,11 @@ public class ListingDetailFragment extends Fragment {
     private void renderRow(ListingRow r) {
         binding.title.setText(r.titulo);
         binding.author.setText(r.autor);
+        binding.buttonObra.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putLong(br.ufms.leiaufms.ui.book.ObraFragment.ARG_ID, r.obraId);
+            NavHostFragment.findNavController(this).navigate(R.id.obraFragment, args);
+        });
         Covers.bind(binding.cover.coverImage, binding.cover.coverText, r.imagem(), r.titulo);
         binding.facts.removeAllViews();
         addFact(Labels.modality(requireContext(), r.modalidade), true);
@@ -215,7 +221,8 @@ public class ListingDetailFragment extends Fragment {
         binding.courses.removeAllViews();
         boolean hasCourses = extra.courses != null && !extra.courses.isEmpty();
         binding.coursesTitle.setVisibility(hasCourses ? View.VISIBLE : View.GONE);
-        if (hasCourses) for (String c : extra.courses) addCourse(c);
+        if (hasCourses) for (br.ufms.leiaufms.data.local.entity.Disciplina c : extra.courses) addCourse(c);
+        binding.proofHands.setOnClickListener(v -> showTrajectory());
         binding.buttonPrimary.setVisibility(View.GONE);
         binding.buttonSecondary.setVisibility(View.GONE);
         binding.statusNote.setVisibility(View.GONE);
@@ -254,10 +261,29 @@ public class ListingDetailFragment extends Fragment {
         }
     }
 
-    private void addCourse(String name) {
+    /** RF-17: por quantas mãos o exemplar passou, em linha do tempo (só nome, curso e semestre). */
+    private void showTrajectory() {
+        if (extra == null || extra.trajectory == null) return;
+        String[] lines = new String[extra.trajectory.size()];
+        for (int i = 0; i < lines.length; i++) {
+            br.ufms.leiaufms.data.local.dao.ExemplarDao.TrajetoriaRow t = extra.trajectory.get(i);
+            lines[i] = getString(R.string.trajectory_line, t.nome, t.curso, t.semestre, TimeText.date(t.desde));
+        }
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.trajectory_title)
+                .setItems(lines, null)
+                .setPositiveButton(R.string.action_keep, null)
+                .show();
+    }
+
+    private void addCourse(br.ufms.leiaufms.data.local.entity.Disciplina d) {
         com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(requireContext());
-        chip.setText(name);
-        chip.setClickable(false);
+        chip.setText(d.nome);
+        chip.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putLong(br.ufms.leiaufms.ui.book.DisciplinaFragment.ARG_ID, d.id);
+            NavHostFragment.findNavController(this).navigate(R.id.disciplinaFragment, args);
+        });
         chip.setChipIconResource(R.drawable.ic_school);
         chip.setChipIconVisible(true);
         binding.courses.addView(chip);
