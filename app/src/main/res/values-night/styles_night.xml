@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Escuro: sem sombra (Nova Mobile §10), separação por tom e borda fina -->
+    <style name="Widget.Leia.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/leia_surface</item>
+        <item name="strokeColor">@color/leia_outline_variant</item>
+        <item name="strokeWidth">@dimen/stroke_hairline</item>
+        <item name="cardElevation">@dimen/elevation_flat</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Leia.Large</item>
+    </style>
+</resources>

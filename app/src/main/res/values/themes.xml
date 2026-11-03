@@ -89,7 +89,7 @@
 
     <style name="Widget.Leia.Button" parent="Widget.Material3.Button">
         <item name="android:minHeight">@dimen/button_height</item>
-        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="cornerRadius">@dimen/radius_button</item>
         <item name="android:textAppearance">@style/TextAppearance.Leia.Label</item>
         <item name="android:paddingStart">@dimen/space_l</item>
         <item name="android:paddingEnd">@dimen/space_l</item>
@@ -97,7 +97,7 @@
 
     <style name="Widget.Leia.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
         <item name="android:minHeight">@dimen/button_height</item>
-        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="cornerRadius">@dimen/radius_button</item>
         <item name="android:textAppearance">@style/TextAppearance.Leia.Label</item>
         <item name="strokeColor">@color/leia_outline</item>
     </style>
@@ -117,11 +117,11 @@
         <item name="hintTextColor">@color/leia_primary</item>
     </style>
 
-    <style name="Widget.Leia.Card" parent="Widget.Material3.CardView.Outlined">
+    <!-- Nova Mobile: card com sombra suave no claro; no escuro a separação é pelo tom da superfície -->
+    <style name="Widget.Leia.Card" parent="Widget.Material3.CardView.Elevated">
         <item name="cardBackgroundColor">@color/leia_surface</item>
-        <item name="strokeColor">@color/leia_outline_variant</item>
-        <item name="strokeWidth">@dimen/stroke_hairline</item>
-        <item name="cardElevation">@dimen/elevation_flat</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="cardElevation">@dimen/elevation_card</item>
         <item name="shapeAppearance">@style/ShapeAppearance.Leia.Large</item>
     </style>
 

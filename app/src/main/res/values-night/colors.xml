@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Design system LeiaUFMS, tema escuro (docs/03-design-system.md §2). -->
 <resources>
-    <color name="leia_background">#15181D</color>
-    <color name="leia_surface">#1F232A</color>
-    <color name="leia_surface_container">#272C34</color>
-    <color name="leia_on_background">#E8ECF2</color>
-    <color name="leia_on_surface_variant">#BCC3CE</color>
-    <color name="leia_outline">#8C939E</color>
-    <color name="leia_outline_variant">#353B45</color>
-    <color name="leia_primary">#A8C8F5</color>
+    <color name="leia_background">#0E1116</color>
+    <color name="leia_surface">#171B22</color>
+    <color name="leia_surface_container">#1E232C</color>
+    <color name="leia_on_background">#F3F4F6</color>
+    <color name="leia_on_surface_variant">#A8B0BD</color>
+    <color name="leia_outline">#6B7480</color>
+    <color name="leia_outline_variant">#2A303A</color>
+    <color name="leia_primary">#8DB8F2</color>
     <color name="leia_on_primary">#0A2547</color>
     <color name="leia_primary_container">#1D3A63</color>
     <color name="leia_on_primary_container">#D6E4FA</color>
-    <color name="leia_tertiary">#E2B46C</color>
+    <color name="leia_hero_secondary">#C7D7EE</color>
+    <color name="leia_tertiary">#F2C177</color>
     <color name="leia_on_tertiary">#2E1F05</color>
     <color name="leia_tertiary_container">#4A3615</color>
     <color name="leia_on_tertiary_container">#F6DFB6</color>
+    <color name="leia_success">#86EFAC</color>
+    <color name="leia_success_container">#12381F</color>
+    <color name="leia_on_success_container">#BBF7D0</color>
     <color name="leia_error">#F2B8B5</color>
     <color name="leia_on_error">#601410</color>
     <color name="leia_error_container">#8C1D18</color>
     <color name="leia_on_error_container">#F9DEDC</color>
-    <color name="leia_inverse_primary">#1B4F8F</color>
     <color name="leia_scrim">#000000</color>
+    <color name="leia_inverse_primary">#1B4F8F</color>
+    <color name="leia_shadow">#00000000</color>
+
+    <color name="post_dica_container">#2E2A63</color>
+    <color name="post_dica_on">#C7D2FE</color>
+    <color name="post_procuro_container">#123B38</color>
+    <color name="post_procuro_on">#99F6E4</color>
+    <color name="post_doacao_container">#45230F</color>
+    <color name="post_doacao_on">#FED7AA</color>
+    <color name="post_troca_container">#12381F</color>
+    <color name="post_troca_on">#BBF7D0</color>
 </resources>

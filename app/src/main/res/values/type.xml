@@ -2,16 +2,16 @@
 <!-- Escala tipográfica (docs/03-design-system.md §3). Serifa para títulos de livro, Inter para o resto. -->
 <resources>
     <style name="TextAppearance.Leia.Display" parent="TextAppearance.Material3.HeadlineMedium">
-        <item name="fontFamily">@font/newsreader_medium</item>
-        <item name="android:fontFamily">@font/newsreader_medium</item>
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:textSize">28sp</item>
-        <item name="lineHeight">36sp</item>
-        <item name="android:letterSpacing">0</item>
+        <item name="lineHeight">34sp</item>
+        <item name="android:letterSpacing">-0.01</item>
     </style>
 
     <style name="TextAppearance.Leia.Headline" parent="TextAppearance.Material3.HeadlineSmall">
-        <item name="fontFamily">@font/newsreader_medium</item>
-        <item name="android:fontFamily">@font/newsreader_medium</item>
+        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:textSize">22sp</item>
         <item name="lineHeight">28sp</item>
         <item name="android:letterSpacing">0</item>

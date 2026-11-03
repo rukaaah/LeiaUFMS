@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Design system LeiaUFMS, tema claro (docs/03-design-system.md §2). Contraste calculado pela WCAG 2.x. -->
+<!-- Design system v2 (03/11/2026): base Nova Mobile + referência Airbnb, cores UFMS. Contraste em docs/03-design-system.md §2. -->
 <resources>
-    <color name="leia_background">#F6F8FB</color>
+    <color name="leia_background">#FFFFFF</color>
     <color name="leia_surface">#FFFFFF</color>
-    <color name="leia_surface_container">#EDF1F6</color>
-    <color name="leia_on_background">#1A1C20</color>
-    <color name="leia_on_surface_variant">#464B54</color>
-    <color name="leia_outline">#747A84</color>
-    <color name="leia_outline_variant">#DDE2EA</color>
+    <color name="leia_surface_container">#F4F6FA</color>
+    <color name="leia_on_background">#111827</color>
+    <color name="leia_on_surface_variant">#4B5563</color>
+    <color name="leia_outline">#8A93A1</color>
+    <color name="leia_outline_variant">#E5E7EB</color>
     <color name="leia_primary">#1B4F8F</color>
     <color name="leia_on_primary">#FFFFFF</color>
-    <color name="leia_primary_container">#DCE6F4</color>
+    <color name="leia_primary_container">#E3ECF8</color>
     <color name="leia_on_primary_container">#0D2A4D</color>
+    <color name="leia_hero_secondary">#DCE6F4</color>
     <color name="leia_tertiary">#8A5A12</color>
     <color name="leia_on_tertiary">#FFFFFF</color>
-    <color name="leia_tertiary_container">#F3E3C3</color>
+    <color name="leia_tertiary_container">#FDF0D5</color>
     <color name="leia_on_tertiary_container">#3D2A08</color>
-    <color name="leia_error">#B3261E</color>
+    <color name="leia_success">#166534</color>
+    <color name="leia_success_container">#DCFCE7</color>
+    <color name="leia_on_success_container">#14532D</color>
+    <color name="leia_error">#B42318</color>
     <color name="leia_on_error">#FFFFFF</color>
-    <color name="leia_error_container">#F9DEDC</color>
-    <color name="leia_on_error_container">#410E0B</color>
-    <color name="leia_inverse_primary">#A8C8F5</color>
+    <color name="leia_error_container">#FDE3E1</color>
+    <color name="leia_on_error_container">#5A0E09</color>
     <color name="leia_scrim">#000000</color>
+    <color name="leia_inverse_primary">#8DB8F2</color>
+    <color name="leia_shadow">#1A111827</color>
+
+    <!-- Camada social (emprestada do Playful Color): uma cor por tipo de post -->
+    <color name="post_dica_container">#E0E7FF</color>
+    <color name="post_dica_on">#3730A3</color>
+    <color name="post_procuro_container">#CCFBF1</color>
+    <color name="post_procuro_on">#115E59</color>
+    <color name="post_doacao_container">#FFEDD5</color>
+    <color name="post_doacao_on">#7C2D12</color>
+    <color name="post_troca_container">#DCFCE7</color>
+    <color name="post_troca_on">#14532D</color>
 
     <!-- Ícone do app: fixo nos dois temas -->
     <color name="leia_icon_background">#1B4F8F</color>
