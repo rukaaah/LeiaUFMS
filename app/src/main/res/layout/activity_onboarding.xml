@@ -31,10 +31,10 @@
         app:tabBackground="@drawable/tab_dot"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
-        app:tabMaxWidth="32dp"
-        app:tabMinWidth="16dp"
-        app:tabPaddingEnd="4dp"
-        app:tabPaddingStart="4dp"
+        app:tabMaxWidth="@dimen/size_32"
+        app:tabMinWidth="@dimen/space_m"
+        app:tabPaddingEnd="@dimen/space_xxs"
+        app:tabPaddingStart="@dimen/space_xxs"
         app:tabRippleColor="@android:color/transparent" />
 
     <com.google.android.material.button.MaterialButton

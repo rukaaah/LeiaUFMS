@@ -40,4 +40,19 @@
     <dimen name="map_height">280dp</dimen>
     <dimen name="action_bar_height">80dp</dimen>
     <dimen name="progress_dot">28dp</dimen>
+    <dimen name="icon_m">24dp</dimen>
+    <dimen name="size_32">32dp</dimen>
+    <dimen name="size_72">72dp</dimen>
+    <dimen name="icon_box">44dp</dimen>
+    <dimen name="avatar_medium">56dp</dimen>
+    <dimen name="heart_padding">14dp</dimen>
+    <dimen name="elevation_hero">6dp</dimen>
+    <dimen name="onboarding_art">160dp</dimen>
+    <dimen name="cover_mini_height">60dp</dimen>
+    <dimen name="cover_shelf_width">96dp</dimen>
+    <dimen name="cover_shelf_height">144dp</dimen>
+    <dimen name="cover_detail_width">164dp</dimen>
+    <dimen name="cover_detail_height">246dp</dimen>
+    <dimen name="post_cover_height">200dp</dimen>
+    <dimen name="bubble_max_width">280dp</dimen>
 </resources>

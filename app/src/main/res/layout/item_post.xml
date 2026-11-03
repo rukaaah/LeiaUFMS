@@ -23,7 +23,7 @@
                 android:id="@+id/cover"
                 layout="@layout/view_cover"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="@dimen/post_cover_height" />
 
             <TextView
                 android:id="@+id/tag"
@@ -36,8 +36,7 @@
                 android:paddingTop="@dimen/space_xxs"
                 android:paddingEnd="@dimen/space_xs"
                 android:paddingBottom="@dimen/space_xxs"
-                android:textAppearance="@style/TextAppearance.Leia.Label"
-                android:textSize="13sp" />
+                android:textAppearance="@style/TextAppearance.Leia.LabelSmall" />
         </FrameLayout>
 
         <LinearLayout
@@ -53,9 +52,8 @@
                 android:ellipsize="end"
                 android:importantForAccessibility="no"
                 android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.Leia.BookTitle"
-                android:textColor="@color/leia_on_background"
-                android:textSize="16sp" />
+                android:textAppearance="@style/TextAppearance.Leia.BookTitleSmall"
+                android:textColor="@color/leia_on_background" />
 
             <TextView
                 android:id="@+id/text"

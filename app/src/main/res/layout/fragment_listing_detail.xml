@@ -24,10 +24,10 @@
                 android:background="@color/leia_surface_container">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="164dp"
-                    android:layout_height="246dp"
+                    android:layout_width="@dimen/cover_detail_width"
+                    android:layout_height="@dimen/cover_detail_height"
                     android:layout_gravity="center"
-                    app:cardElevation="6dp"
+                    app:cardElevation="@dimen/elevation_hero"
                     app:strokeWidth="0dp">
 
                     <include
@@ -44,7 +44,7 @@
                     android:layout_gravity="top|end"
                     android:layout_margin="@dimen/space_xs"
                     android:background="@drawable/bg_heart_inset"
-                    android:padding="14dp"
+                    android:padding="@dimen/heart_padding"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_favorite_border" />
             </FrameLayout>
@@ -170,8 +170,8 @@
                         <include
                             android:id="@+id/owner_avatar"
                             layout="@layout/view_avatar"
-                            android:layout_width="56dp"
-                            android:layout_height="56dp" />
+                            android:layout_width="@dimen/avatar_medium"
+                            android:layout_height="@dimen/avatar_medium" />
 
                         <LinearLayout
                             android:layout_width="0dp"

@@ -14,7 +14,7 @@
         android:id="@+id/bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="280dp"
+        android:maxWidth="@dimen/bubble_max_width"
         android:paddingStart="@dimen/space_s"
         android:paddingTop="@dimen/space_xs"
         android:paddingEnd="@dimen/space_s"

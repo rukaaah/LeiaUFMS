@@ -174,7 +174,8 @@ public class HomeFragment extends Fragment {
                 addAction(R.drawable.ic_place, R.drawable.bg_circle_success, R.color.leia_success,
                         getString(R.string.act_schedule, r.titulo), getString(R.string.act_with, other),
                         () -> openTrade(r.pedido.id));
-            } else if (android.text.format.DateUtils.isToday(r.pedido.encontroEm)) {
+            } else if (android.text.format.DateUtils.isToday(r.pedido.encontroEm)
+                    && r.pedido.encontroEm > System.currentTimeMillis() - br.ufms.leiaufms.data.pedido.MeetingWindow.AFTER_MS) {
                 addAction(R.drawable.ic_event, R.drawable.bg_circle_success, R.color.leia_success,
                         getString(R.string.act_meeting_today, r.titulo),
                         (r.pontoNome == null ? "" : r.pontoNome + " · ") + TimeText.dateTime(r.pedido.encontroEm),

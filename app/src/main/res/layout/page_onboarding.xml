@@ -14,14 +14,14 @@
 
         <FrameLayout
             android:id="@+id/art"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="@dimen/onboarding_art"
+            android:layout_height="@dimen/onboarding_art"
             android:importantForAccessibility="no">
 
             <ImageView
                 android:id="@+id/icon"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="@dimen/size_72"
+                android:layout_height="@dimen/size_72"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no" />
         </FrameLayout>

@@ -12,8 +12,8 @@
 
     <View
         android:id="@+id/dot"
-        android:layout_width="8dp"
-        android:layout_height="8dp"
+        android:layout_width="@dimen/space_xs"
+        android:layout_height="@dimen/space_xs"
         android:layout_marginTop="@dimen/space_xs"
         android:layout_marginEnd="@dimen/space_s"
         android:background="@drawable/dot_unread"

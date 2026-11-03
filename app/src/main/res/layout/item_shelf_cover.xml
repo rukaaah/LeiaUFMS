@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="96dp"
+    android:layout_width="@dimen/cover_shelf_width"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/space_s"
     android:focusable="true"
@@ -9,8 +9,8 @@
     <include
         android:id="@+id/cover"
         layout="@layout/view_cover"
-        android:layout_width="96dp"
-        android:layout_height="144dp" />
+        android:layout_width="@dimen/cover_shelf_width"
+        android:layout_height="@dimen/cover_shelf_height" />
 
     <TextView
         android:id="@+id/status"
