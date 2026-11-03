@@ -118,11 +118,12 @@ O design é definido **exclusivamente** por três skills, nesta ordem:
 | Parte 4 | **Concluída**: chat do pedido, estante, desejos com aviso, avaliações |
 | Parte 5 | **Concluída**: mural (estrutura Pinterest), hubs, trajetória, selos, disputa, auditoria completa |
 | Redesenho v2 | **Concluído** (03/11): `DESIGN.md`, jornada em `docs/08`, onboarding, capas reais (RF-42), localização no encontro (RF-41), pontos fictícios no seed |
+| Ajustes 2 | **Concluído** (03/11): encontro combinado pelos dois (RF-44), post aberto com comentários (RF-43), compartilhar, aviso no tema, Desejos repensado, Início em bola, ícones próprios. Banco v6 |
 | Integrantes | Pedro Lucas de Souza Cremonini, Gabriel Mattos de Aquino, Angelo Antonio Correia de Souza |
 | Repositório | https://github.com/rukaaah/LeiaUFMS (branch `main`) |
 | Pendências abertas | P-07, P-09, PC-02 a PC-12 (com padrão adotado) |
-| Testes caixa-preta executados | 0 de 64 (executados pelo grupo) |
-| Próximo passo | Grupo executar os 64 testes caixa-preta e exportar a especificação. Ver `docs/07-handoff.md` |
+| Testes caixa-preta executados | 0 de 73 (executados pelo grupo) |
+| Próximo passo | Grupo executar os 73 testes caixa-preta e exportar a especificação. Ver `docs/07-handoff.md` |
 | Build pela linha de comando | `export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"` e `./gradlew assembleDebug` |
 
 ## 10. Antes de entregar (09/11)

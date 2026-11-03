@@ -102,6 +102,15 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 | CT-62 | RF-41 | Compartilhamento ligado | Desligar o botão ou concluir o pedido | A outra parte deixa de ver a posição | — | Não executado |
 | CT-63 | RF-42 | Aparelho com internet, obra nova anunciada | Esperar alguns segundos e abrir Início | Capa real aparece no card; sem internet, aparecem as iniciais do título | — | Não executado |
 | CT-64 | Onboarding | Primeira entrada de uma conta | Entrar | 5 telas (créditos, encontro, localização de 10 min, preferências); "Pular" vai para a última; "Começar" abre o Início | — | Não executado |
+| CT-65 | RF-44 | Pedido aceito sem encontro (conta A) | A propõe ponto, data e hora | Pedido mostra "Você propôs. Falta a outra pessoa aceitar."; barra de etapas continua em Aceito; sem botão de confirmar entrega | — | Não executado |
+| CT-66 | RF-44 | Proposta de A (entrar como B) | Abrir o pedido → Aceitar horário | "Encontro combinado."; etapa Encontro acesa; "Combinado pelos dois"; A recebe aviso | — | Não executado |
+| CT-67 | RF-44 | Proposta de A (entrar como B) | Sugerir outro → escolher outro horário | Vira proposta de B; agora A precisa aceitar | — | Não executado |
+| CT-68 | RF-43 | Mural com posts | Tocar num post | Página com texto inteiro, capa, quem postou, Útil, Quero, comentários e Compartilhar | — | Não executado |
+| CT-69 | RF-43 | Post aberto | Comentar com campo vazio / com 300 caracteres / com texto curto | Vazio: botão desligado; texto curto aparece na lista e o autor do post recebe aviso | — | Não executado |
+| CT-70 | Compartilhar | Livro, Obra ou post aberto | Tocar em Compartilhar | Folha de compartilhamento do Android com título, autor e detalhes em texto | — | Não executado |
+| CT-71 | Aviso no app | App aberto, chega um aviso (ex.: encontro em breve) | Esperar | Cartão do LeiaUFMS desce do topo com ícone do assunto, some em 6 s; tocar abre o pedido; com o app fechado, vira notificação do sistema | — | Não executado |
+| CT-72 | Navegação | Dentro de um pedido aberto na aba Trocas | Tocar de novo em Trocas | Volta ao começo da aba | — | Não executado |
+| CT-73 | RF-37 | Aba Desejos | Tocar em "Desejar um livro" e adicionar | Continua na aba Desejos; livro entra em "Esperando aparecer" | — | Não executado |
 
 ## 6. Falhas encontradas e correções
 
@@ -113,4 +122,4 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 
 | Total | Aprovados | Reprovados | Não executados |
 |---|---|---|---|
-| 64 | 0 | 0 | 64 |
+| 73 | 0 | 0 | 73 |

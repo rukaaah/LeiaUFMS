@@ -12,7 +12,7 @@
 - **Sempre um próximo passo.** Toda tela responde "o que eu faço agora?" com uma ação principal clara.
 - **Confiança antes do pedido.** Nota, trocas, distância e ponto seguro aparecem antes do botão.
 - **Uma cor de marca.** Azul UFMS em ações e destaques; âmbar só para créditos; verde para "a pé" e "concluído".
-- **Social vivo, sem toxicidade.** Cor por tipo de post, reações em texto, sem ranking, seguidores ou badge vermelho.
+- **Social vivo, sem toxicidade.** Cor e ícone por tipo de post, reações em ícone + número, comentários sem curtida, sem ranking, seguidores ou badge vermelho.
 
 ## 2. Cores
 
@@ -46,7 +46,10 @@ Todos os pares de texto ≥ 5,9:1.
 
 ## 5. Navegação
 
-- 5 abas com ícone + rótulo: **Início, Desejos, Trocas, Mural, Perfil**; ícone cheio na aba ativa; ponto azul em Trocas quando algo precisa de você.
+- 5 posições: **Trocas, Mural, Início (bola azul central, só ícone), Desejos, Perfil**; ícone cheio na aba ativa; número âmbar em Trocas (pedidos que precisam de você) e verde em Desejos (já disponíveis); tocar de novo na aba volta ao começo dela.
+- Livro e Obra sem barra de título: capa de ponta a ponta com botões redondos (voltar, compartilhar, desejo).
+- Aviso do app no tema (cartão que desce do topo) com o app aberto; notificação do sistema só em segundo plano.
+- Ícones próprios: grade 24, traço 2, pontas redondas, contorno com cheio no ativo (`docs/09-icones.md`).
 - Faixa fixa do próximo encontro acima das abas (60/30/10 min), em qualquer tela.
 - Pilha para detalhes; barra de ação fixa na base do Livro e do Pedido (como a barra de reserva da Airbnb).
 

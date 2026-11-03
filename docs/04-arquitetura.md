@@ -78,7 +78,7 @@ App abre
 | `exemplar` | id, obraId, donoAtualId, edicao, conservacao, fotoPath | Objeto físico |
 | `posse_exemplar` | id, exemplarId, usuarioId, desde, ate, pedidoId | Trajetória (RF-17) |
 | `anuncio` | id, exemplarId, donoId, modalidade (`TROCA`/`DOACAO`/`AMBAS`), lat, lng, pontoPreferidoId, ativo, criadoEm | — |
-| `pedido` | id, anuncioId, solicitanteId, donoId, tipo (`TROCA_DIRETA`/`RESGATE`), exemplarOferecidoId (nulo), estado, pontoEncontroId, encontroEm, confirmadoSolicitante, confirmadoDono, semCredito, motivo, criadoEm, atualizadoEm, aceitoEm, lembreteEnviado, lembreteEncontroEnviado | Estados em §5. Banco v2 (migração 1 → 2 adiciona `lembreteEncontroEnviado`) |
+| `pedido` | id, anuncioId, solicitanteId, donoId, tipo (`TROCA_DIRETA`/`RESGATE`), exemplarOferecidoId (nulo), estado, pontoEncontroId, encontroEm, confirmadoSolicitante, confirmadoDono, semCredito, motivo, criadoEm, atualizadoEm, aceitoEm, lembreteEnviado, lembreteEncontroEnviado, encontroPropostoPor, encontroAceito | Estados em §5. Banco v2 (migração 1 → 2 adiciona `lembreteEncontroEnviado`). Banco v6: proposta de encontro (RF-44); encontros marcados antes da v6 migram como aceitos |
 | `mensagem` | id, pedidoId, autorId, texto, pronta (bool), enviadaEm | Só com pedido aceito |
 | `movimento_credito` | id, usuarioId, valor (+1/−1), tipo (`DOACAO`/`RESGATE`/`RESERVA`/`LIBERACAO`), pedidoId, criadoEm | Livro-razão |
 | `avaliacao` | id, pedidoId, avaliadorId, avaliadoId, nota, criadaEm | Única por (pedido, avaliador) |
@@ -86,6 +86,7 @@ App abre
 | `desejo` | id, usuarioId, obraId, criadoEm | Única por (usuário, obra) |
 | `post_mural` | id, autorId, obraId (obrigatório), tipo (`DICA`/`PROCURO`/`DOACAO`/`TROCA_CONCLUIDA`), texto, oculto, criadoEm | — |
 | `reacao` | postId, usuarioId, tipo (`UTIL`/`QUERO`) | PK composta |
+| `comentario_post` | id, postId, autorId, texto (até 300), criadoEm | RF-43; banco v6 |
 | `ponto_encontro` | id, nome, descricao, lat, lng, ativo, criadoPor, criadoEm | Criado pelo Moderador tocando no mapa (RF-30); nenhum no seed (PC-07) |
 | `localizacao_encontro` | pedidoId, usuarioId (PK composta), lat, lng, atualizadaEm | RF-41: só durante a janela de 10 min antes a 30 min depois do encontro; apagada ao encerrar o pedido; banco v4 |
 | `notificacao` | id, usuarioId, canal, titulo, texto, destinoTipo, destinoId, lida, criadaEm | Caixa de avisos |

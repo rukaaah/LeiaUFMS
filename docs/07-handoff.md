@@ -1,8 +1,8 @@
 # Handoff
 - Atualizado em: 03/11/2026 (madrugada, horário de Campo Grande)
-- Parte atual: 5 concluída + redesenho v2 + ajustes de usabilidade de 03/11 concluídos
+- Parte atual: 5 concluída + redesenho v2 + ajustes de usabilidade 1 e 2 de 03/11 concluídos
 - Último commit verde: commit `docs: ajustes de usabilidade`
-- Feito: RF-01 a RF-42 (RF-41 localização no encontro e RF-42 capas são novos), onboarding, redesenho v2 (Início, Livro, Trocas, Perfil, Mural)
+- Feito: RF-01 a RF-44 (novos: RF-41 localização no encontro, RF-42 capas, RF-43 post aberto e comentários, RF-44 encontro combinado pelos dois), onboarding, redesenho v2, barra com Início em bola, aviso do app no tema, ícones próprios (`docs/09-icones.md`)
 - Em andamento: nada
-- Próximo passo exato: o grupo executar os 64 casos de teste caixa-preta no aparelho e registrar em `docs/05-relatorio-testes.md`; exportar `02-especificacao.md` + `05-relatorio-testes.md` em PDF
-- Problemas conhecidos: APK debug ~60 MB (MapLibre com todas as ABIs). Marcadores do mapa com o ícone padrão. TalkBack não foi testado com o leitor ligado (só pela árvore de acessibilidade). No emulador, "Perto de mim" precisa de posição injetada (ver log da Parte 3). Bancos antigos migram até a v4, mas para ver os pontos fictícios e o seed novo é preciso reinstalar o app
+- Próximo passo exato: o grupo executar os 73 casos de teste caixa-preta no aparelho e registrar em `docs/05-relatorio-testes.md`; exportar `02-especificacao.md` + `05-relatorio-testes.md` em PDF
+- Problemas conhecidos: APK debug ~60 MB (MapLibre com todas as ABIs). Marcadores do mapa com o ícone padrão. TalkBack não foi testado com o leitor ligado (só pela árvore de acessibilidade). No emulador, "Perto de mim" precisa de posição injetada (ver log da Parte 3). Bancos antigos migram até a v6, mas para ver os pontos fictícios e o seed novo é preciso reinstalar o app
