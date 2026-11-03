@@ -12,7 +12,7 @@ O Paliteiro da UFMS, com colunas quadradas em quatro eixos e todas com a mesma a
 
 - Gerador: `tools/logo/gerar_logo.py` (geometria em `tools/logo/iso3.py`). Ele gera os vetores do Android e os SVG desta pasta.
 - Perspectiva isométrica (30°). O monumento é girado 30° em relação à vista para os quatro braços aparecerem separados.
-- Colunas: 1 no centro e 4 por braço, seção quadrada de 0,7, passo de 1,55 e altura de 14, todas iguais. Cada coluna tem a face de luz em 100%, a face de sombra em 62% e o topo em 85%.
+- Colunas: 1 no centro e 4 por braço, seção quadrada de 0,7, passo de 1,55 e altura de 24, todas iguais (palitos altos, como o monumento). Cada coluna tem a face de luz em 100%, a face de sombra em 62% e o topo em 85%.
 - Livro: duas páginas que sobem da lombada e achatam (seno), com o bloco de folhas visível na frente.
 - Separação entre as colunas: um contorno na cor do fundo, sem traço de outra cor.
 
@@ -24,7 +24,7 @@ O Paliteiro da UFMS, com colunas quadradas em quatro eixos e todas com a mesma a
 | `leiaufms-simbolo-azul.svg` | Símbolo azul sobre fundo claro (splash, login) |
 | `leiaufms-simbolo-branco.svg` | Símbolo branco sobre azul, sem cantos |
 | `leiaufms-horizontal.svg` | Símbolo + "LeiaUFMS" (Leia em 700, UFMS em 400 no azul). O texto está em Inter e precisa virar contorno antes de qualquer impressão |
-| `leiaufms-plano.svg` | Versão plana de uma cor: livro aberto + 7 palitos de mesma altura. É a que funciona em 24 px ou menos |
+| `leiaufms-plano.svg` | Versão plana de uma cor: livro aberto + 7 palitos altos de mesma altura. É a que funciona em 24 px ou menos |
 
 No app:
 

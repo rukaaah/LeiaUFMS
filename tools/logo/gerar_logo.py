@@ -10,7 +10,7 @@ from iso3 import scene, render
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 RES = os.path.join(ROOT, 'app', 'src', 'main', 'res', 'drawable')
 DOCS = os.path.join(ROOT, 'docs', 'logo')
-ITEMS = scene(h=14, lift=3.0, thick=1.6, W=10.5, D=6.5)
+ITEMS = scene(h=24, lift=3.0, thick=1.6, W=10.5, D=6.5)  # palitos altos como o monumento
 
 
 def vector(items, fg, sep, comment, size=108, box=70, sepw=1.3):
@@ -33,7 +33,39 @@ def vector(items, fg, sep, comment, size=108, box=70, sepw=1.3):
     return "\n".join(out)
 
 
+def flat_paths():
+    """Versão plana de uma cor (grade 24): livro aberto + 7 palitos altos de mesma altura."""
+    def rect(x, y, w, h): return f"M{x:.2f},{y:.2f}h{w:.2f}v{h:.2f}h{-w:.2f}Z"
+    book = ["M2,17C5.2,15.9 8.8,15.9 11.3,17.3V22.6C8.8,21.4 5.2,21.2 2,21.9Z",
+            "M22,17C18.8,15.9 15.2,15.9 12.7,17.3V22.6C15.2,21.4 18.8,21.2 22,21.9Z"]
+    n, w, g = 7, 1.4, 0.9
+    x0 = 12 - (n * w + (n - 1) * g) / 2
+    return book + [rect(x0 + i * (w + g), 1.2, w, 14.1) for i in range(n)]
+
+
+def flat_vector(comment, size, color, group=''):
+    o = ['<?xml version="1.0" encoding="utf-8"?>', f'<!-- {comment} -->',
+         '<vector xmlns:android="http://schemas.android.com/apk/res/android"',
+         f'    android:width="{size}dp"', f'    android:height="{size}dp"',
+         f'    android:viewportWidth="{size}"', f'    android:viewportHeight="{size}">']
+    if group: o.append(group)
+    ind = '        ' if group else '    '
+    o += [f'{ind}<path android:fillColor="{color}" android:pathData="{d}" />' for d in flat_paths()]
+    if group: o.append('    </group>')
+    o.append('</vector>\n')
+    return "\n".join(o)
+
+
 if __name__ == '__main__':
+    open(os.path.join(RES, 'ic_notification.xml'), 'w').write(flat_vector(
+        'Ícone de notificação: versão plana do logo (livro aberto + Paliteiro de topo reto), uma cor.', 24,
+        '@android:color/white'))
+    open(os.path.join(RES, 'ic_launcher_monochrome.xml'), 'w').write(flat_vector(
+        'Camada monocromática do ícone (Android 13+): versão plana do logo.', 108, '#FFFFFFFF',
+        '    <group android:translateX="24" android:translateY="24" android:scaleX="2.5" android:scaleY="2.5">'))
+    open(os.path.join(DOCS, 'leiaufms-plano.svg'), 'w').write(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="256" height="256"><title>LeiaUFMS plano</title>'
+        + ''.join(f'<path fill="#000" d="{d}"/>' for d in flat_paths()) + '</svg>')
     open(os.path.join(RES, 'ic_launcher_foreground.xml'), 'w').write(vector(
         ITEMS, '@color/leia_icon_page', '@color/leia_icon_background',
         'Logo LeiaUFMS: o Paliteiro da UFMS em 3D (colunas em 4 eixos, topo reto) de pé sobre um livro aberto. '

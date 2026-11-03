@@ -5,13 +5,13 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="@android:color/white" android:pathData="M2,14.6C5.2,13.4 8.8,13.4 11.3,15V21.6C8.8,20.2 5.2,20 2,20.8Z" />
-    <path android:fillColor="@android:color/white" android:pathData="M22,14.6C18.8,13.4 15.2,13.4 12.7,15V21.6C15.2,20.2 18.8,20 22,20.8Z" />
-    <path android:fillColor="@android:color/white" android:pathData="M4.05,3.00h1.50v9.60h-1.50Z" />
-    <path android:fillColor="@android:color/white" android:pathData="M6.45,3.00h1.50v9.60h-1.50Z" />
-    <path android:fillColor="@android:color/white" android:pathData="M8.85,3.00h1.50v9.60h-1.50Z" />
-    <path android:fillColor="@android:color/white" android:pathData="M11.25,3.00h1.50v9.60h-1.50Z" />
-    <path android:fillColor="@android:color/white" android:pathData="M13.65,3.00h1.50v9.60h-1.50Z" />
-    <path android:fillColor="@android:color/white" android:pathData="M16.05,3.00h1.50v9.60h-1.50Z" />
-    <path android:fillColor="@android:color/white" android:pathData="M18.45,3.00h1.50v9.60h-1.50Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M2,17C5.2,15.9 8.8,15.9 11.3,17.3V22.6C8.8,21.4 5.2,21.2 2,21.9Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M22,17C18.8,15.9 15.2,15.9 12.7,17.3V22.6C15.2,21.4 18.8,21.2 22,21.9Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M4.40,1.20h1.40v14.10h-1.40Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M6.70,1.20h1.40v14.10h-1.40Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M9.00,1.20h1.40v14.10h-1.40Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M11.30,1.20h1.40v14.10h-1.40Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M13.60,1.20h1.40v14.10h-1.40Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M15.90,1.20h1.40v14.10h-1.40Z" />
+    <path android:fillColor="@android:color/white" android:pathData="M18.20,1.20h1.40v14.10h-1.40Z" />
 </vector>
