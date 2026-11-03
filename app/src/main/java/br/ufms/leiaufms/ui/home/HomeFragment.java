@@ -162,18 +162,20 @@ public class HomeFragment extends Fragment {
         });
         viewModel.wishes().observe(getViewLifecycleOwner(), l -> {
             wishes = l == null ? new ArrayList<>() : l;
+            int available = 0;
+            for (ShelfRow w : wishes) if (w.disponiveis > 0) available++;
+            binding.wishesCount.setVisibility(available > 0 ? View.VISIBLE : View.GONE);
+            binding.wishesCount.setText(String.valueOf(available));
+            binding.wishesButton.setContentDescription(available > 0
+                    ? getString(R.string.open_wishes) + ". " + getResources().getQuantityString(R.plurals.wishes_available, available, available)
+                    : getString(R.string.open_wishes));
             renderForYou();
         });
 
         binding.search.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.exploreFragment));
         binding.buttonAll.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.exploreFragment));
-        binding.fabNew.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.newListingFragment));
+        binding.wishesButton.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.wishesFragment));
         binding.nearInviteAction.setOnClickListener(v -> askLocation());
-        binding.scroll.setOnScrollChangeListener((androidx.core.widget.NestedScrollView.OnScrollChangeListener)
-                (sv, x, y, ox, oy) -> {
-                    if (y > oy + 8) binding.fabNew.shrink();
-                    else if (y < oy - 8) binding.fabNew.extend();
-                });
 
         // RNF-07: só lê a posição se a permissão já existe; senão, convida (não pede ao abrir)
         if (PermissionHelper.anyGranted(requireContext(), LocationProvider.PERMISSIONS)) fetchLocation();

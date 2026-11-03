@@ -56,4 +56,9 @@
     <dimen name="post_cover_height">200dp</dimen>
     <dimen name="bubble_max_width">280dp</dimen>
     <dimen name="cover_grid_height">236dp</dimen>
+    <dimen name="home_ball">64dp</dimen>
+    <dimen name="home_ball_offset">-22dp</dimen>
+    <dimen name="icon_home_ball">32dp</dimen>
+    <dimen name="heart_button">40dp</dimen>
+    <dimen name="count_badge">20dp</dimen>
 </resources>

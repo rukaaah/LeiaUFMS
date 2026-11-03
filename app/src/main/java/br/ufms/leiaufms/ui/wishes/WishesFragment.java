@@ -24,7 +24,7 @@ import br.ufms.leiaufms.ui.home.BookCardAdapter;
 import br.ufms.leiaufms.ui.listing.ListingDetailFragment;
 
 /**
- * Aba Desejos (RF-37, feedback 03/11): grade de capas com o que já está disponível primeiro,
+ * Página de desejos, aberta pelo coração do Início (RF-37, feedback 03/11): grade de capas com o que já está disponível primeiro,
  * aviso quando a obra aparece (RF-32) e sugestões do mesmo autor ou disciplina.
  */
 public class WishesFragment extends Fragment {
@@ -95,12 +95,9 @@ public class WishesFragment extends Fragment {
             binding.suggestTitle.setVisibility(any ? View.VISIBLE : View.GONE);
             binding.suggest.setVisibility(any ? View.VISIBLE : View.GONE);
         });
-        binding.fabAdd.setOnClickListener(v -> {
-            Bundle args = new Bundle();
-            args.putBoolean(br.ufms.leiaufms.ui.shelf.ShelfFragment.ARG_WISHES, true);
-            args.putBoolean(br.ufms.leiaufms.ui.shelf.ShelfFragment.ARG_ADD_NOW, true);
-            NavHostFragment.findNavController(this).navigate(R.id.shelfFragment, args);
-        });
+        // Adiciona aqui mesmo: a pessoa continua na página de desejos (feedback 03/11)
+        binding.fabAdd.setOnClickListener(v ->
+                br.ufms.leiaufms.ui.shelf.AddBookDialog.show(this, true, binding.getRoot()));
     }
 
     @Override

@@ -655,4 +655,6 @@
     <string name="home_genres">Explore por gênero</string>
     <string name="label_genre">Gênero</string>
     <string name="all_genres">Todos</string>
+    <string name="tab_new">Anunciar</string>
+    <string name="open_wishes">Seus desejos</string>
 </resources>

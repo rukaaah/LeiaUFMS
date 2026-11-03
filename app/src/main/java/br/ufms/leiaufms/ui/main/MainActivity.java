@@ -48,9 +48,10 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = host.getNavController();
         AppBarConfiguration config = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.id.wishesFragment, R.id.tradesFragment, R.id.feedFragment, R.id.profileFragment).build();
+                R.id.homeFragment, R.id.tradesFragment, R.id.feedFragment, R.id.profileFragment).build();
         NavigationUI.setupWithNavController(binding.toolbar, navController, config);
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
+        setupBottomBar();
         // A seta de voltar passa pelo mesmo caminho do botão Voltar (respeita "descartar alterações?")
         binding.toolbar.setNavigationOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
@@ -99,6 +100,43 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // ---- Barra inferior (feedback 03/11): Início em bola central, Anunciar como ação, reselecionar volta ao topo ----
+
+    private void setupBottomBar() {
+        binding.bottomNav.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.action_new_listing) {
+                navController.navigate(R.id.newListingFragment);
+                return false;
+            }
+            return NavigationUI.onNavDestinationSelected(item, navController);
+        });
+        // Tocar de novo na aba em que você já está fecha as páginas abertas e volta ao começo dela
+        binding.bottomNav.setOnItemReselectedListener(item -> navController.popBackStack(item.getItemId(), false));
+        binding.homeBall.setOnClickListener(v -> {
+            if (!navController.popBackStack(R.id.homeFragment, false)) {
+                binding.bottomNav.setSelectedItemId(R.id.homeFragment);
+            }
+        });
+        navController.addOnDestinationChangedListener((c, d, a) -> {
+            boolean home = isInTab(d, R.id.homeFragment);
+            binding.homeBall.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
+                    getColor(home ? R.color.leia_primary : R.color.leia_primary_container)));
+            binding.homeBall.setImageTintList(android.content.res.ColorStateList.valueOf(
+                    getColor(home ? R.color.leia_on_primary : R.color.leia_on_primary_container)));
+            // Indicador da aba ganha a cor do contexto: Mural com a cor viva do social
+            boolean feed = d.getId() == R.id.feedFragment;
+            binding.bottomNav.setItemActiveIndicatorColor(android.content.res.ColorStateList.valueOf(
+                    getColor(feed ? R.color.post_dica_container : R.color.leia_primary_container)));
+        });
+    }
+
+    private boolean isInTab(androidx.navigation.NavDestination d, int tabId) {
+        for (androidx.navigation.NavBackStackEntry e : navController.getCurrentBackStack().getValue()) {
+            if (e.getDestination().getId() == tabId) return true;
+        }
+        return d.getId() == tabId;
+    }
+
     // ---- Faixa do próximo encontro (feedback 03/11): fixa acima das abas, em qualquer tela ----
 
     private static final long MIN = 60_000L;
@@ -121,9 +159,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final Runnable meetingRefresh = this::renderMeeting;
 
-    /** Ponto azul na aba Trocas quando algum pedido precisa da pessoa (sem número vermelho). */
+    /** Número em âmbar na aba Trocas: quantos pedidos precisam da pessoa (nunca vermelho). */
     private void observeTradeBadge(long userId) {
-        androidx.lifecycle.MediatorLiveData<Boolean> needs = new androidx.lifecycle.MediatorLiveData<>();
+        androidx.lifecycle.MediatorLiveData<Integer> needs = new androidx.lifecycle.MediatorLiveData<>();
         java.util.List<?>[] lists = new java.util.List<?>[2];
         androidx.lifecycle.LiveData<java.util.List<br.ufms.leiaufms.data.local.model.PedidoRow>> rec =
                 AppDatabase.get(this).pedidoDao().received(userId);
@@ -133,23 +171,25 @@ public class MainActivity extends AppCompatActivity {
         needs.addSource(sent, l -> { lists[1] = l; needs.setValue(anyNeeds(lists, userId)); });
         needs.observe(this, n -> {
             com.google.android.material.badge.BadgeDrawable badge = binding.bottomNav.getOrCreateBadge(R.id.tradesFragment);
-            badge.setBackgroundColor(getColor(R.color.leia_primary));
-            badge.clearNumber();
-            badge.setVisible(Boolean.TRUE.equals(n));
+            badge.setBackgroundColor(getColor(R.color.leia_tertiary));
+            badge.setBadgeTextColor(getColor(R.color.leia_on_tertiary));
+            badge.setVisible(n != null && n > 0);
+            if (n != null && n > 0) badge.setNumber(n);
         });
     }
 
     @SuppressWarnings("unchecked")
-    private static boolean anyNeeds(java.util.List<?>[] lists, long userId) {
+    private static int anyNeeds(java.util.List<?>[] lists, long userId) {
+        int n = 0;
         for (java.util.List<?> l : lists) {
             if (l == null) continue;
             for (Object o : l) {
                 if (br.ufms.leiaufms.ui.common.Labels.needsAction(((br.ufms.leiaufms.data.local.model.PedidoRow) o).pedido, userId)) {
-                    return true;
+                    n++;
                 }
             }
         }
-        return false;
+        return n;
     }
 
     /** Aparece 60 min antes; a 30 min fica verde forte e a 10 min azul (mais forte), até 30 min depois. */

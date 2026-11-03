@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Número pequeno sobre um ícone (desejos disponíveis): verde = "tem pra você", nunca vermelho -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/leia_success_container" />
+    <stroke android:width="2dp" android:color="@color/leia_background" />
+    <corners android:radius="10dp" />
+</shape>

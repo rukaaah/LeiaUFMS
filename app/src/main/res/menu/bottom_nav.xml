@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Trocas e Mural à esquerda, Início no centro (bola), Anunciar e Perfil à direita -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/homeFragment"
-        android:icon="@drawable/nav_home"
-        android:title="@string/tab_home" />
-    <item
-        android:id="@+id/wishesFragment"
-        android:icon="@drawable/nav_wish"
-        android:title="@string/tab_wishes" />
     <item
         android:id="@+id/tradesFragment"
         android:icon="@drawable/nav_trades"
@@ -16,6 +9,14 @@
         android:id="@+id/feedFragment"
         android:icon="@drawable/nav_feed"
         android:title="@string/tab_feed" />
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/nav_placeholder"
+        android:title="@string/tab_home" />
+    <item
+        android:id="@+id/action_new_listing"
+        android:icon="@drawable/ic_add"
+        android:title="@string/tab_new" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/nav_profile"

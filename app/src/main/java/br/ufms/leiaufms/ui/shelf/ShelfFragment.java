@@ -162,52 +162,7 @@ public class ShelfFragment extends Fragment {
     }
 
     private void askBook() {
-        boolean w = wishes();
-        DialogAddBookBinding d = DialogAddBookBinding.inflate(getLayoutInflater());
-        // Sugestões de obras já cadastradas (título → autor preenchido)
-        AppExecutors.io().execute(() -> {
-            List<Obra> obras = AppDatabase.get(app).obraDao().all();
-            AppExecutors.main(() -> {
-                String[] titles = new String[obras.size()];
-                for (int i = 0; i < obras.size(); i++) titles[i] = obras.get(i).titulo;
-                d.inputTitle.setSimpleItems(titles);
-                d.inputTitle.setOnItemClickListener((parent, v, pos, id) -> {
-                    String chosen = (String) parent.getItemAtPosition(pos);
-                    for (Obra o : obras) if (o.titulo.equals(chosen)) d.inputAuthor.setText(o.autor);
-                });
-            });
-        });
-        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(w ? R.string.add_wish_title : R.string.add_shelf_title)
-                .setView(d.getRoot())
-                .setNegativeButton(R.string.action_cancel, null)
-                .setPositiveButton(R.string.action_add_book, null)
-                .create();
-        dialog.setOnShowListener(x -> dialog.getButton(android.content.DialogInterface.BUTTON_POSITIVE)
-                .setOnClickListener(v -> {
-                    String titulo = FieldErrors.text(d.inputTitle);
-                    String autor = FieldErrors.text(d.inputAuthor);
-                    boolean ok = FieldErrors.show(d.layoutTitle, Validators.required(titulo, AppConfig.TITLE_MAX),
-                            R.string.error_empty_title, AppConfig.TITLE_MAX);
-                    ok &= FieldErrors.show(d.layoutAuthor, Validators.required(autor, AppConfig.AUTHOR_MAX),
-                            R.string.error_empty_author, AppConfig.AUTHOR_MAX);
-                    if (!ok) return;
-                    dialog.dismiss();
-                    AppExecutors.io().execute(() -> {
-                        SocialRepository repo = new SocialRepository(app);
-                        SocialRepository.Result r = SocialRepository.Result.OK;
-                        if (w) r = repo.addWish(me, titulo, autor);
-                        else repo.addToShelf(me, titulo, autor, ItemEstante.STATUS_LENDO);
-                        SocialRepository.Result result = r;
-                        AppExecutors.main(() -> {
-                            if (binding == null) return;
-                            int msg = result == SocialRepository.Result.DUPLICATE ? R.string.wish_duplicate
-                                    : w ? R.string.wish_added : R.string.shelf_added;
-                            Snackbar.make(binding.getRoot(), msg, Snackbar.LENGTH_LONG).show();
-                        });
-                    });
-                }));
-        dialog.show();
+        AddBookDialog.show(this, wishes(), binding.getRoot());
     }
 
     @Override
