@@ -87,7 +87,12 @@ public class TradeProgressView extends LinearLayout {
             label.setTextAppearance(current ? R.style.TextAppearance_Leia_Label : R.style.TextAppearance_Leia_Caption);
             label.setTextColor(c.getColor(reached ? R.color.leia_on_background : R.color.leia_on_surface_variant));
             label.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            // Fonte do sistema em 130%: o rótulo encolhe em vez de quebrar no meio da palavra
+            label.setMaxLines(1);
+            label.setGravity(Gravity.CENTER);
+            androidx.core.widget.TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(label, 8, 12, 1,
+                    TypedValue.COMPLEX_UNIT_SP);
+            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
             lp.topMargin = dp(4);
             col.addView(label, lp);
             addView(col, new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f));
