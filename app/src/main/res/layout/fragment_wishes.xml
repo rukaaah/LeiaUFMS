@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Desejos repensados (feedback 03/11): três perguntas em ordem de urgência.
+    Sem frases de resumo: as seções e os números falam por si (feedback 03/11).
     1. "O que eu já posso pedir?"  -> Disponíveis agora (capas grandes, quantas cópias)
     2. "O que ainda espero?"       -> Esperando aparecer (lista compacta, aviso ligado, quantos também querem)
     3. "O que mais pode me servir?" -> Talvez você queira (mesmo autor ou disciplina)
@@ -22,15 +23,6 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/fab_clearance">
 
-            <TextView
-                android:id="@+id/summary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                android:textAppearance="@style/TextAppearance.Leia.Body"
-                android:textColor="@color/leia_on_surface_variant"
-                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/available_title"
@@ -63,16 +55,6 @@
                 app:drawableStartCompat="@drawable/ic_notifications"
                 app:drawableTint="@color/leia_primary" />
 
-            <TextView
-                android:id="@+id/waiting_sub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin"
-                android:layout_marginEnd="@dimen/screen_margin"
-                android:text="@string/wishes_waiting_sub"
-                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
-                android:textColor="@color/leia_on_surface_variant"
-                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/waiting"
@@ -111,12 +93,13 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <!-- Na aba Desejos, "+" já diz "adicionar um desejo" -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/screen_margin"
-        android:text="@string/action_add_wish"
-        app:icon="@drawable/ic_add" />
+        android:contentDescription="@string/action_add_wish"
+        app:srcCompat="@drawable/ic_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -227,13 +227,16 @@ public class HomeFragment extends Fragment {
                 if (Labels.proposedBy(r.pedido, me)) continue;
                 addAction(R.drawable.ic_schedule, R.drawable.bg_circle_success, R.color.leia_success,
                         getString(R.string.act_meeting_proposal, other, r.titulo),
-                        (r.pontoNome == null ? "" : r.pontoNome + " · ") + TimeText.dateTime(r.pedido.encontroEm),
+                        (r.pontoNome == null ? "" : r.pontoNome + " · ") + TimeText.meeting(requireContext(), r.pedido.encontroEm),
                         () -> openTrade(r.pedido.id));
+            } else if (inMeetingBar(r.pedido.encontroEm)) {
+                // O encontro já está na faixa fixa acima das abas: não repetir aqui
+                continue;
             } else if (android.text.format.DateUtils.isToday(r.pedido.encontroEm)
-                    && r.pedido.encontroEm > System.currentTimeMillis() - br.ufms.leiaufms.data.pedido.MeetingWindow.AFTER_MS) {
+                    && r.pedido.encontroEm > System.currentTimeMillis()) {
                 addAction(R.drawable.ic_event, R.drawable.bg_circle_success, R.color.leia_success,
                         getString(R.string.act_meeting_today, r.titulo),
-                        (r.pontoNome == null ? "" : r.pontoNome + " · ") + TimeText.dateTime(r.pedido.encontroEm),
+                        (r.pontoNome == null ? "" : r.pontoNome + " · ") + TimeText.hour(r.pedido.encontroEm),
                         () -> openTrade(r.pedido.id));
             } else if (Labels.needsAction(r.pedido, me)) {
                 addAction(R.drawable.ic_check_circle, R.drawable.bg_circle_success, R.color.leia_success,
@@ -247,12 +250,18 @@ public class HomeFragment extends Fragment {
         for (ShelfRow w : wishes) {
             if (w.disponiveis > 0 && w.anuncioId != null) {
                 addAction(R.drawable.ic_favorite, R.drawable.bg_circle_tertiary, R.color.leia_tertiary,
-                        getString(R.string.act_wish, w.titulo), getString(R.string.act_wish_sub),
+                        getString(R.string.act_wish, w.titulo), getResources().getQuantityString(R.plurals.wish_copies, w.disponiveis, w.disponiveis),
                         () -> openListing(w.anuncioId));
                 count++;
             }
         }
         binding.forYou.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+    }
+
+    /** Mesma janela da faixa do encontro (MainActivity): de 60 min antes a 30 min depois. */
+    private static boolean inMeetingBar(long encontroEm) {
+        long diff = encontroEm - System.currentTimeMillis();
+        return diff <= 60 * 60_000L && diff >= -30 * 60_000L;
     }
 
     private void addAction(int icon, int bg, int tint, String title, String subtitle, Runnable onClick) {

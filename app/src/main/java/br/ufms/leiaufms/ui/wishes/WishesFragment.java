@@ -75,12 +75,7 @@ public class WishesFragment extends Fragment {
             boolean empty = now.isEmpty() && later.isEmpty();
             binding.empty.getRoot().setVisibility(empty ? View.VISIBLE : View.GONE);
             show(!now.isEmpty(), binding.availableTitle, binding.available);
-            show(!later.isEmpty(), binding.waitingTitle, binding.waitingSub, binding.waiting);
-            binding.summary.setVisibility(empty ? View.GONE : View.VISIBLE);
-            binding.summary.setText(getString(R.string.wishes_summary,
-                    getResources().getQuantityString(R.plurals.wishes_total, now.size() + later.size(), now.size() + later.size()),
-                    now.isEmpty() ? getString(R.string.wishes_none_available)
-                            : getResources().getQuantityString(R.plurals.wishes_available, now.size(), now.size())));
+            show(!later.isEmpty(), binding.waitingTitle, binding.waiting);
         });
         BookCardAdapter suggest = new BookCardAdapter(new BookCardAdapter.Listener() {
             @Override

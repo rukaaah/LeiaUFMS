@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         navController.addOnDestinationChangedListener((c, d, a) -> {
+            if (meeting != null) renderMeeting();
             // Páginas abertas com capa usam os botões próprios sobre a capa, sem barra de título
             int id = d.getId();
             boolean hero = id == R.id.listingDetailFragment || id == R.id.obraFragment;
@@ -275,7 +276,8 @@ public class MainActivity extends AppCompatActivity {
         meetingTick.removeCallbacks(meetingRefresh);
         com.google.android.material.card.MaterialCardView bar = binding.meeting.meetingBar;
         long now = System.currentTimeMillis();
-        if (meeting == null || meeting.encontroEm - now > 60 * MIN || now - meeting.encontroEm > 30 * MIN) {
+        if (meeting == null || meeting.encontroEm - now > 60 * MIN || now - meeting.encontroEm > 30 * MIN
+                || viewingMeetingTrade()) {
             bar.setVisibility(android.view.View.GONE);
             if (meeting != null && meeting.encontroEm - now > 60 * MIN) {
                 meetingTick.postDelayed(meetingRefresh, meeting.encontroEm - now - 60 * MIN);
@@ -327,6 +329,13 @@ public class MainActivity extends AppCompatActivity {
         meetingTick.postDelayed(meetingRefresh, 30_000);
     }
 
+    /** Dentro do próprio pedido do encontro a faixa repetiria o que a tela já mostra. */
+    private boolean viewingMeetingTrade() {
+        androidx.navigation.NavBackStackEntry e = navController.getCurrentBackStackEntry();
+        if (e == null || e.getDestination().getId() != R.id.tradeDetailFragment || e.getArguments() == null) return false;
+        return e.getArguments().getLong(br.ufms.leiaufms.ui.trade.TradeDetailFragment.ARG_ID) == meeting.pedidoId;
+    }
+
     // ---- Meu tempo até o ponto: só com a permissão já concedida (RNF-07), nunca pede aqui ----
 
     private android.location.Location myLocation;
@@ -339,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
                 myLocation.getLongitude(), meeting.pontoLat, meeting.pontoLng);
         if (d < 50) return getString(R.string.meet_me_there);
         if (!br.ufms.leiaufms.core.location.WalkEstimate.isWalkable(d)) {
-            return getString(R.string.meet_me_far, br.ufms.leiaufms.ui.common.Labels.distance(this, d));
+            return getString(R.string.meet_me_far, br.ufms.leiaufms.ui.common.Labels.distance(this, d).replaceFirst("^a ", ""));
         }
         return getString(R.string.meet_me_walk, br.ufms.leiaufms.core.location.WalkEstimate.minutes(d));
     }

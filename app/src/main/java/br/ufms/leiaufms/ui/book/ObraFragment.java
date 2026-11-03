@@ -91,15 +91,15 @@ public class ObraFragment extends Fragment {
                 binding.title.setText(o.titulo);
                 binding.author.setText(o.autor);
                 Covers.bind(binding.cover.coverImage, binding.cover.coverText, o.capaPath, o.titulo);
-                binding.wishes.setText(wishCount == 0 ? getString(R.string.wish_count_zero)
-                        : getResources().getQuantityString(R.plurals.wish_count_total, wishCount, wishCount));
+                binding.wishes.setVisibility(wishCount == 0 ? View.GONE : View.VISIBLE);
+                binding.wishes.setText(getResources().getQuantityString(R.plurals.wish_count_total, wishCount, wishCount));
                 binding.buttonWish.setText(wished ? R.string.wish_remove : R.string.wish_add);
                 binding.buttonWish.setIconResource(wished ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
                 binding.hero.heart.setImageResource(wished ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
                 binding.hero.heart.setColorFilter(requireContext().getColor(wished ? R.color.leia_primary : R.color.leia_on_background));
                 binding.hero.heart.setContentDescription(getString(wished ? R.string.wish_remove : R.string.wish_add));
                 binding.hero.share.setOnClickListener(v -> {
-                    String text = getString(R.string.share_obra_text, o.titulo, o.autor, binding.wishes.getText());
+                    String text = getString(R.string.share_obra_text, o.titulo, o.autor);
                     android.content.Intent send = new android.content.Intent(android.content.Intent.ACTION_SEND)
                             .setType("text/plain").putExtra(android.content.Intent.EXTRA_TEXT, text);
                     startActivity(android.content.Intent.createChooser(send, getString(R.string.action_share)));

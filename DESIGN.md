@@ -69,4 +69,4 @@ Todos os pares de texto ≥ 5,9:1.
 ## 8. Do / Don't
 
 - **Do:** capa real sempre que existir; um botão principal por tela; texto + ícone em todo estado.
-- **Don't:** abas com a mesma cara; listas sem destaque; contador vermelho; mais de 2 cores de acento por tela fora do mural.
+- **Don't:** texto que repete o que a tela já mostra (ex.: "Combinado pelos dois", "10 min antes", resumo de contagem visível, botão "+" explicado na aba Desejos); a mesma informação em dois lugares da mesma tela (faixa do encontro some dentro do próprio pedido e o Início não repete o encontro da faixa); abas com a mesma cara; listas sem destaque; contador vermelho; mais de 2 cores de acento por tela fora do mural.

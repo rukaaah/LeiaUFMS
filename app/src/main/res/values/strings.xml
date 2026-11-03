@@ -189,7 +189,7 @@
     <string name="notif_meeting_soon_title">Encontro em breve</string>
     <string name="notif_meeting_soon_text">Encontro para %1$s em %2$s, %3$s.</string>
     <string name="notif_wish_title">Um livro que você deseja chegou</string>
-    <string name="notif_wish_text">%1$s foi anunciado agora. Corra para ver.</string>
+    <string name="notif_wish_text">%1$s foi anunciado agora.</string>
     <string name="reason_other_accepted">Combinado com outra pessoa</string>
     <string name="reason_deadline">Prazo de entrega encerrado</string>
     <string name="chat_meeting_auto">Encontro marcado: %1$s, %2$s.</string>
@@ -215,9 +215,9 @@
     <string name="action_try_again">Tentar de novo</string>
     <string name="distance_m">a %1$d m</string>
     <string name="distance_km">a %1$s km</string>
-    <string name="walk_yes">Dá para ir a pé (~%1$d min)</string>
+    <string name="walk_yes">A pé · ~%1$d min</string>
     <string name="walk_no">Longe para ir a pé</string>
-    <string name="walk_note">Estimativa em linha reta. O caminho real pode ser maior.</string>
+    <string name="walk_note">Em linha reta</string>
     <string name="no_distance">Sem local informado</string>
     <string name="location_hint_detail">Ative a localização para ver a distância.</string>
     <string name="modality_trade">Troca</string>
@@ -331,7 +331,6 @@
     <string name="trade_no_credit">Pedido sem crédito. Quem anunciou decide se aceita.</string>
     <string name="trade_requester_balance">Saldo de %1$s: %2$d crédito(s)</string>
     <string name="trade_meeting">Encontro: %1$s, %2$s</string>
-    <string name="trade_no_meeting">Encontro ainda não marcado.</string>
     <string name="trade_reason">Motivo: %1$s</string>
     <string name="action_accept">Aceitar</string>
     <string name="action_decline">Recusar</string>
@@ -352,7 +351,7 @@
     <string name="confirm_title">Confirmar a entrega?</string>
     <string name="confirm_message">Confirme só depois do encontro. Quando os dois confirmarem, a troca é concluída e os créditos são lançados.</string>
     <string name="action_confirm">Confirmar</string>
-    <string name="trade_accepted_done">Pedido aceito. Marque o encontro.</string>
+    <string name="trade_accepted_done">Pedido aceito</string>
     <string name="trade_declined_done">Pedido recusado</string>
     <string name="trade_cancelled_done">Pedido cancelado</string>
     <string name="trade_confirmed_done">Confirmação registrada</string>
@@ -376,7 +375,7 @@
     <string name="error_meeting_date">Escolha uma data entre agora e o fim do prazo de entrega (%1$s).</string>
     <string name="error_point">Escolha um dos pontos seguros marcados no mapa.</string>
     <string name="action_confirm_meeting">Propor este horário</string>
-    <string name="meeting_done">Proposta enviada. O encontro vale quando a outra pessoa aceitar.</string>
+    <string name="meeting_done">Proposta enviada</string>
     <string name="action_show_list">Ver em lista</string>
     <string name="action_show_map">Ver no mapa</string>
     <string name="action_my_location">Minha localização</string>
@@ -402,7 +401,7 @@
     <string name="chat_header">%1$s · com %2$s</string>
     <string name="chat_locked">O chat abre quando o pedido for aceito.</string>
     <string name="chat_closed">Este pedido foi encerrado. O chat fica só para leitura.</string>
-    <string name="chat_empty">Nenhuma mensagem ainda. Use uma mensagem pronta para começar.</string>
+    <string name="chat_empty">Nenhuma mensagem ainda.</string>
     <string name="label_message">Mensagem</string>
     <string name="hint_message">Escreva uma mensagem…</string>
     <string name="action_send">Enviar</string>
@@ -433,7 +432,7 @@
     <string name="wish_available">Disponível agora</string>
     <string name="wish_not_available">Ainda não anunciado</string>
     <string name="wish_duplicate">Este livro já está na sua lista de desejos.</string>
-    <string name="wish_added">Livro adicionado aos desejos. Avisamos quando ele for anunciado.</string>
+    <string name="wish_added">Adicionado aos desejos</string>
     <string name="shelf_added">Livro adicionado à estante</string>
     <string name="action_mark_read">Terminei de ler</string>
     <string name="action_mark_reading">Voltar para "Estou lendo"</string>
@@ -484,11 +483,11 @@
     <string name="home_search">Buscar título, autor ou ISBN</string>
     <string name="home_for_you">Pra você agora</string>
     <string name="home_near">Perto de você, a pé</string>
-    <string name="home_near_sub">Livros em pontos seguros até 2 km</string>
-    <string name="home_near_invite">Ative a localização para ver o que dá para buscar a pé.</string>
+    <string name="home_near_sub">Até 2 km</string>
+    <string name="home_near_invite">Veja o que dá para buscar a pé.</string>
     <string name="home_near_none">Nenhum livro a pé agora. Veja os que chegaram.</string>
     <string name="home_course">Para o seu curso</string>
-    <string name="home_course_sub">Indicados em disciplinas de %1$s</string>
+    <string name="home_course_sub">%1$s</string>
     <string name="home_new">Chegaram agora</string>
     <string name="home_all">Ver todos os livros</string>
     <string name="home_credits_chip">%1$d crédito(s)</string>
@@ -497,14 +496,13 @@
     <string name="badge_far">%1$s</string>
     <string name="wish_add">Salvar nos desejos</string>
     <string name="wish_remove">Tirar dos desejos</string>
-    <string name="wish_saved">Salvo nos desejos. Avisamos quando aparecer outra cópia.</string>
+    <string name="wish_saved">Salvo nos desejos</string>
     <string name="act_answer">%1$s pediu %2$s</string>
     <string name="act_answer_sub">Responda o pedido</string>
     <string name="act_schedule">Proponha o encontro de %1$s</string>
     <string name="act_confirm">Confirme a entrega de %1$s</string>
     <string name="act_meeting_today">Encontro hoje: %1$s</string>
     <string name="act_wish">%1$s está disponível</string>
-    <string name="act_wish_sub">Está na sua lista de desejos</string>
     <string name="act_with">com %1$s</string>
     <string name="book_card_description">%1$s, de %2$s. %3$s. Anunciado por %4$s</string>
 
@@ -536,10 +534,10 @@
 
     <!-- RF-41: localização no encontro -->
     <string name="live_title">Localização no encontro</string>
-    <string name="live_closed">Localização liberada às %1$s (10 min antes)</string>
-    <string name="live_ended">Janela de localização encerrada</string>
+    <string name="live_closed">Localização às %1$s</string>
+    <string name="live_ended">Localização encerrada</string>
     <string name="live_switch">Mostrar onde estou para %1$s</string>
-    <string name="live_on">Visível · atualiza a cada minuto</string>
+    <string name="live_on">Visível</string>
     <string name="live_other">%1$s · %2$s do ponto · %3$s</string>
     <string name="live_other_none">%1$s ainda não mostrou onde está</string>
 
@@ -550,7 +548,7 @@
     <string name="post_type_doacao">Doação</string>
     <string name="post_type_troca">Troca concluída</string>
     <string name="feed_caught_up">Você está em dia</string>
-    <string name="feed_caught_up_sub">Esses são os posts dos últimos 14 dias. Volte depois para ver os novos.</string>
+    <string name="feed_caught_up_sub">Posts dos últimos 14 dias.</string>
     <string name="action_new_post">Novo post</string>
     <string name="react_useful">Útil</string>
     <string name="react_want">Quero</string>
@@ -605,7 +603,7 @@
     <string name="title_obra">Livro</string>
     <string name="title_disciplina">Disciplina</string>
     <string name="hub_copies">Cópias disponíveis</string>
-    <string name="hub_no_copies">Nenhuma cópia anunciada agora. Salve nos desejos e avisamos quando aparecer.</string>
+    <string name="hub_no_copies">Nenhuma cópia agora.</string>
     <string name="hub_compatible">Edições compatíveis</string>
     <string name="hub_disciplines">Indicado nas disciplinas</string>
     <string name="hub_books">Livros indicados</string>
@@ -617,7 +615,6 @@
         <item quantity="one">%d pessoa quer este livro</item>
         <item quantity="other">%d pessoas querem este livro</item>
     </plurals>
-    <string name="wish_count_zero">Ninguém salvou este livro nos desejos ainda</string>
     <string name="chat_empty_closed">Nenhuma mensagem neste pedido.</string>
     <string name="trajectory_title">Trajetória do exemplar</string>
     <string name="trajectory_line">%1$s · %2$s, %3$dº semestre · desde %4$s</string>
@@ -629,9 +626,9 @@
     <string name="meet_at">Encontro às %1$s</string>
     <string name="meet_other_dist">%1$s a %2$s</string>
     <string name="meet_bar_description">%1$s. %2$s. %3$s %4$s. Toque para abrir o pedido</string>
-    <string name="meet_me_walk">Você chega em ~%1$d min a pé</string>
-    <string name="meet_me_far">Você está %1$s</string>
-    <string name="meet_me_there">Você já está no ponto</string>
+    <string name="meet_me_walk">~%1$d min</string>
+    <string name="meet_me_far">%1$s</string>
+    <string name="meet_me_there">No ponto</string>
     <string name="time_in_min">em %1$d min</string>
     <string name="meet_time_rel">%1$s · %2$s</string>
     <string name="today">Hoje</string>
@@ -665,20 +662,12 @@
     <string name="next_wait_meeting">Aguardando aceitarem o horário</string>
     <string name="action_accept_meeting">Aceitar horário</string>
     <string name="action_suggest_meeting">Sugerir outro</string>
-    <string name="trade_meeting_proposed_by_me">Você propôs. Falta a outra pessoa aceitar.</string>
-    <string name="trade_meeting_proposed_by_other">%1$s propôs este horário.</string>
-    <string name="trade_meeting_agreed">Combinado pelos dois</string>
+    <string name="trade_meeting_proposed_by_other">Proposto por %1$s</string>
     <string name="result_meeting_accepted">Encontro combinado.</string>
     <string name="act_meeting_proposal">%1$s propôs um horário: %2$s</string>
-    <string name="action_add_wish">Desejar um livro</string>
+    <string name="action_add_wish">Adicionar desejo</string>
     <string name="wishes_available_title">Disponíveis agora</string>
     <string name="wishes_waiting_title">Esperando aparecer</string>
-    <string name="wishes_waiting_sub">Avisamos assim que alguém anunciar.</string>
-    <string name="wishes_summary">%1$s, %2$s.</string>
-    <plurals name="wishes_total">
-        <item quantity="one">%d livro desejado</item>
-        <item quantity="other">%d livros desejados</item>
-    </plurals>
     <plurals name="wish_copies">
         <item quantity="one">%d cópia</item>
         <item quantity="other">%d cópias</item>
@@ -687,12 +676,11 @@
         <item quantity="one">Mais %d pessoa quer</item>
         <item quantity="other">Mais %d pessoas querem</item>
     </plurals>
-    <string name="wishes_none_available">nenhum disponível ainda</string>
     <!-- Post aberto e comentários (RF-43) -->
     <string name="title_post">Post</string>
     <string name="post_see_listing">Ver o anúncio</string>
     <string name="post_comments">Comentários</string>
-    <string name="post_comments_empty">Ninguém comentou ainda. Comece a conversa.</string>
+    <string name="post_comments_empty">Nenhum comentário ainda.</string>
     <string name="post_by">%1$s · %2$s</string>
     <string name="post_gone">Este post não está mais disponível.</string>
     <string name="label_comment">Comentário</string>
@@ -709,8 +697,8 @@
     <string name="share_post_text">%1$s no LeiaUFMS: %2$s, de %3$s.\n\n"%4$s"\n\n%5$s, no mural do LeiaUFMS.</string>
     <string name="share_listing_text">%1$s, de %2$s, está no LeiaUFMS.\n%3$s · %4$s\nRetirada: %5$s.\nAbra o app LeiaUFMS e busque pelo título para pedir.</string>
     <string name="share_listing_no_point">a combinar</string>
-    <string name="share_obra_text">%1$s, de %2$s, no LeiaUFMS: %3$s.\nAbra o app LeiaUFMS e busque pelo título.</string>
-    <string name="trades_hint_received">Pessoas pedindo livros que você anunciou. Aceite, recuse e combine a entrega.</string>
-    <string name="trades_hint_sent">Livros que você pediu a outras pessoas. Acompanhe a resposta e o encontro.</string>
+    <string name="share_obra_text">%1$s, de %2$s, no LeiaUFMS.\nAbra o app LeiaUFMS e busque pelo título.</string>
+    <string name="trades_hint_received">Pedidos pelos livros que você anunciou.</string>
+    <string name="trades_hint_sent">Livros que você pediu.</string>
     <string name="action_close">Fechar</string>
 </resources>

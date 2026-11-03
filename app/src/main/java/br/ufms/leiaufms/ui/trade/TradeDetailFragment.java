@@ -105,24 +105,28 @@ public class TradeDetailFragment extends Fragment {
         int step = br.ufms.leiaufms.ui.common.TradeProgressView.stepOf(p);
         binding.progress.setVisibility(step >= 0 ? View.VISIBLE : View.GONE);
         if (step >= 0) binding.progress.setStep(step, PedidoEstado.CONCLUIDO.equals(p.estado));
+        // A barra de etapas já diz o estado; o texto fica só para encerrados e disputa (sem barra ou etapa ambígua)
+        boolean stateInBar = step >= 0 && !PedidoEstado.EM_DISPUTA.equals(p.estado);
+        binding.state.setVisibility(stateInBar ? View.GONE : View.VISIBLE);
         binding.state.setText(Labels.state(requireContext(), p.estado));
         binding.state.setCompoundDrawablesRelativeWithIntrinsicBounds(Labels.stateIcon(p.estado), 0, 0, 0);
         String next = Labels.nextStep(requireContext(), p, me);
         binding.next.setVisibility(next == null ? View.GONE : View.VISIBLE);
         binding.next.setText(next);
         boolean hasMeeting = p.encontroEm != null && r.pontoNome != null;
-        binding.meeting.setVisibility(PedidoEstado.ACEITO.equals(p.estado) || hasMeeting ? View.VISIBLE : View.GONE);
-        binding.meeting.setText(hasMeeting ? r.pontoNome : getString(R.string.trade_no_meeting));
+        // Sem encontro, o botão "Propor encontro" já diz isso
+        binding.meeting.setVisibility(hasMeeting ? View.VISIBLE : View.GONE);
+        if (hasMeeting) binding.meeting.setText(r.pontoNome);
         binding.meetingTime.setVisibility(hasMeeting ? View.VISIBLE : View.GONE);
         if (hasMeeting) binding.meetingTime.setText(TimeText.meeting(requireContext(), p.encontroEm));
-        binding.meetingStatus.setVisibility(hasMeeting && PedidoEstado.ACEITO.equals(p.estado) ? View.VISIBLE : View.GONE);
-        if (hasMeeting) {
-            String other = owner ? r.solicitanteNome : r.donoNome;
-            binding.meetingStatus.setText(p.encontroAceito ? getString(R.string.trade_meeting_agreed)
-                    : Labels.proposedBy(p, me) ? getString(R.string.trade_meeting_proposed_by_me)
-                    : getString(R.string.trade_meeting_proposed_by_other, other));
-            binding.meetingStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                    p.encontroAceito ? R.drawable.ic_check_circle : R.drawable.ic_schedule, 0, 0, 0);
+        // Só a proposta da outra pessoa ganha selo; marcado já é combinado, e a minha proposta aparece no próximo passo
+        boolean otherProposal = hasMeeting && PedidoEstado.ACEITO.equals(p.estado) && !p.encontroAceito
+                && !Labels.proposedBy(p, me);
+        binding.meetingStatus.setVisibility(otherProposal ? View.VISIBLE : View.GONE);
+        if (otherProposal) {
+            binding.meetingStatus.setText(getString(R.string.trade_meeting_proposed_by_other,
+                    owner ? r.solicitanteNome : r.donoNome));
+            binding.meetingStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_schedule, 0, 0, 0);
         }
         renderLive(r);
         binding.reason.setVisibility(p.motivo == null ? View.GONE : View.VISIBLE);
@@ -185,6 +189,8 @@ public class TradeDetailFragment extends Fragment {
                 });
             }
         }
+        // O botão principal já diz o próximo passo; o texto fica só quando é esperar (sem botão)
+        if (binding.buttonPrimary.getVisibility() == View.VISIBLE) binding.next.setVisibility(View.GONE);
     }
 
     // ---- RF-41: localização só nos 10 min antes do encontro (até 30 min depois) ----
