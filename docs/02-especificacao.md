@@ -160,7 +160,7 @@ Legenda de prioridade: **D** = Deve (exigência do PDF), **De** = Deveria, **P**
 
 | Prática | Onde aparece |
 |---|---|
-| Navegação consistente: 4 abas fixas (Explorar, Mural, Trocas, Perfil) | Todo o app |
+| Navegação consistente: 5 abas fixas (Início, Desejos, Trocas, Mural, Perfil), com faixa fixa do próximo encontro | Todo o app |
 | Próximo passo explícito em cada pedido ("Aguardando resposta", "Marque o encontro", "Confirme a entrega") | Tela do pedido |
 | Erros por campo, em linguagem simples, com como corrigir | Formulários |
 | Estados vazios que ensinam ("Sua estante está vazia. Adicione o livro que está lendo.") | Listas |

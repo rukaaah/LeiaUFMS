@@ -119,6 +119,19 @@ A skill pede que cada tela **responda uma pergunta primeiro**, que o maior eleme
 | Mural (estrutura Pinterest) | "O que a turma está lendo e procurando?" | Grade de capas em 2 colunas: a capa é o post | **Novo post** → filtrar por tipo, reagir "Útil" / "Quero" | Chips de filtro (Todos, Dica, Procuro, Doação, Troca concluída) → grade de posts (etiqueta colorida do tipo sobre a capa, livro, texto, autor e tempo, reações em texto) → fim "Você está em dia" | Vazio: "O mural está quieto. Compartilhe uma dica sobre um livro." + Novo post. Post de Doação: "Quero" leva ao anúncio |
 | Perfil | "Como a comunidade me vê?" | Cabeçalho azul com foto, nome, nota e créditos | Editar perfil → estante, desejos, conta | Cabeçalho azul → três números (trocas, livros passados adiante, nota) → selos → estante em capas (carrossel) → conta | Sem foto: iniciais |
 
+#### Ajustes de usabilidade (feedback do Pedro, 03/11/2026)
+
+| Tela / elemento | Mudança | Por quê |
+|---|---|---|
+| Barra inferior | 5 abas: **Início, Desejos, Trocas, Mural, Perfil**; ícone cheio na aba ativa, indicador azul, ponto azul em Trocas quando algo precisa de você | Desejos é central num app de troca; a barra parecia simples demais |
+| Faixa do próximo encontro | Fixa acima das abas, em qualquer tela: aparece 60 min antes, fica verde forte a 30 min e azul a 10 min; mostra capa, "Encontro em N min · 23:35", ponto e a distância da outra pessoa ao ponto (RF-41) | A entrega estava escondida em Trocas → Enviados |
+| Desejos (aba) | Grade de capas com os disponíveis primeiro (selo verde), resumo "N disponíveis agora", sugestões do mesmo autor ou disciplina | Tornar o desejo um ponto de entrada |
+| Início | Novas seções: "Porque você leu X" (mesmo autor ou gênero), "Mais de {gênero}" (o gênero que a pessoa mais lê, deseja ou troca) e "Explore por gênero" | Categorias ligadas ao usuário |
+| Todos os livros | Grade de capas em 2 colunas com chips de gênero e modalidade | A lista parecia monótona |
+| Mural | Card inteiro na cor da categoria, ícone por tipo, texto em 3 linhas, reações em ícone + número | O olho acha o tipo antes de ler |
+| Trocas e Pedido | Ícones no lugar de frases: 👤 quem, 📍 onde (em destaque), 🕐 "Hoje 23:35 · em 18 min"; próximo passo como botão curto ("Confirmar entrega") | Menos leitura para achar onde e quando |
+| Resgate | "Resgatar · 1 crédito" só com crédito; sem crédito o botão é "Pedir doação" (a regra RN-CRED-04 continua) | Evitar parecer que precisa de crédito que não tem |
+
 ### 6.1 Briefings de tela (Etapa D2, `/design-taste-frontend`)
 
 A skill classifica todas as telas do LeiaUFMS como **telas de app** (trabalhadas, não lidas), então valem as regras de `references/app-screens.md` da skill, traduzidas para Android:

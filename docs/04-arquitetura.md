@@ -71,7 +71,7 @@ App abre
 |---|---|---|
 | `usuario` | id, nome, email (único, minúsculo), senhaHash, curso, semestre, status, fotoPath, papel (`ALUNO`/`MODERADOR`), criadoEm | Nunca guardar senha |
 | `sessao` | id, usuarioId, tokenHash, criadaEm, expiraEm | Token em claro só no `SharedPreferences` |
-| `obra` | id, titulo, autor, isbn13 (nulo), capaPath, capaTentativaEm | Agrupador do hub. Capa da Open Library (RF-42); banco v3 |
+| `obra` | id, titulo, autor, isbn13 (nulo), genero, capaPath, capaTentativaEm | Agrupador do hub. Capa da Open Library (RF-42, v3); gênero para o Início (v5) |
 | `edicao_compativel` | obraId, obraCompativelId | Marcado por moderador |
 | `disciplina` | id, codigo, nome, curso | Seed |
 | `obra_disciplina` | obraId, disciplinaId | Recomendações |

@@ -46,7 +46,8 @@ Todos os pares de texto ≥ 5,9:1.
 
 ## 5. Navegação
 
-- 4 abas com ícone + rótulo: **Início, Mural, Trocas, Perfil**, cada uma com seu destaque (ver jornada §4).
+- 5 abas com ícone + rótulo: **Início, Desejos, Trocas, Mural, Perfil**; ícone cheio na aba ativa; ponto azul em Trocas quando algo precisa de você.
+- Faixa fixa do próximo encontro acima das abas (60/30/10 min), em qualquer tela.
 - Pilha para detalhes; barra de ação fixa na base do Livro e do Pedido (como a barra de reserva da Airbnb).
 
 ## 6. Componentes-chave
