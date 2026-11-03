@@ -73,6 +73,19 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return new Holder(ItemPostBinding.inflate(inf, parent, false));
     }
 
+    static int icon(String tipo) {
+        switch (tipo) {
+            case PostMural.TIPO_PROCURO:
+                return R.drawable.ic_search;
+            case PostMural.TIPO_DOACAO:
+                return R.drawable.ic_donate;
+            case PostMural.TIPO_TROCA_CONCLUIDA:
+                return R.drawable.ic_check_circle;
+            default:
+                return R.drawable.ic_info;
+        }
+    }
+
     static int[] colors(String tipo) {
         switch (tipo) {
             case PostMural.TIPO_PROCURO:
@@ -93,21 +106,25 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         PostRow p = items.get(position);
         Context c = h.itemView.getContext();
         int[] col = colors(p.tipo);
-        android.graphics.drawable.GradientDrawable tag = new android.graphics.drawable.GradientDrawable();
-        tag.setColor(c.getColor(col[0]));
-        tag.setCornerRadius(12 * c.getResources().getDisplayMetrics().density);
-        h.b.tag.setBackground(tag);
-        h.b.tag.setTextColor(c.getColor(col[1]));
+        int on = c.getColor(col[1]);
+        // O card inteiro ganha a cor da categoria: o olho acha o tipo antes de ler
+        h.b.card.setCardBackgroundColor(c.getColor(col[0]));
+        h.b.tag.setTextColor(on);
         h.b.tag.setText(col[2]);
+        h.b.tag.setCompoundDrawablesRelativeWithIntrinsicBounds(icon(p.tipo), 0, 0, 0);
+        androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(h.b.tag, android.content.res.ColorStateList.valueOf(on));
+        h.b.book.setTextColor(on);
+        h.b.text.setTextColor(on);
+        h.b.meta.setTextColor(on);
         Covers.bind(h.b.cover.coverImage, h.b.cover.coverText, p.capaPath, p.titulo);
         h.b.book.setText(p.titulo);
         h.b.text.setText(p.texto);
         String when = TimeText.ago(c, p.criadoEm);
         h.b.meta.setText(p.autorNome + " · " + when);
         bindReaction(h.b.reactUseful, p.meuUtil, p.uteis, R.string.react_useful, R.plurals.react_useful_count,
-                R.drawable.ic_thumb_up, R.drawable.ic_thumb_up, c);
+                R.drawable.ic_thumb_up, R.drawable.ic_thumb_up, c, on);
         bindReaction(h.b.reactWant, p.meuQuero, p.queros, R.string.react_want, R.plurals.react_want_count,
-                R.drawable.ic_favorite, R.drawable.ic_favorite_border, c);
+                R.drawable.ic_favorite, R.drawable.ic_favorite_border, c, on);
         h.b.reactUseful.setOnClickListener(v -> {
             bounce(v);
             listener.onReact(p, br.ufms.leiaufms.data.local.entity.Reacao.TIPO_UTIL);
@@ -122,15 +139,17 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return true;
         });
         h.b.card.setContentDescription(c.getString(R.string.post_description, c.getString(col[2]), p.autorNome,
-                p.titulo, p.texto, when, h.b.reactUseful.getText() + ", " + h.b.reactWant.getText()));
+                p.titulo, p.texto, when, h.b.reactUseful.getContentDescription() + ", " + h.b.reactWant.getContentDescription()));
     }
 
     /** Reação ativa: cor de marca e ícone cheio; contagem em texto discreto, nunca número grande. */
+    /** Reação em ícone + número (texto completo só para o TalkBack); ativa fica em negrito. */
     private static void bindReaction(com.google.android.material.button.MaterialButton b, boolean mine, int count,
-                                     int label, int countLabel, int iconOn, int iconOff, Context c) {
-        b.setText(count > 0 ? c.getResources().getQuantityString(countLabel, count, count) : c.getString(label));
+                                     int label, int countLabel, int iconOn, int iconOff, Context c, int color) {
+        b.setText(count > 0 ? String.valueOf(count) : "");
+        b.setContentDescription(count > 0 ? c.getResources().getQuantityString(countLabel, count, count) : c.getString(label));
         b.setIconResource(mine ? iconOn : iconOff);
-        int color = c.getColor(mine ? R.color.leia_primary : R.color.leia_on_surface_variant);
+        b.setTypeface(null, mine ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
         b.setTextColor(color);
         b.setIconTint(android.content.res.ColorStateList.valueOf(color));
         androidx.core.view.ViewCompat.setStateDescription(b, mine ? c.getString(R.string.state_selected) : null);

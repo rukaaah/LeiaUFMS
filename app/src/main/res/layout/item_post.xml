@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Post do mural (estrutura Pinterest: a capa é o post; cores do meio-termo Playful). -->
+<!-- Post do mural: card inteiro na cor da categoria (feedback 03/11), capa como post (Pinterest), pouco texto. -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card"
@@ -8,83 +8,83 @@
     android:layout_margin="@dimen/space_xxs"
     android:clickable="true"
     android:focusable="true"
-    app:shapeAppearance="@style/ShapeAppearance.Leia.Social">
+    app:cardElevation="@dimen/elevation_flat"
+    app:shapeAppearance="@style/ShapeAppearance.Leia.Social"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/space_xs">
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xs"
+            android:drawablePadding="@dimen/space_xxs"
+            android:gravity="center_vertical"
+            android:importantForAccessibility="no"
+            android:paddingStart="@dimen/space_xxs"
+            android:textAppearance="@style/TextAppearance.Leia.Title" />
+
+        <include
+            android:id="@+id/cover"
+            layout="@layout/view_cover"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/post_cover_height" />
 
-            <include
-                android:id="@+id/cover"
-                layout="@layout/view_cover"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/post_cover_height" />
+        <TextView
+            android:id="@+id/book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xs"
+            android:ellipsize="end"
+            android:importantForAccessibility="no"
+            android:maxLines="1"
+            android:paddingStart="@dimen/space_xxs"
+            android:paddingEnd="@dimen/space_xxs"
+            android:textAppearance="@style/TextAppearance.Leia.BookTitleSmall" />
 
-            <TextView
-                android:id="@+id/tag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_xs"
-                android:background="@drawable/bg_post_tag"
-                android:importantForAccessibility="no"
-                android:paddingStart="@dimen/space_xs"
-                android:paddingTop="@dimen/space_xxs"
-                android:paddingEnd="@dimen/space_xs"
-                android:paddingBottom="@dimen/space_xxs"
-                android:textAppearance="@style/TextAppearance.Leia.LabelSmall" />
-        </FrameLayout>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:importantForAccessibility="no"
+            android:maxLines="3"
+            android:paddingStart="@dimen/space_xxs"
+            android:paddingEnd="@dimen/space_xxs"
+            android:textAppearance="@style/TextAppearance.Leia.BodySmall" />
+
+        <TextView
+            android:id="@+id/meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xxs"
+            android:importantForAccessibility="no"
+            android:maxLines="1"
+            android:paddingStart="@dimen/space_xxs"
+            android:textAppearance="@style/TextAppearance.Leia.Caption" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/space_s">
-
-            <TextView
-                android:id="@+id/book"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:importantForAccessibility="no"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.Leia.BookTitleSmall"
-                android:textColor="@color/leia_on_background" />
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_xxs"
-                android:ellipsize="end"
-                android:importantForAccessibility="no"
-                android:maxLines="5"
-                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
-                android:textColor="@color/leia_on_background" />
-
-            <TextView
-                android:id="@+id/meta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_xs"
-                android:importantForAccessibility="no"
-                android:textAppearance="@style/TextAppearance.Leia.Caption"
-                android:textColor="@color/leia_on_surface_variant" />
+            android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/react_useful"
                 style="@style/Widget.Leia.ReactionButton"
-                android:text="@string/react_useful"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 app:icon="@drawable/ic_thumb_up" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/react_want"
                 style="@style/Widget.Leia.ReactionButton"
-                android:text="@string/react_want"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 app:icon="@drawable/ic_favorite_border" />
         </LinearLayout>
     </LinearLayout>
