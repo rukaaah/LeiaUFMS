@@ -118,11 +118,18 @@ public class MainActivity extends AppCompatActivity {
             int id = d.getId();
             boolean hero = id == R.id.listingDetailFragment || id == R.id.obraFragment;
             binding.toolbar.setVisibility(hero ? android.view.View.GONE : android.view.View.VISIBLE);
-            boolean home = isInTab(d, R.id.homeFragment);
+            // Bola acesa (azul, casa cheia, tamanho cheio) só na aba Início; fora dela fica apagada como as outras abas
+            boolean home = binding.bottomNav.getSelectedItemId() == R.id.homeFragment;
             binding.homeBall.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
-                    getColor(home ? R.color.leia_primary : R.color.leia_primary_container)));
+                    getColor(home ? R.color.leia_primary : R.color.leia_surface_container)));
             binding.homeBall.setImageTintList(android.content.res.ColorStateList.valueOf(
-                    getColor(home ? R.color.leia_on_primary : R.color.leia_on_primary_container)));
+                    getColor(home ? R.color.leia_on_primary : R.color.leia_on_surface_variant)));
+            binding.homeBall.setImageResource(home ? R.drawable.ic_home_filled : R.drawable.ic_home);
+            binding.homeBall.setCompatElevation(home ? getResources().getDimension(R.dimen.elevation_hero) : 0f);
+            float scale = home ? 1f : 0.86f;
+            binding.homeBall.animate().scaleX(scale).scaleY(scale).setDuration(180).start();
+            androidx.core.view.ViewCompat.setStateDescription(binding.homeBall,
+                    home ? getString(R.string.state_selected) : null);
             // Indicador da aba ganha a cor do contexto: Mural com a cor viva do social
             // No Início a própria bola é o destaque: sem a pílula de seleção aparecendo atrás dela
             boolean feed = d.getId() == R.id.feedFragment;
@@ -131,13 +138,6 @@ public class MainActivity extends AppCompatActivity {
                     ? android.graphics.Color.TRANSPARENT
                     : getColor(feed ? R.color.post_dica_container : R.color.leia_primary_container)));
         });
-    }
-
-    private boolean isInTab(androidx.navigation.NavDestination d, int tabId) {
-        for (androidx.navigation.NavBackStackEntry e : navController.getCurrentBackStack().getValue()) {
-            if (e.getDestination().getId() == tabId) return true;
-        }
-        return d.getId() == tabId;
     }
 
     // ---- Faixa do próximo encontro (feedback 03/11): fixa acima das abas, em qualquer tela ----
