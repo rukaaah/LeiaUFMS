@@ -20,8 +20,10 @@ import br.ufms.leiaufms.data.pedido.PedidoEstado;
 
 /**
  * Dados de demonstração (docs/04-arquitetura.md §7). Roda uma vez, na criação do banco.
- * Sem coordenadas inventadas: anúncios do seed não têm local e nenhum ponto seguro é criado
- * (o Moderador cadastra os pontos tocando no mapa, RF-30). Senha das contas: ver README.
+ * Pontos seguros FICTÍCIOS (autorizados pelo Pedro em 03/11/2026 para a demonstração): nomes
+ * terminam em "(fictício)" e as coordenadas são deslocamentos a partir do centro de Campo Grande,
+ * não lugares reais do campus. Em uso real, o Moderador cadastra os pontos no mapa (RF-30).
+ * Senha das contas: ver README.
  */
 public final class SeedData {
 
@@ -86,7 +88,12 @@ public final class SeedData {
             recomenda(sertao, dLit);
             recomenda(horaEstrela, dLit);
 
-            // Anúncios ativos (sem local: a localização é escolhida no app)
+            long moderador = 1;
+            ponto("Entrada da biblioteca (fictício)", "Ponto de demonstração", -20.4410, -54.6440, moderador);
+            ponto("Praça de alimentação (fictício)", "Ponto de demonstração", -20.4455, -54.6488, moderador);
+            ponto("Portaria principal (fictício)", "Ponto de demonstração", -20.4520, -54.6380, moderador);
+
+            // Anúncios ativos, cada um num ponto seguro fictício
             long aVidasSecas = anuncio(exemplar(vidasSecas, ana, "2ª ed.", Exemplar.CONSERVACAO_BOM),
                     ana, Anuncio.MODALIDADE_DOACAO, 2 * DAY);
             long aDom = anuncio(exemplar(domCasmurro, ana, null, Exemplar.CONSERVACAO_USADO),
@@ -205,8 +212,27 @@ public final class SeedData {
             return id;
         }
 
+        private int nextPoint = 0;
+        private long[] pontosSeed;
+
+        private long ponto(String nome, String descricao, double lat, double lng, long criadoPor) {
+            br.ufms.leiaufms.data.local.entity.PontoEncontro p = new br.ufms.leiaufms.data.local.entity.PontoEncontro();
+            p.nome = nome;
+            p.descricao = descricao;
+            p.lat = lat;
+            p.lng = lng;
+            p.ativo = true;
+            p.criadoPor = criadoPor;
+            p.criadoEm = now - 30 * DAY;
+            long id = db.pontoDao().insert(p);
+            pontosSeed = pontosSeed == null ? new long[]{id} : java.util.Arrays.copyOf(pontosSeed, pontosSeed.length + 1);
+            pontosSeed[pontosSeed.length - 1] = id;
+            return id;
+        }
+
         private long anuncio(long exemplarId, long donoId, String modalidade, long ago) {
             Anuncio a = new Anuncio();
+            if (pontosSeed != null) a.pontoPreferidoId = pontosSeed[nextPoint++ % pontosSeed.length];
             a.exemplarId = exemplarId;
             a.donoId = donoId;
             a.modalidade = modalidade;

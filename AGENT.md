@@ -48,7 +48,7 @@ Para tarefas pequenas (ex.: corrigir um layout), basta ler este arquivo + o docu
 5. **Nunca** permitir acesso a tela interna sem sessão válida.
 6. **Nunca** abrir chat fora de um pedido `ACEITO` nem criar chat aberto entre desconhecidos.
 7. **Nunca** criar seguidores, curtidas em massa, ranking ou feed infinito.
-8. **Nunca** inventar dados: coordenadas de pontos do campus, versões de bibliotecas, nomes de integrantes ou **resultados de testes**. Se faltar, deixe `[PENDENTE]` e avise.
+8. **Nunca** inventar dados: versões de bibliotecas, nomes de integrantes ou **resultados de testes**. Coordenadas: só os 3 pontos seguros **fictícios** do seed (autorizados pelo Pedro em 03/11/2026, nome termina em "(fictício)"); pontos reais são cadastrados pelo Moderador no mapa. Se faltar algo, deixe `[PENDENTE]` e avise.
 9. **Nunca** usar Kotlin, Compose ou template diferente de Empty/Basic Views Activity.
 10. **Nunca** reutilizar tema ou código das Avaliações 1 e 2.
 

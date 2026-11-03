@@ -127,7 +127,7 @@ Use `shouldShowRequestPermissionRationale` para diferenciar "negado uma vez" de 
 
 - 1 Moderador e 4 alunos de cursos diferentes. Senha de demonstração só no README; o hash BCrypt é gerado no seed.
 - 15 obras reais, 3 disciplinas com nomes genéricos (sem códigos UFMS inventados) e recomendações.
-- 11 anúncios ativos **sem coordenadas**: o local é escolhido no próprio app (localização atual ou ponto seguro).
-- **Nenhum ponto seguro.** O Moderador cadastra os pontos tocando no mapa (RF-30, PC-07). Sem pontos, "Marcar encontro" mostra um estado vazio.
+- **3 pontos seguros fictícios** (nomes terminam em "(fictício)", coordenadas deslocadas a partir do centro de Campo Grande; decisão do Pedro em 03/11/2026). Pontos reais são cadastrados pelo Moderador no mapa (RF-30).
+- 11 anúncios ativos, cada um ligado a um ponto fictício (assim "Perto de mim" e "a pé" funcionam na demonstração).
 - Histórico de 3 doações concluídas que geram os créditos no livro-razão (Ana 2, os outros 0) e 1 pedido em cada estado: pendente sem crédito, aceito (com mensagens no chat), recusado, cancelado (reserva e liberação), expirado e em disputa (reserva congelada).
 - Estantes, desejos, 3 posts no mural e reações.
