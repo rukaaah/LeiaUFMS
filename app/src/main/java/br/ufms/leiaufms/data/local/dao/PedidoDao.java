@@ -17,7 +17,7 @@ public interface PedidoDao {
 
     String SELECT_ROW = "SELECT pd.*, o.titulo, o.autor, COALESCE(o.capaPath, e.fotoPath) AS capaPath, o.id AS obraId, "
             + "sol.nome AS solicitanteNome, dono.nome AS donoNome, oo.titulo AS oferecidoTitulo, "
-            + "pt.nome AS pontoNome, pt.descricao AS pontoDescricao "
+            + "pt.nome AS pontoNome, pt.descricao AS pontoDescricao, pt.lat AS pontoLat, pt.lng AS pontoLng "
             + "FROM pedido pd JOIN anuncio a ON a.id = pd.anuncioId JOIN exemplar e ON e.id = a.exemplarId "
             + "JOIN obra o ON o.id = e.obraId JOIN usuario sol ON sol.id = pd.solicitanteId "
             + "JOIN usuario dono ON dono.id = pd.donoId "

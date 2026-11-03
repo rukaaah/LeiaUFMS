@@ -342,6 +342,8 @@ public class TradeRepository {
         PedidoEstado.requireTransition(p.estado, to);
         p.estado = to;
         p.atualizadoEm = now;
+        // RF-41: encerrado o pedido, nenhuma posição compartilhada continua guardada
+        if (!PedidoEstado.ACEITO.equals(to)) db.localizacaoDao().clearPedido(p.id);
     }
 
     private void release(Pedido p) {

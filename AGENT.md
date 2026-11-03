@@ -116,7 +116,7 @@ O design é definido **exclusivamente** por três skills, nesta ordem:
 | Integrantes | Pedro Lucas de Souza Cremonini, Gabriel Mattos de Aquino, Angelo Antonio Correia de Souza |
 | Repositório | https://github.com/rukaaah/LeiaUFMS (branch `main`) |
 | Pendências abertas | P-07, P-09, PC-02 a PC-12 (com padrão adotado) |
-| Testes caixa-preta executados | 0 de 59 (executados pelo grupo) |
+| Testes caixa-preta executados | 0 de 64 (executados pelo grupo) |
 | Próximo passo | Parte 4 (chat, estante, desejos, avaliações). Ver `docs/07-handoff.md` |
 | Build pela linha de comando | `export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"` e `./gradlew assembleDebug` |
 

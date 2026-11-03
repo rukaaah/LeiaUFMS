@@ -533,4 +533,13 @@
     <string name="step_meeting">Encontro</string>
     <string name="step_done">Concluído</string>
     <string name="steps_description">Etapa %1$d de 4: %2$s</string>
+
+    <!-- RF-41: localização no encontro -->
+    <string name="live_title">Localização no encontro</string>
+    <string name="live_closed">Você pode compartilhar sua localização a partir de %1$s (10 min antes do encontro). Fora dessa janela, ninguém vê onde você está.</string>
+    <string name="live_ended">A janela de localização deste encontro terminou.</string>
+    <string name="live_switch">Compartilhar minha localização com %1$s</string>
+    <string name="live_on">Compartilhando. Atualiza a cada minuto enquanto esta tela estiver aberta.</string>
+    <string name="live_other">%1$s está a %2$s do ponto · atualizado %3$s</string>
+    <string name="live_other_none">%1$s ainda não compartilhou a localização.</string>
 </resources>

@@ -97,6 +97,11 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 | CT-56 | RF-25 | Pedido concluído | Avaliar com nota 5 | Média do avaliado atualizada | — | Não executado |
 | CT-57 | RF-17 | Exemplar com 2 trocas concluídas | Ver histórico | "Este exemplar passou por 3 mãos" | — | Não executado |
 | CT-58 | RF-26 | Pedido aceito | Abrir disputa; logar como moderador e cancelar | Estado CANCELADO; reservas liberadas | — | Não executado |
+| CT-60 | RF-41 | Pedido aceito com encontro daqui a 30 min | Abrir o pedido | Bloco "Localização no encontro" explica que só pode compartilhar a partir de 10 min antes; sem botão | — | Não executado |
+| CT-61 | RF-41 | Encontro daqui a 5 min, conta A | Ligar "Compartilhar minha localização"; entrar como B e abrir o pedido | B vê "A está a N m do ponto · atualizado há N min" | — | Não executado |
+| CT-62 | RF-41 | Compartilhamento ligado | Desligar o botão ou concluir o pedido | A outra parte deixa de ver a posição | — | Não executado |
+| CT-63 | RF-42 | Aparelho com internet, obra nova anunciada | Esperar alguns segundos e abrir Início | Capa real aparece no card; sem internet, aparecem as iniciais do título | — | Não executado |
+| CT-64 | Onboarding | Primeira entrada de uma conta | Entrar | 5 telas (créditos, encontro, localização de 10 min, preferências); "Pular" vai para a última; "Começar" abre o Início | — | Não executado |
 
 ## 6. Falhas encontradas e correções
 
@@ -108,4 +113,4 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 
 | Total | Aprovados | Reprovados | Não executados |
 |---|---|---|---|
-| 59 | 0 | 0 | 59 |
+| 64 | 0 | 0 | 64 |

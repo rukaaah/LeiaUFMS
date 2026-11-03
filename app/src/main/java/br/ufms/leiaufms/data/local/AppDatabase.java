@@ -17,6 +17,7 @@ import br.ufms.leiaufms.core.util.AppExecutors;
 import br.ufms.leiaufms.data.local.dao.AnuncioDao;
 import br.ufms.leiaufms.data.local.dao.CreditoDao;
 import br.ufms.leiaufms.data.local.dao.ExemplarDao;
+import br.ufms.leiaufms.data.local.dao.LocalizacaoDao;
 import br.ufms.leiaufms.data.local.dao.NotificacaoDao;
 import br.ufms.leiaufms.data.local.dao.ObraDao;
 import br.ufms.leiaufms.data.local.dao.PedidoDao;
@@ -32,6 +33,7 @@ import br.ufms.leiaufms.data.local.entity.EdicaoCompativel;
 import br.ufms.leiaufms.data.local.entity.Exemplar;
 import br.ufms.leiaufms.data.local.entity.ItemEstante;
 import br.ufms.leiaufms.data.local.entity.Mensagem;
+import br.ufms.leiaufms.data.local.entity.LocalizacaoEncontro;
 import br.ufms.leiaufms.data.local.entity.MovimentoCredito;
 import br.ufms.leiaufms.data.local.entity.Notificacao;
 import br.ufms.leiaufms.data.local.entity.Obra;
@@ -49,8 +51,8 @@ import br.ufms.leiaufms.data.local.entity.Usuario;
         Usuario.class, Sessao.class, Obra.class, EdicaoCompativel.class, Disciplina.class,
         ObraDisciplina.class, Exemplar.class, PosseExemplar.class, Anuncio.class, Pedido.class,
         Mensagem.class, MovimentoCredito.class, Avaliacao.class, ItemEstante.class, Desejo.class,
-        PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class
-}, version = 3, exportSchema = true)
+        PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class, LocalizacaoEncontro.class
+}, version = 4, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String NAME = "leiaufms.db";
@@ -76,6 +78,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract NotificacaoDao notificacaoDao();
 
+    public abstract LocalizacaoDao localizacaoDao();
+
     /** v2: lembrete de "encontro amanhã" (RF-33). */
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
@@ -90,6 +94,16 @@ public abstract class AppDatabase extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase db) {
             db.execSQL("ALTER TABLE obra ADD COLUMN capaPath TEXT");
             db.execSQL("ALTER TABLE obra ADD COLUMN capaTentativaEm INTEGER");
+        }
+    };
+
+    /** v4: localização compartilhada no encontro (RF-41). */
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("CREATE TABLE IF NOT EXISTS `localizacao_encontro` (`pedidoId` INTEGER NOT NULL, "
+                    + "`usuarioId` INTEGER NOT NULL, `lat` REAL NOT NULL, `lng` REAL NOT NULL, "
+                    + "`atualizadaEm` INTEGER NOT NULL, PRIMARY KEY(`pedidoId`, `usuarioId`))");
         }
     };
 
@@ -122,7 +136,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (instance == null) {
                     Context app = context.getApplicationContext();
                     instance = Room.databaseBuilder(app, AppDatabase.class, NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                             .build();
                 }
             }

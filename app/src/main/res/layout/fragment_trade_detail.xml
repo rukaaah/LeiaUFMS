@@ -121,6 +121,58 @@
                 android:visibility="gone" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/live_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:background="@drawable/bg_notice"
+            android:orientation="vertical"
+            android:padding="@dimen/space_m"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:accessibilityHeading="true"
+                android:drawablePadding="@dimen/space_xs"
+                android:gravity="center_vertical"
+                android:text="@string/live_title"
+                android:textAppearance="@style/TextAppearance.Leia.Title"
+                android:textColor="@color/leia_on_background"
+                app:drawableStartCompat="@drawable/ic_my_location" />
+
+            <TextView
+                android:id="@+id/live_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xxs"
+                android:accessibilityLiveRegion="polite"
+                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                android:textColor="@color/leia_on_surface_variant" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/live_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:minHeight="@dimen/touch_target"
+                android:textAppearance="@style/TextAppearance.Leia.Body"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/live_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:accessibilityLiveRegion="polite"
+                android:drawablePadding="@dimen/space_xs"
+                android:textAppearance="@style/TextAppearance.Leia.Body"
+                android:textColor="@color/leia_on_background"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_walk" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/credit_note"
             android:layout_width="match_parent"

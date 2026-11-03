@@ -17,4 +17,6 @@ public class PedidoRow {
     public String oferecidoTitulo;
     public String pontoNome;
     public String pontoDescricao;
+    public Double pontoLat;
+    public Double pontoLng;
 }

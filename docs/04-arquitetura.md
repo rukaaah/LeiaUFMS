@@ -87,6 +87,7 @@ App abre
 | `post_mural` | id, autorId, obraId (obrigatório), tipo (`DICA`/`PROCURO`/`DOACAO`/`TROCA_CONCLUIDA`), texto, oculto, criadoEm | — |
 | `reacao` | postId, usuarioId, tipo (`UTIL`/`QUERO`) | PK composta |
 | `ponto_encontro` | id, nome, descricao, lat, lng, ativo, criadoPor, criadoEm | Criado pelo Moderador tocando no mapa (RF-30); nenhum no seed (PC-07) |
+| `localizacao_encontro` | pedidoId, usuarioId (PK composta), lat, lng, atualizadaEm | RF-41: só durante a janela de 10 min antes a 30 min depois do encontro; apagada ao encerrar o pedido; banco v4 |
 | `notificacao` | id, usuarioId, canal, titulo, texto, destinoTipo, destinoId, lida, criadaEm | Caixa de avisos |
 
 **Pedido sem crédito:** permitido (RN-CRED-04). Se o saldo disponível for 0, o pedido é criado sem `RESERVA` e com `semCredito = true` em `pedido`; na conclusão só o doador recebe `DOACAO` (+1).

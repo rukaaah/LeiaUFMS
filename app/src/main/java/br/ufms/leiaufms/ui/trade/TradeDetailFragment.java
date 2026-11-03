@@ -109,6 +109,7 @@ public class TradeDetailFragment extends Fragment {
         binding.meeting.setVisibility(PedidoEstado.ACEITO.equals(p.estado) || hasMeeting ? View.VISIBLE : View.GONE);
         binding.meeting.setText(hasMeeting ? getString(R.string.trade_meeting, r.pontoNome, TimeText.dateTime(p.encontroEm))
                 : getString(R.string.trade_no_meeting));
+        renderLive(r);
         binding.reason.setVisibility(p.motivo == null ? View.GONE : View.VISIBLE);
         if (p.motivo != null) binding.reason.setText(getString(R.string.trade_reason, p.motivo));
         binding.partyTitle.setText(owner ? R.string.trade_requester_title : R.string.label_owner);
@@ -145,6 +146,153 @@ public class TradeDetailFragment extends Fragment {
             if (p.aceitoEm != null) show(binding.buttonChat, R.string.action_open_chat, v -> openChat());
             if (PedidoEstado.CONCLUIDO.equals(p.estado)) viewModel.loadMyRating();
         }
+    }
+
+    // ---- RF-41: localização só nos 10 min antes do encontro (até 30 min depois) ----
+
+    private final android.os.Handler liveHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+    private br.ufms.leiaufms.core.location.LocationProvider liveProvider;
+    private br.ufms.leiaufms.core.permission.PermissionHelper livePermissions;
+    private boolean liveObserving;
+    private final Runnable liveTick = new Runnable() {
+        @Override
+        public void run() {
+            pushLocation();
+            liveHandler.postDelayed(this, 60_000);
+        }
+    };
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        livePermissions = new br.ufms.leiaufms.core.permission.PermissionHelper(this);
+        liveProvider = new br.ufms.leiaufms.core.location.LocationProvider(requireContext());
+    }
+
+    private void renderLive(PedidoRow r) {
+        Pedido p = r.pedido;
+        boolean show = PedidoEstado.ACEITO.equals(p.estado) && p.encontroEm != null;
+        binding.liveBox.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (!show) {
+            stopLive();
+            return;
+        }
+        long now = System.currentTimeMillis();
+        boolean open = br.ufms.leiaufms.data.pedido.MeetingWindow.isOpen(now, p.encontroEm);
+        long me = viewModel.userId();
+        long otherId = p.donoId == me ? p.solicitanteId : p.donoId;
+        String otherName = p.donoId == me ? r.solicitanteNome : r.donoNome;
+        if (!open) {
+            boolean ended = now > p.encontroEm;
+            binding.liveText.setText(ended ? getString(R.string.live_ended) : getString(R.string.live_closed,
+                    TimeText.dateTime(br.ufms.leiaufms.data.pedido.MeetingWindow.opensAt(p.encontroEm))));
+            binding.liveSwitch.setVisibility(View.GONE);
+            binding.liveOther.setVisibility(View.GONE);
+            stopLive();
+            if (!ended) liveHandler.postDelayed(() -> { if (binding != null && current != null) renderLive(current); },
+                    Math.max(1000, br.ufms.leiaufms.data.pedido.MeetingWindow.opensAt(p.encontroEm) - now));
+            return;
+        }
+        binding.liveSwitch.setVisibility(View.VISIBLE);
+        binding.liveSwitch.setText(getString(R.string.live_switch, otherName));
+        binding.liveText.setText(binding.liveSwitch.isChecked() ? getString(R.string.live_on) : "");
+        binding.liveSwitch.setOnCheckedChangeListener((b, checked) -> {
+            if (checked) startLive();
+            else {
+                stopLive();
+                long pid = p.id;
+                android.content.Context app = requireContext().getApplicationContext();
+                br.ufms.leiaufms.core.util.AppExecutors.io().execute(() ->
+                        br.ufms.leiaufms.data.local.AppDatabase.get(app).localizacaoDao().stop(pid, me));
+                binding.liveText.setText("");
+            }
+        });
+        if (!liveObserving) {
+            liveObserving = true;
+            br.ufms.leiaufms.data.local.AppDatabase.get(requireContext()).localizacaoDao().observe(p.id, otherId)
+                    .observe(getViewLifecycleOwner(), loc -> renderOther(loc, otherName));
+            // Ao voltar à tela com o compartilhamento ligado, retoma as atualizações
+            br.ufms.leiaufms.data.local.AppDatabase.get(requireContext()).localizacaoDao().observe(p.id, me)
+                    .observe(getViewLifecycleOwner(), mine -> {
+                        if (binding == null || mine == null || binding.liveSwitch.isChecked()) return;
+                        binding.liveSwitch.setChecked(true);
+                    });
+        }
+    }
+
+    private void renderOther(br.ufms.leiaufms.data.local.entity.LocalizacaoEncontro loc, String otherName) {
+        if (binding == null || current == null) return;
+        binding.liveOther.setVisibility(View.VISIBLE);
+        if (loc == null || current.pontoLat == null) {
+            binding.liveOther.setText(getString(R.string.live_other_none, otherName));
+            return;
+        }
+        float d = br.ufms.leiaufms.core.location.WalkEstimate.distance(loc.lat, loc.lng, current.pontoLat, current.pontoLng);
+        binding.liveOther.setText(getString(R.string.live_other, otherName,
+                Labels.distance(requireContext(), d).replaceFirst("^a ", ""), TimeText.ago(requireContext(), loc.atualizadaEm)));
+    }
+
+    private void startLive() {
+        livePermissions.request(new br.ufms.leiaufms.core.permission.PermissionHelper.Callback() {
+            @Override
+            public void onGranted() {
+                if (binding == null) return;
+                binding.liveText.setText(R.string.live_on);
+                liveHandler.removeCallbacks(liveTick);
+                liveHandler.post(liveTick);
+            }
+
+            @Override
+            public void onDenied(boolean permanently) {
+                if (binding == null) return;
+                binding.liveSwitch.setChecked(false);
+                binding.liveText.setText(R.string.location_denied);
+            }
+        }, br.ufms.leiaufms.core.location.LocationProvider.PERMISSIONS);
+    }
+
+    private void pushLocation() {
+        if (current == null || !br.ufms.leiaufms.data.pedido.MeetingWindow.isOpen(System.currentTimeMillis(),
+                current.pedido.encontroEm)) {
+            stopLive();
+            return;
+        }
+        long pid = current.pedido.id;
+        long me = viewModel.userId();
+        android.content.Context app = requireContext().getApplicationContext();
+        liveProvider.current(new br.ufms.leiaufms.core.location.LocationProvider.Callback() {
+            @Override
+            public void onLocation(android.location.Location l) {
+                br.ufms.leiaufms.core.util.AppExecutors.io().execute(() -> {
+                    br.ufms.leiaufms.data.local.entity.LocalizacaoEncontro e = new br.ufms.leiaufms.data.local.entity.LocalizacaoEncontro();
+                    e.pedidoId = pid;
+                    e.usuarioId = me;
+                    e.lat = l.getLatitude();
+                    e.lng = l.getLongitude();
+                    e.atualizadaEm = System.currentTimeMillis();
+                    br.ufms.leiaufms.data.local.AppDatabase.get(app).localizacaoDao().upsert(e);
+                });
+            }
+
+            @Override
+            public void onFailure(br.ufms.leiaufms.core.location.LocationProvider.Failure f) {
+                if (binding != null) binding.liveText.setText(f == br.ufms.leiaufms.core.location.LocationProvider.Failure.DISABLED
+                        ? R.string.location_disabled : R.string.location_unavailable);
+            }
+        });
+    }
+
+    private void stopLive() {
+        liveHandler.removeCallbacksAndMessages(null);
+        if (liveProvider != null) liveProvider.cancel();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Sem rastreio em segundo plano (RNF-07): ao sair da tela, para de atualizar.
+        // A última posição fica visível para a outra parte até o fim da janela ou até desligar.
+        stopLive();
     }
 
     private void renderParty(TradeDetailViewModel.Party party) {
@@ -320,6 +468,8 @@ public class TradeDetailFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        stopLive();
+        liveObserving = false;
         binding = null;
     }
 }
