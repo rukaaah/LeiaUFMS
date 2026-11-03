@@ -24,12 +24,15 @@
             android:id="@+id/layout_title"
             style="@style/Widget.Leia.Field">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/input_title"
                 style="@style/Widget.Leia.FieldInput"
                 android:importantForAutofill="no"
                 android:imeOptions="actionNext"
+                android:completionThreshold="2"
                 android:inputType="textCapSentences"
+                android:paddingStart="@dimen/space_m"
+                android:paddingEnd="@dimen/space_m"
                 android:maxLength="150" />
         </com.google.android.material.textfield.TextInputLayout>
 

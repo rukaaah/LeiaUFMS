@@ -68,6 +68,7 @@ public class ChatFragment extends Fragment {
         for (int res : QUICK) {
             Chip chip = new Chip(requireContext());
             chip.setText(res);
+            chip.setCheckable(false);
             chip.setOnClickListener(v -> send(getString(res), true));
             binding.quick.addView(chip);
         }

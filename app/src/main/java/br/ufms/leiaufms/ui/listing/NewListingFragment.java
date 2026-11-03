@@ -85,6 +85,27 @@ public class NewListingFragment extends Fragment {
             binding.inputAuthor.setText(getArguments().getString(ARG_AUTHOR));
         }
         Covers.bind(binding.cover.coverImage, binding.cover.coverText, null, "");
+        // Sugere obras já cadastradas: evita duplicar a obra e faz o aviso de desejo (RF-32) funcionar
+        android.content.Context app = requireContext().getApplicationContext();
+        br.ufms.leiaufms.core.util.AppExecutors.io().execute(() -> {
+            java.util.List<br.ufms.leiaufms.data.local.entity.Obra> obras =
+                    br.ufms.leiaufms.data.local.AppDatabase.get(app).obraDao().all();
+            br.ufms.leiaufms.core.util.AppExecutors.main(() -> {
+                if (binding == null) return;
+                String[] titles = new String[obras.size()];
+                for (int i = 0; i < obras.size(); i++) titles[i] = obras.get(i).titulo;
+                binding.inputTitle.setSimpleItems(titles);
+                binding.inputTitle.setOnItemClickListener((parent, v, pos, id) -> {
+                    String chosen = (String) parent.getItemAtPosition(pos);
+                    for (br.ufms.leiaufms.data.local.entity.Obra o : obras) {
+                        if (o.titulo.equals(chosen)) {
+                            binding.inputAuthor.setText(o.autor);
+                            if (o.isbn13 != null) binding.inputIsbn.setText(o.isbn13);
+                        }
+                    }
+                });
+            });
+        });
         showPhoto();
         binding.buttonPhoto.setOnClickListener(v -> photoPicker.show(R.string.label_listing_photo));
         viewModel.points().observe(getViewLifecycleOwner(), list -> {
