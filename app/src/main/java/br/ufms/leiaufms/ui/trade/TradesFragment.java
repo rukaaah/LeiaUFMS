@@ -75,6 +75,7 @@ public class TradesFragment extends Fragment {
         AppDatabase db = AppDatabase.get(requireContext());
         source = sent ? db.pedidoDao().sent(userId) : db.pedidoDao().received(userId);
         binding.empty.emptyMessage.setText(sent ? R.string.trades_empty_sent : R.string.trades_empty_received);
+        binding.tabHint.setText(sent ? R.string.trades_hint_sent : R.string.trades_hint_received);
         source.observe(getViewLifecycleOwner(), list -> {
             List<PedidoRow> ordered = new ArrayList<>();
             List<PedidoRow> rest = new ArrayList<>();

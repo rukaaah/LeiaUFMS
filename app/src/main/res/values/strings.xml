@@ -301,8 +301,8 @@
     <string name="listing_saved">Anúncio atualizado</string>
 
     <!-- Trocas (RF-20 a RF-23) -->
-    <string name="tab_received">Recebidos</string>
-    <string name="tab_sent">Enviados</string>
+    <string name="tab_received">Pedidos pra mim</string>
+    <string name="tab_sent">Meus pedidos</string>
     <string name="trades_empty_received">Ninguém pediu seus livros ainda. Anuncie um livro em Explorar.</string>
     <string name="trades_empty_sent">Você ainda não pediu nenhum livro. Peça um livro em Explorar.</string>
     <string name="state_pending">Aguardando resposta</string>
@@ -710,4 +710,7 @@
     <string name="share_listing_text">%1$s, de %2$s, está no LeiaUFMS.\n%3$s · %4$s\nRetirada: %5$s.\nAbra o app LeiaUFMS e busque pelo título para pedir.</string>
     <string name="share_listing_no_point">a combinar</string>
     <string name="share_obra_text">%1$s, de %2$s, no LeiaUFMS: %3$s.\nAbra o app LeiaUFMS e busque pelo título.</string>
+    <string name="trades_hint_received">Pessoas pedindo livros que você anunciou. Aceite, recuse e combine a entrega.</string>
+    <string name="trades_hint_sent">Livros que você pediu a outras pessoas. Acompanhe a resposta e o encontro.</string>
+    <string name="action_close">Fechar</string>
 </resources>

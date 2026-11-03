@@ -15,6 +15,7 @@ public class LeiaApp extends Application {
         super.onCreate();
         AppDatabase.prepare(this);
         Notifier.createChannels(this);
+        br.ufms.leiaufms.core.notification.InAppBanner.track(this);
         DeadlineWorker.schedule(this);
         CoverWorker.enqueue(this);
     }

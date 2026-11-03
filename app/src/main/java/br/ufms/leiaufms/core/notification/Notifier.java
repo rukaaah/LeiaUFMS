@@ -79,7 +79,10 @@ public final class Notifier {
         boolean isActiveUser = SessionManager.get(app).currentUserId() == usuarioId;
         n.entregue = isActiveUser;
         long id = AppDatabase.get(app).notificacaoDao().insert(n);
-        if (isActiveUser && canPost(app)) post(app, (int) id, canal, titulo, texto);
+        if (!isActiveUser) return;
+        // App aberto: aviso no nosso tema dentro do app; fechado: notificação do sistema
+        if (InAppBanner.isForeground()) InAppBanner.post(id, canal, titulo, texto, destinoTipo, destinoId);
+        else if (canPost(app)) post(app, (int) id, canal, titulo, texto);
     }
 
     /** Chamado no login e na abertura com sessão válida: entrega o que chegou enquanto a pessoa estava fora. */

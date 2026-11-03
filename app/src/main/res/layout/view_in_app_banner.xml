@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aviso do app no nosso tema (feedback 03/11): desce do topo, ícone na cor do assunto, some sozinho. -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/banner_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:layout_margin="@dimen/space_xs"
+    android:clickable="true"
+    android:focusable="true"
+    android:visibility="gone"
+    app:cardBackgroundColor="@color/leia_surface"
+    app:cardElevation="@dimen/elevation_hero"
+    app:shapeAppearance="@style/ShapeAppearance.Leia.Large"
+    app:strokeColor="@color/leia_outline_variant"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_s">
+
+        <ImageView
+            android:id="@+id/banner_icon"
+            android:layout_width="@dimen/avatar_small"
+            android:layout_height="@dimen/avatar_small"
+            android:background="@drawable/bg_circle_primary"
+            android:importantForAccessibility="no"
+            android:padding="@dimen/space_xs"
+            android:src="@drawable/ic_swap" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_s"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/banner_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.Leia.Title"
+                android:textColor="@color/leia_on_background" />
+
+            <TextView
+                android:id="@+id/banner_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                android:textColor="@color/leia_on_surface_variant" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/banner_close"
+            android:layout_width="@dimen/touch_target"
+            android:layout_height="@dimen/touch_target"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/action_close"
+            android:src="@drawable/ic_close"
+            app:tint="@color/leia_on_surface_variant" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

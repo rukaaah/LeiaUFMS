@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:background="@color/leia_background"
         app:tabGravity="fill"
+        app:tabIconTint="@color/nav_item"
+        app:tabInlineLabel="true"
         app:tabIndicatorColor="@color/leia_primary"
         app:tabMinWidth="@dimen/touch_target"
         app:tabMode="fixed"
@@ -21,13 +23,27 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:icon="@drawable/ic_inbox"
             android:text="@string/tab_received" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:icon="@drawable/ic_send"
             android:text="@string/tab_sent" />
     </com.google.android.material.tabs.TabLayout>
+
+    <!-- O que é cada aba, em uma linha (feedback 03/11: "o que é cada aba?") -->
+    <TextView
+        android:id="@+id/tab_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginTop="@dimen/space_s"
+        android:layout_marginEnd="@dimen/screen_margin"
+        android:text="@string/trades_hint_received"
+        android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+        android:textColor="@color/leia_on_surface_variant" />
 
     <FrameLayout
         android:layout_width="match_parent"

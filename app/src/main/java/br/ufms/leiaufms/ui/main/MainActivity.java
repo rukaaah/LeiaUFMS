@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         observeMeeting(userId);
         observeTradeBadge(userId);
         observeWishBadge(userId);
+        observeBanner();
         if (savedInstanceState == null && getIntent().getBooleanExtra(Notifier.EXTRA_OPEN_INBOX, false)) {
             navController.navigate(R.id.inboxFragment);
         }
@@ -158,6 +159,72 @@ public class MainActivity extends AppCompatActivity {
     private final Runnable meetingRefresh = this::renderMeeting;
 
     /** Número em âmbar na aba Trocas: quantos pedidos precisam da pessoa (nunca vermelho). */
+    // ---- Aviso do app no nosso tema, com o app aberto (feedback 03/11) ----
+
+    private final Runnable hideBanner = this::dismissBanner;
+
+    private void observeBanner() {
+        binding.banner.bannerClose.setOnClickListener(v -> dismissBanner());
+        br.ufms.leiaufms.core.notification.InAppBanner.events().observe(this, e -> {
+            if (e == null || e.shown) return;
+            e.shown = true;
+            boolean wish = br.ufms.leiaufms.core.notification.Notifier.CHANNEL_WISHES.equals(e.canal);
+            boolean post = br.ufms.leiaufms.data.local.entity.Notificacao.DESTINO_POST.equals(e.destinoTipo);
+            binding.banner.bannerIcon.setImageResource(wish ? R.drawable.ic_favorite
+                    : post ? R.drawable.ic_comment : R.drawable.ic_swap);
+            binding.banner.bannerIcon.setBackgroundResource(wish ? R.drawable.bg_circle_tertiary
+                    : post ? R.drawable.bg_circle_success : R.drawable.bg_circle_primary);
+            binding.banner.bannerIcon.setImageTintList(android.content.res.ColorStateList.valueOf(getColor(wish
+                    ? R.color.leia_tertiary : post ? R.color.leia_success : R.color.leia_primary)));
+            binding.banner.bannerTitle.setText(e.titulo);
+            binding.banner.bannerText.setText(e.texto);
+            binding.banner.bannerCard.setOnClickListener(v -> {
+                dismissBanner();
+                openDestination(e.destinoTipo, e.destinoId);
+            });
+            com.google.android.material.card.MaterialCardView card = binding.banner.bannerCard;
+            card.removeCallbacks(hideBanner);
+            card.setVisibility(android.view.View.VISIBLE);
+            card.setTranslationY(-card.getHeight() - 200f);
+            card.animate().translationY(0).setDuration(250).start();
+            card.announceForAccessibility(e.titulo + ". " + e.texto);
+            card.postDelayed(hideBanner, 6000);
+        });
+    }
+
+    private void dismissBanner() {
+        com.google.android.material.card.MaterialCardView card = binding.banner.bannerCard;
+        card.removeCallbacks(hideBanner);
+        if (card.getVisibility() != android.view.View.VISIBLE) return;
+        card.animate().translationY(-card.getHeight() - 200f).setDuration(200)
+                .withEndAction(() -> card.setVisibility(android.view.View.GONE)).start();
+    }
+
+    private void openDestination(String tipo, Long id) {
+        if (tipo == null || id == null) {
+            navController.navigate(R.id.inboxFragment);
+            return;
+        }
+        android.os.Bundle args = new android.os.Bundle();
+        switch (tipo) {
+            case br.ufms.leiaufms.data.local.entity.Notificacao.DESTINO_PEDIDO:
+                args.putLong(br.ufms.leiaufms.ui.trade.TradeDetailFragment.ARG_ID, id);
+                navController.navigate(R.id.tradeDetailFragment, args);
+                break;
+            case br.ufms.leiaufms.data.local.entity.Notificacao.DESTINO_ANUNCIO:
+                args.putLong(br.ufms.leiaufms.ui.listing.ListingDetailFragment.ARG_ID, id);
+                navController.navigate(R.id.listingDetailFragment, args);
+                break;
+            case br.ufms.leiaufms.data.local.entity.Notificacao.DESTINO_POST:
+                args.putLong(br.ufms.leiaufms.ui.feed.PostFragment.ARG_ID, id);
+                navController.navigate(R.id.postFragment, args);
+                break;
+            default:
+                args.putLong(br.ufms.leiaufms.ui.profile.ProfileFragment.ARG_USER_ID, id);
+                navController.navigate(R.id.userProfileFragment, args);
+        }
+    }
+
     /** Número verde na aba Desejos: quantos desejos já dá para pedir. */
     private void observeWishBadge(long userId) {
         AppDatabase.get(this).socialDao().wishes(userId).observe(this, rows -> {
