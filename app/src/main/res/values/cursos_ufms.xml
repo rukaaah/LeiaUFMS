@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cursos de graduação ativos da UFMS (Dados Abertos UFMS 2026, CC BY). Gerado por tools/cursos/gerar_cursos.py; não editar à mão. -->
+<resources>
+    <string-array name="cursos_ufms" translatable="false">
+        <item>Administração</item>
+        <item>Agronomia</item>
+        <item>Arquitetura e Urbanismo</item>
+        <item>Artes Visuais</item>
+        <item>Audiovisual</item>
+        <item>Ciência da Computação</item>
+        <item>Ciência dos Dados</item>
+        <item>Ciências Biológicas</item>
+        <item>Ciências Contábeis</item>
+        <item>Ciências Econômicas</item>
+        <item>Ciências Interdisciplinar</item>
+        <item>Ciências Sociais</item>
+        <item>Direito</item>
+        <item>Educação Bilíngue de Surdos</item>
+        <item>Educação do Campo</item>
+        <item>Educação e Processos de Trabalho: Alimentação Escolar</item>
+        <item>Educação e Processos de Trabalho: Secretaria Escolar</item>
+        <item>Educação Física</item>
+        <item>Enfermagem</item>
+        <item>Engenharia Ambiental</item>
+        <item>Engenharia Civil</item>
+        <item>Engenharia de Alimentos</item>
+        <item>Engenharia de Computação</item>
+        <item>Engenharia de Produção</item>
+        <item>Engenharia de Software</item>
+        <item>Engenharia Elétrica</item>
+        <item>Engenharia Física</item>
+        <item>Engenharia Florestal</item>
+        <item>Engenharia Química</item>
+        <item>Farmácia</item>
+        <item>Filosofia</item>
+        <item>Física</item>
+        <item>Fisioterapia</item>
+        <item>Geografia</item>
+        <item>Gestão Comercial</item>
+        <item>Gestão de Mídias Sociais Digitais</item>
+        <item>Gestão de Recursos Humanos</item>
+        <item>Gestão de Serviços Jurídicos e Notariais</item>
+        <item>História</item>
+        <item>Inteligência Artificial</item>
+        <item>Jornalismo</item>
+        <item>Letras</item>
+        <item>Letras Português</item>
+        <item>Letras Português e Espanhol</item>
+        <item>Licenciatura Intercultural Indígena</item>
+        <item>Matemática</item>
+        <item>Medicina</item>
+        <item>Medicina Veterinária</item>
+        <item>Música</item>
+        <item>Nutrição</item>
+        <item>Odontologia</item>
+        <item>Pedagogia</item>
+        <item>Pedagogia Intercultural Indígena</item>
+        <item>Processos Gerenciais</item>
+        <item>Psicologia</item>
+        <item>Química</item>
+        <item>Sistemas de Informação</item>
+        <item>Tecnologia da Informação</item>
+        <item>Turismo</item>
+        <item>Zootecnia</item>
+    </string-array>
+</resources>

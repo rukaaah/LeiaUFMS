@@ -111,6 +111,7 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 | CT-71 | Aviso no app | App aberto, chega um aviso (ex.: encontro em breve) | Esperar | Cartão do LeiaUFMS desce do topo com ícone do assunto, some em 6 s; tocar abre o pedido; com o app fechado, vira notificação do sistema | — | Não executado |
 | CT-72 | Navegação | Dentro de um pedido aberto na aba Trocas | Tocar de novo em Trocas | Volta ao começo da aba | — | Não executado |
 | CT-73 | RF-37 | Aba Desejos | Tocar em "Desejar um livro" e adicionar | Continua na aba Desejos; livro entra em "Esperando aparecer" | — | Não executado |
+| CT-74 | RF-02 | Tela de cadastro | Digitar "comp" no curso; depois digitar "Curso Inventado" e enviar | A lista mostra Ciência da Computação e Engenharia de Computação; curso fora da lista mostra "Escolha um curso da lista da UFMS." | — | Não executado |
 
 ## 6. Falhas encontradas e correções
 
@@ -122,4 +123,4 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 
 | Total | Aprovados | Reprovados | Não executados |
 |---|---|---|---|
-| 73 | 0 | 0 | 73 |
+| 74 | 0 | 0 | 74 |

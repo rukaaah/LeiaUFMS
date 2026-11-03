@@ -16,6 +16,11 @@
         <item name="hintEnabled">false</item>
     </style>
 
+    <!-- Campo com lista (curso): seta de abrir a lista, filtro ao digitar -->
+    <style name="Widget.Leia.Field.Dropdown">
+        <item name="endIconMode">dropdown_menu</item>
+    </style>
+
     <style name="Widget.Leia.FieldInput" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

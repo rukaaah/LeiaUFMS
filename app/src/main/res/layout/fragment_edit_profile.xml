@@ -59,16 +59,18 @@
                 android:labelFor="@id/input_course"
                 android:text="@string/label_course" />
 
+            <!-- Curso escolhido da lista oficial da UFMS (digite para filtrar) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_course"
-                style="@style/Widget.Leia.Field">
+                style="@style/Widget.Leia.Field.Dropdown">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/input_course"
                     style="@style/Widget.Leia.FieldInput"
+                    android:completionThreshold="1"
                     android:importantForAutofill="no"
                     android:imeOptions="actionNext"
-                    android:inputType="textCapSentences"
+                    android:inputType="textCapWords"
                     android:maxLength="80" />
             </com.google.android.material.textfield.TextInputLayout>
 

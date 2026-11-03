@@ -38,6 +38,7 @@ public class RegisterFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        br.ufms.leiaufms.ui.common.Courses.attach(binding.inputCourse);
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         binding.toolbar.setNavigationOnClickListener(v -> leave());
         binding.buttonGoLogin.setOnClickListener(v -> leave());
@@ -73,8 +74,14 @@ public class RegisterFragment extends Fragment {
         if (!FieldErrors.show(binding.layoutEmail, Validators.email(email), R.string.error_empty_email, AppConfig.EMAIL_MAX)
                 && firstError == null) firstError = binding.layoutEmail;
         if (!FieldErrors.show(binding.layoutCourse, Validators.required(curso, AppConfig.COURSE_MAX),
-                R.string.error_empty_course, AppConfig.COURSE_MAX) && firstError == null)
-            firstError = binding.layoutCourse;
+                R.string.error_empty_course, AppConfig.COURSE_MAX)) {
+            if (firstError == null) firstError = binding.layoutCourse;
+        } else if (br.ufms.leiaufms.ui.common.Courses.official(requireContext(), curso) == null) {
+            binding.layoutCourse.setError(getString(R.string.error_course_list));
+            if (firstError == null) firstError = binding.layoutCourse;
+        } else {
+            curso = br.ufms.leiaufms.ui.common.Courses.official(requireContext(), curso);
+        }
         if (!FieldErrors.show(binding.layoutSemester, Validators.semester(semestre), R.string.error_empty_semester, 2)
                 && firstError == null) firstError = binding.layoutSemester;
         Validators.Result pass = Validators.password(senha);

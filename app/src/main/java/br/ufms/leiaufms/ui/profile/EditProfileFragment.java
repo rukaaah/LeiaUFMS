@@ -39,6 +39,7 @@ public class EditProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        br.ufms.leiaufms.ui.common.Courses.attach(binding.inputCourse);
         viewModel = new ViewModelProvider(this).get(AccountViewModel.class);
         viewModel.user().observe(getViewLifecycleOwner(), u -> {
             if (u == null || original != null) return;
@@ -46,7 +47,7 @@ public class EditProfileFragment extends Fragment {
             if (savedInstanceState == null) {
                 binding.inputName.setText(u.nome);
                 binding.inputEmail.setText(u.email);
-                binding.inputCourse.setText(u.curso);
+                binding.inputCourse.setText(u.curso, false);
                 binding.inputSemester.setText(String.valueOf(u.semestre));
                 binding.inputStatus.setText(u.status);
             }
@@ -98,7 +99,15 @@ public class EditProfileFragment extends Fragment {
         if (!FieldErrors.show(binding.layoutEmail, Validators.email(email), R.string.error_empty_email, AppConfig.EMAIL_MAX)
                 && first == null) first = binding.layoutEmail;
         if (!FieldErrors.show(binding.layoutCourse, Validators.required(curso, AppConfig.COURSE_MAX),
-                R.string.error_empty_course, AppConfig.COURSE_MAX) && first == null) first = binding.layoutCourse;
+                R.string.error_empty_course, AppConfig.COURSE_MAX)) {
+            if (first == null) first = binding.layoutCourse;
+        } else if (br.ufms.leiaufms.ui.common.Courses.official(requireContext(), curso) != null) {
+            curso = br.ufms.leiaufms.ui.common.Courses.official(requireContext(), curso);
+        } else if (original == null || !curso.trim().equals(original.curso)) {
+            // Curso antigo fora da lista continua valendo até a pessoa mudar
+            binding.layoutCourse.setError(getString(R.string.error_course_list));
+            if (first == null) first = binding.layoutCourse;
+        }
         if (!FieldErrors.show(binding.layoutSemester, Validators.semester(semestre), R.string.error_empty_semester, 2)
                 && first == null) first = binding.layoutSemester;
         if (!FieldErrors.show(binding.layoutStatus, Validators.optional(status, AppConfig.STATUS_MAX),

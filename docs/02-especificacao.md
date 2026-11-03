@@ -41,7 +41,7 @@ Legenda de prioridade: **D** = Deve (exigência do PDF), **De** = Deveria, **P**
 | ID | Requisito | Usuário | Entradas | Processamento | Saídas | Prio |
 |---|---|---|---|---|---|---|
 | RF-01 | Splash de abertura | Todos | Abertura do app | Verifica sessão válida no Room enquanto a splash nativa está visível, sem atraso artificial | Encaminha para Login (sem sessão) ou Início (com sessão) | D |
-| RF-02 | Cadastro | Visitante | Nome, e-mail institucional, curso, semestre (1 a 12), senha, confirmação | Valida campos (RN-AUTH-01 a 04); gera hash BCrypt com salt; grava `usuario` | Conta criada e sessão iniciada; ou mensagem de erro por campo | D |
+| RF-02 | Cadastro | Visitante | Nome, e-mail institucional, curso (escolhido da lista oficial de graduação da UFMS, com filtro ao digitar), semestre (1 a 12), senha, confirmação | Valida campos (RN-AUTH-01 a 04); curso precisa estar na lista (60 cursos ativos, Dados Abertos UFMS 2026, CC BY); gera hash BCrypt com salt; grava `usuario` | Conta criada e sessão iniciada; ou mensagem de erro por campo | D |
 | RF-03 | Login | Visitante | E-mail, senha | Busca usuário; verifica senha com BCrypt; cria token de sessão (hash no Room) | Tela Início; ou "E-mail ou senha incorretos" (mensagem única, sem revelar qual) | D |
 | RF-04 | Sessão ativa | Aluno | Reabertura do app | Valida token e expiração (30 dias) | Entra direto; sessão expirada volta ao login com aviso | D |
 | RF-05 | Logout | Aluno | Toque em "Sair" + confirmação | Apaga token no Room e no `SharedPreferences`; limpa a pilha de telas | Tela de login; botão Voltar não reabre telas internas | D |

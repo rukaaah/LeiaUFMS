@@ -60,7 +60,7 @@
     <string name="empty_feed_title">O mural está quieto</string>
     <string name="empty_feed_message">Compartilhe uma dica sobre um livro que você leu.</string>
     <string name="empty_trades_title">Nenhuma troca por aqui</string>
-    <string name="empty_trades_message">Peça um livro em Explorar e acompanhe o pedido nesta aba.</string>
+    <string name="empty_trades_message">Peça um livro no Início e acompanhe aqui.</string>
     <string name="coming_soon">Em breve neste app.</string>
 
     <!-- Perfil / logout (RF-05) -->
@@ -250,7 +250,7 @@
     </plurals>
     <string name="owner_rating">nota %1$.1f</string>
     <string name="close_listing_title">Encerrar este anúncio?</string>
-    <string name="close_listing_message">O livro sai de Explorar e os pedidos pendentes são recusados.</string>
+    <string name="close_listing_message">O livro sai da busca e os pedidos pendentes são recusados.</string>
     <string name="listing_closed_done">Anúncio encerrado</string>
     <string name="listing_blocked">Este anúncio tem um pedido aceito. Conclua ou cancele o pedido antes.</string>
 
@@ -301,8 +301,8 @@
     <!-- Trocas (RF-20 a RF-23) -->
     <string name="tab_received">Pedidos pra mim</string>
     <string name="tab_sent">Meus pedidos</string>
-    <string name="trades_empty_received">Ninguém pediu seus livros ainda. Anuncie um livro em Explorar.</string>
-    <string name="trades_empty_sent">Você ainda não pediu nenhum livro. Peça um livro em Explorar.</string>
+    <string name="trades_empty_received">Ninguém pediu seus livros ainda.</string>
+    <string name="trades_empty_sent">Você ainda não pediu nenhum livro.</string>
     <string name="state_pending">Aguardando resposta</string>
     <string name="state_accepted">Aceito</string>
     <string name="state_declined">Recusado</string>
@@ -700,4 +700,5 @@
     <string name="state_saved">salvo</string>
     <string name="action_enable_notifications">Ativar notificações</string>
     <string name="feed_saved_empty_title">Nenhum post salvo</string>
+    <string name="error_course_list">Escolha um curso da lista da UFMS.</string>
 </resources>
