@@ -37,16 +37,9 @@
                         android:layout_height="match_parent" />
                 </com.google.android.material.card.MaterialCardView>
 
-                <ImageButton
-                    android:id="@+id/heart"
-                    android:layout_width="@dimen/touch_target"
-                    android:layout_height="@dimen/touch_target"
-                    android:layout_gravity="top|end"
-                    android:layout_margin="@dimen/space_xs"
-                    android:background="@drawable/bg_heart_inset"
-                    android:padding="@dimen/heart_padding"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_favorite_border" />
+                <include
+                    android:id="@+id/hero"
+                    layout="@layout/view_hero_actions" />
             </FrameLayout>
 
             <LinearLayout
@@ -82,11 +75,13 @@
                     android:text="@string/action_see_all_copies"
                     app:icon="@drawable/ic_library" />
 
-                <com.google.android.material.chip.ChipGroup
+                <!-- Sobre este exemplar: linhas de ícone + texto (amenity-row da Airbnb) -->
+                <LinearLayout
                     android:id="@+id/facts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_s" />
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/details"

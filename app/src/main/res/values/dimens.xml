@@ -63,4 +63,5 @@
     <dimen name="heart_button">40dp</dimen>
     <dimen name="count_badge">20dp</dimen>
     <dimen name="meeting_bar_clearance">4dp</dimen>
+    <dimen name="screen_margin_negative">-16dp</dimen>
 </resources>

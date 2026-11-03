@@ -112,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         navController.addOnDestinationChangedListener((c, d, a) -> {
+            // Páginas abertas com capa usam os botões próprios sobre a capa, sem barra de título
+            int id = d.getId();
+            boolean hero = id == R.id.listingDetailFragment || id == R.id.obraFragment;
+            binding.toolbar.setVisibility(hero ? android.view.View.GONE : android.view.View.VISIBLE);
             boolean home = isInTab(d, R.id.homeFragment);
             binding.homeBall.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
                     getColor(home ? R.color.leia_primary : R.color.leia_primary_container)));

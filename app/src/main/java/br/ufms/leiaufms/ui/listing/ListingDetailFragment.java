@@ -124,12 +124,16 @@ public class ListingDetailFragment extends Fragment {
         });
         Covers.bind(binding.cover.coverImage, binding.cover.coverText, r.imagem(), r.titulo);
         binding.facts.removeAllViews();
-        addFact(Labels.modality(requireContext(), r.modalidade), true);
-        addFact(getString(R.string.label_condition) + ": " + Labels.condition(requireContext(), r.conservacao), false);
-        if (r.edicao != null) addFact(r.edicao, false);
+        addFact(Anuncio.MODALIDADE_DOACAO.equals(r.modalidade) ? R.drawable.ic_donate : R.drawable.ic_swap,
+                Labels.modality(requireContext(), r.modalidade), true);
+        addFact(R.drawable.ic_star_border,
+                getString(R.string.label_condition) + ": " + Labels.condition(requireContext(), r.conservacao), false);
+        if (r.edicao != null) addFact(R.drawable.ic_book, r.edicao, false);
+        binding.hero.back.setOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack());
+        binding.hero.share.setOnClickListener(v -> share(r));
         binding.barText.setText(Anuncio.MODALIDADE_DOACAO.equals(r.modalidade) ? R.string.bar_free
                 : Anuncio.MODALIDADE_TROCA.equals(r.modalidade) ? R.string.bar_trade : R.string.bar_both);
-        binding.heart.setOnClickListener(v -> {
+        binding.hero.heart.setOnClickListener(v -> {
             v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(120)
                     .withEndAction(() -> v.animate().scaleX(1f).scaleY(1f).setDuration(120).start()).start();
             viewModel.toggleWish(r.obraId, r.donoId);
@@ -158,15 +162,31 @@ public class ListingDetailFragment extends Fragment {
         renderDistance(r);
     }
 
-    private void addFact(String text, boolean highlight) {
-        com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(requireContext());
-        chip.setText(text);
-        chip.setClickable(false);
-        chip.setCheckable(false);
-        chip.setChipBackgroundColorResource(highlight ? R.color.leia_primary_container : R.color.leia_surface_container);
-        chip.setTextColor(requireContext().getColor(highlight ? R.color.leia_on_primary_container : R.color.leia_on_background));
-        chip.setChipStrokeWidth(0f);
-        binding.facts.addView(chip);
+    /** Linha "ícone + fato"; a modalidade fica em azul por ser o que decide o pedido. */
+    private void addFact(int icon, String text, boolean highlight) {
+        android.widget.TextView row = new android.widget.TextView(requireContext());
+        row.setText(text);
+        row.setTextAppearance(R.style.TextAppearance_Leia_Body);
+        int color = requireContext().getColor(highlight ? R.color.leia_primary : R.color.leia_on_background);
+        row.setTextColor(color);
+        row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        row.setMinHeight(getResources().getDimensionPixelSize(R.dimen.touch_target));
+        row.setCompoundDrawablePadding(getResources().getDimensionPixelSize(R.dimen.space_s));
+        row.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+        androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(row,
+                android.content.res.ColorStateList.valueOf(color));
+        binding.facts.addView(row);
+    }
+
+    /** Compartilhar o anúncio com amigos pela folha do Android (feedback 03/11). */
+    private void share(ListingRow r) {
+        String text = getString(R.string.share_listing_text, r.titulo, r.autor,
+                Labels.modality(requireContext(), r.modalidade),
+                Labels.condition(requireContext(), r.conservacao),
+                r.pontoNome == null ? getString(R.string.share_listing_no_point) : r.pontoNome);
+        android.content.Intent send = new android.content.Intent(android.content.Intent.ACTION_SEND)
+                .setType("text/plain").putExtra(android.content.Intent.EXTRA_TEXT, text);
+        startActivity(android.content.Intent.createChooser(send, getString(R.string.action_share)));
     }
 
     private void renderDistance(ListingRow r) {
@@ -211,9 +231,9 @@ public class ListingDetailFragment extends Fragment {
             binding.ownerCard.setContentDescription(getString(R.string.label_owner) + ": " + current.donoNome + ". "
                     + trades + ". " + getString(R.string.trust_rating_label) + " " + rating);
         }
-        binding.heart.setImageResource(extra.wished ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
-        binding.heart.setColorFilter(requireContext().getColor(extra.wished ? R.color.leia_primary : R.color.leia_on_background));
-        binding.heart.setContentDescription(getString(extra.wished ? R.string.wish_remove : R.string.wish_add));
+        binding.hero.heart.setImageResource(extra.wished ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
+        binding.hero.heart.setColorFilter(requireContext().getColor(extra.wished ? R.color.leia_primary : R.color.leia_on_background));
+        binding.hero.heart.setContentDescription(getString(extra.wished ? R.string.wish_remove : R.string.wish_add));
         binding.proofWishes.setVisibility(extra.wishCount > 0 ? View.VISIBLE : View.GONE);
         binding.proofWishes.setText(getResources().getQuantityString(R.plurals.wish_count, extra.wishCount, extra.wishCount));
         binding.proofHands.setVisibility(extra.hands > 0 ? View.VISIBLE : View.GONE);

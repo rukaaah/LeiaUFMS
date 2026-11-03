@@ -71,6 +71,8 @@ public class ObraFragment extends Fragment {
             });
         });
         binding.buttonCompatible.setOnClickListener(v -> markCompatible());
+        binding.hero.back.setOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack());
+        binding.hero.heart.setOnClickListener(v -> binding.buttonWish.performClick());
         load();
     }
 
@@ -93,6 +95,15 @@ public class ObraFragment extends Fragment {
                         : getResources().getQuantityString(R.plurals.wish_count_total, wishCount, wishCount));
                 binding.buttonWish.setText(wished ? R.string.wish_remove : R.string.wish_add);
                 binding.buttonWish.setIconResource(wished ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
+                binding.hero.heart.setImageResource(wished ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
+                binding.hero.heart.setColorFilter(requireContext().getColor(wished ? R.color.leia_primary : R.color.leia_on_background));
+                binding.hero.heart.setContentDescription(getString(wished ? R.string.wish_remove : R.string.wish_add));
+                binding.hero.share.setOnClickListener(v -> {
+                    String text = getString(R.string.share_obra_text, o.titulo, o.autor, binding.wishes.getText());
+                    android.content.Intent send = new android.content.Intent(android.content.Intent.ACTION_SEND)
+                            .setType("text/plain").putExtra(android.content.Intent.EXTRA_TEXT, text);
+                    startActivity(android.content.Intent.createChooser(send, getString(R.string.action_share)));
+                });
                 binding.compatible.removeAllViews();
                 binding.compatibleTitle.setVisibility(compat.isEmpty() && (u == null || !u.isModerador())
                         ? View.GONE : View.VISIBLE);

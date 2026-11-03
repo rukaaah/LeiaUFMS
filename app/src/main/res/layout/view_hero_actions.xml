@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Ações sobre a capa nas páginas abertas (Livro, Obra), no lugar da barra de título do sistema
+    (feedback 03/11, estrutura Airbnb no celular): voltar à esquerda; compartilhar e desejo à direita.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:orientation="horizontal"
+    android:padding="@dimen/space_xs">
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="@dimen/touch_target"
+        android:layout_height="@dimen/touch_target"
+        android:background="@drawable/bg_hero_button"
+        android:contentDescription="@string/action_back"
+        android:elevation="@dimen/elevation_card"
+        android:padding="@dimen/heart_padding"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_back"
+        android:tint="@color/leia_on_background" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:id="@+id/share"
+        android:layout_width="@dimen/touch_target"
+        android:layout_height="@dimen/touch_target"
+        android:background="@drawable/bg_hero_button"
+        android:contentDescription="@string/action_share"
+        android:elevation="@dimen/elevation_card"
+        android:padding="@dimen/heart_padding"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_share"
+        android:tint="@color/leia_on_background" />
+
+    <ImageButton
+        android:id="@+id/heart"
+        android:layout_width="@dimen/touch_target"
+        android:layout_height="@dimen/touch_target"
+        android:layout_marginStart="@dimen/space_xxs"
+        android:background="@drawable/bg_hero_button"
+        android:elevation="@dimen/elevation_card"
+        android:padding="@dimen/heart_padding"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_favorite_border" />
+</LinearLayout>
