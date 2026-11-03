@@ -51,6 +51,8 @@ public class ListingDetailFragment extends Fragment {
     private ListingRow current;
     private ListingDetailViewModel.Extra extra;
     private android.location.Location here;
+    private br.ufms.leiaufms.ui.home.BookCardAdapter copiesAdapter;
+    private long copiesObserved = -1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +72,21 @@ public class ListingDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(ListingDetailViewModel.class);
         viewModel.init(requireArguments().getLong(ARG_ID));
-        binding.ownerAvatar.avatarInitials.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        binding.ownerAvatar.avatarInitials.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        copiesAdapter = new br.ufms.leiaufms.ui.home.BookCardAdapter(new br.ufms.leiaufms.ui.home.BookCardAdapter.Listener() {
+            @Override
+            public void onOpen(ListingRow row) {
+                Bundle args = new Bundle();
+                args.putLong(ARG_ID, row.anuncioId);
+                NavHostFragment.findNavController(ListingDetailFragment.this).navigate(R.id.listingDetailFragment, args);
+            }
+
+            @Override
+            public void onToggleWish(ListingRow row) {
+                viewModel.toggleWish(row.obraId, current == null ? row.donoId : current.donoId);
+            }
+        });
+        binding.copies.setAdapter(copiesAdapter);
         viewModel.row().observe(getViewLifecycleOwner(), r -> {
             current = r;
             if (r == null) return;
@@ -101,11 +117,28 @@ public class ListingDetailFragment extends Fragment {
         binding.title.setText(r.titulo);
         binding.author.setText(r.autor);
         Covers.bind(binding.cover.coverImage, binding.cover.coverText, r.imagem(), r.titulo);
-        StringBuilder details = new StringBuilder();
-        details.append(getString(R.string.label_condition)).append(": ").append(Labels.condition(requireContext(), r.conservacao));
-        if (r.edicao != null) details.append('\n').append(getString(R.string.label_edition)).append(": ").append(r.edicao);
-        binding.details.setText(details);
-        binding.modality.setText(Labels.modality(requireContext(), r.modalidade));
+        binding.facts.removeAllViews();
+        addFact(Labels.modality(requireContext(), r.modalidade), true);
+        addFact(getString(R.string.label_condition) + ": " + Labels.condition(requireContext(), r.conservacao), false);
+        if (r.edicao != null) addFact(r.edicao, false);
+        binding.barText.setText(Anuncio.MODALIDADE_DOACAO.equals(r.modalidade) ? R.string.bar_free
+                : Anuncio.MODALIDADE_TROCA.equals(r.modalidade) ? R.string.bar_trade : R.string.bar_both);
+        binding.heart.setOnClickListener(v -> {
+            v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(120)
+                    .withEndAction(() -> v.animate().scaleX(1f).scaleY(1f).setDuration(120).start()).start();
+            viewModel.toggleWish(r.obraId, r.donoId);
+        });
+        if (copiesObserved != r.obraId) {
+            copiesObserved = r.obraId;
+            viewModel.copies(r.obraId).observe(getViewLifecycleOwner(), list -> {
+                java.util.List<ListingRow> others = new java.util.ArrayList<>();
+                if (list != null) for (ListingRow x : list) if (x.anuncioId != r.anuncioId) others.add(x);
+                copiesAdapter.submitList(others);
+                boolean any = !others.isEmpty();
+                binding.copiesTitle.setVisibility(any ? View.VISIBLE : View.GONE);
+                binding.copies.setVisibility(any ? View.VISIBLE : View.GONE);
+            });
+        }
         binding.ownerName.setText(r.donoNome);
         boolean hasPhoto = ImageLoader.load(binding.ownerAvatar.avatarImage, r.donoFoto,
                 getResources().getDimensionPixelSize(R.dimen.avatar_small));
@@ -117,6 +150,17 @@ public class ListingDetailFragment extends Fragment {
             NavHostFragment.findNavController(this).navigate(R.id.userProfileFragment, args);
         });
         renderDistance(r);
+    }
+
+    private void addFact(String text, boolean highlight) {
+        com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(requireContext());
+        chip.setText(text);
+        chip.setClickable(false);
+        chip.setCheckable(false);
+        chip.setChipBackgroundColorResource(highlight ? R.color.leia_primary_container : R.color.leia_surface_container);
+        chip.setTextColor(requireContext().getColor(highlight ? R.color.leia_on_primary_container : R.color.leia_on_background));
+        chip.setChipStrokeWidth(0f);
+        binding.facts.addView(chip);
     }
 
     private void renderDistance(ListingRow r) {
@@ -146,14 +190,37 @@ public class ListingDetailFragment extends Fragment {
     private void renderActions() {
         if (current == null || extra == null) return;
         if (extra.ownerMetrics != null) {
-            String meta = getResources().getQuantityString(R.plurals.owner_trades, extra.ownerMetrics.trades, extra.ownerMetrics.trades);
-            if (extra.ownerMetrics.rating != null) meta += " · " + getString(R.string.owner_rating, extra.ownerMetrics.rating);
-            binding.ownerMeta.setText(meta);
-            binding.ownerCard.setContentDescription(getString(R.string.label_owner) + ": " + current.donoNome + ". " + meta);
+            String trades = getResources().getQuantityString(R.plurals.owner_trades, extra.ownerMetrics.trades, extra.ownerMetrics.trades);
+            binding.ownerMeta.setText((current.donoCurso == null ? "" : current.donoCurso + " · ") + trades);
+            String rating;
+            if (extra.ownerMetrics.rating != null) {
+                rating = String.format(new java.util.Locale("pt", "BR"), "%.1f", extra.ownerMetrics.rating);
+                binding.ownerRating.setText(rating);
+                binding.ownerRatingLabel.setText(R.string.trust_rating_label);
+            } else {
+                rating = getString(R.string.trust_new);
+                binding.ownerRating.setText("—");
+                binding.ownerRatingLabel.setText(R.string.trust_new);
+            }
+            binding.ownerCard.setContentDescription(getString(R.string.label_owner) + ": " + current.donoNome + ". "
+                    + trades + ". " + getString(R.string.trust_rating_label) + " " + rating);
         }
+        binding.heart.setImageResource(extra.wished ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
+        binding.heart.setColorFilter(requireContext().getColor(extra.wished ? R.color.leia_primary : R.color.leia_on_background));
+        binding.heart.setContentDescription(getString(extra.wished ? R.string.wish_remove : R.string.wish_add));
+        binding.proofWishes.setVisibility(extra.wishCount > 0 ? View.VISIBLE : View.GONE);
+        binding.proofWishes.setText(getResources().getQuantityString(R.plurals.wish_count, extra.wishCount, extra.wishCount));
+        binding.proofHands.setVisibility(extra.hands > 0 ? View.VISIBLE : View.GONE);
+        binding.proofHands.setText(getResources().getQuantityString(R.plurals.hands_count, extra.hands, extra.hands));
+        binding.courses.removeAllViews();
+        boolean hasCourses = extra.courses != null && !extra.courses.isEmpty();
+        binding.coursesTitle.setVisibility(hasCourses ? View.VISIBLE : View.GONE);
+        if (hasCourses) for (String c : extra.courses) addCourse(c);
         binding.buttonPrimary.setVisibility(View.GONE);
         binding.buttonSecondary.setVisibility(View.GONE);
         binding.statusNote.setVisibility(View.GONE);
+        binding.actionBar.setVisibility(View.VISIBLE);
+        binding.barText.setVisibility(View.VISIBLE);
         if (current.donoId == viewModel.userId()) {
             binding.statusNote.setVisibility(View.VISIBLE);
             binding.statusNote.setText(R.string.own_listing);
@@ -176,6 +243,7 @@ public class ListingDetailFragment extends Fragment {
         if (!current.ativo || extra.reserved) {
             binding.statusNote.setVisibility(View.VISIBLE);
             binding.statusNote.setText(R.string.listing_closed);
+            binding.actionBar.setVisibility(View.GONE);
             return;
         }
         if (Anuncio.MODALIDADE_DOACAO.equals(current.modalidade)) {
@@ -186,6 +254,15 @@ public class ListingDetailFragment extends Fragment {
         }
     }
 
+    private void addCourse(String name) {
+        com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(requireContext());
+        chip.setText(name);
+        chip.setClickable(false);
+        chip.setChipIconResource(R.drawable.ic_school);
+        chip.setChipIconVisible(true);
+        binding.courses.addView(chip);
+    }
+
     private void primary(int text, View.OnClickListener l) {
         binding.buttonPrimary.setVisibility(View.VISIBLE);
         binding.buttonPrimary.setText(text);
@@ -193,6 +270,14 @@ public class ListingDetailFragment extends Fragment {
     }
 
     private void secondary(int text, View.OnClickListener l) {
+        binding.barText.setVisibility(View.GONE);
+        // Dois botões dividem a barra igualmente
+        for (View b : new View[]{binding.buttonSecondary, binding.buttonPrimary}) {
+            android.widget.LinearLayout.LayoutParams lp = (android.widget.LinearLayout.LayoutParams) b.getLayoutParams();
+            lp.width = 0;
+            lp.weight = 1;
+            b.setLayoutParams(lp);
+        }
         binding.buttonSecondary.setVisibility(View.VISIBLE);
         binding.buttonSecondary.setText(text);
         binding.buttonSecondary.setOnClickListener(l);

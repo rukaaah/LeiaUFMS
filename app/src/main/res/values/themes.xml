@@ -61,6 +61,8 @@
         <item name="toolbarStyle">@style/Widget.Leia.Toolbar</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Leia.Dialog</item>
         <item name="minTouchTargetSize">@dimen/touch_target</item>
+        <!-- Superfícies sem tingimento de elevação: card branco com sombra suave (Nova Mobile) -->
+        <item name="elevationOverlayEnabled">false</item>
     </style>
 
     <style name="Theme.LeiaUFMS" parent="Base.Theme.LeiaUFMS" />

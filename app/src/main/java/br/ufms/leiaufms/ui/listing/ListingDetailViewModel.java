@@ -28,6 +28,10 @@ public class ListingDetailViewModel extends AndroidViewModel {
         public UserRepository.Metrics ownerMetrics;
         public int myCredits;
         public boolean reserved;
+        public int wishCount;
+        public int hands;
+        public boolean wished;
+        public List<String> courses;
     }
 
     public static class Event {
@@ -87,8 +91,30 @@ public class ListingDetailViewModel extends AndroidViewModel {
             e.ownerMetrics = new UserRepository(getApplication()).metrics(donoId, false);
             e.myCredits = db.creditoDao().available(userId);
             e.reserved = db.anuncioDao().countAccepted(id) > 0;
+            ListingRow r = db.anuncioDao().row(id);
+            if (r != null) {
+                e.wished = db.socialDao().hasWish(userId, r.obraId) > 0;
+                e.wishCount = db.socialDao().wishCount(r.obraId) - (e.wished ? 1 : 0);
+                e.hands = db.exemplarDao().hands(r.exemplarId);
+                e.courses = db.obraDao().disciplinasOf(r.obraId);
+            }
             extra.postValue(e);
         });
+    }
+
+    public LiveData<List<ListingRow>> copies(long obraId) {
+        return db.anuncioDao().byObra(obraId);
+    }
+
+    public void toggleWish(long obraId, long donoId) {
+        AppExecutors.io().execute(() -> {
+            new br.ufms.leiaufms.data.repository.SocialRepository(getApplication()).toggleWish(userId, obraId);
+            refreshSync(donoId);
+        });
+    }
+
+    private void refreshSync(long donoId) {
+        refresh(donoId);
     }
 
     public void loadOfferable() {
