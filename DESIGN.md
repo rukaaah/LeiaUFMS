@@ -60,7 +60,7 @@ Todos os pares de texto ≥ 5,9:1.
 - **Cartão de confiança:** avatar, nome, curso, nota grande (o número mais forte da tela), trocas concluídas.
 - **Barra de progresso da troca:** 4 etapas (Pedido, Aceito, Encontro, Concluído) com ponto, rótulo e linha.
 - **Cartão de ação "Pra você agora":** ícone em contêiner colorido, frase de ação, seta; cor pelo tipo (pedido = azul, desejo = âmbar, encontro = verde).
-- **Post do mural (estrutura Pinterest):** grade de 2 colunas em que a capa da obra é o card (raio 20 dp), etiqueta colorida do tipo sobre a capa, texto curto, autor e reações "Útil" e "Quero" (o "salvar") com micro-animação; chips de filtro por tipo no topo; lista finita (14 dias, 30 itens) terminando em "Você está em dia".
+- **Post do mural (estrutura Pinterest):** grade de 2 colunas em que a capa da obra é o card (raio 20 dp), etiqueta colorida do tipo sobre a capa, texto curto, autor, coração com número e salvar (marcador, sem número; o "salvar" do Pinterest) com micro-animação; chips de filtro por tipo no topo; lista finita (14 dias, 30 itens) terminando em "Você está em dia".
 
 ## 7. Movimento
 

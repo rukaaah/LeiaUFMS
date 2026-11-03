@@ -54,7 +54,7 @@ import br.ufms.leiaufms.data.local.entity.Usuario;
         Mensagem.class, MovimentoCredito.class, Avaliacao.class, ItemEstante.class, Desejo.class,
         PostMural.class, Reacao.class, PontoEncontro.class, Notificacao.class, LocalizacaoEncontro.class,
         ComentarioPost.class
-}, version = 6, exportSchema = true)
+}, version = 7, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String NAME = "leiaufms.db";
@@ -133,6 +133,15 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    /** v7: reações do mural viram Coração (antes "Quero") e Salvo (antes "Útil"). */
+    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("UPDATE reacao SET tipo = 'CORACAO' WHERE tipo = 'QUERO'");
+            db.execSQL("UPDATE reacao SET tipo = 'SALVO' WHERE tipo = 'UTIL'");
+        }
+    };
+
     private static final CountDownLatch SEED_READY = new CountDownLatch(1);
 
     /** Abre o banco e cria os dados de demonstração na primeira execução (em background). */
@@ -162,7 +171,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (instance == null) {
                     Context app = context.getApplicationContext();
                     instance = Room.databaseBuilder(app, AppDatabase.class, NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
                             .build();
                 }
             }

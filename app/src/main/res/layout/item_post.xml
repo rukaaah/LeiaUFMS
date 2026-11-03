@@ -73,19 +73,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <!-- Coração com número (dá mais tempo ao post no mural); salvar é só para você, sem número -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/react_useful"
-                style="@style/Widget.Leia.ReactionButton"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                app:icon="@drawable/ic_thumb_up" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/react_want"
+                android:id="@+id/react_heart"
                 style="@style/Widget.Leia.ReactionButton"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 app:icon="@drawable/ic_favorite_border" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/react_save"
+                style="@style/Widget.Leia.ReactionButton"
+                android:layout_width="@dimen/touch_target"
+                app:icon="@drawable/ic_bookmark_border" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

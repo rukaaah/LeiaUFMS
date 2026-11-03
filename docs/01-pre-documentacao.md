@@ -132,7 +132,7 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 | PC-08 | Raio "a pé" | ≤ **2 km** em linha reta, tempo estimado a 80 m/min (≈ 4,8 km/h); valores ajustáveis em `AppConfig` |
 | PC-09 | Critério dos selos | **Doador:** ≥ 3 doações concluídas. **Veterano:** ≥ 10 trocas concluídas |
 | PC-10 | Avaliação após troca | Nota 1 a 5, opcional, uma por lado, editável por 48 h |
-| PC-11 | Mural | Mostra posts dos últimos **14 dias**, máx. **30 itens**, termina com "Você está em dia" |
+| PC-11 | Mural | Cada post fica **12 h** no mural, mais 12 h a cada **25 corações** (0 = 12 h, 25 = 24 h, 50 = 36 h); máx. **30 itens**; termina com "Você está em dia". A regra não aparece na tela (decisão do Pedro em 03/11: aprende-se com o uso). Posts salvos ficam no filtro "Salvos" sem prazo |
 | PC-12 | Texto livre no chat | Permitido, máx. **300 caracteres**, só com pedido Aceito; somente leitura após encerramento |
 
 ## 5. Pendências técnicas e administrativas

@@ -139,7 +139,7 @@ Legenda de prioridade: **D** = Deve (exigência do PDF), **De** = Deveria, **P**
 | RF-36 | Terminei de ler | Aluno | Mudar "Estou lendo" para "Lido" | Pergunta "Quer passar este livro adiante?" | Sim → formulário de anúncio pré-preenchido | De |
 | RF-37 | Lista de desejos | Aluno | Adicionar obra | Grava `desejo`; RF-32 dispara quando houver anúncio da obra | Lista com indicação "disponível" | De |
 | RF-38 | Mural | Aluno | Post do tipo Dica, Procuro, Doação ou Troca concluída (texto até 500 caracteres + obra vinculada **obrigatória**) | Rejeita post sem obra; aplica janela PC-11 | Feed finito que termina em "Você está em dia" | P |
-| RF-39 | Reações | Aluno | "Útil" ou "Quero" | Uma de cada tipo por usuário por post; "Quero" em post de Doação leva ao anúncio | Contagem discreta (sem ranking) | P |
+| RF-39 | Reações | Aluno | Coração ou Salvar | Um de cada tipo por usuário por post (tocar de novo desfaz); coração conta para a duração do post (PC-11); salvar é pessoal e sem número | Coração com número discreto; salvos no filtro "Salvos" do mural (sem ranking) | P |
 | RF-40 | Chat do pedido | Partes | Mensagens prontas ("Posso no RU às 12h?", "Cheguei", "Vou me atrasar 10 min", "Podemos remarcar?") ou texto até 300 caracteres | Só existe com pedido `ACEITO`; somente leitura após encerramento | Conversa dentro do pedido; notificação de nova mensagem | De |
 
 ## 5. Requisitos não funcionais

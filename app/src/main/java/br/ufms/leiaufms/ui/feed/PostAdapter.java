@@ -122,17 +122,16 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         h.b.text.setText(p.texto);
         String when = TimeText.ago(c, p.criadoEm);
         h.b.meta.setText(p.autorNome + " · " + when);
-        bindReaction(h.b.reactUseful, p.meuUtil, p.uteis, R.string.react_useful, R.plurals.react_useful_count,
-                R.drawable.ic_thumb_up, R.drawable.ic_thumb_up, c, on);
-        bindReaction(h.b.reactWant, p.meuQuero, p.queros, R.string.react_want, R.plurals.react_want_count,
+        bindReaction(h.b.reactHeart, p.meuCoracao, p.coracoes, R.string.react_heart, R.plurals.react_heart_count,
                 R.drawable.ic_favorite, R.drawable.ic_favorite_border, c, on);
-        h.b.reactUseful.setOnClickListener(v -> {
+        bindSave(h.b.reactSave, p.meuSalvo, c, on);
+        h.b.reactHeart.setOnClickListener(v -> {
             bounce(v);
-            listener.onReact(p, br.ufms.leiaufms.data.local.entity.Reacao.TIPO_UTIL);
+            listener.onReact(p, br.ufms.leiaufms.data.local.entity.Reacao.TIPO_CORACAO);
         });
-        h.b.reactWant.setOnClickListener(v -> {
+        h.b.reactSave.setOnClickListener(v -> {
             bounce(v);
-            listener.onReact(p, br.ufms.leiaufms.data.local.entity.Reacao.TIPO_QUERO);
+            listener.onReact(p, br.ufms.leiaufms.data.local.entity.Reacao.TIPO_SALVO);
         });
         h.b.card.setOnClickListener(v -> listener.onOpen(p));
         h.b.card.setOnLongClickListener(v -> {
@@ -140,7 +139,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return true;
         });
         h.b.card.setContentDescription(c.getString(R.string.post_description, c.getString(col[2]), p.autorNome,
-                p.titulo, p.texto, when, h.b.reactUseful.getContentDescription() + ", " + h.b.reactWant.getContentDescription()));
+                p.titulo, p.texto, when, h.b.reactHeart.getContentDescription() + (p.meuSalvo ? ", " + c.getString(R.string.state_saved) : "")));
     }
 
     /** Reação ativa: cor de marca e ícone cheio; contagem em texto discreto, nunca número grande. */
@@ -154,6 +153,14 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         b.setTextColor(color);
         b.setIconTint(android.content.res.ColorStateList.valueOf(color));
         androidx.core.view.ViewCompat.setStateDescription(b, mine ? c.getString(R.string.state_selected) : null);
+    }
+
+    /** Salvar: só ícone (vazio ou cheio), sem número; é uma lista pessoal. */
+    static void bindSave(com.google.android.material.button.MaterialButton b, boolean saved, Context c, int color) {
+        b.setText("");
+        b.setIconResource(saved ? R.drawable.ic_bookmark : R.drawable.ic_bookmark_border);
+        b.setIconTint(android.content.res.ColorStateList.valueOf(color));
+        b.setContentDescription(c.getString(saved ? R.string.action_unsave_post : R.string.action_save_post));
     }
 
     static void bounce(View v) {

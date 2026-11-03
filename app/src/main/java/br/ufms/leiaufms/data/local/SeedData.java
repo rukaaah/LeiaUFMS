@@ -153,14 +153,15 @@ public final class SeedData {
             desejo(diego, calculo);
 
             long p1 = post(ana, horaEstrela, PostMural.TIPO_TROCA_CONCLUIDA,
-                    "Passei A Hora da Estrela adiante. Que chegue a quem precisa dele.", 12 * DAY);
+                    "Passei A Hora da Estrela adiante. Que chegue a quem precisa dele.", 9 * HOUR);
             long p2 = post(bruno, calculo, PostMural.TIPO_PROCURO,
-                    "Alguém tem o volume 1 do Stewart sobrando? Estou no 2º semestre.", 2 * DAY);
+                    "Alguém tem o volume 1 do Stewart sobrando? Estou no 2º semestre.", 5 * HOUR);
             long p3 = post(diego, fisica, PostMural.TIPO_DICA,
-                    "Para Física I, os exercícios resolvidos do fim de cada capítulo valem mais que a teoria.", DAY);
-            reacao(p1, carla, Reacao.TIPO_UTIL);
-            reacao(p3, bruno, Reacao.TIPO_UTIL);
-            reacao(p2, diego, Reacao.TIPO_QUERO);
+                    "Para Física I, os exercícios resolvidos do fim de cada capítulo valem mais que a teoria.", 2 * HOUR);
+            // Posts do seed com poucas horas: sem corações, cada um fica 12 h no mural (PostLifetime)
+            reacao(p1, carla, Reacao.TIPO_CORACAO);
+            reacao(p3, bruno, Reacao.TIPO_CORACAO);
+            reacao(p3, ana, Reacao.TIPO_SALVO);
         }
 
         private long usuario(String nome, String email, String curso, int semestre, String papel, String status) {

@@ -52,6 +52,7 @@ ICONS = {
   'ic_library': [("M5,4H8A1,1 0 0,1 9,5V20H4V5A1,1 0 0,1 5,4Z", S), ("M9,7H13A1,1 0 0,1 14,8V20H9", S), ("M14.5,6.5L17.6,5.7L21,19.2L17.9,20L14.5,6.5Z", S), ("M3,20H21", S)],
   'ic_local_library': [(circle(12, 5.5, 2.5), S), ("M12,12.5V21", S), ("M3,10A15,15 0 0,1 12,12.5A15,15 0 0,1 21,10V18.5A15,15 0 0,0 12,21A15,15 0 0,0 3,18.5Z", S)],
   'ic_bookmark_border': [("M7,3H17A1,1 0 0,1 18,4V21L12,17L6,21V4A1,1 0 0,1 7,3Z", S)],
+  'ic_bookmark': [("M7,3H17A1,1 0 0,1 18,4V21L12,17L6,21V4A1,1 0 0,1 7,3Z", 'fillstroke')],
   'ic_school': [("M2,9L12,4L22,9L12,14Z", S), ("M6,11V16C6,17.7 8.7,19 12,19C15.3,19 18,17.7 18,16V11", S), ("M22,9V14.5", S)],
   'ic_donate': [("M12,12.5C12,12.5 8,10.1 8,7.4A2,2 0 0,1 12,6.1A2,2 0 0,1 16,7.4C16,10.1 12,12.5 12,12.5Z", S),
                 ("M2,14.5H5V21H2", S), ("M5,15.5H8L11,16.5H14A1.5,1.5 0 0,1 14,19.5H10", S), ("M14,18.5L18.4,16.4A1.6,1.6 0 0,1 20.2,18.9L15.5,21H5", S)],
@@ -99,7 +100,7 @@ ICONS['ic_walk_small'] = ICONS['ic_walk']
 
 FAMILIES = [
  ("Navegação", ['ic_home','ic_home_filled','ic_swap','ic_forum','ic_forum_filled','ic_favorite_border','ic_favorite','ic_person','ic_person_filled','ic_back','ic_chevron_right','ic_close','ic_add','ic_search','ic_explore','ic_settings','ic_tune','ic_logout']),
- ("Livros e leitura", ['ic_book','ic_library','ic_local_library','ic_bookmark_border','ic_school','ic_donate']),
+ ("Livros e leitura", ['ic_book','ic_library','ic_local_library','ic_bookmark_border','ic_bookmark','ic_school','ic_donate']),
  ("Encontro e lugar", ['ic_place','ic_location_off','ic_my_location','ic_map','ic_walk','ic_schedule','ic_event','ic_history']),
  ("Social e mensagens", ['ic_chat','ic_comment','ic_send','ic_share','ic_inbox','ic_thumb_up','ic_notifications','ic_notifications_off','ic_new','ic_lightbulb','ic_celebration']),
  ("Estado", ['ic_check_circle','ic_check_small','ic_info','ic_error','ic_star_border','ic_star','ic_verified','ic_badge','ic_lock','ic_visibility','ic_wifi_off','ic_gavel']),

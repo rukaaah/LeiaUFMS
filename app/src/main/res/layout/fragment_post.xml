@@ -127,16 +127,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/react_useful"
-                    style="@style/Widget.Leia.ReactionButton"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    app:icon="@drawable/ic_thumb_up"
-                    app:iconSize="@dimen/icon_m" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/react_want"
+                    android:id="@+id/react_heart"
                     style="@style/Widget.Leia.ReactionButton"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -151,6 +142,15 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     app:icon="@drawable/ic_comment"
+                    app:iconSize="@dimen/icon_m" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/react_save"
+                    style="@style/Widget.Leia.ReactionButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:icon="@drawable/ic_bookmark_border"
                     app:iconSize="@dimen/icon_m" />
 
                 <com.google.android.material.button.MaterialButton

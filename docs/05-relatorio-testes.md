@@ -92,7 +92,7 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 | CT-51 | RF-40 | Pedido CONCLUIDO | Tentar enviar mensagem | Chat somente leitura | — | Não executado |
 | CT-52 | RF-40 | Usuário sem pedido com outro | Procurar forma de iniciar conversa | Nenhuma opção de chat fora de pedido | — | Não executado |
 | CT-53 | RF-36 | Obra em "Estou lendo" | Marcar como "Lido" | Pergunta "Quer passar este livro adiante?"; Sim abre anúncio pré-preenchido | — | Não executado |
-| CT-54 | RF-39 | Post no mural | Tocar "Útil" duas vezes | Reação alterna (marca/desmarca), nunca soma 2 | — | Não executado |
+| CT-54 | RF-39 | Post no mural | Tocar o coração duas vezes; depois tocar em Salvar e abrir o filtro "Salvos" | Coração alterna (marca/desmarca), nunca soma 2; o post salvo aparece em "Salvos" | — | Não executado |
 | CT-55 | RF-38 | Mural com mais de 30 posts recentes | Rolar até o fim | Para em 30 itens com "Você está em dia" | — | Não executado |
 | CT-56 | RF-25 | Pedido concluído | Avaliar com nota 5 | Média do avaliado atualizada | — | Não executado |
 | CT-57 | RF-17 | Exemplar com 2 trocas concluídas | Ver histórico | "Este exemplar passou por 3 mãos" | — | Não executado |
@@ -105,7 +105,7 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**.
 | CT-65 | RF-44 | Pedido aceito sem encontro (conta A) | A propõe ponto, data e hora | Pedido mostra "Você propôs. Falta a outra pessoa aceitar."; barra de etapas continua em Aceito; sem botão de confirmar entrega | — | Não executado |
 | CT-66 | RF-44 | Proposta de A (entrar como B) | Abrir o pedido → Aceitar horário | "Encontro combinado."; etapa Encontro acesa; "Combinado pelos dois"; A recebe aviso | — | Não executado |
 | CT-67 | RF-44 | Proposta de A (entrar como B) | Sugerir outro → escolher outro horário | Vira proposta de B; agora A precisa aceitar | — | Não executado |
-| CT-68 | RF-43 | Mural com posts | Tocar num post | Página com texto inteiro, capa, quem postou, Útil, Quero, comentários e Compartilhar | — | Não executado |
+| CT-68 | RF-43 | Mural com posts | Tocar num post | Página com texto inteiro, capa, quem postou, coração, comentários, Salvar e Compartilhar | — | Não executado |
 | CT-69 | RF-43 | Post aberto | Comentar com campo vazio / com 300 caracteres / com texto curto | Vazio: botão desligado; texto curto aparece na lista e o autor do post recebe aviso | — | Não executado |
 | CT-70 | Compartilhar | Livro, Obra ou post aberto | Tocar em Compartilhar | Folha de compartilhamento do Android com título, autor e detalhes em texto | — | Não executado |
 | CT-71 | Aviso no app | App aberto, chega um aviso (ex.: encontro em breve) | Esperar | Cartão do LeiaUFMS desce do topo com ícone do assunto, some em 6 s; tocar abre o pedido; com o app fechado, vira notificação do sistema | — | Não executado |

@@ -56,7 +56,6 @@ public final class AppConfig {
     public static final long RATING_EDIT_WINDOW_MS = 48L * 60 * 60 * 1000;
 
     // PC-11
-    public static final long FEED_WINDOW_MS = 14L * 24 * 60 * 60 * 1000;
     public static final int FEED_MAX_ITEMS = 30;
     public static final int POST_MAX_CHARS = 500;
     public static final int COMMENT_MAX_CHARS = 300;

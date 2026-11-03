@@ -22,12 +22,4 @@
         android:textAppearance="@style/TextAppearance.Leia.Headline"
         android:textColor="@color/leia_on_background" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_xxs"
-        android:gravity="center"
-        android:text="@string/feed_caught_up_sub"
-        android:textAppearance="@style/TextAppearance.Leia.BodySmall"
-        android:textColor="@color/leia_on_surface_variant" />
 </LinearLayout>

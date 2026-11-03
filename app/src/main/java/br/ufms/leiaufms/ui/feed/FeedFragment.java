@@ -35,6 +35,8 @@ import br.ufms.leiaufms.ui.listing.ListingDetailFragment;
  */
 public class FeedFragment extends Fragment {
 
+    private static final String FILTER_SAVED = "SALVOS";
+
     private FragmentFeedBinding binding;
     private LiveData<List<PostRow>> source;
     private PostAdapter adapter;
@@ -60,8 +62,6 @@ public class FeedFragment extends Fragment {
             @Override
             public void onReact(PostRow p, String tipo) {
                 AppExecutors.io().execute(() -> new SocialRepository(app).toggleReaction(p.id, me, tipo));
-                if (Reacao.TIPO_QUERO.equals(tipo) && PostMural.TIPO_DOACAO.equals(p.tipo) && p.anuncioId != null
-                        && !p.meuQuero) openListing(p.anuncioId);
             }
 
             @Override
@@ -105,9 +105,11 @@ public class FeedFragment extends Fragment {
         if (source != null) source.removeObservers(getViewLifecycleOwner());
         int id = binding.filters.getCheckedChipId();
         String tipo = id == R.id.f_dica ? PostMural.TIPO_DICA : id == R.id.f_procuro ? PostMural.TIPO_PROCURO
-                : id == R.id.f_doacao ? PostMural.TIPO_DOACAO : id == R.id.f_troca ? PostMural.TIPO_TROCA_CONCLUIDA : "";
-        long desde = System.currentTimeMillis() - AppConfig.FEED_WINDOW_MS;
-        source = AppDatabase.get(requireContext()).socialDao().feed(me, desde, tipo, AppConfig.FEED_MAX_ITEMS);
+                : id == R.id.f_doacao ? PostMural.TIPO_DOACAO : id == R.id.f_troca ? PostMural.TIPO_TROCA_CONCLUIDA
+                : id == R.id.f_saved ? FILTER_SAVED : "";
+        binding.empty.emptyMessage.setText(FILTER_SAVED.equals(tipo) ? R.string.feed_saved_empty : R.string.empty_feed_message);
+        source = AppDatabase.get(requireContext()).socialDao().feed(me, System.currentTimeMillis(), tipo,
+                AppConfig.FEED_MAX_ITEMS);
         source.observe(getViewLifecycleOwner(), list -> {
             adapter.submit(list);
             binding.empty.getRoot().setVisibility(list == null || list.isEmpty() ? View.VISIBLE : View.GONE);

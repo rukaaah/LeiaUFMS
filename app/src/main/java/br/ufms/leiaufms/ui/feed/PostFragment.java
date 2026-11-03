@@ -30,7 +30,7 @@ import br.ufms.leiaufms.ui.common.TimeText;
 import br.ufms.leiaufms.ui.listing.ListingDetailFragment;
 import br.ufms.leiaufms.ui.profile.ProfileFragment;
 
-/** Post do mural aberto (feedback 03/11): texto inteiro, reações, comentários (RF-43) e compartilhar. */
+/** Post do mural aberto (feedback 03/11): texto inteiro, coração, comentários (RF-43), salvar e compartilhar. */
 public class PostFragment extends Fragment {
 
     public static final String ARG_ID = "postId";
@@ -69,13 +69,13 @@ public class PostFragment extends Fragment {
             binding.commentsEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
         });
 
-        binding.reactUseful.setOnClickListener(v -> {
+        binding.reactHeart.setOnClickListener(v -> {
             PostAdapter.bounce(v);
-            AppExecutors.io().execute(() -> new SocialRepository(app).toggleReaction(postId, me, Reacao.TIPO_UTIL));
+            AppExecutors.io().execute(() -> new SocialRepository(app).toggleReaction(postId, me, Reacao.TIPO_CORACAO));
         });
-        binding.reactWant.setOnClickListener(v -> {
+        binding.reactSave.setOnClickListener(v -> {
             PostAdapter.bounce(v);
-            AppExecutors.io().execute(() -> new SocialRepository(app).toggleReaction(postId, me, Reacao.TIPO_QUERO));
+            AppExecutors.io().execute(() -> new SocialRepository(app).toggleReaction(postId, me, Reacao.TIPO_SALVO));
         });
         binding.reactComments.setOnClickListener(v -> {
             binding.inputComment.requestFocus();
@@ -157,12 +157,10 @@ public class PostFragment extends Fragment {
         binding.buttonListing.setOnClickListener(open);
         binding.bookRow.setOnClickListener(open);
         int base = c.getColor(R.color.leia_on_surface_variant);
-        PostAdapter.bindReaction(binding.reactUseful, p.meuUtil, p.uteis, R.string.react_useful,
-                R.plurals.react_useful_count, R.drawable.ic_thumb_up, R.drawable.ic_thumb_up, c,
-                p.meuUtil ? c.getColor(R.color.leia_primary) : base);
-        PostAdapter.bindReaction(binding.reactWant, p.meuQuero, p.queros, R.string.react_want,
-                R.plurals.react_want_count, R.drawable.ic_favorite, R.drawable.ic_favorite_border, c,
-                p.meuQuero ? c.getColor(R.color.leia_primary) : base);
+        PostAdapter.bindReaction(binding.reactHeart, p.meuCoracao, p.coracoes, R.string.react_heart,
+                R.plurals.react_heart_count, R.drawable.ic_favorite, R.drawable.ic_favorite_border, c,
+                p.meuCoracao ? c.getColor(R.color.leia_primary) : base);
+        PostAdapter.bindSave(binding.reactSave, p.meuSalvo, c, p.meuSalvo ? c.getColor(R.color.leia_primary) : base);
         binding.reactComments.setText(p.comentarios > 0 ? String.valueOf(p.comentarios) : "");
         binding.reactComments.setContentDescription(p.comentarios > 0
                 ? getResources().getQuantityString(R.plurals.comment_count, p.comentarios, p.comentarios)

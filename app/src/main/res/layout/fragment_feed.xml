@@ -66,6 +66,15 @@
                     app:chipIconTint="@color/post_troca_on"
                     app:chipIconVisible="true"
                     android:text="@string/post_type_troca" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/f_saved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feed_saved"
+                    app:chipIcon="@drawable/ic_bookmark_border"
+                    app:chipIconTint="@color/leia_primary"
+                    app:chipIconVisible="true" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 

@@ -13,9 +13,8 @@ public class PostRow {
     public String texto;
     public Long anuncioId;
     public long criadoEm;
-    public int uteis;
-    public int queros;
-    public boolean meuUtil;
-    public boolean meuQuero;
+    public int coracoes;
+    public boolean meuCoracao;
+    public boolean meuSalvo;
     public int comentarios;
 }

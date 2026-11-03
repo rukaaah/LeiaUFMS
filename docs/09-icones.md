@@ -22,7 +22,7 @@ Fonte única: `tools/icons/gerar_icones.py` gera os vetores do Android (`app/src
 | Família | Ícones | Metáforas que valem destacar |
 |---|---|---|
 | Navegação | home, home_filled, swap, forum, forum_filled, favorite, person, back, chevron_right, close, add, search, explore, settings, tune, logout | **Trocas** = duas setas em sentidos opostos (dar e receber). **Mural** = dois balões sobrepostos (conversa da turma). **Desejos** = coração. **Ajustes** = controles deslizantes; **filtros** = funil (antes eram iguais) |
-| Livros e leitura | book, library, local_library, bookmark_border, school, donate | **Estante** = lombadas na prateleira, uma inclinada. **Doação** = mão segurando um coração (dar sem receber) |
+| Livros e leitura | book, library, local_library, bookmark_border, bookmark, school, donate | **Estante** = lombadas na prateleira, uma inclinada. **Doação** = mão segurando um coração (dar sem receber) |
 | Encontro e lugar | place, location_off, my_location, map, walk, schedule, event, history | **A pé** = pessoa andando, o mesmo ícone do selo "A pé · N min" e da faixa do encontro |
 | Social e mensagens | chat, comment, send, share, inbox, thumb_up, notifications, notifications_off, new, lightbulb, celebration | **Dica** = lâmpada (antes era o "i" de informação, que não dizia "dica"). **Pedidos pra mim** = bandeja recebendo; **Meus pedidos** = avião de papel saindo. **Útil** = polegar |
 | Estado | check_circle, check_small, info, error, star, verified, badge, lock, visibility, wifi_off, gavel | **Disputa** = martelo do moderador. **Conquista** = medalha com fita |
@@ -35,7 +35,7 @@ Metáforas marcadas para teste com usuários (podem confundir): `swap` para Troc
 | Lugar | Antes | Agora |
 |---|---|---|
 | Card do mural | Ícone + nome do tipo ("Dica") | Só o ícone na cor do tipo; os filtros no topo ensinam a relação ícone ↔ nome |
-| Reações (Útil, Quero, comentários) | Ícone + número | Igual (o texto completo vai para o TalkBack) |
+| Reações (coração, comentários; salvar sem número) | Ícone + número | Igual (o texto completo vai para o TalkBack) |
 | Bola do Início | Ícone + rótulo | Só o ícone (descrição para o TalkBack) |
 | Abas da barra inferior, abas de Trocas, botões principais | Ícone + texto | Mantêm o texto: são decisões, e o texto é o apoio pedido |
 

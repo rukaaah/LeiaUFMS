@@ -78,12 +78,13 @@ Todas as listas mostram só anúncios ativos de **outras** pessoas e escondem os
 | Tocar de novo na aba | Volta ao começo da aba | Padrão de apps de abas |
 | Encontro aceito na hora | Agora é proposta; o outro aceita ou sugere outro (RF-44) | Os dois lados precisam concordar com local e hora |
 | Faixa do encontro | Mostra também "Você chega em ~N min a pé" (ou a distância se passar de 2 km) | Responde "dá tempo?" sem abrir o mapa |
-| Post do mural | Página do post com texto inteiro, Útil, Quero, comentários e compartilhar (RF-43) | Ler e conversar sem sair do contexto |
+| Post do mural | Página do post com texto inteiro, coração, comentários, salvar e compartilhar (RF-43) | Ler e conversar sem sair do contexto |
 | Compartilhar | Livro, Obra e post pela folha do Android, em texto | Não há site para link; o texto diz como achar no app |
 | Notificação do sistema com o app aberto | Cartão do próprio app, no tema, que desce do topo e some em 6 s; fora do app continua a notificação do sistema | Coerência visual e menos interrupção |
 | Recebidos/Enviados confusos | "Pedidos pra mim" (bandeja) e "Meus pedidos" (avião), com uma frase explicando cada aba | Nome diz quem pediu para quem |
 | Páginas abertas simplistas e seta padrão | Livro e Obra com capa de ponta a ponta e botões redondos próprios (voltar, compartilhar, desejo), sem barra de título; fatos do exemplar em linhas com ícone (estrutura Airbnb no celular) | A capa faz o trabalho visual; a seta própria combina com o resto |
 | Textos óbvios e informação repetida (segunda rodada) | Regra: se a tela já mostra, não escreve. Saíram "Combinado pelos dois", "(10 min antes)", "Você chega em ... a pé" (vira "~5 min" com o ícone de pessoa andando), o resumo "N livros desejados, N disponíveis", o subtítulo "Avisamos assim que alguém anunciar", "Ninguém salvou este livro", "Encontro ainda não marcado", o estado "Aceito" repetido abaixo da barra de etapas e o próximo passo quando o botão já diz a mesma coisa. O Início não repete o encontro que está na faixa, e a faixa some dentro do próprio pedido. O botão da aba Desejos é só "+" | Menos leitura; cada informação aparece uma vez |
+| Like e coração no mural ("qual a diferença?") | Ficam Coração (com número) e Salvar (marcador, sem número, filtro "Salvos"). O coração dá vida ao post: 12 h + 12 h a cada 25 corações, sem explicar na tela (decisão do Pedro) | Duas reações com papéis diferentes; o mural se renova sozinho. Atenção: é a única regra do app em que popularidade muda o que aparece, por escolha explícita do Pedro |
 | Ícones | Conjunto próprio com `/icon-designer` (`docs/09-icones.md`); no card do mural só o ícone do tipo | Ícone com significado; texto só onde apoia |
 
 ## 8. Próximos passos (depois da aprovação)
