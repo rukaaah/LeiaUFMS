@@ -1,6 +1,6 @@
 # LeiaUFMS: Design System e Usabilidade
 
-> **Status: v2, redefinido em 03/11/2026** depois do feedback do Pedro ("morno, padrão, abas iguais"). A v1 (referência Oura, tudo plano) foi **substituída**. Fontes da v2: `/mobile-design-md-library` (**Nova Mobile** como base do app todo, camada social com elementos do **Playful Color**), `/design-md-library` (**Airbnb** como marca de referência: marketplace de confiança, foto primeiro), cores da UFMS. O resumo aplicável está em [`DESIGN.md`](../DESIGN.md); a jornada e a base de psicologia em [`08-jornada-e-usabilidade.md`](08-jornada-e-usabilidade.md). Briefings por tela (`/design-taste-frontend`) no §6 e auditoria (`/web-design-guidelines`) com o checklist do §9.
+> **Status: v2, redefinido em 03/11/2026** depois do feedback do Pedro ("morno, padrão, abas iguais"). A v1 (referência Oura, tudo plano) foi **substituída**. Papéis das skills (Pedro, 03/11): `/design-md-library` define **organização, modelos e lógica** (troca: **Airbnb**; social: **Pinterest**; mydealz descartado por ser ranking por votação) e `/mobile-design-md-library` define **cores e combinações** (**Nova Mobile** no app todo; cores por tipo de post do meio-termo com **Playful Color** no Mural), sempre nas cores da UFMS. O resumo aplicável está em [`DESIGN.md`](../DESIGN.md); a jornada e a base de psicologia em [`08-jornada-e-usabilidade.md`](08-jornada-e-usabilidade.md). Briefings por tela (`/design-taste-frontend`) no §6 e auditoria (`/web-design-guidelines`) com o checklist do §9.
 
 ## 1. Conceito e princípios
 

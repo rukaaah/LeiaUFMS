@@ -52,6 +52,10 @@ public interface ObraDao {
     @Query("UPDATE obra SET capaPath = :path, capaTentativaEm = :quando WHERE id = :id")
     void setCover(long id, String path, long quando);
 
+    @Query("SELECT d.nome FROM disciplina d JOIN obra_disciplina od ON od.disciplinaId = d.id "
+            + "WHERE od.obraId = :obraId ORDER BY d.nome")
+    List<String> disciplinasOf(long obraId);
+
     @Query("SELECT * FROM disciplina ORDER BY nome COLLATE NOCASE")
     List<Disciplina> disciplinas();
 }

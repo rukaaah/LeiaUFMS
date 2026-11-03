@@ -1,6 +1,9 @@
 # DESIGN.md: LeiaUFMS (v2, 03/11/2026)
 
-> Gerado com a `/mobile-design-md-library` a partir de **Nova Mobile** (base do app todo), com a camada social emprestando elementos do **Playful Color**, e com a **Airbnb** da `/design-md-library` como marca de referência (marketplace de confiança, foto primeiro). Cores da UFMS (azul e branco). Detalhes, contraste e briefings em `docs/03-design-system.md`; jornada em `docs/08-jornada-e-usabilidade.md`.
+> **Papel de cada skill (definido pelo Pedro em 03/11/2026):**
+> - `/design-md-library` = **organização, modelos e lógica** das telas. Troca (Início, Livro, Trocas, Perfil): **Airbnb** (marketplace de confiança, capa primeiro, cartão de confiança, barra de ação fixa, coração de desejo). Social (Mural): **Pinterest** (a capa é o post, grade de 2 colunas, "Quero" como o "salvar", chips de filtro). O **mydealz** foi avaliado e descartado porque seu modelo é votação quente/frio (ranking, proibido no projeto).
+> - `/mobile-design-md-library` = **cores e combinações**. **Nova Mobile** no app todo; no Mural, as cores por tipo de post vêm do meio-termo com o **Playful Color**.
+> - Cores da UFMS (azul e branco). Detalhes, contraste e briefings em `docs/03-design-system.md`; jornada em `docs/08-jornada-e-usabilidade.md`.
 
 ## 1. Princípios
 
@@ -53,7 +56,7 @@ Todos os pares de texto ≥ 5,9:1.
 - **Cartão de confiança:** avatar, nome, curso, nota grande (o número mais forte da tela), trocas concluídas.
 - **Barra de progresso da troca:** 4 etapas (Pedido, Aceito, Encontro, Concluído) com ponto, rótulo e linha.
 - **Cartão de ação "Pra você agora":** ícone em contêiner colorido, frase de ação, seta; cor pelo tipo (pedido = azul, desejo = âmbar, encontro = verde).
-- **Post do mural:** card com raio 20 dp, etiqueta colorida do tipo, capa da obra, texto, reações "Útil" e "Quero" com micro-animação.
+- **Post do mural (estrutura Pinterest):** grade de 2 colunas em que a capa da obra é o card (raio 20 dp), etiqueta colorida do tipo sobre a capa, texto curto, autor e reações "Útil" e "Quero" (o "salvar") com micro-animação; chips de filtro por tipo no topo; lista finita (14 dias, 30 itens) terminando em "Você está em dia".
 
 ## 7. Movimento
 

@@ -38,6 +38,10 @@ public interface ExemplarDao {
     @Query("UPDATE posse_exemplar SET ate = :ate WHERE exemplarId = :exemplarId AND ate IS NULL")
     void closeCurrentPossession(long exemplarId, long ate);
 
+    /** RF-17: por quantas mãos o exemplar passou. */
+    @Query("SELECT COUNT(DISTINCT usuarioId) FROM posse_exemplar WHERE exemplarId = :exemplarId")
+    int hands(long exemplarId);
+
     @Query("SELECT * FROM posse_exemplar WHERE exemplarId = :exemplarId ORDER BY desde")
     List<PosseExemplar> history(long exemplarId);
 }

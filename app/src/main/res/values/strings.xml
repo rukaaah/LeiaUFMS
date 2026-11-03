@@ -506,4 +506,23 @@
     <string name="act_wish_sub">Está na sua lista de desejos</string>
     <string name="act_with">com %1$s</string>
     <string name="book_card_description">%1$s, de %2$s. %3$s. Anunciado por %4$s</string>
+
+    <!-- Livro (redesenho v2) -->
+    <plurals name="wish_count">
+        <item quantity="one">%d pessoa também quer este livro</item>
+        <item quantity="other">%d pessoas também querem este livro</item>
+    </plurals>
+    <plurals name="hands_count">
+        <item quantity="one">Este exemplar está com o primeiro dono</item>
+        <item quantity="other">Este exemplar já passou por %d mãos</item>
+    </plurals>
+    <string name="book_courses">Indicado em</string>
+    <string name="book_other_copies">Outras cópias</string>
+    <string name="book_location_title">Onde pegar</string>
+    <string name="trust_new">Novo na comunidade</string>
+    <string name="trust_rating_label">nota média</string>
+    <string name="trust_trades_label">trocas</string>
+    <string name="bar_free">Doação · usa 1 crédito se você tiver</string>
+    <string name="bar_trade">Troca por um livro seu</string>
+    <string name="bar_both">Troca ou doação</string>
 </resources>
