@@ -50,6 +50,16 @@
             android:layout_height="wrap_content"
             app:menu="@menu/bottom_nav" />
 
+        <!-- Cobre a posição do Início na barra (pílula de seleção e toque) para só a bola aparecer -->
+        <View
+            android:layout_width="@dimen/home_slot"
+            android:layout_height="@dimen/home_slot_height"
+            android:layout_gravity="top|center_horizontal"
+            android:background="@color/leia_surface"
+            android:elevation="@dimen/elevation_hero"
+            android:importantForAccessibility="no"
+            android:outlineProvider="none" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/home_ball"
             android:layout_width="wrap_content"

@@ -64,4 +64,6 @@
     <dimen name="count_badge">20dp</dimen>
     <dimen name="meeting_bar_clearance">4dp</dimen>
     <dimen name="screen_margin_negative">-16dp</dimen>
+    <dimen name="home_slot">80dp</dimen>
+    <dimen name="home_slot_height">80dp</dimen>
 </resources>
