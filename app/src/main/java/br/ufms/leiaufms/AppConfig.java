@@ -59,6 +59,7 @@ public final class AppConfig {
     public static final long FEED_WINDOW_MS = 14L * 24 * 60 * 60 * 1000;
     public static final int FEED_MAX_ITEMS = 30;
     public static final int POST_MAX_CHARS = 500;
+    public static final int COMMENT_MAX_CHARS = 300;
 
     // PC-12
     public static final int CHAT_MAX_CHARS = 300;

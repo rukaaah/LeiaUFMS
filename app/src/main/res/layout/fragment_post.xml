@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Post aberto (feedback 03/11, estrutura Pinterest "pin aberto"): bloco na cor da categoria com a capa grande,
+    texto inteiro, quem postou; barra de ações (Útil, Quero, Comentários, Compartilhar); comentários abaixo;
+    campo de comentário fixo na base.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:defaultFocusHighlightEnabled="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/space_l">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginEnd="@dimen/screen_margin"
+                app:cardElevation="@dimen/elevation_flat"
+                app:shapeAppearance="@style/ShapeAppearance.Leia.Social"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_m">
+
+                    <TextView
+                        android:id="@+id/tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/space_xs"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/TextAppearance.Leia.Title" />
+
+                    <LinearLayout
+                        android:id="@+id/book_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <include
+                            android:id="@+id/cover"
+                            layout="@layout/view_cover"
+                            android:layout_width="@dimen/cover_card_width"
+                            android:layout_height="@dimen/cover_card_height" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_m"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/book"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:accessibilityHeading="true"
+                                android:textAppearance="@style/TextAppearance.Leia.BookTitle" />
+
+                            <TextView
+                                android:id="@+id/book_author"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_xxs"
+                                android:textAppearance="@style/TextAppearance.Leia.BodySmall" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/button_listing"
+                                style="@style/Widget.Material3.Button.TonalButton.Icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_s"
+                                android:text="@string/post_see_listing"
+                                android:visibility="gone"
+                                app:icon="@drawable/ic_book" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:textAppearance="@style/TextAppearance.Leia.Body"
+                        android:textIsSelectable="true" />
+
+                    <TextView
+                        android:id="@+id/meta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_s"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawablePadding="@dimen/space_xs"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/touch_target"
+                        android:textAppearance="@style/TextAppearance.Leia.Label"
+                        app:drawableStartCompat="@drawable/ic_person" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Ações: ícone + número; o texto completo vai para o TalkBack -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_s"
+                android:layout_marginTop="@dimen/space_xs"
+                android:layout_marginEnd="@dimen/space_s"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/react_useful"
+                    style="@style/Widget.Leia.ReactionButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:icon="@drawable/ic_thumb_up"
+                    app:iconSize="@dimen/icon_m" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/react_want"
+                    style="@style/Widget.Leia.ReactionButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:icon="@drawable/ic_favorite_border"
+                    app:iconSize="@dimen/icon_m" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/react_comments"
+                    style="@style/Widget.Leia.ReactionButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:icon="@drawable/ic_comment"
+                    app:iconSize="@dimen/icon_m" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_share"
+                    style="@style/Widget.Leia.ReactionButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/action_share"
+                    android:gravity="center"
+                    app:icon="@drawable/ic_share"
+                    app:iconSize="@dimen/icon_m" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/comments_title"
+                style="@style/Widget.Leia.HomeSection"
+                android:layout_marginTop="@dimen/space_s"
+                android:text="@string/post_comments" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <TextView
+                android:id="@+id/comments_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin"
+                android:layout_marginTop="@dimen/space_xs"
+                android:layout_marginEnd="@dimen/screen_margin"
+                android:text="@string/post_comments_empty"
+                android:textAppearance="@style/TextAppearance.Leia.BodySmall"
+                android:textColor="@color/leia_on_surface_variant"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/leia_surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/screen_margin"
+        android:paddingTop="@dimen/space_xs"
+        android:paddingEnd="@dimen/space_xs"
+        android:paddingBottom="@dimen/space_xs">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_comment"
+            style="@style/Widget.Leia.Field"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            app:counterMaxLength="300">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_comment"
+                style="@style/Widget.Leia.FieldInput"
+                android:contentDescription="@string/label_comment"
+                android:hint="@string/hint_comment"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="300"
+                android:maxLines="4" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_send"
+            style="?attr/materialIconButtonFilledStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_xs"
+            android:contentDescription="@string/action_send_comment"
+            android:enabled="false"
+            app:icon="@drawable/ic_send" />
+    </LinearLayout>
+</LinearLayout>

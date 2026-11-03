@@ -13,6 +13,7 @@ public class Notificacao {
     public static final String DESTINO_PEDIDO = "PEDIDO";
     public static final String DESTINO_ANUNCIO = "ANUNCIO";
     public static final String DESTINO_PERFIL = "PERFIL";
+    public static final String DESTINO_POST = "POST";
 
 
     @PrimaryKey(autoGenerate = true)

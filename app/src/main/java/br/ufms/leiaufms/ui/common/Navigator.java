@@ -29,6 +29,9 @@ public final class Navigator {
         } else if (Notificacao.DESTINO_PERFIL.equals(tipo)) {
             args.putLong(ProfileFragment.ARG_USER_ID, id);
             NavHostFragment.findNavController(from).navigate(R.id.userProfileFragment, args);
+        } else if (Notificacao.DESTINO_POST.equals(tipo)) {
+            args.putLong(br.ufms.leiaufms.ui.feed.PostFragment.ARG_ID, id);
+            NavHostFragment.findNavController(from).navigate(R.id.postFragment, args);
         }
     }
 }

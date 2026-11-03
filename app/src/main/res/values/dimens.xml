@@ -42,6 +42,7 @@
     <dimen name="progress_dot">28dp</dimen>
     <dimen name="icon_m">24dp</dimen>
     <dimen name="size_32">32dp</dimen>
+    <dimen name="size_36">36dp</dimen>
     <dimen name="size_72">72dp</dimen>
     <dimen name="icon_box">44dp</dimen>
     <dimen name="avatar_medium">56dp</dimen>

@@ -144,7 +144,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     /** Reação ativa: cor de marca e ícone cheio; contagem em texto discreto, nunca número grande. */
     /** Reação em ícone + número (texto completo só para o TalkBack); ativa fica em negrito. */
-    private static void bindReaction(com.google.android.material.button.MaterialButton b, boolean mine, int count,
+    static void bindReaction(com.google.android.material.button.MaterialButton b, boolean mine, int count,
                                      int label, int countLabel, int iconOn, int iconOff, Context c, int color) {
         b.setText(count > 0 ? String.valueOf(count) : "");
         b.setContentDescription(count > 0 ? c.getResources().getQuantityString(countLabel, count, count) : c.getString(label));
@@ -155,7 +155,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         androidx.core.view.ViewCompat.setStateDescription(b, mine ? c.getString(R.string.state_selected) : null);
     }
 
-    private static void bounce(View v) {
+    static void bounce(View v) {
         v.animate().scaleX(0.94f).scaleY(0.94f).setDuration(90)
                 .withEndAction(() -> v.animate().scaleX(1f).scaleY(1f).setDuration(140).start()).start();
     }

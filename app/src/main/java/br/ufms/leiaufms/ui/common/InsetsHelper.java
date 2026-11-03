@@ -25,6 +25,11 @@ public final class InsetsHelper {
     }
 
     public static void applySystemBars(View root) {
+        applySystemBars(root, new View[0]);
+    }
+
+    /** Igual, e esconde as views dadas (barra de abas) enquanto o teclado está aberto. */
+    public static void applySystemBars(View root, View... hideWithKeyboard) {
         final int left = root.getPaddingLeft();
         final int top = root.getPaddingTop();
         final int right = root.getPaddingRight();
@@ -35,6 +40,8 @@ public final class InsetsHelper {
             Insets ime = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
             v.setPadding(left + bars.left, top + bars.top, right + bars.right,
                     bottom + Math.max(bars.bottom, ime.bottom));
+            boolean typing = windowInsets.isVisible(WindowInsetsCompat.Type.ime());
+            for (View h : hideWithKeyboard) h.setVisibility(typing ? View.GONE : View.VISIBLE);
             return WindowInsetsCompat.CONSUMED;
         });
     }

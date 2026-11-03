@@ -84,6 +84,29 @@ public class SocialRepository {
         return true;
     }
 
+    /** RF-43: comentário de até 300 caracteres em post visível; avisa quem postou. */
+    @WorkerThread
+    public Result comment(long postId, long autorId, String texto) {
+        String t = texto == null ? "" : texto.trim();
+        if (t.isEmpty()) return Result.EMPTY;
+        if (t.length() > AppConfig.COMMENT_MAX_CHARS) return Result.TOO_LONG;
+        br.ufms.leiaufms.data.local.entity.PostMural p = db.socialDao().postById(postId);
+        if (p == null || p.oculto) return Result.NOT_ALLOWED;
+        br.ufms.leiaufms.data.local.entity.ComentarioPost c = new br.ufms.leiaufms.data.local.entity.ComentarioPost();
+        c.postId = postId;
+        c.autorId = autorId;
+        c.texto = t;
+        c.criadoEm = System.currentTimeMillis();
+        db.socialDao().insertComentario(c);
+        if (p.autorId != autorId) {
+            Usuario autor = db.usuarioDao().findById(autorId);
+            Notifier.notify(context, p.autorId, Notifier.CHANNEL_TRADES,
+                    context.getString(R.string.notif_comment_title, autor == null ? "" : autor.nome), t,
+                    br.ufms.leiaufms.data.local.entity.Notificacao.DESTINO_POST, postId);
+        }
+        return Result.OK;
+    }
+
     /** Moderador oculta post (papel do Moderador, §3 da especificação). */
     @WorkerThread
     public boolean hidePost(long moderadorId, long postId) {

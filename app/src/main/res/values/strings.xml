@@ -688,4 +688,23 @@
         <item quantity="other">Mais %d pessoas querem</item>
     </plurals>
     <string name="wishes_none_available">nenhum disponível ainda</string>
+    <!-- Post aberto e comentários (RF-43) -->
+    <string name="title_post">Post</string>
+    <string name="post_see_listing">Ver o anúncio</string>
+    <string name="post_comments">Comentários</string>
+    <string name="post_comments_empty">Ninguém comentou ainda. Comece a conversa.</string>
+    <string name="post_by">%1$s · %2$s</string>
+    <string name="post_gone">Este post não está mais disponível.</string>
+    <string name="label_comment">Comentário</string>
+    <string name="hint_comment">Escreva um comentário</string>
+    <string name="action_send_comment">Enviar comentário</string>
+    <string name="action_comment">Comentar</string>
+    <string name="action_share">Compartilhar</string>
+    <string name="comment_error">Não foi possível comentar. Escreva até 300 caracteres.</string>
+    <plurals name="comment_count">
+        <item quantity="one">%d comentário</item>
+        <item quantity="other">%d comentários</item>
+    </plurals>
+    <string name="notif_comment_title">%1$s comentou seu post</string>
+    <string name="share_post_text">%1$s no LeiaUFMS: %2$s, de %3$s.\n\n"%4$s"\n\n%5$s, no mural do LeiaUFMS.</string>
 </resources>

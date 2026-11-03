@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Comentário do mural: iniciais, nome · tempo, texto. Sem curtida em comentário (evita ranking). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/screen_margin"
+    android:paddingTop="@dimen/space_s"
+    android:paddingEnd="@dimen/screen_margin"
+    android:paddingBottom="@dimen/space_s">
+
+    <TextView
+        android:id="@+id/initials"
+        android:layout_width="@dimen/size_36"
+        android:layout_height="@dimen/size_36"
+        android:background="@drawable/bg_circle_primary"
+        android:gravity="center"
+        android:importantForAccessibility="no"
+        android:textAppearance="@style/TextAppearance.Leia.Label"
+        android:textColor="@color/leia_on_primary_container" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_s"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:textAppearance="@style/TextAppearance.Leia.Label"
+            android:textColor="@color/leia_on_surface_variant" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xxs"
+            android:importantForAccessibility="no"
+            android:textAppearance="@style/TextAppearance.Leia.Body"
+            android:textColor="@color/leia_on_background" />
+    </LinearLayout>
+</LinearLayout>

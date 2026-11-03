@@ -66,7 +66,9 @@ public class FeedFragment extends Fragment {
 
             @Override
             public void onOpen(PostRow p) {
-                if (p.anuncioId != null) openListing(p.anuncioId);
+                Bundle args = new Bundle();
+                args.putLong(PostFragment.ARG_ID, p.id);
+                NavHostFragment.findNavController(FeedFragment.this).navigate(R.id.postFragment, args);
             }
 
             @Override

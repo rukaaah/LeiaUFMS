@@ -29,6 +29,7 @@
 
     <!-- Barra inferior com o Início em destaque: bola central dentro da barra, sem cobrir o conteúdo (feedback 03/11) -->
     <FrameLayout
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="false"

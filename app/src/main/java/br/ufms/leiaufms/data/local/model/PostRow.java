@@ -17,4 +17,5 @@ public class PostRow {
     public int queros;
     public boolean meuUtil;
     public boolean meuQuero;
+    public int comentarios;
 }

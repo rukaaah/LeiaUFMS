@@ -46,11 +46,34 @@ public interface SocialDao {
             + "(SELECT COUNT(*) FROM reacao r WHERE r.postId = p.id AND r.tipo = 'UTIL') AS uteis, "
             + "(SELECT COUNT(*) FROM reacao r WHERE r.postId = p.id AND r.tipo = 'QUERO') AS queros, "
             + "EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'UTIL' AND r.usuarioId = :me) AS meuUtil, "
-            + "EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'QUERO' AND r.usuarioId = :me) AS meuQuero "
+            + "EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'QUERO' AND r.usuarioId = :me) AS meuQuero, "
+            + "(SELECT COUNT(*) FROM comentario_post c WHERE c.postId = p.id) AS comentarios "
             + "FROM post_mural p JOIN obra o ON o.id = p.obraId JOIN usuario u ON u.id = p.autorId "
             + "WHERE p.oculto = 0 AND p.criadoEm >= :desde AND (:tipo = '' OR p.tipo = :tipo) "
             + "ORDER BY p.criadoEm DESC LIMIT :limite")
     LiveData<List<PostRow>> feed(long me, long desde, String tipo, int limite);
+
+    @Query("SELECT p.id, p.autorId, u.nome AS autorNome, p.obraId, o.titulo, o.autor, o.capaPath, p.tipo, p.texto, "
+            + "p.anuncioId, p.criadoEm, "
+            + "(SELECT COUNT(*) FROM reacao r WHERE r.postId = p.id AND r.tipo = 'UTIL') AS uteis, "
+            + "(SELECT COUNT(*) FROM reacao r WHERE r.postId = p.id AND r.tipo = 'QUERO') AS queros, "
+            + "EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'UTIL' AND r.usuarioId = :me) AS meuUtil, "
+            + "EXISTS (SELECT 1 FROM reacao r WHERE r.postId = p.id AND r.tipo = 'QUERO' AND r.usuarioId = :me) AS meuQuero, "
+            + "(SELECT COUNT(*) FROM comentario_post c WHERE c.postId = p.id) AS comentarios "
+            + "FROM post_mural p JOIN obra o ON o.id = p.obraId JOIN usuario u ON u.id = p.autorId "
+            + "WHERE p.id = :postId AND p.oculto = 0")
+    LiveData<PostRow> post(long me, long postId);
+
+    // ---- Comentários do mural (RF-43)
+    @Query("SELECT c.id, c.autorId, u.nome AS autorNome, c.texto, 0 AS pronta, c.criadoEm AS enviadaEm "
+            + "FROM comentario_post c JOIN usuario u ON u.id = c.autorId WHERE c.postId = :postId ORDER BY c.criadoEm, c.id")
+    LiveData<List<MessageRow>> comments(long postId);
+
+    @Insert
+    long insertComentario(br.ufms.leiaufms.data.local.entity.ComentarioPost c);
+
+    @Query("SELECT * FROM post_mural WHERE id = :id")
+    br.ufms.leiaufms.data.local.entity.PostMural postById(long id);
 
     @Query("DELETE FROM reacao WHERE postId = :postId AND usuarioId = :usuarioId AND tipo = :tipo")
     int deleteReacao(long postId, long usuarioId, String tipo);
