@@ -1,6 +1,6 @@
 # LeiaUFMS: Arquitetura e Modelo de Dados
 
-> Guia técnico para implementação. As justificativas das escolhas estão nos ADRs do [`01-pre-documentacao.md`](01-pre-documentacao.md#2-decisões-de-arquitetura-adrs-resumidos).
+> Guia técnico para implementação. As justificativas das escolhas estão nos ADRs do [`01-pre-documentacao.md`](01-pre-documentacao.md#1-decisões-de-arquitetura-adrs-resumidos).
 
 ## 1. Stack
 
@@ -20,7 +20,7 @@
 | HTTP | `HttpURLConnection` + `org.json` (nativos) | API pública da Open Library para capas (RF-42) |
 | Imagens | `ActivityResultContracts.TakePicture` / `PickVisualMedia` + `FileProvider` | — |
 
-**Versões:** não fixadas aqui de propósito. Usar a versão estável mais recente de cada uma no momento do setup, registrar no `gradle/libs.versions.toml` e anotar no `AGENT.md` (seção Estado atual).
+**Versões:** não fixadas aqui de propósito. Usar a versão estável mais recente de cada uma no momento do setup, registrar no `gradle/libs.versions.toml`.
 
 ## 2. Estrutura de pacotes
 

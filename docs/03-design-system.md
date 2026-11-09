@@ -1,6 +1,6 @@
 # LeiaUFMS: Design System e Usabilidade
 
-> **Status: v2, redefinido em 03/11/2026** depois do feedback do Pedro ("morno, padrão, abas iguais"). A v1 (referência Oura, tudo plano) foi **substituída**. Papéis das skills (Pedro, 03/11): `/design-md-library` define **organização, modelos e lógica** (troca: **Airbnb**; social: **Pinterest**; mydealz descartado por ser ranking por votação) e `/mobile-design-md-library` define **cores e combinações** (**Nova Mobile** no app todo; cores por tipo de post do meio-termo com **Playful Color** no Mural), sempre nas cores da UFMS. O resumo aplicável está em [`DESIGN.md`](../DESIGN.md); a jornada e a base de psicologia em [`08-jornada-e-usabilidade.md`](08-jornada-e-usabilidade.md). Briefings por tela (`/design-taste-frontend`) no §6 e auditoria (`/web-design-guidelines`) com o checklist do §9.
+> **Status: v2, redefinido em 03/11/2026** depois do feedback do grupo ("morno, padrão, abas iguais"). A v1 (tudo plano) foi **substituída**. Organização das telas: troca no modelo de marketplace de confiança (capa primeiro, cartão de confiança, barra de ação fixa); social em grade de 2 colunas em que a capa é o post. Sempre nas cores da UFMS. A jornada e a base de psicologia estão em [`08-jornada-e-usabilidade.md`](08-jornada-e-usabilidade.md); o checklist de auditoria de UI está no §9.
 
 ## 1. Conceito e princípios
 
@@ -105,87 +105,6 @@ Livro aberto em páginas brancas sobre o azul da UFMS, com marcador âmbar. Adap
 | Estante e desejos | Fragment | Adicionar livro |
 | Caixa de avisos | Fragment | Abrir aviso |
 
-### 6.0 Briefings v2 (03/11/2026, `/design-taste-frontend` aplicada com a jornada)
-
-A skill pede que cada tela **responda uma pergunta primeiro**, que o maior elemento seja o que responde essa pergunta e que o produto tenha **um elemento que só ele tem**. O elemento próprio do LeiaUFMS é a **capa do livro com o selo "a pé"** (distância real até o ponto seguro). Os briefings v1 abaixo continuam valendo para estados e microcopy; estes substituem a hierarquia.
-
-| Tela | Pergunta que responde primeiro | Maior elemento | Ação principal → secundárias | Hierarquia (cima → baixo) | Estados |
-|---|---|---|---|---|---|
-| Onboarding (4 telas + preferências) | "Como isso funciona e é seguro?" | Ilustração (ícone grande em contêiner colorido) + frase de 1 linha | **Continuar** → Pular | 1. Troque ou passe adiante. 2. Créditos (doou ganhou 1; sem crédito também pode pedir). 3. Encontro sempre em ponto seguro, confirmação dos dois lados. 4. Localização só nos 10 min antes do encontro e só se você ativar. 5. Curso, o que está lendo e um desejo | Passos pulados podem ser feitos depois no Perfil |
-| Início | "O que tem pra mim agora?" | Cartões "Pra você agora" (quando houver) e o carrossel de capas "Perto de você" | Abrir um livro → buscar, **Anunciar livro** | Saudação + créditos (âmbar) → busca em pílula → "Pra você agora" (pedidos esperando você, desejos que apareceram, encontro hoje) → "Perto de você, a pé" (carrossel de capas grandes com selo) → "Para o seu curso" (disciplinas) → "Chegaram agora" (carrossel) → "Todos os livros" (lista com filtros) | Sem localização: o carrossel "Perto de você" vira um convite "Ative a localização para ver o que dá para buscar a pé". Sem nada pra você: o bloco some (não mostra caixa vazia) |
-| Livro | "Vale a pena pedir este?" | Capa grande (280 dp) | **Pedir troca / Resgatar** em barra fixa → Salvar nos desejos (coração), Ver perfil do dono | Capa → título/autor → chips (conservação, edição, modalidade) → bloco de local (mapa estático do ponto + "a pé ~N min") → cartão de confiança (nota em destaque) → "Quantos querem" + "Passou por N mãos" → Disciplinas que indicam → Outras cópias → barra fixa | Próprio anúncio, já pedido, encerrado (como v1) |
-| Trocas | "Qual troca precisa de mim agora?" | Card da troca ativa com a barra de 4 etapas | Abrir a troca → Recebidos/Enviados | Troca(s) que pedem ação, cada uma com barra de etapas e o próximo passo → histórico compacto | Vazio com convite para Explorar |
-| Pedido | "Qual é o próximo passo?" | Barra de 4 etapas + frase do próximo passo | Botão do passo atual em barra fixa → chat, remarcar, cancelar | Livro → etapas → encontro (ponto, hora, localização ao vivo na janela de 10 min) → outra parte → ações | Fora da janela: "A localização aparece 10 min antes do encontro" |
-| Mural (estrutura Pinterest) | "O que a turma está lendo e procurando?" | Grade de capas em 2 colunas: a capa é o post | **Novo post** → filtrar por tipo, dar coração / salvar | Chips de filtro (Todos, Dica, Procuro, Doação, Troca concluída) → grade de posts (etiqueta colorida do tipo sobre a capa, livro, texto, autor e tempo, reações em texto) → fim "Você está em dia" | Vazio: "O mural está quieto. Compartilhe uma dica sobre um livro." + Novo post. Post de Doação: "Quero" leva ao anúncio |
-| Perfil | "Como a comunidade me vê?" | Cabeçalho azul com foto, nome, nota e créditos | Editar perfil → estante, desejos, conta | Cabeçalho azul → três números (trocas, livros passados adiante, nota) → selos → estante em capas (carrossel) → conta | Sem foto: iniciais |
-
-#### Ajustes de usabilidade (feedback do Pedro, 03/11/2026)
-
-| Tela / elemento | Mudança | Por quê |
-|---|---|---|
-| Barra inferior | 5 abas: **Início, Desejos, Trocas, Mural, Perfil**; ícone cheio na aba ativa, indicador azul, ponto azul em Trocas quando algo precisa de você | Desejos é central num app de troca; a barra parecia simples demais |
-| Faixa do próximo encontro | Fixa acima das abas, em qualquer tela: aparece 60 min antes, fica verde forte a 30 min e azul a 10 min; mostra capa, "Encontro em N min · 23:35", ponto e a distância da outra pessoa ao ponto (RF-41) | A entrega estava escondida em Trocas → Enviados |
-| Desejos (aba) | Grade de capas com os disponíveis primeiro (selo verde), resumo "N disponíveis agora", sugestões do mesmo autor ou disciplina | Tornar o desejo um ponto de entrada |
-| Início | Novas seções: "Porque você leu X" (mesmo autor ou gênero), "Mais de {gênero}" (o gênero que a pessoa mais lê, deseja ou troca) e "Explore por gênero" | Categorias ligadas ao usuário |
-| Todos os livros | Grade de capas em 2 colunas com chips de gênero e modalidade | A lista parecia monótona |
-| Mural | Card inteiro na cor da categoria, ícone por tipo, texto em 3 linhas, reações em ícone + número | O olho acha o tipo antes de ler |
-| Trocas e Pedido | Ícones no lugar de frases: 👤 quem, 📍 onde (em destaque), 🕐 "Hoje 23:35 · em 18 min"; próximo passo como botão curto ("Confirmar entrega") | Menos leitura para achar onde e quando |
-| Resgate | "Resgatar · 1 crédito" só com crédito; sem crédito o botão é "Pedir doação" (a regra RN-CRED-04 continua) | Evitar parecer que precisa de crédito que não tem |
-
-### 6.1 Briefings de tela (Etapa D2, `/design-taste-frontend`)
-
-A skill classifica todas as telas do LeiaUFMS como **telas de app** (trabalhadas, não lidas), então valem as regras de `references/app-screens.md` da skill, traduzidas para Android:
-
-- **Cada tela responde uma pergunta primeiro**; o maior elemento da tela é o que responde essa pergunta.
-- **Rótulo acima do campo**, nunca placeholder no lugar do rótulo. A regra que limita o campo (ex.: regra de senha) fica **visível como texto de ajuda** do campo desde o início, não só depois do erro.
-- **Uma ação preenchida por tela**; secundárias contornadas ou de texto, todas com a mesma altura na mesma linha.
-- **Estados honestos:** zero aparece como zero ("0 créditos"); lista vazia mantém o título da seção e mostra uma frase + próximo passo; carregando mostra o layout final (sem tela piscando); erro aparece **dentro do bloco** que falhou, com "Tentar de novo".
-- **Palavras do ofício** nos rótulos e estados vazios ("Aguardando resposta", "Passei adiante"), nunca "Itens" ou "Registros".
-- **No celular:** navegação por barra inferior de 4 destinos com rótulo curto; filtros em uma linha de chips; o primeiro item da lista começa nos 60% superiores da tela.
-- **Proibido:** gradiente, brilho, sombra em card parado, ícone em círculo colorido, emoji, contador vermelho, rótulo minúsculo em caixa alta com espaçamento largo acima de títulos.
-
-| Tela | Objetivo do usuário | Ação principal → secundárias | Hierarquia (de cima para baixo) | Estados (vazio, carregando, erro, sem permissão) |
-|---|---|---|---|---|
-| Splash | Abrir o app e cair no lugar certo sem esperar | Nenhuma (automática) | Fundo claro, ícone do livro centralizado | Carregando: a própria splash enquanto a sessão é conferida no Room (sem atraso artificial). Erro ao ler a sessão: segue para o Login. Sessão expirada: Login com o aviso "Sua sessão expirou. Entre de novo." |
-| Login | Entrar com o e-mail da UFMS em poucos segundos | **Entrar** → "Criar conta" (texto) | Ícone pequeno + "LeiaUFMS" (Display) → frase "Troque livros com quem estuda com você." → rótulo + campo E-mail → rótulo + campo Senha (com mostrar/ocultar) → botão Entrar → linha "Ainda não tem conta? Criar conta" | Carregando: botão desabilitado com "Entrando…" e indicador; campos bloqueados. Erro de credencial: "E-mail ou senha incorretos." no campo Senha (mensagem única). Campo vazio: "Preencha o seu e-mail." / "Preencha a sua senha." |
-| Cadastro | Criar a conta e já entrar | **Criar conta** → "Já tenho conta" (texto), Voltar | Barra com Voltar e "Criar conta" (Headline) → frase "Só para quem tem e-mail da UFMS." → Nome → E-mail institucional (ajuda: "Termina em @ufms.br") → Curso → Semestre (1 a 12) → Senha (ajuda sempre visível: regra da senha) → Confirmar senha → botão Criar conta | Carregando: botão "Criando conta…" desabilitado. Erros por campo (§7), foco vai para o primeiro campo com erro. E-mail duplicado: no campo E-mail, "Já existe uma conta com este e-mail. Quer entrar?" com ação "Entrar" na Snackbar |
-| Estrutura de abas | Saber onde está e trocar de área com um toque | Trocar de aba → Caixa de avisos (ícone na barra superior, com ponto neutro quando há avisos novos) | Barra superior com o nome da aba (Headline) e ícone da Caixa de avisos → conteúdo → barra inferior fixa: **Explorar, Mural, Trocas, Perfil** (ícone + rótulo sempre visíveis) | Cada aba tem seu estado vazio próprio; a aba ativa preserva a rolagem ao voltar. Voltar na aba inicial fecha o app; nas outras abas volta para Explorar |
-| Explorar (aba) | Achar um livro que eu quero e que esteja perto | Abrir um anúncio → buscar, filtrar (modalidade, raio), "Perto de mim", anunciar (botão preenchido flutuante "Anunciar livro") | Busca → linha de chips de filtro → lista de cards (capa, título, autor, distância, "a pé", modalidade) | Vazio: "Ainda não há livros anunciados. Que tal anunciar o seu?" + Anunciar livro. Busca sem resultado: "Nenhum livro com \"{termo}\". Tente o autor ou o ISBN." Sem localização: lista sem distância + aviso da §7 |
-| Mural (aba) | Ver o que a comunidade está lendo e procurando, sem rolar para sempre | Novo post → coração / salvar | Posts vivos (12 h + 12 h a cada 25 corações, até 30) → fim "Você está em dia" | Vazio: "O mural está quieto. Compartilhe uma dica sobre um livro." + Novo post |
-| Trocas (aba) | Saber qual pedido precisa de mim agora | Abrir o pedido → alternar "Recebidos" e "Enviados" | Pedidos que pedem ação primeiro, com o próximo passo em texto ("Responda o pedido", "Marque o encontro") → depois os demais | Vazio: "Nenhuma troca por aqui. Peça um livro em Explorar." + Explorar |
-| Perfil (aba) | Ver e cuidar do meu cartão de confiança | Editar perfil → estante, desejos, alterar senha, sair | Foto, nome (Display), curso e semestre → saldo de créditos (âmbar) e métricas → estante → opções da conta → Sair (texto, com confirmação) | Sem foto: iniciais sobre `primary_container`. Estante vazia: "Sua estante está vazia. Adicione o livro que está lendo." |
-
-#### Parte 2 (perfil, mídia e avisos)
-
-| Tela | Objetivo do usuário | Ação principal → secundárias | Hierarquia (de cima para baixo) | Estados (vazio, carregando, erro, sem permissão) |
-|---|---|---|---|---|
-| Perfil (próprio) | Ver como a comunidade me vê e cuidar da minha conta | **Editar perfil** → alterar foto (toque na foto), alterar senha, Caixa de avisos, Sair | Foto 96 dp (ou iniciais) com botão "Alterar foto" → nome (Display) → curso e semestre → status → faixa âmbar "N créditos disponíveis" (+ "1 reservado" quando houver) → métricas em texto: trocas concluídas, nota média ("—" sem avaliações) → opções da conta em lista → Sair (texto, por último) | Sem foto: iniciais em `primary_container`. 0 créditos aparece como "0 créditos". Erro ao salvar foto: Snackbar "Não deu para salvar a foto. Tente de novo." e a foto anterior fica |
-| Perfil (de outro aluno) | Decidir se confio nesta pessoa para uma troca | Nenhuma ação preenchida (só leitura) | Mesma ordem, **sem saldo** de créditos e sem opções da conta | Aluno sem trocas: "Ainda não concluiu trocas." |
-| Alterar foto (folha inferior) | Trocar a foto com um toque | **Tirar foto** / **Escolher da galeria** (mesmo peso, lista) → Cancelar | Título "Foto do perfil" → duas linhas com ícone e texto | Câmera negada: "Para tirar uma foto, permita o uso da câmera nas configurações." com ação "Abrir configurações" quando a negação é permanente; a galeria continua disponível. Cancelar captura ou seletor: nada muda |
-| Editar perfil | Corrigir meus dados sem perder o que já está certo | **Salvar** → Voltar (pergunta antes de descartar alterações) | Nome → E-mail institucional (ajuda "Termina em @ufms.br") → Curso → Semestre → Status (ajuda "Até 80 caracteres", contador) → Salvar | Carregando: "Salvando…". Erros por campo (§7). Sucesso: volta ao Perfil com Snackbar "Perfil atualizado" |
-| Alterar senha | Trocar a senha com segurança | **Alterar senha** → Voltar | Senha atual → Nova senha (ajuda com a regra) → Confirmar nova senha → botão | Carregando: "Alterando…". Atual errada: "A senha atual não confere." no campo. Sucesso: Snackbar "Senha alterada" e as outras sessões são encerradas |
-| Caixa de avisos | Ver o que aconteceu com minhas trocas enquanto eu não estava olhando | Abrir um aviso → "Marcar todos como lidos" | Faixa discreta quando a permissão de notificação está negada → lista do mais novo para o mais antigo (título, texto, há quanto tempo; não lido com ponto azul e título em peso maior) | Vazio: "Nenhum aviso por enquanto. Quando alguém pedir um livro seu, você fica sabendo aqui." Permissão negada: "Os avisos ficam na sua Caixa de avisos. Para recebê-los no celular, ative as notificações." + "Ativar" |
-
-#### Parte 3 (anúncios, trocas e geolocalização)
-
-| Tela | Objetivo do usuário | Ação principal → secundárias | Hierarquia (de cima para baixo) | Estados (vazio, carregando, erro, sem permissão) |
-|---|---|---|---|---|
-| Explorar | Achar um livro que eu quero e que esteja perto | Abrir um anúncio → buscar, filtrar por modalidade, "Perto de mim" com raio, **Anunciar livro** (botão estendido fixo no canto inferior) | Campo de busca → uma linha de chips (Todos, Troca, Doação, Perto de mim) → linha de raio só quando "Perto de mim" está ativo → aviso de localização (se houver) → cards: capa 64×96, título (serifa), autor, distância e "a pé" ou "longe para ir a pé", modalidade, dono | Vazio: "Ainda não há livros anunciados. Que tal anunciar o seu?". Busca sem resultado: "Nenhum livro com \"{termo}\". Tente o autor ou o ISBN.". Raio sem resultado: "Nenhum livro a até {raio}. Aumente o raio.". Localização negada / GPS desligado / sem posição: textos da §7, a lista continua sem distância |
-| Detalhe do anúncio | Decidir se vale pedir este livro | **Pedir troca** ou **Resgatar** (no anúncio "Troca ou doação", os dois, com Resgatar contornado) → ver perfil do dono, histórico | Capa grande → título/autor → edição e conservação → modalidade → distância + "dá para ir a pé (~N min)" + nota "estimativa em linha reta" → local (ponto seguro ou "local informado pelo dono") → cartão do dono (foto, nome, curso, trocas, nota) → botão | Sem localização: esconder a distância e mostrar "Ative a localização para ver a distância". Anúncio próprio: "Este anúncio é seu." + Editar e Encerrar. Já pediu: "Você já pediu este livro." + Ver pedido. Anúncio encerrado: "Este anúncio foi encerrado." |
-| Novo / editar anúncio | Publicar meu livro em menos de um minuto | **Publicar** (ou **Salvar** na edição) → foto do exemplar, local | Título → Autor → ISBN (opcional, ajuda "10 ou 13 dígitos") → Edição (opcional) → Conservação (chips) → Modalidade (chips) → Foto do exemplar (opcional) → Local: "Minha localização agora", "Um ponto seguro" ou "Sem local" → botão | Erros por campo. Sem pontos seguros: a opção mostra "Ainda não há pontos seguros cadastrados". Localização negada: volta para "Sem local" com a mensagem da §7 |
-| Trocas | Saber qual pedido precisa de mim agora | Abrir o pedido → alternar **Recebidos** / **Enviados** | Alternador → pedidos que pedem minha ação primeiro, com o próximo passo em texto ("Responda o pedido", "Marque o encontro", "Confirme a entrega") → os demais por data | Vazio recebidos: "Ninguém pediu seus livros ainda. Anuncie um livro em Explorar.". Vazio enviados: "Você ainda não pediu nenhum livro. Peça um livro em Explorar." |
-| Pedido | Fazer o próximo passo da troca | **O próximo passo do estado** (Aceitar, Marcar encontro, Confirmar entrega/recebimento) → Recusar, Cancelar pedido, Chat | Livro → estado com ícone + frase do próximo passo → outra parte (nome, curso, trocas, nota; **saldo do solicitante** para o dono num resgate) → encontro (ponto, data e hora) → ações | Sem crédito: "Pedido sem crédito. Quem anunciou decide se aceita." Cancelar e recusar pedem confirmação. Pedido encerrado: só leitura |
-| Marcar encontro | Escolher um ponto seguro e um horário | **Confirmar encontro** → ver em lista, minha posição | Mapa com os pontos seguros (marcadores) → ponto escolhido (nome e descrição) → data e hora → botão | Sem pontos: "Ainda não há pontos seguros cadastrados. Peça ao Moderador para cadastrar os pontos do campus.". Sem internet: "O mapa precisa de internet. Veja os pontos seguros em lista.". Data no passado ou após o prazo: erro no campo |
-| Pontos seguros (Moderador) | Cadastrar os pontos de encontro do campus | **Tocar no mapa** para adicionar → nome e descrição em diálogo | Mapa → instrução "Toque no mapa para marcar um ponto seguro." → lista dos pontos | Sem internet: o mapa não carrega e a tela explica que precisa de internet para cadastrar |
-
-#### Parte 4 (chat, estante, desejos e avaliações)
-
-| Tela | Objetivo do usuário | Ação principal → secundárias | Hierarquia (de cima para baixo) | Estados (vazio, carregando, erro, sem permissão) |
-|---|---|---|---|---|
-| Chat do pedido | Combinar a logística do encontro rápido, sem conversa solta | **Enviar** → mensagens prontas em um toque | Livro e outra parte no topo (uma linha) → mensagens (minhas à direita em azul-claro, da outra parte à esquerda em branco, hora em legenda) → linha de mensagens prontas (chips) → campo com contador "0/300" e botão Enviar | Pedido pendente: "O chat abre quando o pedido for aceito." e campo escondido. Pedido encerrado: "Este pedido foi encerrado. O chat fica só para leitura." Sem mensagens: "Nenhuma mensagem ainda. Use uma mensagem pronta para começar." Texto acima de 300: botão desabilitado e contador em vermelho |
-| Estante e desejos | Mostrar o que estou lendo e lembrar o que quero, para ser avisado | **Adicionar livro** (na aba ativa) → mudar status, remover, "Passar adiante" | Abas Estante / Desejos → seções da estante em ordem: Estou lendo, Lido, Passei adiante → em Desejos, cada obra com "Disponível agora" quando houver anúncio | Estante vazia: "Sua estante está vazia. Adicione o livro que está lendo." Desejos vazio: "Sua lista de desejos está vazia. Adicione um livro e avisamos quando ele for anunciado." Ao marcar Lido: pergunta "Quer passar este livro adiante?" |
-| Avaliar troca | Dar uma nota justa depois da troca | **Enviar nota** → Agora não | Pergunta "Como foi a troca com {nome}?" → 5 estrelas (alvo 48 dp cada, rótulo "{n} de 5") → botão | Só aparece em pedido concluído. Editável por 48 h; depois mostra "Sua nota: {n} de 5" |
-
 ## 7. Microcopy e mensagens de erro
 
 Tom: segunda pessoa, frases curtas, diz o que aconteceu e como resolver. Nada de "Erro 500", "inválido" sem contexto ou culpa no usuário.
@@ -223,7 +142,7 @@ Tom: segunda pessoa, frases curtas, diz o que aconteceu e como resolver. Nada de
 
 ## 9. Checklist de auditoria de UI
 
-Somado à saída da skill `/web-design-guidelines` na Etapa D3 (fim de cada parte), adaptado para Android. Rodar em toda tela antes de marcar como pronta.
+Adaptado para Android. Rodar em toda tela antes de marcar como pronta.
 
 - [ ] Usa só tokens de cor/dimensão/tipografia deste documento
 - [ ] Uma ação principal clara
