@@ -100,7 +100,7 @@ Fontes de dados abertos: livros da [Open Library](https://openlibrary.org/develo
 | [Especificação](docs/02-especificacao.md) | Visão geral, papéis e requisitos RF-01 a RF-45 |
 | [Relatório de testes](docs/05-relatorio-testes.md) | 24 casos de teste caixa-preta |
 | [Arquitetura](docs/04-arquitetura.md) | Stack, pacotes, modelo de dados e máquina de estados |
-| [Design](DESIGN.md) e [design system](docs/03-design-system.md) | Cores UFMS, tipografia, componentes, navegação |
-| [Jornada e usabilidade](docs/08-jornada-e-usabilidade.md) | Jornada do aluno, critérios das recomendações e decisões |
+| [Design system](docs/03-design-system.md) | Cores UFMS, tipografia, componentes, navegação |
+| [Jornada e usabilidade](docs/08-jornada-e-usabilidade.md) | Jornada do aluno e critérios das recomendações |
 | [Ícones](docs/09-icones.md) e [logo](docs/logo/README.md) | Conjunto de ícones próprio e logo do Paliteiro |
 | [Log de implementação](docs/06-log-implementacao.md) | O que foi feito e verificado em cada parte |

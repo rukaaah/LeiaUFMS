@@ -1,6 +1,6 @@
 # LeiaUFMS: Pré-documentação
 
-> Documento de planejamento interno do grupo. Registra a análise do enunciado, as decisões de arquitetura e design e as pendências comunitárias. O documento que vai para o professor é o [`02-especificacao.md`](02-especificacao.md).
+> Documento de planejamento interno do grupo. Registra as decisões de arquitetura e design e as pendências comunitárias. O documento de entrega é o [`10-especificacao-entrega.md`](10-especificacao-entrega.md).
 
 | Campo | Valor |
 |---|---|
@@ -9,51 +9,11 @@
 | Entrega | **09/11/2026 até 23:59**, via AVA |
 | Compartilhar com | `matheus.albuquerque@ufms.br` (pasta do Drive ou repositório GitHub) |
 | Integrantes | Pedro Lucas de Souza Cremonini, Gabriel Mattos de Aquino, Angelo Antonio Correia de Souza |
-| Status | Implementação em andamento (ver `06-log-implementacao.md`) |
+| Status | Implementação concluída (ver `06-log-implementacao.md`) |
 
 ---
 
-## 1. Análise do enunciado (PDF)
-
-### 1.1 Leitura estrutural
-
-O PDF tem 5 páginas e 6 seções. O peso de cada item foi inferido pelo nível de detalhe e pelo uso de "obrigatório"/"deverá", já que o PDF **não publica uma grade de notas**.
-
-| Seção do PDF | O que exige | Peso inferido | Observação |
-|---|---|---|---|
-| 1. Objetivo e tema | Tema livre, Java nativo, **projeto inédito** (não pode ser tema/continuação das Avaliações 1 e 2) | Eliminatório | Confirmado pelo grupo em 02/11 (P-01 resolvida) |
-| 2. Especificação | Identificação, visão geral, papéis, RFs (usuários, ações, entradas, processamento, saídas) | Alto | Os 5 subitens de RF viram colunas fixas no `02-especificacao.md` |
-| 3A. Estrutura | Java, template Empty/Basic Views Activity, ≥3 telas/fragments, splash sem atraso artificial, ícone no Manifest | Alto | Splash **não conta** como tela |
-| 3B. Auth/Room | Login/cadastro, sessão, logout, edição de perfil, BCrypt com salt, novo hash na troca de senha, bloqueio de não autenticados | **Muito alto** | Seção mais detalhada do PDF |
-| 3C. Mídia | Foto via câmera **ou** galeria, caminho persistido no Room | Alto | Implementar as duas origens |
-| 3D. Notificações e recursos | Notificações tratando permissão negada, ≥1 recurso (Alarme, **Geolocalização** ou HTTP), permissões no Manifest + runtime + tratamento de negação | **Muito alto** | Escolhido: Geolocalização |
-| 4. Diferenciais | ≥1 foco (Energia, **Usabilidade**, Acessibilidade) **justificado** na especificação | Médio | Usabilidade como foco; energia e acessibilidade como cuidados básicos |
-| 5. Testes caixa-preta | Casos **executados** com condição inicial, entrada, esperado, obtido, status; falhas e correções registradas | **Muito alto** | O PDF diz: "Não basta apenas descrever os testes" |
-| 6. Entrega | Drive ou GitHub, compartilhamento, AVA com links + especificação + nomes | Eliminatório | Checklist na seção 8 |
-
-### 1.2 Conclusões da análise
-
-- **O PDF avalia requisitos técnicos, não a riqueza do domínio.** A camada social do LeiaUFMS é diferencial, mas a nota depende de auth, Room, mídia, notificações, permissões, geolocalização e testes. A prioridade de implementação segue essa ordem (seção 7).
-- **O PDF não exige backend.** Exige Room. Todo o app roda com banco local (decisão ADR-01).
-- **Testes contam como entrega.** O relatório precisa de "resultado obtido" real, então os testes devem rodar em dispositivo/emulador antes de 09/11.
-- **Usabilidade precisa de justificativa escrita**, não só de uma interface bonita (ver `02-especificacao.md`, seção 6).
-- **Permissões têm dupla exigência:** declarar no Manifest **e** tratar concessão e negação em runtime. Cada permissão ganha um caso de teste de negação.
-
-### 1.3 Cruzamento PDF × diretrizes do grupo
-
-| Diretriz do grupo | Exigência do PDF | Situação |
-|---|---|---|
-| Login só com e-mail institucional | Login/cadastro + sessão | Compatível; regra extra de validação de domínio (RN-AUTH-01) |
-| BCrypt com salt no Room | Hash com salt, sem reversível | Idêntico |
-| Geolocalização como recurso central (livros próximos, viabilidade a pé, mapa com pontos seguros) | ≥1 recurso | Compatível; o mapa é extra e exige biblioteca (ADR-03) |
-| Notificações de troca, desejos e pendências | Notificações em situações relevantes + tratar negação | Compatível; ver limitação de banco local (ADR-01) |
-| Mural, hubs, chat, estante | Não exigidos | Diferencial; prioridade "Deveria" |
-| Testes de mapa e chat/troca | "Demais funcionalidades" | Compatível |
-| Fases de lançamento | Não citadas | Descartado: entrega única e completa |
-
----
-
-## 2. Decisões de arquitetura (ADRs resumidos)
+## 1. Decisões de arquitetura (ADRs resumidos)
 
 ### ADR-01: Banco local Room, sem backend
 
@@ -104,7 +64,7 @@ O PDF tem 5 páginas e 6 seções. O peso de cada item foi inferido pelo nível 
 
 ---
 
-## 3. Design (decisões visuais)
+## 2. Design (decisões visuais)
 
 Detalhamento completo em [`03-design-system.md`](03-design-system.md).
 
@@ -112,11 +72,10 @@ Detalhamento completo em [`03-design-system.md`](03-design-system.md).
 - **Base:** Material Components for Android, tema `Theme.Material3.DayNight.NoActionBar`, com tema claro e escuro.
 - **Contraste:** todos os pares texto/fundo da paleta passam WCAG AA (≥ 4,5:1), calculados na seção 2 do design system.
 - **Tipografia:** Newsreader (serifada, OFL) em títulos de livros e cabeçalhos; Inter (OFL) no corpo.
-- **Skills de design:** direção visual definida em 02/11/2026 por `/design-md-library` (referência Oura, adaptada). Briefings por tela com `/design-taste-frontend` e auditoria com `/web-design-guidelines`. Procedimento em `AGENT.md` §6.
 
 ---
 
-## 4. Pendências comunitárias (regras de negócio a confirmar)
+## 3. Pendências comunitárias (regras de negócio a confirmar)
 
 Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo confirma ou altera.
 
@@ -135,7 +94,7 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 | PC-11 | Mural | Cada post fica **12 h** no mural, mais 12 h a cada **25 corações** (0 = 12 h, 25 = 24 h, 50 = 36 h); máx. **30 itens**; termina com "Você está em dia". A regra não aparece na tela (decisão do Pedro em 03/11: aprende-se com o uso). Posts salvos ficam no filtro "Salvos" sem prazo |
 | PC-12 | Texto livre no chat | Permitido, máx. **300 caracteres**, só com pedido Aceito; somente leitura após encerramento |
 
-## 5. Pendências técnicas e administrativas
+## 4. Pendências técnicas e administrativas
 
 | ID | Pendência | Responsável |
 |---|---|---|
@@ -143,7 +102,7 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 | P-02 | ~~Nomes completos dos integrantes~~ **Resolvido em 02/11** | Grupo |
 | P-03 | ~~Formato do e-mail de aluno~~ **Resolvido em 02/11:** todo e-mail de aluno termina em `@ufms.br` | Grupo |
 | P-04 | ~~Definir `applicationId`~~ **Resolvido em 02/11:** `br.ufms.leiaufms` (pacote e applicationId) | Grupo |
-| P-05 | ~~Criar o ícone do app~~ **Resolvido em 02/11:** adaptive icon vetorial criado na Etapa D1 (`/design-md-library`), declarado no Manifest (`android:icon` e `android:roundIcon`). Ver `03-design-system.md` §5 | Agente |
+| P-05 | ~~Criar o ícone do app~~ **Resolvido em 02/11:** adaptive icon vetorial declarado no Manifest (`android:icon` e `android:roundIcon`). Ver `03-design-system.md` §5 | Agente |
 | P-06 | ~~Coletar coordenadas dos pontos seguros~~ **Resolvido em 02/11:** os pontos são criados no app pelo Moderador (PC-07); nada é semeado | Grupo |
 | P-07 | Definir dispositivo/emulador e versão do Android usados nos testes. O desenvolvimento usou o AVD `Pixel_10` (Android API 37) | Grupo |
 | P-08 | ~~Verificar versões estáveis atuais das dependências~~ **Resolvido em 02/11:** conferidas no Google Maven e no Maven Central e registradas em `gradle/libs.versions.toml` | Agente |
@@ -151,7 +110,7 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 
 ---
 
-## 6. Riscos
+## 5. Riscos
 
 | Risco | Probabilidade | Impacto | Mitigação |
 |---|---|---|---|
@@ -161,7 +120,7 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 | Permissão negada permanentemente | Média | Médio | Tela explicativa + atalho para Configurações do app |
 | Mapa sem internet | Média | Médio | Lista de pontos seguros funciona sem o mapa (fallback) |
 
-## 7. Priorização e cronograma
+## 6. Priorização e cronograma
 
 | Prioridade | Itens |
 |---|---|
@@ -179,11 +138,3 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 | 07/11 | Mural, hubs, selos, trajetória, polimento de usabilidade |
 | 08/11 | **Execução e registro dos testes caixa-preta**, correções |
 | 09/11 | Revisão final, especificação em PDF, entrega no AVA |
-
-## 8. Checklist de entrega (seção 6 do PDF)
-
-- [ ] Código no GitHub ou Google Drive
-- [ ] Compartilhado com `matheus.albuquerque@ufms.br`
-- [ ] Especificação com nomes completos de todos os integrantes
-- [ ] Relatório de testes com resultados **obtidos** e status
-- [ ] Links submetidos no AVA até 09/11 às 23:59
