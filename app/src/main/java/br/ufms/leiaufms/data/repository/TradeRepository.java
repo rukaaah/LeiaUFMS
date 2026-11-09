@@ -179,6 +179,9 @@ public class TradeRepository {
             if (p.donoId != usuarioId && p.solicitanteId != usuarioId) return Result.NOT_ALLOWED;
             if (PedidoEstado.EM_DISPUTA.equals(p.estado)
                     || !PedidoEstado.canTransition(p.estado, PedidoEstado.CANCELADO)) return Result.INVALID_STATE;
+            // Quem já confirmou a entrega não volta atrás (CT-18)
+            boolean confirmed = p.donoId == usuarioId ? p.confirmadoDono : p.confirmadoSolicitante;
+            if (confirmed) return Result.INVALID_STATE;
             move(p, PedidoEstado.CANCELADO, System.currentTimeMillis());
             p.motivo = motivo;
             db.pedidoDao().update(p);
