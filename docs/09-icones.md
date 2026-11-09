@@ -1,6 +1,6 @@
 # LeiaUFMS: Conjunto de ícones próprio
 
-> Feito com a skill `/icon-designer` (03/11/2026), a pedido do Pedro: "ícones que passem todo o significado necessário; retire os textos dos quais o ícone é o suficiente, mantenha o texto de apoio". Substitui os Material Icons que vinham do Android Studio.
+> Criado em 03/11/2026, a pedido do grupo: "ícones que passem todo o significado necessário; retire os textos dos quais o ícone é o suficiente, mantenha o texto de apoio". Substitui os Material Icons que vinham do Android Studio.
 
 Fonte única: `tools/icons/gerar_icones.py` gera os vetores do Android (`app/src/main/res/drawable/ic_*.xml`), as fontes SVG (`docs/icones/svg/`) e a folha de uso (`docs/icones/folha.html` e `folha.png`, com cada ícone a 16, 24 e 48 px no claro e no escuro).
 

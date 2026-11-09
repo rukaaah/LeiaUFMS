@@ -1,6 +1,6 @@
 # Logo LeiaUFMS
 
-Feito com a skill `/logo-design` (03/11/2026). Direção escolhida pelo Pedro: o **Paliteiro**, monumento da UFMS, em 3D e de pé sobre um livro aberto. O livro aberto é o livro que passa de mão em mão, e o Paliteiro é o campus.
+Criado em 03/11/2026. Direção escolhida pelo Pedro: o **Paliteiro**, monumento da UFMS, em 3D e de pé sobre um livro aberto. O livro aberto é o livro que passa de mão em mão, e o Paliteiro é o campus.
 
 ![Kit](kit.png)
 
@@ -43,4 +43,4 @@ No app:
 ## Pendências
 
 - Converter o texto do logo horizontal em contorno.
-- Fazer uma busca de marca antes de qualquer uso público. A skill não garante que a marca está livre.
+- Fazer uma busca de marca antes de qualquer uso público. Ainda não foi verificado se a marca está livre.
