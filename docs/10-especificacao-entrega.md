@@ -51,7 +51,7 @@ Em volta das trocas há uma camada social pequena: perfil com selos e notas, est
 |---|---|---|---|---|---|
 | RF-09 | Anunciar livro | Aluno | Título (com sugestões do catálogo), autor, ISBN opcional, conservação, modalidade (troca, doação ou ambas), foto opcional, ponto seguro | Liga o anúncio à obra do catálogo (mesmo livro, mesma obra); grava exemplar e anúncio; avisa quem deseja a obra | "Anúncio publicado"; notificação "Um livro que você deseja chegou" para os interessados |
 | RF-10 | Buscar livros | Aluno | Texto (título, autor, ISBN), filtro de modalidade | Consulta o Room | Lista com capa, título e distância |
-| RF-11 | Pedir troca ou resgate | Aluno | Toque em "Pedir troca" (escolhendo um exemplar seu) ou "Resgatar" | Bloqueia pedido do próprio anúncio e mais de 5 pendentes; no resgate com saldo ≥ 1 reserva 1 crédito; com saldo 0 marca "sem crédito" | "Pedido enviado"; notificação para o dono com o saldo do solicitante |
+| RF-11 | Pedir troca ou resgate | Aluno | Toque em "Pedir troca" (escolhendo um exemplar seu) ou "Pedir doação" | Bloqueia pedido do próprio anúncio e mais de 5 pendentes; no resgate com saldo ≥ 1 reserva 1 crédito; com saldo 0 marca "sem crédito" | "Pedido enviado"; notificação para o dono com o saldo do solicitante |
 | RF-12 | Responder pedido | Dono do anúncio | "Aceitar" ou "Recusar" | Aceitar abre o chat e recusa os outros pedidos do anúncio; recusar libera a reserva | Notificação para o solicitante |
 | RF-13 | Combinar encontro | Partes do pedido | Ponto seguro no mapa ou na lista, data e hora | Só pontos cadastrados e horário futuro; a outra parte aceita ou sugere outro horário | "Encontro combinado."; faixa fixa com a contagem até o encontro; lembrete na véspera |
 | RF-14 | Concluir troca | Partes do pedido | "Entreguei o livro" e "Recebi o livro" | Com as duas confirmações, numa transação: muda a posse do exemplar, consome a reserva e dá +1 crédito ao doador; o saldo nunca fica negativo | Pedido "Concluído"; convite para avaliar |
@@ -95,45 +95,81 @@ Acessibilidade e economia de energia não são focos, mas têm os cuidados bási
 
 ## 6. Testes caixa-preta
 
-**Ambiente:** `[PENDENTE: aparelho/emulador, versão do Android, data, quem executou]`. Contas de teste com senha `Leia2026`. Passo a passo completo no relatório `docs/05-relatorio-testes.md`.
+Os 24 casos foram executados em 09/11/2026 e todos foram aprovados. O passo a passo completo e o resultado de cada caso estão em `docs/05-relatorio-testes.md`.
 
-> Os casos abaixo **ainda não foram executados**. "Obtido" e "Status" só serão preenchidos depois da execução no app.
+| Item | Valor |
+|---|---|
+| Dispositivo | Emulador Pixel_10 (Android Studio) |
+| Android | Android 17 (API 37) |
+| Versão do app | commit `eaa35bb` |
+| Data | 09/11/2026 |
+| Executado por | Gabriel Mattos de Aquino |
+| Contas | Contas de demonstração com a senha `Leia2026` |
 
-| ID | Situação | Condição inicial | Entrada/ação | Resultado esperado | Obtido | Status |
+### Casos executados
+
+| ID | Situação | Condição inicial | Entrada/ação | Resultado esperado | Resultado obtido | Status |
 |---|---|---|---|---|---|---|
-| CT-01 | Campos | Tela Criar conta | Enviar com tudo vazio | Erro em cada campo obrigatório; app não fecha | — | Não executado |
-| CT-02 | Campos | Tela Criar conta | E-mail `@gmail.com`, semestre 99, senha "abc" | Erros de e-mail institucional, semestre e senha; conta não criada | — | Não executado |
-| CT-03 | Campos | Carla, pedido aceito | Mensagem de 301 caracteres no chat | Texto limitado a 300; mensagem curta é enviada | — | Não executado |
-| CT-04 | Autenticação | Deslogado | Cadastro válido com `teste.parceiro@ufms.br` | Conta criada; apresentação e Início | — | Não executado |
-| CT-05 | Autenticação | Deslogado | Login da Carla com senha correta | Abre o Início | — | Não executado |
-| CT-06 | Autenticação | Deslogado | Senha errada; e-mail inexistente | "E-mail ou senha incorretos." nos dois | — | Não executado |
-| CT-07 | Perfil | Logado (CT-04) | Editar nome e curso; fechar e reabrir o app | "Perfil atualizado"; dados novos persistem e a sessão continua | — | Não executado |
-| CT-08 | Logout | Logado | Sair; apertar Voltar; reabrir | Nenhuma tela interna aparece; app pede login | — | Não executado |
-| CT-09 | Câmera | Permissão sem decisão | "Tirar foto" e Permitir | "Foto atualizada" | — | Não executado |
-| CT-10 | Câmera | Permissão sem decisão | Negar duas vezes | Explicação; depois botão "Abrir configurações"; app não fecha | — | Não executado |
-| CT-11 | Galeria | Imagem no aparelho | "Escolher da galeria"; reabrir o app | Foto muda e persiste | — | Não executado |
-| CT-12 | Notificação | Android 13+ | Carla pede "1984"; entra como Diego | Notificação "Novo pedido de 1984" | — | Não executado |
-| CT-13 | Notificação negada | Notificações desligadas | Bruno pede livro da Carla; Carla abre a Caixa de avisos | Aviso na Caixa com botão "Ativar"; app não fecha | — | Não executado |
-| CT-14 | Geolocalização | Posição simulada (-20.4410, -54.6440) | "Perto de mim", raio 1 km | Só livros até 1 km, do mais perto ao mais longe; "a pé" no Dom Casmurro | — | Não executado |
-| CT-15 | Geolocalização (falha) | Dados iniciais | Negar localização; depois GPS desligado | Mensagens de permissão e de GPS; lista continua; app não fecha | — | Não executado |
-| CT-16 | Anúncio e desejo | Carla deseja "Sapiens" | Ana anuncia "Sapiens"; entra Carla | "Anúncio publicado"; Carla recebe aviso do desejo | — | Não executado |
-| CT-17 | Resgate sem crédito | Bruno com 0 crédito | Bruno resgata livro do Diego | Diego vê "Pedido sem crédito" e o saldo do Bruno | — | Não executado |
-| CT-18 | Troca completa | Continua do CT-17 | Aceitar, propor e aceitar encontro, confirmar entrega | "Concluído"; Diego +1 crédito; Bruno continua com 0 | — | Não executado |
-| CT-19 | Estante | Ana lendo um livro | "Terminei de ler" > "Anunciar" | Anúncio abre preenchido | — | Não executado |
-| CT-20 | Mural | Logado | Coração duas vezes; comentar; salvar | Coração alterna; comentário aparece; post em "Salvos" | — | Não executado |
-| CT-21 | Avaliação | Pedido do CT-18 | Bruno dá 5 estrelas | "Obrigado pela avaliação"; média do Diego atualizada | — | Não executado |
-| CT-22 | Disputa | Pedido aceito da Carla | Abrir disputa; Moderador cancela | "Disputa aberta"; pedido fica "Cancelado" | — | Não executado |
-| CT-23 | Posição no encontro | Encontro em 5 min | Carla liga "Mostrar onde estou"; Diego abre o pedido | Diego vê a distância da Carla ao ponto | — | Não executado |
-| CT-24 | API HTTP | Com internet, depois modo avião | Buscar "percy jackson" nos desejos | Online: sugestões da Open Library em português; offline: só catálogo local, sem erro | — | Não executado |
+| CT-01 | Campos | Tela Criar conta | Enviar com tudo vazio | Erro em cada campo obrigatório; app não fecha | Erro embaixo de cada campo ("Preencha o seu nome." etc.); app não fechou | Aprovado |
+| CT-02 | Campos | Tela Criar conta | E-mail `@gmail.com`, semestre 99, senha "abc" | Erros de e-mail institucional, semestre e senha; conta não criada | Os três erros esperados; conta não criada; app não fechou | Aprovado |
+| CT-03 | Campos | Carla, pedido aceito | Mensagem de 301 caracteres no chat | Texto limitado a 300; mensagem curta é enviada | Campo parou em 300 (contador "300/300"); mensagem curta enviada | Aprovado |
+| CT-04 | Autenticação | Deslogado | Cadastro válido com `teste.parceiro@ufms.br` | Conta criada; apresentação e Início | Conta criada; apresentação de 5 telas e Início com "Olá, Nome" | Aprovado |
+| CT-05 | Autenticação | Deslogado | Login da Carla com senha correta | Abre o Início | Início com "Olá, Carla" | Aprovado |
+| CT-06 | Autenticação | Deslogado | Senha errada; e-mail inexistente | "E-mail ou senha incorretos." nos dois | "E-mail ou senha incorretos." nas duas tentativas | Aprovado |
+| CT-07 | Perfil | Logado (CT-04) | Editar nome e curso; fechar e reabrir o app | "Perfil atualizado"; dados novos persistem e a sessão continua | "Perfil atualizado"; após reabrir, entrou direto com nome e curso novos | Aprovado |
+| CT-08 | Logout | Logado | Sair; apertar Voltar; reabrir | Nenhuma tela interna aparece; app pede login | Voltou ao login; Voltar fechou o app; ao reabrir pediu login | Aprovado |
+| CT-09 | Câmera | Permissão sem decisão | "Tirar foto" e Permitir | "Foto atualizada" | "Foto atualizada" e foto no perfil | Aprovado |
+| CT-10 | Câmera | Permissão sem decisão | Negar duas vezes | Explicação; depois botão "Abrir configurações"; app não fecha | 1ª negação: explicação; depois da 2ª: aviso com "Abrir configurações"; foto não mudou | Aprovado |
+| CT-11 | Galeria | Imagem no aparelho | "Escolher da galeria"; reabrir o app | Foto muda e persiste | "Foto atualizada"; foto mantida após reabrir | Aprovado |
+| CT-12 | Notificação | Android 13+ | Carla pede "1984"; entra como Diego | Notificação "Novo pedido de 1984" | Notificação "Novo pedido de 1984" ao entrar como Diego | Aprovado |
+| CT-13 | Notificação negada | Notificações desligadas | Bruno pede livro da Carla; Carla abre a Caixa de avisos | Aviso na Caixa com botão "Ativar"; app não fecha | Sem notificação do sistema; aviso na Caixa com o botão "Ativar notificações" | Aprovado |
+| CT-14 | Geolocalização | Posição simulada (-20.4410, -54.6440) | "Perto de mim", raio 1 km | Só livros até 1 km, do mais perto ao mais longe; "a pé" no Dom Casmurro | 4 livros a 0 m e 3 a 710 m; os de 1,4 km ficaram fora; Dom Casmurro "A pé · ~9 min" | Aprovado |
+| CT-15 | Geolocalização (falha) | Dados iniciais | Negar localização; depois GPS desligado | Mensagens de permissão e de GPS; lista continua; app não fecha | Mensagens de permissão negada e de GPS desligado; lista continuou; app não fechou | Aprovado |
+| CT-16 | Anúncio e desejo | Carla deseja "Sapiens" | Ana anuncia "Sapiens"; entra Carla | "Anúncio publicado"; Carla recebe aviso do desejo | "Anúncio publicado"; Carla recebeu "Um livro que você deseja chegou" | Aprovado |
+| CT-17 | Resgate sem crédito | Bruno com 0 crédito | Bruno pede doação de livro do Diego | Diego vê "Pedido sem crédito" e o saldo do Bruno | Aviso de pedido sem crédito; Diego viu "Saldo de Bruno Lima: 0 crédito(s)" | Aprovado |
+| CT-18 | Troca completa | Continua do CT-17 | Aceitar, propor e aceitar encontro, confirmar entrega | "Concluído"; Diego +1 crédito; Bruno continua com 0 | 3 pontos no mapa; encontro aceito; "Concluído"; Diego 1 crédito, Bruno 0 | Aprovado |
+| CT-19 | Estante | Ana lendo um livro | "Terminei de ler" > "Anunciar" | Anúncio abre preenchido | "Quer passar este livro adiante?"; anúncio abriu com título e autor preenchidos | Aprovado |
+| CT-20 | Mural | Logado | Coração duas vezes; comentar; salvar | Coração alterna; comentário aparece; post em "Salvos" | Coração 0→1→0; comentário na lista; post em "Salvos" | Aprovado |
+| CT-21 | Avaliação | Pedido do CT-18 | Bruno dá 5 estrelas | "Obrigado pela avaliação"; média do Diego atualizada | "Obrigado pela avaliação"; média do Diego passou a 5,0 | Aprovado |
+| CT-22 | Disputa | Pedido aceito da Carla | Abrir disputa; Moderador cancela | "Disputa aberta"; pedido fica "Cancelado" | "Disputa aberta. O Moderador vai analisar."; pedido "Cancelado" | Aprovado |
+| CT-23 | Posição no encontro | Encontro em 5 min | Carla liga "Mostrar onde estou"; Diego abre o pedido | Diego vê a distância da Carla ao ponto | Diego viu "Carla Mendes · 0 m do ponto · há 1 minuto" | Aprovado |
+| CT-24 | API HTTP | Com internet, depois modo avião | Buscar "percy jackson" nos desejos | Online: sugestões da Open Library em português; offline: só catálogo local, sem erro | Online: "O ladrão de raios" (Rick Riordan); offline: só o catálogo local, sem erro | Aprovado |
 
-### Falhas encontradas
+### Diferenças entre o roteiro e o app
 
-| Falha | Caso | Descrição | Corrigida? |
-|---|---|---|---|
-| — | — | `[PENDENTE: preencher após a execução]` | — |
+Nenhuma reprovou um caso. São textos ou telas que o roteiro descrevia de outro jeito.
+
+| Caso | Diferença |
+|---|---|
+| CT-12, CT-17 | O botão do livro se chama "Pedir doação" (ou "Pedir troca"); não existe "Resgatar" |
+| CT-13 | Com as notificações desligadas, a Caixa de avisos mostra só o botão "Ativar notificações" |
+| CT-05 | A apresentação de 5 telas aparece só na primeira entrada no aparelho, não a cada conta |
+| CT-10 | "Abrir configurações" aparece na tentativa seguinte à 2ª negação, quando o Android não pergunta mais |
+| CT-19 | "Estante" fica na seção Conta, no fim do Perfil |
+| CT-12, CT-16 | Com mais de um aviso pendente, a notificação do Android chega como resumo ("Você tem avisos novos"); o aviso específico fica na Caixa de avisos |
+
+### Observações sobre o app
+
+Comportamentos que não reprovaram casos, mas ficam registrados para melhoria. Os de CT-23 e CT-18 já foram corrigidos.
+
+| Caso | Observação |
+|---|---|
+| Busca | Diferencia acentos: "Algebra" não encontra "Álgebra Linear com Aplicações" |
+| CT-23 | Se a pessoa ligava "Mostrar onde estou" e saía da tela logo em seguida, a posição não era salva e a chave voltava desligada ao reabrir. **Corrigido (PR #4):** a leitura em andamento termina e é salva ao sair, e a chave continua ligada ao reabrir |
+| CT-18 | Depois de confirmar "Recebi o livro", o botão "Cancelar pedido" voltava a aparecer enquanto a outra parte não confirmava. **Corrigido (PR #4):** quem já confirmou não vê mais o botão e o app recusa o cancelamento; resta "Abrir disputa" |
+
+### Ambiente de teste
+
+| Caso | Ocorrência |
+|---|---|
+| CT-14, CT-23 | `adb emu geo fix` não mudou o GPS; a posição (-20.4410, -54.6440) foi simulada com um provedor de localização de teste |
+| CT-09 | Foto tirada com a câmera virtual do emulador |
+| CT-11 | Usada uma foto que já estava na galeria do emulador |
+| CT-03 | Texto digitado pelo adb em vez de colado |
+| CT-17, CT-18 | Os avisos rápidos "Pedido enviado" e "Encontro combinado." não foram lidos a tempo; o estado do pedido mudou como esperado |
 
 ### Resumo
 
 | Total | Aprovados | Reprovados | Não executados |
 |---|---|---|---|
-| 24 | 0 | 0 | 24 |
+| 24 | 24 | 0 | 0 |
