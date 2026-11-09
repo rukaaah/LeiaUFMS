@@ -128,7 +128,7 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 | PC-04 | Prazo para concluir a entrega após aceite | **7 dias**. Lembrete no 5º dia; no 8º dia o pedido é cancelado automaticamente |
 | PC-05 | Como a troca é dada por concluída | **Confirmação dos dois lados** ("Entreguei"/"Recebi"). Só então créditos e posse mudam |
 | PC-06 | Limite anti-spam de pedidos | Máx. **5 pedidos pendentes** por usuário e **1 pedido ativo** por anúncio por usuário |
-| PC-07 | Pontos de encontro seguros | **Resolvido (02/11, grupo):** somente pontos cadastrados pelo Moderador **dentro do app, tocando no mapa** (RF-30). O seed traz **3 pontos fictícios** para a demonstração (decisão do Pedro em 03/11/2026, nomes marcados "(fictício)"). Sem pontos cadastrados, "Marcar encontro" mostra um estado vazio explicando que o Moderador precisa cadastrá-los |
+| PC-07 | Pontos de encontro seguros | **Resolvido (02/11, grupo):** somente pontos cadastrados pelo Moderador **dentro do app, tocando no mapa** (RF-30). O seed traz **3 pontos padrão** com coordenadas reais do campus (Pedro, 09/11/2026): Biblioteca Central (-20.498414362206436, -54.61211807882261), Restaurante Universitário (-20.503137557358404, -54.614499880413405) e Concha Acústica (-20.500122768766932, -54.61304075872894). Sem pontos cadastrados, "Marcar encontro" mostra um estado vazio explicando que o Moderador precisa cadastrá-los |
 | PC-08 | Raio "a pé" | ≤ **2 km** em linha reta, tempo estimado a 80 m/min (≈ 4,8 km/h); valores ajustáveis em `AppConfig` |
 | PC-09 | Critério dos selos | **Doador:** ≥ 3 doações concluídas. **Veterano:** ≥ 10 trocas concluídas |
 | PC-10 | Avaliação após troca | Nota 1 a 5, opcional, uma por lado, editável por 48 h |

@@ -77,7 +77,7 @@ Roteiro curto:
 4. Volte para a Carla, aceite o horário e confirme a entrega depois do encontro. O doador ganha 1 crédito.
 
 > [!IMPORTANT]
-> Os 3 pontos seguros do seed são fictícios e servem só para a demonstração. O Moderador cadastra os pontos reais em Perfil → Pontos seguros, tocando no mapa.
+> O seed traz 3 pontos seguros padrão com coordenadas reais do campus: Biblioteca Central, Restaurante Universitário e Concha Acústica. O Moderador cadastra outros pontos em Perfil → Pontos seguros, tocando no mapa.
 
 ## Arquitetura
 

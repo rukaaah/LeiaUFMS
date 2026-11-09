@@ -132,7 +132,11 @@ Use `shouldShowRequestPermissionRationale` para diferenciar "negado uma vez" de 
 
 - 1 Moderador e 4 alunos de cursos diferentes. Senha de demonstração só no README; o hash BCrypt é gerado no seed.
 - 15 obras reais, 3 disciplinas com nomes genéricos (sem códigos UFMS inventados) e recomendações.
-- **3 pontos seguros fictícios** (nomes terminam em "(fictício)", coordenadas deslocadas a partir do centro de Campo Grande; decisão do Pedro em 03/11/2026). Pontos reais são cadastrados pelo Moderador no mapa (RF-30).
-- 11 anúncios ativos, cada um ligado a um ponto fictício (assim "Perto de mim" e "a pé" funcionam na demonstração).
+- **3 pontos seguros padrão** com coordenadas reais do campus (Pedro, 09/11/2026):
+  - Biblioteca Central: -20.498414362206436, -54.61211807882261
+  - Restaurante Universitário: -20.503137557358404, -54.614499880413405
+  - Concha Acústica: -20.500122768766932, -54.61304075872894
+- Outros pontos são cadastrados pelo Moderador no mapa (RF-30).
+- 11 anúncios ativos, cada um ligado a um desses pontos (assim "Perto de mim" e "a pé" funcionam na demonstração).
 - Histórico de 3 doações concluídas que geram os créditos no livro-razão (Ana 2, os outros 0) e 1 pedido em cada estado: pendente sem crédito, aceito (com mensagens no chat), recusado, cancelado (reserva e liberação), expirado e em disputa (reserva congelada).
 - Estantes, desejos, 3 posts no mural e reações.
