@@ -20,9 +20,9 @@ import br.ufms.leiaufms.data.pedido.PedidoEstado;
 
 /**
  * Dados de demonstração (docs/04-arquitetura.md §7). Roda uma vez, na criação do banco.
- * Pontos seguros FICTÍCIOS (autorizados pelo Pedro em 03/11/2026 para a demonstração): nomes
- * terminam em "(fictício)" e as coordenadas são deslocamentos a partir do centro de Campo Grande,
- * não lugares reais do campus. Em uso real, o Moderador cadastra os pontos no mapa (RF-30).
+ * Pontos seguros padrão: Biblioteca Central, Restaurante Universitário e Concha Acústica, com as
+ * coordenadas reais do campus informadas pelo Pedro em 09/11/2026. O Moderador pode cadastrar
+ * outros pontos no mapa (RF-30).
  * Senha das contas: ver README.
  */
 public final class SeedData {
@@ -89,11 +89,11 @@ public final class SeedData {
             recomenda(horaEstrela, dLit);
 
             long moderador = 1;
-            ponto("Entrada da biblioteca (fictício)", "Ponto de demonstração", -20.4410, -54.6440, moderador);
-            ponto("Praça de alimentação (fictício)", "Ponto de demonstração", -20.4455, -54.6488, moderador);
-            ponto("Portaria principal (fictício)", "Ponto de demonstração", -20.4520, -54.6380, moderador);
+            ponto("Biblioteca Central", "Ponto seguro no campus", -20.498414362206436, -54.61211807882261, moderador);
+            ponto("Restaurante Universitário", "Ponto seguro no campus", -20.503137557358404, -54.614499880413405, moderador);
+            ponto("Concha Acústica", "Ponto seguro no campus", -20.500122768766932, -54.61304075872894, moderador);
 
-            // Anúncios ativos, cada um num ponto seguro fictício
+            // Anúncios ativos, cada um num ponto seguro padrão
             long aVidasSecas = anuncio(exemplar(vidasSecas, ana, "2ª ed.", Exemplar.CONSERVACAO_BOM),
                     ana, Anuncio.MODALIDADE_DOACAO, 2 * DAY);
             long aDom = anuncio(exemplar(domCasmurro, ana, null, Exemplar.CONSERVACAO_USADO),
