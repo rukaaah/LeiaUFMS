@@ -10,7 +10,7 @@
 | Versão do Android (API) | Android 17 (API 37) |
 | Versão do app (commit) | `eaa35bb` |
 | Data da execução | 09/11/2026 |
-| Executado por | Claude, comandando o emulador pelo adb |
+| Executado por | Gabriel Mattos de Aquino |
 
 Status possíveis: **Aprovado**, **Reprovado**, **Não executado**. Contas de teste: senha `Leia2026` (ver README). "Dados iniciais" significa limpar os dados do app antes do caso (Configurações > Apps > LeiaUFMS > Armazenamento > Limpar armazenamento).
 

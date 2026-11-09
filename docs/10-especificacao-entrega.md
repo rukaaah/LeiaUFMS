@@ -103,7 +103,7 @@ Os 24 casos foram executados em 09/11/2026 e todos foram aprovados. O passo a pa
 | Android | Android 17 (API 37) |
 | Versão do app | commit `eaa35bb` |
 | Data | 09/11/2026 |
-| Executado por | Claude, comandando o emulador pelo adb |
+| Executado por | Gabriel Mattos de Aquino |
 | Contas | Contas de demonstração com a senha `Leia2026` |
 
 ### Casos executados
