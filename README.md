@@ -98,7 +98,7 @@ Fontes de dados abertos: livros da [Open Library](https://openlibrary.org/develo
 | Documento | Conteúdo |
 |---|---|
 | [Especificação](docs/02-especificacao.md) | Visão geral, papéis e requisitos RF-01 a RF-45 |
-| [Relatório de testes](docs/05-relatorio-testes.md) | 78 casos de teste caixa-preta |
+| [Relatório de testes](docs/05-relatorio-testes.md) | 24 casos de teste caixa-preta |
 | [Arquitetura](docs/04-arquitetura.md) | Stack, pacotes, modelo de dados e máquina de estados |
 | [Design](DESIGN.md) e [design system](docs/03-design-system.md) | Cores UFMS, tipografia, componentes, navegação |
 | [Jornada e usabilidade](docs/08-jornada-e-usabilidade.md) | Jornada do aluno, critérios das recomendações e decisões |
