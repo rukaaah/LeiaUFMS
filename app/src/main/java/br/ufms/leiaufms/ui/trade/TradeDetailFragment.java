@@ -168,7 +168,8 @@ public class TradeDetailFragment extends Fragment {
             }
             show(binding.buttonChat, R.string.action_open_chat, v -> openChat());
             show(binding.buttonDispute, R.string.action_open_dispute, v -> confirmDispute());
-            show(binding.buttonCancel, R.string.action_cancel_request, v -> confirmCancel());
+            // CT-18: quem já confirmou a entrega não cancela; se a outra parte não confirmar, resta a disputa
+            if (!mine) show(binding.buttonCancel, R.string.action_cancel_request, v -> confirmCancel());
         } else if (PedidoEstado.EM_DISPUTA.equals(p.estado) || PedidoEstado.CONCLUIDO.equals(p.estado)
                 || PedidoEstado.CANCELADO.equals(p.estado)) {
             if (p.aceitoEm != null) show(binding.buttonChat, R.string.action_open_chat, v -> openChat());
@@ -243,7 +244,9 @@ public class TradeDetailFragment extends Fragment {
         binding.liveSwitch.setText(getString(R.string.live_switch, otherName));
         binding.liveText.setVisibility(binding.liveSwitch.isChecked() ? View.VISIBLE : View.GONE);
         binding.liveText.setText(R.string.live_on);
+        long encontroEm = p.encontroEm;
         binding.liveSwitch.setOnCheckedChangeListener((b, checked) -> {
+            LiveShareState.set(requireContext(), p.id, me, encontroEm, checked);
             if (checked) startLive();
             else {
                 stopLive();
@@ -256,6 +259,10 @@ public class TradeDetailFragment extends Fragment {
         });
         if (!liveObserving) {
             liveObserving = true;
+            // CT-23: a chave volta ligada mesmo se a primeira posição ainda não tinha chegado ao sair
+            if (LiveShareState.isOn(requireContext(), p.id, me, encontroEm) && !binding.liveSwitch.isChecked()) {
+                binding.liveSwitch.setChecked(true);
+            }
             br.ufms.leiaufms.data.local.AppDatabase.get(requireContext()).localizacaoDao().observe(p.id, otherId)
                     .observe(getViewLifecycleOwner(), loc -> renderOther(loc, otherName));
             // Ao voltar à tela com o compartilhamento ligado, retoma as atualizações
@@ -332,8 +339,16 @@ public class TradeDetailFragment extends Fragment {
     }
 
     private void stopLive() {
-        liveHandler.removeCallbacksAndMessages(null);
+        pauseLive();
         if (liveProvider != null) liveProvider.cancel();
+    }
+
+    /**
+     * Ao sair da tela só para as próximas atualizações. A leitura já pedida termina e é salva (CT-23):
+     * sem isso, sair logo após ligar a chave descartava a primeira posição, que pode levar alguns segundos.
+     */
+    private void pauseLive() {
+        liveHandler.removeCallbacksAndMessages(null);
     }
 
     @Override
@@ -341,7 +356,7 @@ public class TradeDetailFragment extends Fragment {
         super.onPause();
         // Sem rastreio em segundo plano (RNF-07): ao sair da tela, para de atualizar.
         // A última posição fica visível para a outra parte até o fim da janela ou até desligar.
-        stopLive();
+        pauseLive();
     }
 
     private void renderParty(TradeDetailViewModel.Party party) {
@@ -565,7 +580,7 @@ public class TradeDetailFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        stopLive();
+        pauseLive();
         liveObserving = false;
         binding = null;
     }

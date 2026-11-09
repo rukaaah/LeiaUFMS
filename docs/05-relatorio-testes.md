@@ -68,6 +68,8 @@ Status possíveis: **Aprovado**, **Reprovado**, **Não executado**. Contas de te
 | ID da falha | Caso | Descrição | Corrigida? | Commit/observação |
 |---|---|---|---|---|
 | — | CT-01 a CT-24 | Nenhuma falha encontrada. Diferenças de texto entre o esperado e o app estão nas observações de cada caso. | Não se aplica | — |
+| M-01 | CT-23 | Observação: ao ligar "Mostrar onde estou" e sair logo da tela, a primeira leitura de posição era cancelada e nada era salvo; ao reabrir, a chave voltava desligada. | Sim (PR #4) | Ao sair, a leitura em andamento termina e é salva; o estado da chave fica guardado por pedido e horário do encontro. |
+| M-02 | CT-18 | Observação: depois de "Recebi o livro", o botão "Cancelar pedido" voltava a aparecer enquanto a outra parte não confirmava. | Sim (PR #4) | Quem já confirmou não vê mais "Cancelar pedido" e o cancelamento é recusado no repositório; resta "Abrir disputa". |
 
 ## 7. Resumo
 

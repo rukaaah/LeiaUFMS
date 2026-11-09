@@ -150,13 +150,13 @@ Nenhuma reprovou um caso. São textos ou telas que o roteiro descrevia de outro 
 
 ### Observações sobre o app
 
-Comportamentos que não reprovaram casos, mas ficam registrados para melhoria.
+Comportamentos que não reprovaram casos, mas ficam registrados para melhoria. Os de CT-23 e CT-18 já foram corrigidos.
 
 | Caso | Observação |
 |---|---|
 | Busca | Diferencia acentos: "Algebra" não encontra "Álgebra Linear com Aplicações" |
-| CT-23 | Se a pessoa liga "Mostrar onde estou" e sai da tela logo em seguida, a posição não é salva; a chave volta desligada ao reabrir a tela |
-| CT-18 | Depois de confirmar "Recebi o livro", o botão "Cancelar pedido" volta a aparecer enquanto a outra parte não confirma |
+| CT-23 | Se a pessoa ligava "Mostrar onde estou" e saía da tela logo em seguida, a posição não era salva e a chave voltava desligada ao reabrir. **Corrigido (PR #4):** a leitura em andamento termina e é salva ao sair, e a chave continua ligada ao reabrir |
+| CT-18 | Depois de confirmar "Recebi o livro", o botão "Cancelar pedido" voltava a aparecer enquanto a outra parte não confirmava. **Corrigido (PR #4):** quem já confirmou não vê mais o botão e o app recusa o cancelamento; resta "Abrir disputa" |
 
 ### Ambiente de teste
 
