@@ -1,6 +1,6 @@
 # Logo LeiaUFMS
 
-Criado em 03/11/2026. Direção escolhida pelo Pedro: o **Paliteiro**, monumento da UFMS, em 3D e de pé sobre um livro aberto. O livro aberto é o livro que passa de mão em mão, e o Paliteiro é o campus.
+Criado em 03/11/2026. Direção escolhida: o **Paliteiro**, monumento da UFMS, em 3D e de pé sobre um livro aberto. O livro aberto é o livro que passa de mão em mão, e o Paliteiro é o campus.
 
 ![Kit](kit.png)
 

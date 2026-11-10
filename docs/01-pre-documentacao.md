@@ -81,17 +81,17 @@ Cada item tem um **padrão adotado** para não travar o desenvolvimento. O grupo
 
 | ID | Pergunta | Padrão adotado |
 |---|---|---|
-| PC-01 | Usuário novo ganha crédito de boas-vindas? Pode pedir sem crédito? | **Resolvido (02/11, Pedro):** começa com 0 créditos e **pode pedir mesmo assim**; o anunciante decide se aceita |
+| PC-01 | Usuário novo ganha crédito de boas-vindas? Pode pedir sem crédito? | **Resolvido (02/11, grupo):** começa com 0 créditos e **pode pedir mesmo assim**; o anunciante decide se aceita |
 | PC-02 | Quem resolve disputas? | Papel **Moderador** (conta semeada). Troca contestada fica "Em disputa" com créditos e exemplares congelados até o moderador decidir |
 | PC-03 | Prazo para responder um pedido | **72 h**. Depois, o pedido expira e o crédito reservado é liberado |
 | PC-04 | Prazo para concluir a entrega após aceite | **7 dias**. Lembrete no 5º dia; no 8º dia o pedido é cancelado automaticamente |
 | PC-05 | Como a troca é dada por concluída | **Confirmação dos dois lados** ("Entreguei"/"Recebi"). Só então créditos e posse mudam |
 | PC-06 | Limite anti-spam de pedidos | Máx. **5 pedidos pendentes** por usuário e **1 pedido ativo** por anúncio por usuário |
-| PC-07 | Pontos de encontro seguros | **Resolvido (02/11, grupo):** somente pontos cadastrados pelo Moderador **dentro do app, tocando no mapa** (RF-30). O seed traz **3 pontos padrão** com coordenadas reais do campus (Pedro, 09/11/2026): Biblioteca Central (-20.498414362206436, -54.61211807882261), Restaurante Universitário (-20.503137557358404, -54.614499880413405) e Concha Acústica (-20.500122768766932, -54.61304075872894). Sem pontos cadastrados, "Marcar encontro" mostra um estado vazio explicando que o Moderador precisa cadastrá-los |
+| PC-07 | Pontos de encontro seguros | **Resolvido (02/11, grupo):** somente pontos cadastrados pelo Moderador **dentro do app, tocando no mapa** (RF-30). O seed traz **3 pontos padrão** com coordenadas reais do campus (definidas em 09/11/2026): Biblioteca Central (-20.498414362206436, -54.61211807882261), Restaurante Universitário (-20.503137557358404, -54.614499880413405) e Concha Acústica (-20.500122768766932, -54.61304075872894). Sem pontos cadastrados, "Marcar encontro" mostra um estado vazio explicando que o Moderador precisa cadastrá-los |
 | PC-08 | Raio "a pé" | ≤ **2 km** em linha reta, tempo estimado a 80 m/min (≈ 4,8 km/h); valores ajustáveis em `AppConfig` |
 | PC-09 | Critério dos selos | **Doador:** ≥ 3 doações concluídas. **Veterano:** ≥ 10 trocas concluídas |
 | PC-10 | Avaliação após troca | Nota 1 a 5, opcional, uma por lado, editável por 48 h |
-| PC-11 | Mural | Cada post fica **12 h** no mural, mais 12 h a cada **25 corações** (0 = 12 h, 25 = 24 h, 50 = 36 h); máx. **30 itens**; termina com "Você está em dia". A regra não aparece na tela (decisão do Pedro em 03/11: aprende-se com o uso). Posts salvos ficam no filtro "Salvos" sem prazo |
+| PC-11 | Mural | Cada post fica **12 h** no mural, mais 12 h a cada **25 corações** (0 = 12 h, 25 = 24 h, 50 = 36 h); máx. **30 itens**; termina com "Você está em dia". A regra não aparece na tela (decisão de 03/11: aprende-se com o uso). Posts salvos ficam no filtro "Salvos" sem prazo |
 | PC-12 | Texto livre no chat | Permitido, máx. **300 caracteres**, só com pedido Aceito; somente leitura após encerramento |
 
 ## 4. Pendências técnicas e administrativas

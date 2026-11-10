@@ -52,7 +52,7 @@ Ação principal: **Pedir troca** ou **Resgatar**. Ações secundárias visívei
 - Trajetória do exemplar ("passou por N mãos")
 - Ver perfil de quem anuncia
 
-## 6. Critérios das listas do Início (pergunta do Pedro, 03/11)
+## 6. Critérios das listas do Início (03/11)
 
 Todas as listas mostram só anúncios ativos de **outras** pessoas e escondem os que já estão num pedido aceito ou em disputa. Nenhuma usa popularidade ou ranking.
 
