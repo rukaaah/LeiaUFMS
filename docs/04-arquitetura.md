@@ -132,7 +132,7 @@ Use `shouldShowRequestPermissionRationale` para diferenciar "negado uma vez" de 
 
 - 1 Moderador e 4 alunos de cursos diferentes. Senha de demonstração só no README; o hash BCrypt é gerado no seed.
 - 15 obras reais, 3 disciplinas com nomes genéricos (sem códigos UFMS inventados) e recomendações.
-- **3 pontos seguros padrão** com coordenadas reais do campus (Pedro, 09/11/2026):
+- **3 pontos seguros padrão** com coordenadas reais do campus (definidas em 09/11/2026):
   - Biblioteca Central: -20.498414362206436, -54.61211807882261
   - Restaurante Universitário: -20.503137557358404, -54.614499880413405
   - Concha Acústica: -20.500122768766932, -54.61304075872894
